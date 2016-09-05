@@ -59,7 +59,7 @@ public class Graph_Generator
 				System.out.println("Distance of point " + i + "is" + dist);			
 			}
 			System.out.println("closest point is " + closest);
-			graph.setEdge(s, closest, 1);;
+			graph.setEdge(s, closest, 1);
 			x++;
 		}
 		
