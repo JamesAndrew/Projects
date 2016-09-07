@@ -1,3 +1,24 @@
+# =========================
+# NetBeans specific files to ignore
+# =========================
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+# Class Files #
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+# =========================
+
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
