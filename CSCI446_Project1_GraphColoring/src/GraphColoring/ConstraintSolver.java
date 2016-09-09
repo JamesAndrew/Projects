@@ -14,7 +14,7 @@ public abstract class ConstraintSolver
      * @param graph : The graph to check satisfiability on 
      * @return 
      */
-    public boolean SatisfiedConstraint(Graph graph)
+    public boolean SatisfiesConstraint(Graph graph)
     {
         throw new NotImplementedException();
     }
