@@ -1,3 +1,5 @@
+package GraphColoring;
+
 import java.util.Scanner;
 import java.util.Random;
 
@@ -47,22 +49,18 @@ public class Graph_Generator {
             // loop through all points
             for (int secondPt = 0; secondPt < numVertices; secondPt++) 
             {
-            	if (graph.getEdge(chosenPt, secondPt) != 1 && graph.getEdge(secondPt, chosenPt) != 1)
-            	{
-	                dist = distance(graph.getXPoint(chosenPt), graph.getYPoint(chosenPt), graph.getXPoint(secondPt), graph.getYPoint(secondPt));
-	
-	                if (dist > 0 && dist < pclosest) {
-	                    closest = secondPt;
-	                    pclosest = dist;
-	                }
-	
-	                System.out.format("Distance between point %d and %d is %f.%n", chosenPt, secondPt, dist);
-            	}
+                dist = distance(graph.getXPoint(chosenPt), graph.getYPoint(chosenPt), graph.getXPoint(secondPt), graph.getYPoint(secondPt));
+
+                if (dist > 0 && dist < pclosest) {
+                    closest = secondPt;
+                    pclosest = dist;
+                }
+
+                System.out.format("Distance between point %d and %d is %f.%n", chosenPt, secondPt, dist);
             }
             System.out.format("Closest point is %d.%n%n", closest);
             //System.out.println("closest point is " + closest);
             graph.setEdge(chosenPt, closest, 1);
-            graph.setEdge(closest, chosenPt, 1);
             x++;
         }
 
