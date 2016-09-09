@@ -4,7 +4,7 @@ package GraphColoring;
 public class Graph {
 
     private final float[][] points; // stores the points of vertices 
-    private int[][] matrix; // stores the adjacency matrix representing the edges
+    private final int[][] matrix; // stores the adjacency matrix representing the edges
 
     // constructor to initialize Graph class and its attributes
     public Graph(int n) 
@@ -42,5 +42,12 @@ public class Graph {
     public int getEdge(int i, int j) 
     {
         return matrix[i][j];
+    }
+
+    /**
+     * @return the points
+     */
+    public float[][] getPoints() {
+        return points;
     }
 }

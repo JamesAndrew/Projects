@@ -13,12 +13,14 @@ public class Graph_Generator {
     // create random instance 
     Random rand = new Random();
 
-    public Graph_Generator() {
+    public Graph_Generator() 
+    {
         generate();
     }
 
     // the generate method creates a scatter of random points and returns a 2D array of integers 
-    private Graph generate() {
+    private Graph generate() 
+    {
         System.out.println("=== Graph generator started ===");
         System.out.println("Enter number of vertices...:");
         numVertices = input.nextInt();
@@ -26,15 +28,34 @@ public class Graph_Generator {
         
         Graph graph = new Graph(numVertices);
 
-        // for each vertex point...
-        System.out.println("Generated point locations:");
+        // for each vertex point generate a random (x,y) location between [0,1]
         for (int i = 0; i < numVertices; i++) 
         {
             graph.setPoint(i, ((float) rand.nextInt(101)) / 100, ((float) rand.nextInt(101)) / 100);
-            System.out.println(graph.getXPoint(i) + ", " + graph.getYPoint(i));
         }
-        System.out.println();
+        printPointLocations(graph);
 
+        return graph;
+    }
+
+    /**
+     * Mathematical function for Euclidian distance between two 2-d points.
+     * Distance between points P1(x_1, y_1) and P2(x_2, y_2) is
+     *     distance(P1,P2) = sqrt[(x_2 - x_1)^2 + (y_2 - y_1)^2]
+     * 
+     * @param x1 Pt1's x value
+     * @param y1 Pt1's y value
+     * @param x2 Pt2's x value
+     * @param y2 Pt2's y value
+     * @return the distance as a float
+     */
+    private float distance(float x1, float y1, float x2, float y2) 
+    {
+        return (float) Math.sqrt((Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2)));
+    }
+    
+    private void findClosestPoint(Graph graph)
+    {
         int x = 0;
         while (x < 3) 
         {
@@ -63,23 +84,15 @@ public class Graph_Generator {
             graph.setEdge(chosenPt, closest, 1);
             x++;
         }
-
-        return graph;
     }
-
-    /**
-     * Mathematical function for Euclidian distance between two 2-d points.
-     * Distance between points P1(x_1, y_1) and P2(x_2, y_2) is
-     *     distance(P1,P2) = sqrt[(x_2 - x_1)^2 + (y_2 - y_1)^2]
-     * 
-     * @param x1 Pt1's x value
-     * @param y1 Pt1's y value
-     * @param x2 Pt2's x value
-     * @param y2 Pt2's y value
-     * @return the distance as a float
-     */
-    private float distance(float x1, float y1, float x2, float y2) 
+    
+    private void printPointLocations(Graph graph)
     {
-        return (float) Math.sqrt((Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2)));
+        System.out.println("Generated point locations:");
+        for (float[] point : graph.getPoints())
+        {
+            System.out.format("(%.3f, %.3f)%n", point[0], point[1]);
+        }
+        System.out.println();
     }
 }
