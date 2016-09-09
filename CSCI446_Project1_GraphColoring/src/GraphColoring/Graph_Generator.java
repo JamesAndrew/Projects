@@ -18,7 +18,11 @@ public class Graph_Generator {
         generate();
     }
 
-    // the generate method creates a scatter of random points and returns a 2D array of integers 
+    /**
+     * Create a scatter of random points, connect the vertices such that
+     * edges do not cross, and return the representing Graph object
+     * @return a Graph object of n vertices 
+     */
     private Graph generate() 
     {
         System.out.println("=== Graph generator started ===");
@@ -34,6 +38,8 @@ public class Graph_Generator {
             graph.setPoint(i, ((float) rand.nextInt(101)) / 100, ((float) rand.nextInt(101)) / 100);
         }
         printPointLocations(graph);
+        
+        connectVertices(graph);
 
         return graph;
     }
@@ -80,10 +86,21 @@ public class Graph_Generator {
                 System.out.format("Distance between point %d and %d is %f.%n", chosenPt, secondPt, dist);
             }
             System.out.format("Closest point is %d.%n%n", closest);
-            //System.out.println("closest point is " + closest);
             graph.setEdge(chosenPt, closest, 1);
             x++;
         }
+    }
+    
+    /**
+     * Select some point X at random and connect X by a straight line to the 
+     * nearest point Y such that X is not already connected to Y and the line 
+     * crosses no other line.
+     * 
+     * @param graph : the graph to interact with
+     */
+    private void connectVertices(Graph graph)
+    {
+        
     }
     
     private void printPointLocations(Graph graph)
