@@ -41,6 +41,10 @@ public class Graph_Generator {
         
         connectVertices(graph);
 
+        findClosestPoint(graph);
+        
+        printGraph(graph);
+        
         return graph;
     }
 
@@ -114,6 +118,20 @@ public class Graph_Generator {
         for (float[] point : graph.getPoints())
         {
             System.out.format("(%.3f, %.3f)%n", point[0], point[1]);
+        }
+        System.out.println();
+    }
+    
+    private void printGraph(Graph graph)
+    {
+        System.out.println("Generated graph:");
+        for (int i = 0; i < numVertices; i++)
+        {
+            for (int j = 0; j < numVertices; j++)
+            {
+                System.out.print(graph.getEdge(i, j) + " ");
+            }
+            System.out.println();
         }
         System.out.println();
     }
