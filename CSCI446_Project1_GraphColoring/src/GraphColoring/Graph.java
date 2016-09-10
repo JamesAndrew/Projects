@@ -1,5 +1,7 @@
 package GraphColoring;
 
+import java.util.Arrays;
+
 // class Graph represents a graph object with attributes points and matrix 
 public class Graph {
 
@@ -59,7 +61,7 @@ public class Graph {
     private void sortPoints(Graph graph)
     {
         // sort by y first then x or the order will be backwards 
-        float temp[][] = new float [1][2]; // temporarily store smallest point
+        float temp[] = new float [2]; // temporarily store smallest point
         for (int j = 0; j < points.length; j++)
         {
             int smallest = 0; // assume smallest element is first one
@@ -71,7 +73,7 @@ public class Graph {
                 }
             }
             
-            
+            temp = Arrays.copyOf(points[smallest], 2);
         }
     }
 }
