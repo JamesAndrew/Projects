@@ -50,4 +50,28 @@ public class Graph {
     public float[][] getPoints() {
         return points;
     }
+    
+    /**
+     * 
+     * @param graph 
+     * sort the point array by x then y while still maintaining pairs
+     */
+    private void sortPoints(Graph graph)
+    {
+        // sort by y first then x or the order will be backwards 
+        float temp[][] = new float [1][2]; // temporarily store smallest point
+        for (int j = 0; j < points.length; j++)
+        {
+            int smallest = 0; // assume smallest element is first one
+            for (int i = 0; i < points.length; i++)
+            {
+                if (graph.getYPoint(i) < graph.getYPoint(smallest))
+                {
+                    smallest = i;
+                }
+            }
+            
+            
+        }
+    }
 }
