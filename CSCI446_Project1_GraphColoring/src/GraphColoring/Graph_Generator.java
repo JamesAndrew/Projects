@@ -41,9 +41,9 @@ public class Graph_Generator {
         
         connectVertices(graph);
 
-        findClosestPoint(graph);
+        // findClosestPoint(graph);
         
-        printGraph(graph);
+        // printGraph(graph);
         
         return graph;
     }
@@ -134,5 +134,20 @@ public class Graph_Generator {
             System.out.println();
         }
         System.out.println();
+    }
+    /**
+     * 
+     * @param graph 
+     * sort the point array by x then y while still maintaining pairs
+     */
+    private void sortPoints(Graph graph)
+    {
+        for (int i = 0; i < numVertices; i++)
+        {
+            for (int j = 0; j < numVertices; j++)
+            {
+                
+            }
+        }
     }
 }
