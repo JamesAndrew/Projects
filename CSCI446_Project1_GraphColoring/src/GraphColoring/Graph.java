@@ -73,7 +73,10 @@ public class Graph {
                 }
             }
             
-            temp = Arrays.copyOf(points[smallest], 2);
+            temp = Arrays.copyOf(points[smallest], 2); // set temp to row with smallest y
+            // set first row to row with smallest y
+            // set the original first row to temp
+            // rows should now be swapped
         }
     }
 }
