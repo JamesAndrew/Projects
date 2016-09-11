@@ -68,6 +68,8 @@ public class Graph_Generator {
     
     private void findClosestPoint(Graph graph)
     {
+        int checkVertices [] = new int [numVertices];
+        
         int x = 0;
         while (x < 5) 
         {
