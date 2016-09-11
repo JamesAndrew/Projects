@@ -49,34 +49,61 @@ public class Graph {
     /**
      * @return the points
      */
-    public float[][] getPoints() {
+    public float[][] getPoints() 
+    {
         return points;
     }
     
     /**
      * 
      * @param graph 
-     * sort the point array by x then y while still maintaining pairs
+     * sort the points array by x then y while still maintaining pairs
+     * should make finding a range of coordinates faster in the long run
+     * uses a radix type sort using basic sort instead of counting sort
      */
-    private void sortPoints(Graph graph)
+    public void sortPoints()
     {
         // sort by y first then x or the order will be backwards 
         float temp[] = new float [2]; // temporarily store smallest point
         for (int j = 0; j < points.length; j++)
         {
-            int smallest = 0; // assume smallest element is first one
-            for (int i = 0; i < points.length; i++)
+            int smallest = j; // assume smallest element is first one
+            for (int i = j; i < points.length; i++)
             {
-                if (graph.getYPoint(i) < graph.getYPoint(smallest))
+                if (points[i][1] < points[smallest][1])
                 {
                     smallest = i;
                 }
             }
             
-            temp = Arrays.copyOf(points[smallest], 2); // set temp to row with smallest y
-            // set first row to row with smallest y
-            // set the original first row to temp
+            temp = Arrays.copyOf(points[j], 2); // set temp to current row j
+            System.out.println("current row: " + points[j][0] + ", " + points[j][1]);
+            points[j] = Arrays.copyOf(points[smallest], 2); // set first row to row with smallest y
+            System.out.println("current row: " + points[j][0] + ", " + points[j][1]);
+            points[smallest] = Arrays.copyOf(temp, 2); // set the smallest row to temp
+            // rows should now be swapped
+        }
+        
+        // now sort x
+        for (int j = 0; j < points.length; j++)
+        {
+            int smallest = j; // assume smallest element is first one
+            for (int i = j; i < points.length; i++)
+            {
+                if (points[i][0] < points[smallest][0])
+                {
+                    smallest = i;
+                }
+            }
+            
+            temp = Arrays.copyOf(points[j], 2); // set temp to current row j
+            System.out.println("current row: " + points[j][0] + ", " + points[j][1]);
+            points[j] = Arrays.copyOf(points[smallest], 2); // set first row to row with smallest y
+            System.out.println("current row: " + points[j][0] + ", " + points[j][1]);
+            points[smallest] = Arrays.copyOf(temp, 2); // set the smallest row to temp
             // rows should now be swapped
         }
     }
+    
+    
 }

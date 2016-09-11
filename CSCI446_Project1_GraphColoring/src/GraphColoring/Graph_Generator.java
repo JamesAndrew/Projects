@@ -38,6 +38,8 @@ public class Graph_Generator {
             graph.setPoint(i, ((float) rand.nextInt(101)) / 100, ((float) rand.nextInt(101)) / 100);
         }
         printPointLocations(graph);
+        graph.sortPoints();
+        printPointLocations(graph);
         
         connectVertices(graph);
 
