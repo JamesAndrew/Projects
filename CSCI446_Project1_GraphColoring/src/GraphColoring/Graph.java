@@ -77,9 +77,9 @@ public class Graph {
             }
             
             temp = Arrays.copyOf(points[j], 2); // set temp to current row j
-            System.out.println("current row: " + points[j][0] + ", " + points[j][1]);
+            //System.out.println("current row: " + points[j][0] + ", " + points[j][1]);
             points[j] = Arrays.copyOf(points[smallest], 2); // set first row to row with smallest y
-            System.out.println("current row: " + points[j][0] + ", " + points[j][1]);
+            //System.out.println("current row: " + points[j][0] + ", " + points[j][1]);
             points[smallest] = Arrays.copyOf(temp, 2); // set the smallest row to temp
             // rows should now be swapped
         }
@@ -97,9 +97,9 @@ public class Graph {
             }
             
             temp = Arrays.copyOf(points[j], 2); // set temp to current row j
-            System.out.println("current row: " + points[j][0] + ", " + points[j][1]);
+            //System.out.println("current row: " + points[j][0] + ", " + points[j][1]);
             points[j] = Arrays.copyOf(points[smallest], 2); // set first row to row with smallest y
-            System.out.println("current row: " + points[j][0] + ", " + points[j][1]);
+            //System.out.println("current row: " + points[j][0] + ", " + points[j][1]);
             points[smallest] = Arrays.copyOf(temp, 2); // set the smallest row to temp
             // rows should now be swapped
         }

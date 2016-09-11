@@ -37,15 +37,15 @@ public class Graph_Generator {
         {
             graph.setPoint(i, ((float) rand.nextInt(101)) / 100, ((float) rand.nextInt(101)) / 100);
         }
-        printPointLocations(graph);
+        //printPointLocations(graph);
         graph.sortPoints();
         printPointLocations(graph);
         
         connectVertices(graph);
 
-        // findClosestPoint(graph);
+        findClosestPoint(graph);
         
-        // printGraph(graph);
+        printGraph(graph);
         
         return graph;
     }
@@ -69,7 +69,7 @@ public class Graph_Generator {
     private void findClosestPoint(Graph graph)
     {
         int x = 0;
-        while (x < 3) 
+        while (x < 5) 
         {
             // variable for random index used to select random point
             int chosenPt = rand.nextInt(numVertices);
