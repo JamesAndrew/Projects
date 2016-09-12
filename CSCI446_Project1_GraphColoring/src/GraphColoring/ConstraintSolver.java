@@ -16,6 +16,20 @@ public abstract class ConstraintSolver
      */
     public boolean SatisfiesConstraint(Graph graph)
     {
-        throw new NotImplementedException();
+        int graphSize = graph.getPoints().length; 
+        boolean satisfied = true; 
+        for (int i =0; i < graphSize; i++) 
+        {
+            int pointColor = graph.getColor(i); 
+            for (int j = 0; j < graphSize; j++) 
+            {
+                int adjacentColor = graph.getColor(j); 
+                if (graph.getEdge(i, j) == 1 && adjacentColor == pointColor)
+                {
+                    satisfied = false; 
+                }
+            }
+        }
+        return satisfied; 
     }
 }
