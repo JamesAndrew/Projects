@@ -9,6 +9,7 @@ public class Driver {
     public static void main(String[] args) 
     {
         startupProcedure();
+        GreedySolver greedySolver = new GreedySolver(graph);
     }
     
     /**
@@ -22,7 +23,8 @@ public class Driver {
         int numVertices = input.nextInt();
         System.out.println();
         
-        graph = new TempGraph(numVertices);
+        Temp_Graph_Generator graphGen = new Temp_Graph_Generator(numVertices);
+        graph = graphGen.generateGraph();
         graph.printPointLocations();
         graph.printPointLocationsAndVertexNumber();
     }
