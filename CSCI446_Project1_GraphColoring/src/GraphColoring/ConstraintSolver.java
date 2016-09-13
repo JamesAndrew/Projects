@@ -14,22 +14,21 @@ public abstract class ConstraintSolver
      * @param graph : The graph to check satisfiability on 
      * @return 
      */
-    public boolean SatisfiesConstraint(Graph graph)
+    public boolean SatisfiesConstraint(Graph graph, int[] colors)
     {
+        //currently checks all points. Probly change to just check adjacent 
         int graphSize = graph.getPoints().length; 
-        boolean satisfied = true; 
         for (int i =0; i < graphSize; i++) 
         {
-            int pointColor = graph.getColor(i); 
+            int pointColor = colors[i]; 
             for (int j = 0; j < graphSize; j++) 
             {
-                int adjacentColor = graph.getColor(j); 
-                if (graph.getEdge(i, j) == 1 && adjacentColor == pointColor)
+                if (graph.getEdge(i, j) == 1 && pointColor == colors[j] || pointColor == 0)
                 {
-                    satisfied = false; 
+                    return false;
                 }
             }
         }
-        return satisfied; 
+        return true;
     }
 }

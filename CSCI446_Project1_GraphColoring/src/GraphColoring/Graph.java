@@ -7,14 +7,12 @@ public class Graph {
 
     private final float[][] points; // stores the points of vertices 
     private final int[][] matrix; // stores the adjacency matrix representing the edges
-    private int[] colors; //stores coloring for each point
 
     // constructor to initialize Graph class and its attributes
     public Graph(int n) 
     {
         points = new float[n][2];
         matrix = new int[n][n];
-        colors = new int[n]; 
     }
 
     // method to set points coordinates given index i, value of x, and value of y 
@@ -105,11 +103,5 @@ public class Graph {
             points[smallest] = Arrays.copyOf(temp, 2); // set the smallest row to temp
             // rows should now be swapped
         }
-    }
-    
-    
-    public int getColor(int point) 
-    {
-        return colors[point]; 
     }
 }
