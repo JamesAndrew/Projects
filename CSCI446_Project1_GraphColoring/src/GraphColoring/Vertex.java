@@ -11,7 +11,8 @@ public class Vertex
     // The vetex's location on the unit square
     private final double xValue;
     private final double yValue;
-    // The vertex's connections to other Vertexes
+    // The "Color" of the vertex. Just a value of 1, 2, 3, or 4.
+    public int color;
     
     /**
      * Instantiate a vertex with given (x,y) values

@@ -32,6 +32,7 @@ public class TempGraph
         graphSize = n;
         fillGraphVertices();
         theGraphHashToNumberedVertices();
+        fillGraphEdges();
     }
     
     /**
@@ -53,11 +54,22 @@ public class TempGraph
     /**
      * Assign each vertex a connection to n other vertices
      * TODO: have this work according to the logic the assignment asks for. For
-     * now I just have the current vertex connect to every 3rd vertex
+     * now I just have some arbitrary edge connection scheme going on
      */
     private void fillGraphEdges()
     {
-        
+        theGraph.keySet().stream().forEach((key) -> {
+            theGraph.keySet().stream().forEach((otherKey) -> {
+                if (key.equals(otherKey))
+                    System.out.println("Current vertices are the same");
+                else
+                {
+                    setEdge(theGraph.get(key), theGraph.get(otherKey));
+                    System.out.format("Connected vertex %d to vertex %d.%n", key, otherKey);
+                }
+            });
+            System.out.println();
+        });
     }
     /**
      * Add an undirected edge to each Vertex's edge set (the value in the 
@@ -107,10 +119,5 @@ public class TempGraph
             System.out.format("Vertex %d: (%.3f, %.3f)%n", Integer,
                 theGraph.get(Integer).getxValue(), theGraph.get(Integer).getyValue());
         });
-        /*
-        theGraph.values().stream().forEach((vertex) -> {
-            System.out.format("(%.3f, %.3f)%n", vertex.getxValue(), vertex.getyValue());
-        });
-        */
     }
 }
