@@ -1,16 +1,24 @@
 package GraphColoring;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 // class Graph represents a graph object with attributes points and matrix 
 public class Graph {
+    public final Map<Vertex, Set<Vertex>> theGraph = new HashMap<>();
 
     private final float[][] points; // stores the points of vertices 
     private final int[][] matrix; // stores the adjacency matrix representing the edges
 
-    // constructor to initialize Graph class and its attributes
+    /** constructor to initialize Graph class and its attributes
+     * 
+     * @param n The number of vertices to have
+     */
     public Graph(int n) 
     {
+        
         points = new float[n][2];
         matrix = new int[n][n];
     }

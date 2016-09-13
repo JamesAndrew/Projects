@@ -23,13 +23,16 @@ public class Graph_Generator {
      * edges do not cross, and return the representing Graph object
      * @return a Graph object of n vertices 
      */
-    private Graph generate() 
+    private void generate() 
     {
         System.out.println("=== Graph generator started ===");
         System.out.println("Enter number of vertices...:");
         numVertices = input.nextInt();
         System.out.println();
         
+        TempGraph graph = new TempGraph(numVertices);
+        graph.printPointLocations();
+        /*
         Graph graph = new Graph(numVertices);
 
         // for each vertex point generate a random (x,y) location between [0,1]
@@ -39,7 +42,7 @@ public class Graph_Generator {
         }
         //printPointLocations(graph);
         graph.sortPoints();
-        printPointLocations(graph);
+        // printPointLocations(graph);
         
         connectVertices(graph);
 
@@ -48,6 +51,7 @@ public class Graph_Generator {
         printGraph(graph);
         
         return graph;
+        */
     }
 
     /**
@@ -116,7 +120,7 @@ public class Graph_Generator {
         
     }
     
-    private void printPointLocations(Graph graph)
+    public void printPointLocations(Graph graph)
     {
         System.out.println("Generated point locations:");
         for (float[] point : graph.getPoints())
