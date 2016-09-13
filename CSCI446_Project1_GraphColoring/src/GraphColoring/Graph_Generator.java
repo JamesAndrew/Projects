@@ -25,6 +25,7 @@ public class Graph_Generator {
      */
     private void generate() 
     {
+        /*
         System.out.println("=== Graph generator started ===");
         System.out.println("Enter number of vertices...:");
         numVertices = input.nextInt();
@@ -32,7 +33,6 @@ public class Graph_Generator {
         
         TempGraph graph = new TempGraph(numVertices);
         graph.printPointLocations();
-        /*
         Graph graph = new Graph(numVertices);
 
         // for each vertex point generate a random (x,y) location between [0,1]
