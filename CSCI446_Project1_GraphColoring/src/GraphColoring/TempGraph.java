@@ -23,7 +23,8 @@ public class TempGraph
         graphSize = n;
         fillGraphVertices();
         printGraph();
-        //fillGraphEdges();
+        fillGraphEdges();
+        printGraph();
     }
     
     /**
@@ -84,31 +85,31 @@ public class TempGraph
     {
         // Create a complete graph by connecting each vertex to every other
         // and running the setEdge() method
-        theGraph.keySet().stream().forEach((key) -> {
-            theGraph.keySet().stream().forEach((otherKey) -> {
+        theGraph.keySet().stream().forEach( (key) -> { 
+            Vertex currentVertex = theGraph.get(key);
+            
+            theGraph.keySet().stream().forEach( (otherKey) -> { 
+                Vertex otherVertex = theGraph.get(otherKey);
                 if (key.equals(otherKey))
-                    System.out.println("Current vertices are the same");
+                {
+                    // skip if the vertex is looking at itself. We don't want self-connections
+                    //System.out.println("Current vertices are the same");
+                }
+                    
+                else if (currentVertex.edges.containsKey(otherKey) || otherVertex.edges.containsKey(key))
+                {
+                    // do nothing, an edge already exists
+                    //System.out.println("An edge already exists between these two vertices.");
+                }
                 else
                 {
-                    setEdge(theGraph.get(key), theGraph.get(otherKey));
-                    System.out.format("Connected vertex %d to vertex %d.%n", key, otherKey);
+                    // create a bidirectional connection to maintain an undirected graph
+                    currentVertex.setEdge(otherVertex);
+                    otherVertex.setEdge(currentVertex);
+                    //System.out.format("Connected vertex %d to vertex %d.%n", key, otherKey);
                 }
             });
-            System.out.println();
         });
-    }
-    /**
-     * Add an undirected edge to each Vertex's edge set (the value in the 
-     * <K,V> hashmap
-     * The method does the same operation for both source and destination
-     * because of the undirected nature of the graph
-     * @param sourceV : The vertex currently being looked at
-     * @param destV : The vertex to connect sourceV to
-     */
-    private void setEdge(Vertex sourceV, Vertex destV) 
-    {
-//        edges.get(sourceV).add(destV);
-//        edges.get(destV).add(sourceV);
     }
     
     /**
@@ -140,6 +141,7 @@ public class TempGraph
             Vertex currentVertex = theGraph.get(key);
             printVertexDetails(currentVertex);
         }
+        System.out.println();
     }
     
     /**
@@ -173,6 +175,21 @@ public class TempGraph
         else 
             System.out.println("Edges: none assigned yet");
         
+    }
+    
+    /**
+     * Print to console the vertex numbers the input vertex is connected 
+     * (has an edge) to.
+     * @param vertex : The input vertex
+     */
+    public void printVertexConnections(Vertex vertex)
+    {
+        System.out.format("Vertex %d is connected to vertices: ", vertex.vertexNum);
+        for (Integer key : vertex.edges.keySet()) 
+        {
+            System.out.format("%d, ", key);
+        }
+        System.out.println();
     }
     // </editor-fold>
 

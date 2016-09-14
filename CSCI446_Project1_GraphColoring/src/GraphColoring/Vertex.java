@@ -40,12 +40,11 @@ public class Vertex
     /**
      * Add an <Integer, Vertex> entry in edges to show that this vertex
      * if connected to the provided vertex.
-     * To maintain an undirected graph, 
      * @param destination The vertex to connect to
      */
     public void setEdge(Vertex destination)
     {
-        throw new NotImplementedException();
+        edges.put(destination.vertexNum, destination);
     }
     
     /**
