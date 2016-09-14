@@ -1,5 +1,8 @@
 package GraphColoring;
 
+import Exceptions.NotImplementedException;
+import java.util.*;
+
 /**
  * A vertex / Point / Node that a Graph will be composed of.
  * The Vertex class encapsulates important data values such as location,
@@ -12,10 +15,14 @@ public class Vertex
     private final double xValue;
     private final double yValue;
     // The "Color" of the vertex. Just a value of 1, 2, 3, or 4.
-    private int color;
+    public int color;
     // The arbitrary "number" the vertex is identified as according to the
     // 'theGraph' field in TempGraph
     public int vertexNum;
+    // edges : a collection of vertices that this vertex has an edge to.
+    // Key = The desired connected vertex's integer identifier
+    // Value = The vertex object
+    public Map<Integer, Vertex> edges = new HashMap<>();
     
     /**
      * Instantiate a vertex with given (x,y) values
@@ -29,6 +36,17 @@ public class Vertex
     }
 
     /**
+     * Add an <Integer, Vertex> entry in edges to show that this vertex
+     * if connected to the provided vertex.
+     * To maintain an undirected graph, 
+     * @param destination The vertex to connect to
+     */
+    public void setEdge(Vertex destination)
+    {
+        throw new NotImplementedException();
+    }
+    
+    /**
      * @return the xValue
      */
     public double getxValue() 
@@ -41,17 +59,5 @@ public class Vertex
     public double getyValue() 
     {
         return yValue;
-    }
-    /**
-     * @return the color
-     */
-    public int getColor() {
-        return color;
-    }
-    /**
-     * @param color the color to set
-     */
-    public void setColor(int color) {
-        this.color = color;
     }
 }

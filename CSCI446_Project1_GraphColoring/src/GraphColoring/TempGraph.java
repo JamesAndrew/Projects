@@ -1,11 +1,6 @@
 package GraphColoring;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 /**
  *
@@ -13,15 +8,11 @@ import java.util.Set;
  */
 public class TempGraph 
 {
-    // edges : a collection of Vertex keys and a set of vertex values
-    // where the values are the other vertices the key vertex is connected to
-    public final Map<Vertex, Set<Vertex>> edges = new HashMap<>();
-    // Once edges has been made, each veretx is assigned an integer value as
-    // a key and is assigned to this field: theGraph
+    // theGraph : a collection of vertices where the key is the vertex number
+    // and the value is the vertex instance
     public final Map<Integer, Vertex> theGraph = new HashMap<>();
     // constant to refer to for the provided graph size
     private final int graphSize;
-    // 
     
     /** constructor to initialize Graph class and its attributes
      * 
@@ -36,20 +27,26 @@ public class TempGraph
     }
     
     /**
-     * Instantiates a new vertex with randomized (x,y) location
+     * Instantiates a new vertex with randomized (x,y) location.
+     * Then gives each vertex a unique, incremental Integer identifier
      */
     private void fillGraphVertices() 
     {
+        ArrayList<Vertex> generatedVertices = new ArrayList<>();
         Random rand = new Random();
+        
         for (int i = 0; i < graphSize; i++)
         {
-            double xValue = (double)rand.nextInt(101) / 100;
-            double yValue = (double)rand.nextInt(101) / 100;
+            double xValue = (double)rand.nextInt(1001) / 1000;
+            double yValue = (double)rand.nextInt(1001) / 1000;
             
             Vertex newVertex = new Vertex(xValue, yValue);
-            edges.put(newVertex, new HashSet<>());
+            generatedVertices.add(newVertex);
         }
+        
+        mergeSort(generatedVertices);
     }
+    
     
     /**
      * Assign each vertex a connection to n other vertices
@@ -107,6 +104,22 @@ public class TempGraph
         }
     }
     
+    /**
+     * Mathematical function for Euclidian distance between two 2-d points.
+     * Distance between points P1(x_1, y_1) and P2(x_2, y_2) is
+     *     distance(P1,P2) = sqrt[(x_2 - x_1)^2 + (y_2 - y_1)^2]
+     * 
+     * @param x1 Pt1's x value
+     * @param y1 Pt1's y value
+     * @param x2 Pt2's x value
+     * @param y2 Pt2's y value
+     * @return the distance as a float
+     */
+    private float distance(double x1, double y1, double x2, double y2) 
+    {
+        return (float) Math.sqrt((Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2)));
+    }
+    
     public void printPointLocations()
     {
         System.out.println("graphMap point locations:");
@@ -124,4 +137,101 @@ public class TempGraph
                 theGraph.get(Integer).getxValue(), theGraph.get(Integer).getyValue());
         });
     }
+
+    /**
+     * @return the graphSize
+     */
+    public int getGraphSize() 
+    {
+        return graphSize;
+    }
+    
+    // <editor-fold defaultstate="collapsed" desc="All the methods needed for doing merge sort">
+    /**
+     * Takes an arraylist of vertices and sorts them into a new arraylist in order
+     * of closest to point (0,0) to furthers.
+     * Uses merge sort.
+     * Merge sort implementation referenced from 
+     * http://www.java2novice.com/java-sorting-algorithms/merge-sort/
+     * and nearly every java algorithms book written
+     * @param inputArray : The array to sort
+     */
+    class MergeSort
+    {
+        private ArrayList<Vertex> inputArray;
+        private ArrayList<Vertex> tempArray;
+        private int length;
+        
+        public MergeSort(ArrayList<Vertex> inputArray)
+        {
+            this.inputArray = inputArray;
+            length = inputArray.size();
+            sort(inputArray);
+        }
+        
+        private void sort(ArrayList<Vertex> input)
+        {
+            tempArray = new ArrayList<>(length);
+            doMergeSort(0, length - 1);
+        }
+        
+        private void doMergeSort(int lower, int higher)
+        {
+            if (lower < higher)
+            {
+                int middle = lower + (higher - lower) / 2;
+                doMergeSort(lower, middle);
+                doMergeSort(middle+1, higher);
+                mergeParts(lower, middle, higher);
+            }
+        }
+        
+        private void mergeParts(int lower, int middle, int higher)
+        {
+            for (int i = lower; i <= higher; i++)
+            {
+                tempArray.add(i, inputArray.get(i));
+            }
+            int i = lower;
+            int j = middle + 1;
+            int k = lower;
+            while (i <= middle && j <= higher)
+            {
+                if (getDistanceAtIndex(i, tempArray) <= getDistanceAtIndex(i, tempArray))
+                {
+                    inputArray.set(k, tempArray.get(i));
+                    i++;
+                }
+                else
+                {
+                    inputArray.set(k, tempArray.get(j));
+                    j++;
+                }
+                k++;
+            }
+            while (i <= middle)
+            {
+                inputArray.set(k, tempArray.get(i));
+                k++;
+                i++;
+            }
+        }
+        
+        private double getDistanceAtIndex(int index, ArrayList<Vertex> array)
+        {
+            Vertex currentVertex = array.get(index);
+            double x1 = 0.0;
+            double y1 = 0.0;
+            double x2 = currentVertex.getxValue();
+            double y2 = currentVertex.getyValue();
+            
+            return distance(x1, y1, x2, y2);
+        }
+        
+        private float distance(double x1, double y1, double x2, double y2) 
+        {
+            return (float) Math.sqrt((Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2)));
+        }
+    }
+    // </editor-fold>
 }

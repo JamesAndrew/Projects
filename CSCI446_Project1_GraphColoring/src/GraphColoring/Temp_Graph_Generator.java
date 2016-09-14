@@ -17,6 +17,8 @@ public class Temp_Graph_Generator
     
     public TempGraph generateGraph()
     {
-        return new TempGraph(graphSize);
+        TempGraph graph = new TempGraph(graphSize);
+        
+        return graph;
     }
 }

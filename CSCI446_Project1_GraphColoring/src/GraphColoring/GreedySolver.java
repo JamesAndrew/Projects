@@ -28,8 +28,9 @@ public class GreedySolver extends ConstraintSolver
         // Color first vertex with first color
         Entry firstEntry = (Entry) itr.next();
         Vertex firstVertex = (Vertex) firstEntry.getValue();
-        Integer firstVertexNumber = (Integer) firstEntry.getKey();
+        
         firstVertex.setColor(nextUniqueColor);
+        usedColors.add(nextUniqueColor);
         nextUniqueColor++;
         
         System.out.format("%nVertex number: %d, color: %d, location: (%f, %f), ", 
@@ -47,6 +48,13 @@ public class GreedySolver extends ConstraintSolver
         {
             Entry nextEntry = (Entry) itr.next();
             Vertex nextVertex = (Vertex) firstEntry.getValue();
+            Integer nextVertexNumber = (Integer) nextEntry.getKey();
+            
+            // color the vertex the lowest available color that is not used by 
+            // any vertex it is connected to //
+            // for each connected vertex...
+            
+            
         }
     }
 }
