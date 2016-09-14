@@ -119,6 +119,13 @@ public class Graph_Generator
 
     }
 
+    /**
+     * Check whether or not edge between chosen point will intersect with existing edges
+     * @param graph
+     * @param point1
+     * @param point2
+     * @return : true if intersection found, false if not
+     */
     private boolean edgesIntersect(Graph graph, int point1, int point2)
     {
         float x1 = graph.getXPoint(point1);
@@ -128,7 +135,8 @@ public class Graph_Generator
         float a1 = y2 - y1;
         float b1 = x1 - x2;
         float c1 = (a1 * x1) + (b1 * y1);
-
+        
+        //find all existing edges and calculate whether or not there is a possible intersection
         for (int i = 0; i < graph.getPoints().length; i++)
         {
             for (int j = 0; j < graph.getPoints().length; j++)
@@ -140,6 +148,7 @@ public class Graph_Generator
                     float c2 = (a2 * graph.getXPoint(i)) + (b2 * graph.getYPoint(i));
 
                     float det = a1 * b2 - a2 * b1;
+                    //parallel lines 
                     if (det == 0)
                     {
                         return false;
@@ -147,7 +156,10 @@ public class Graph_Generator
                     {
                         float x = (b2 * c1 - b1 * c2) / det;
                         float y = (a1 * c2 - a2 * c1) / det;
-                        return checkBounds(graph, x, y, point1, point2); 
+                        if (checkBounds(graph, x, y, point1, point2) && checkBounds(graph, x, y, i, j))
+                        {
+                            return true; 
+                        }
                     }
                 }
             }
@@ -155,19 +167,29 @@ public class Graph_Generator
         return false;
     }
 
+    /**
+     * Check if a point falls within the x and y bounds of an edge between two points
+     * @param graph
+     * @param xIntercept
+     * @param yIntercept
+     * @param point1
+     * @param point2
+     * @return : true if within range, false if not 
+     */
     private boolean checkBounds(Graph graph, float xIntercept, float yIntercept, int point1, int point2)
     {
-        if (graph.getXPoint(point1) < graph.getXPoint(point2))
+        //if intercept falls within x range of edge
+        if ((xIntercept > graph.getXPoint(point1) && xIntercept < graph.getXPoint(point2))
+                || (xIntercept < graph.getXPoint(point1) && xIntercept > graph.getXPoint(point2)))//(graph.getXPoint(point1) < graph.getXPoint(point2))
         {
-            if (xIntercept > graph.getXPoint(point1) && xIntercept < graph.getXPoint(point2))
+            //if intercept falls within y range of edge
+            if ((yIntercept > graph.getYPoint(point1) && yIntercept < graph.getYPoint(point2))
+                    || (yIntercept < graph.getYPoint(point1) && yIntercept > graph.getYPoint(point2)))
             {
-                return true;
+                return true; 
             }
-        } else if (xIntercept < graph.getXPoint(point1) && xIntercept > graph.getXPoint(point2))
-        {
-            return true;
         }
-        return false; 
+        return false;
     }
 
     private void printPointLocations(Graph graph)
