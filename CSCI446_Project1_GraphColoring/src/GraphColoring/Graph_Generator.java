@@ -1,5 +1,9 @@
 package GraphColoring;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -71,12 +75,23 @@ public class Graph_Generator
     private void findClosestPoint(Graph graph)
     {
         int checkVertices[] = new int[numVertices];
+        ArrayList<Integer> possibleConnections = new ArrayList<Integer>();
+        for (int i = 0; i < numVertices; i++)
+        {
+            possibleConnections.add(i);
+        }
+        Map<Integer, ArrayList> vertices = new HashMap<Integer, ArrayList>();
+        for (int i = 0; i < numVertices; i++)
+        {
+            vertices.put(i, new ArrayList<Integer>(possibleConnections));
+        }
 
         int x = 0;
-        while (x < 5)
+        while (x < 5)//!vertices.isEmpty()
         {
             // variable for random index used to select random point
-            int chosenPt = rand.nextInt(numVertices);
+            ArrayList keysAsArray = new ArrayList(vertices.keySet());
+            int chosenPt = (int)keysAsArray.get(rand.nextInt(keysAsArray.size()));
             System.out.println("Point " + graph.getXPoint(chosenPt) + ", " + graph.getYPoint(chosenPt) + " chosen.");
 
             int closest = 0;        // closest distance to selected point 
@@ -84,8 +99,10 @@ public class Graph_Generator
             float pclosest = 100;   // closest distance to selected point seen thus far
 
             // loop through all points
-            for (int secondPt = 0; secondPt < numVertices; secondPt++)
+            ArrayList<Integer> current = vertices.get(chosenPt);
+            for (Iterator<Integer> iterator = current.iterator(); iterator.hasNext();)//for (int secondPt = 0; secondPt < numVertices; secondPt++)
             {
+                int secondPt = iterator.next();
                 // only consider pairs that do not have an edge between them, both directions
                 if (graph.getEdge(chosenPt, secondPt) != 1 && graph.getEdge(secondPt, chosenPt) != 1)
                 {
@@ -98,6 +115,10 @@ public class Graph_Generator
                     }
 
                     System.out.format("Distance between point %d and %d is %f.%n", chosenPt, secondPt, dist);
+                }
+                else 
+                {
+                    iterator.remove();
                 }
             }
             System.out.format("Closest point is %d.%n%n", closest);
@@ -120,7 +141,9 @@ public class Graph_Generator
     }
 
     /**
-     * Check whether or not edge between chosen point will intersect with existing edges
+     * Check whether or not edge between chosen point will intersect with
+     * existing edges
+     *
      * @param graph
      * @param point1
      * @param point2
@@ -135,7 +158,7 @@ public class Graph_Generator
         float a1 = y2 - y1;
         float b1 = x1 - x2;
         float c1 = (a1 * x1) + (b1 * y1);
-        
+
         //find all existing edges and calculate whether or not there is a possible intersection
         for (int i = 0; i < graph.getPoints().length; i++)
         {
@@ -158,7 +181,7 @@ public class Graph_Generator
                         float y = (a1 * c2 - a2 * c1) / det;
                         if (checkBounds(graph, x, y, point1, point2) && checkBounds(graph, x, y, i, j))
                         {
-                            return true; 
+                            return true;
                         }
                     }
                 }
@@ -168,13 +191,15 @@ public class Graph_Generator
     }
 
     /**
-     * Check if a point falls within the x and y bounds of an edge between two points
+     * Check if a point falls within the x and y bounds of an edge between two
+     * points
+     *
      * @param graph
      * @param xIntercept
      * @param yIntercept
      * @param point1
      * @param point2
-     * @return : true if within range, false if not 
+     * @return : true if within range, false if not
      */
     private boolean checkBounds(Graph graph, float xIntercept, float yIntercept, int point1, int point2)
     {
@@ -186,7 +211,7 @@ public class Graph_Generator
             if ((yIntercept > graph.getYPoint(point1) && yIntercept < graph.getYPoint(point2))
                     || (yIntercept < graph.getYPoint(point1) && yIntercept > graph.getYPoint(point2)))
             {
-                return true; 
+                return true;
             }
         }
         return false;
