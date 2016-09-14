@@ -133,14 +133,15 @@ public class TempGraph
     /**
      * Look through all entries in theGraph and display meaningful details
      */
-    private void printGraph()
+    public final void printGraph()
     {
-        System.out.println("Printing Graph State...");
-        for (Integer key : theGraph.keySet()) {
+        System.out.println("\n=== Printing Graph State... ===");
+        theGraph.keySet().stream().map((key) -> {
             System.out.format("Graph node %d. Printing vertex details...%n", key);
-            Vertex currentVertex = theGraph.get(key);
+            return key;
+        }).map((key) -> theGraph.get(key)).forEach((currentVertex) -> {
             printVertexDetails(currentVertex);
-        }
+        });
         System.out.println();
     }
     

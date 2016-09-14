@@ -1,60 +1,55 @@
 package GraphColoring;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map.Entry;
+import java.util.Map;
 
 /**
  * This strategy is not needed but is used as an initial approach to get a sense
- * of how this program will work
+ * of how this project will work
  * @version 09/08/16
  */
 public class GreedySolver extends ConstraintSolver
 {
     private final TempGraph graph;
-    private final ArrayList<Integer> usedColors = new ArrayList<>();
-    private int nextUniqueColor = 1;
+    private final Map<Integer, Vertex> theGraph;
     
     public GreedySolver(TempGraph graph)
     {
         this.graph = graph;
+        theGraph = graph.theGraph;
         greedyColoringStrategy();
     }
     
     private void greedyColoringStrategy()
     {
-//        Iterator itr = graph.theGraph.entrySet().iterator();
-//        
-//        // Color first vertex with first color
-//        Entry firstEntry = (Entry) itr.next();
-//        Vertex firstVertex = (Vertex) firstEntry.getValue();
-//        
-//        firstVertex.setColor(nextUniqueColor);
-//        usedColors.add(nextUniqueColor);
-//        nextUniqueColor++;
-//        
-//        System.out.format("%nVertex number: %d, color: %d, location: (%f, %f), ", 
-//                firstVertex.vertexNum, firstVertex.getColor(), firstVertex.getxValue(), firstVertex.getyValue());
-//        
-//        System.out.print("connected to edges: ");
-//        graph.edges.get(firstVertex).stream().forEach((vertex) -> 
-//        {
-//            System.out.format("%d, ", vertex.vertexNum);
-//        });
-//        System.out.println();
-//        
-//        // For all other vertices...
-//        while (itr.hasNext())
-//        {
-//            Entry nextEntry = (Entry) itr.next();
-//            Vertex nextVertex = (Vertex) firstEntry.getValue();
-//            Integer nextVertexNumber = (Integer) nextEntry.getKey();
-//            
-//            // color the vertex the lowest available color that is not used by 
-//            // any vertex it is connected to //
-//            // for each connected vertex...
-//            
-//            
-//        }
+        Iterator itr = graph.theGraph.keySet().iterator();
+        
+        // Color first vertex with first color
+        int firstKey = (int)itr.next();
+        theGraph.get(firstKey).color = 1;
+        System.out.format("Gave vertex %d color %d.%n", theGraph.get(firstKey).vertexNum, theGraph.get(firstKey).color);
+        
+        // For all other vertices color the vertex the lowest available color 
+        //that is not used by any vertex it is connected to
+        while (itr.hasNext())
+        {
+            int nextKey = (int)itr.next();
+            Vertex currentVertex = theGraph.get(nextKey);
+            currentVertex.color = 1;
+            
+            for (Iterator<Vertex> it = currentVertex.edges.values().iterator(); it.hasNext();) 
+            {
+                Vertex connectedVertex = it.next();
+                if (currentVertex.color == connectedVertex.color)
+                {
+                    currentVertex.color++;
+                    //System.out.format("Found adjacent node with same color. Increasing color to %d%n", currentVertex.color);
+                    // restart the iterator
+                    it = currentVertex.edges.values().iterator();
+                }
+            }
+            
+            System.out.format("Gave vertex %d color %d.%n", currentVertex.vertexNum, currentVertex.color);
+        }
     }
 }

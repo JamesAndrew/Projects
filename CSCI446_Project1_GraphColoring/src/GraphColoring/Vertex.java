@@ -16,7 +16,7 @@ public class Vertex
     private final double yValue;
     // The "Color" of the vertex. Just a value of 1, 2, 3, or 4.
     // Initial color is -1 "not assigned"
-    public int color = -1;
+    public int color = 0;
     // The arbitrary "number" the vertex is identified as according to the
     // 'theGraph' field in TempGraph
     public int vertexNum;

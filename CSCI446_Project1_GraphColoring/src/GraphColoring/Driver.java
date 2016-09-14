@@ -10,6 +10,7 @@ public class Driver {
     {
         startupProcedure();
         GreedySolver greedySolver = new GreedySolver(graph);
+        graph.printGraph();
     }
     
     /**
