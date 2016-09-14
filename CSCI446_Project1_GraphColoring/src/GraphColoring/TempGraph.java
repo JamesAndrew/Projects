@@ -22,8 +22,8 @@ public class TempGraph
     {
         graphSize = n;
         fillGraphVertices();
-        theGraphHashToNumberedVertices();
-        fillGraphEdges();
+        //theGraphHashToNumberedVertices();
+        //fillGraphEdges();
     }
     
     /**
@@ -32,7 +32,7 @@ public class TempGraph
      */
     private void fillGraphVertices() 
     {
-        ArrayList<Vertex> generatedVertices = new ArrayList<>();
+        ArrayList<Vertex> generatedVertices = new ArrayList<>(graphSize);
         Random rand = new Random();
         
         for (int i = 0; i < graphSize; i++)
@@ -41,10 +41,26 @@ public class TempGraph
             double yValue = (double)rand.nextInt(1001) / 1000;
             
             Vertex newVertex = new Vertex(xValue, yValue);
-            generatedVertices.add(newVertex);
+            generatedVertices.add(i, newVertex);
         }
         
-        mergeSort(generatedVertices);
+        // <editor-fold defaultstate="collapsed" desc="Print vertex distance from 0 before sort">
+        System.out.println("Vertex distance order before sort: ");
+        generatedVertices.stream().forEach((vertex) -> {
+            System.out.format("%f ", distance(0, 0, vertex.getxValue(), vertex.getyValue()));
+        });
+        // </editor-fold>
+        
+        MergeSort vertexSort = new MergeSort();
+        vertexSort.sort(generatedVertices);
+        
+        // <editor-fold defaultstate="collapsed" desc="Print vertex distance from 0 after sort">
+        System.out.println("\nVertex distance order after sort: ");
+        vertexSort.inputArray.stream().forEach((vertex) -> {
+            System.out.format("%f ", distance(0, 0, vertex.getxValue(), vertex.getyValue()));
+        });
+        System.out.println("\n");
+        // </editor-fold>
     }
     
     
@@ -80,8 +96,8 @@ public class TempGraph
      */
     private void setEdge(Vertex sourceV, Vertex destV) 
     {
-        edges.get(sourceV).add(destV);
-        edges.get(destV).add(sourceV);
+//        edges.get(sourceV).add(destV);
+//        edges.get(destV).add(sourceV);
     }
     
     /**
@@ -93,15 +109,15 @@ public class TempGraph
      */
     private void theGraphHashToNumberedVertices()
     {
-        Integer vertexNumber = 1;
-        Iterator<Vertex> graphMapItr = edges.keySet().iterator();
-        while (graphMapItr.hasNext())
-        {
-            Vertex currentVertex = graphMapItr.next();
-            currentVertex.vertexNum = vertexNumber;
-            theGraph.put(vertexNumber, currentVertex);
-            vertexNumber++;
-        }
+//        Integer vertexNumber = 1;
+//        Iterator<Vertex> graphMapItr = edges.keySet().iterator();
+//        while (graphMapItr.hasNext())
+//        {
+//            Vertex currentVertex = graphMapItr.next();
+//            currentVertex.vertexNum = vertexNumber;
+//            theGraph.put(vertexNumber, currentVertex);
+//            vertexNumber++;
+//        }
     }
     
     /**
@@ -122,11 +138,11 @@ public class TempGraph
     
     public void printPointLocations()
     {
-        System.out.println("graphMap point locations:");
-        edges.keySet().stream().forEach((vertex) -> 
-        {
-            System.out.format("(%.3f, %.3f)%n", vertex.getxValue(), vertex.getyValue());
-        });
+//        System.out.println("graphMap point locations:");
+//        edges.keySet().stream().forEach((vertex) -> 
+//        {
+//            System.out.format("(%.3f, %.3f)%n", vertex.getxValue(), vertex.getyValue());
+//        });
     }
     
     public void printPointLocationsAndVertexNumber()
@@ -159,19 +175,14 @@ public class TempGraph
     class MergeSort
     {
         private ArrayList<Vertex> inputArray;
-        private ArrayList<Vertex> tempArray;
+        private Vertex[] tempArray;
         private int length;
-        
-        public MergeSort(ArrayList<Vertex> inputArray)
-        {
-            this.inputArray = inputArray;
-            length = inputArray.size();
-            sort(inputArray);
-        }
         
         private void sort(ArrayList<Vertex> input)
         {
-            tempArray = new ArrayList<>(length);
+            this.inputArray = input;
+            length = inputArray.size();
+            tempArray = new Vertex[length];
             doMergeSort(0, length - 1);
         }
         
@@ -190,36 +201,36 @@ public class TempGraph
         {
             for (int i = lower; i <= higher; i++)
             {
-                tempArray.add(i, inputArray.get(i));
+                tempArray[i] = inputArray.get(i);
             }
             int i = lower;
             int j = middle + 1;
             int k = lower;
             while (i <= middle && j <= higher)
             {
-                if (getDistanceAtIndex(i, tempArray) <= getDistanceAtIndex(i, tempArray))
+                if (getDistanceAtIndex(i, tempArray) <= getDistanceAtIndex(j, tempArray))
                 {
-                    inputArray.set(k, tempArray.get(i));
+                    inputArray.set(k, tempArray[i]);
                     i++;
                 }
                 else
                 {
-                    inputArray.set(k, tempArray.get(j));
+                    inputArray.set(k, tempArray[j]);
                     j++;
                 }
                 k++;
             }
             while (i <= middle)
             {
-                inputArray.set(k, tempArray.get(i));
+                inputArray.set(k, tempArray[i]);
                 k++;
                 i++;
             }
         }
         
-        private double getDistanceAtIndex(int index, ArrayList<Vertex> array)
+        private double getDistanceAtIndex(int index, Vertex[] array)
         {
-            Vertex currentVertex = array.get(index);
+            Vertex currentVertex = array[index];
             double x1 = 0.0;
             double y1 = 0.0;
             double x2 = currentVertex.getxValue();

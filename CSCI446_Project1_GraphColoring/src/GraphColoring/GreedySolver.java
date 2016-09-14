@@ -23,38 +23,38 @@ public class GreedySolver extends ConstraintSolver
     
     private void greedyColoringStrategy()
     {
-        Iterator itr = graph.theGraph.entrySet().iterator();
-        
-        // Color first vertex with first color
-        Entry firstEntry = (Entry) itr.next();
-        Vertex firstVertex = (Vertex) firstEntry.getValue();
-        
-        firstVertex.setColor(nextUniqueColor);
-        usedColors.add(nextUniqueColor);
-        nextUniqueColor++;
-        
-        System.out.format("%nVertex number: %d, color: %d, location: (%f, %f), ", 
-                firstVertex.vertexNum, firstVertex.getColor(), firstVertex.getxValue(), firstVertex.getyValue());
-        
-        System.out.print("connected to edges: ");
-        graph.edges.get(firstVertex).stream().forEach((vertex) -> 
-        {
-            System.out.format("%d, ", vertex.vertexNum);
-        });
-        System.out.println();
-        
-        // For all other vertices...
-        while (itr.hasNext())
-        {
-            Entry nextEntry = (Entry) itr.next();
-            Vertex nextVertex = (Vertex) firstEntry.getValue();
-            Integer nextVertexNumber = (Integer) nextEntry.getKey();
-            
-            // color the vertex the lowest available color that is not used by 
-            // any vertex it is connected to //
-            // for each connected vertex...
-            
-            
-        }
+//        Iterator itr = graph.theGraph.entrySet().iterator();
+//        
+//        // Color first vertex with first color
+//        Entry firstEntry = (Entry) itr.next();
+//        Vertex firstVertex = (Vertex) firstEntry.getValue();
+//        
+//        firstVertex.setColor(nextUniqueColor);
+//        usedColors.add(nextUniqueColor);
+//        nextUniqueColor++;
+//        
+//        System.out.format("%nVertex number: %d, color: %d, location: (%f, %f), ", 
+//                firstVertex.vertexNum, firstVertex.getColor(), firstVertex.getxValue(), firstVertex.getyValue());
+//        
+//        System.out.print("connected to edges: ");
+//        graph.edges.get(firstVertex).stream().forEach((vertex) -> 
+//        {
+//            System.out.format("%d, ", vertex.vertexNum);
+//        });
+//        System.out.println();
+//        
+//        // For all other vertices...
+//        while (itr.hasNext())
+//        {
+//            Entry nextEntry = (Entry) itr.next();
+//            Vertex nextVertex = (Vertex) firstEntry.getValue();
+//            Integer nextVertexNumber = (Integer) nextEntry.getKey();
+//            
+//            // color the vertex the lowest available color that is not used by 
+//            // any vertex it is connected to //
+//            // for each connected vertex...
+//            
+//            
+//        }
     }
 }
