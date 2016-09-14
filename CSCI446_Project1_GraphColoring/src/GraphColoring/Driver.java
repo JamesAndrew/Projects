@@ -25,7 +25,5 @@ public class Driver {
         
         Temp_Graph_Generator graphGen = new Temp_Graph_Generator(numVertices);
         graph = graphGen.generateGraph();
-        graph.printPointLocations();
-        graph.printPointLocationsAndVertexNumber();
     }
 }

@@ -15,7 +15,8 @@ public class Vertex
     private final double xValue;
     private final double yValue;
     // The "Color" of the vertex. Just a value of 1, 2, 3, or 4.
-    public int color;
+    // Initial color is -1 "not assigned"
+    public int color = -1;
     // The arbitrary "number" the vertex is identified as according to the
     // 'theGraph' field in TempGraph
     public int vertexNum;
@@ -25,7 +26,8 @@ public class Vertex
     public Map<Integer, Vertex> edges = new HashMap<>();
     
     /**
-     * Instantiate a vertex with given (x,y) values
+     * Instantiate a vertex with given (x,y) values. 
+     * Initial color is -1 ("not assigned")
      * @param x : x value between [0,1]
      * @param y : y value between [0,1]
      */

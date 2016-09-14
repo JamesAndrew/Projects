@@ -22,13 +22,16 @@ public class TempGraph
     {
         graphSize = n;
         fillGraphVertices();
-        //theGraphHashToNumberedVertices();
+        printGraph();
         //fillGraphEdges();
     }
     
     /**
      * Instantiates a new vertex with randomized (x,y) location.
-     * Then gives each vertex a unique, incremental Integer identifier
+     * Then gives each vertex a unique, incremental Integer identifier.
+     * Also orders the ArrayList of vertices in order of their distance 
+     * to point (0,0) then filles class variable 'theGraph' where each
+     * Integer key also represents the vertex's ordered distance from origin
      */
     private void fillGraphVertices() 
     {
@@ -44,25 +47,33 @@ public class TempGraph
             generatedVertices.add(i, newVertex);
         }
         
-        // <editor-fold defaultstate="collapsed" desc="Print vertex distance from 0 before sort">
+        // <editor-fold defaultstate="collapsed" desc="Print vertex distances from 0 before sort">
         System.out.println("Vertex distance order before sort: ");
         generatedVertices.stream().forEach((vertex) -> {
             System.out.format("%f ", distance(0, 0, vertex.getxValue(), vertex.getyValue()));
         });
         // </editor-fold>
         
+        // sort the array based on distance to (0,0) using MergeSort
         MergeSort vertexSort = new MergeSort();
         generatedVertices = vertexSort.sort(generatedVertices);
         
-        // <editor-fold defaultstate="collapsed" desc="Print vertex distance from 0 after sort">
+        // <editor-fold defaultstate="collapsed" desc="Print vertex distances from 0 after sort">
         System.out.println("\nVertex distance order after sort: ");
         generatedVertices.stream().forEach((vertex) -> {
             System.out.format("%f ", distance(0, 0, vertex.getxValue(), vertex.getyValue()));
         });
         System.out.println("\n");
         // </editor-fold>
+        
+        // assign the vertex its number and fill class field 'theGraph' with ordered vertices
+        for (int i = 0; i < generatedVertices.size(); i++)
+        {
+            Vertex currentVertex = generatedVertices.get(i);
+            currentVertex.vertexNum = i;
+            theGraph.put(i, generatedVertices.get(i));
+        }
     }
-    
     
     /**
      * Assign each vertex a connection to n other vertices
@@ -101,26 +112,6 @@ public class TempGraph
     }
     
     /**
-     * Give me (DR) your thoughts on this. Having edges be a K,V map
-    of Vertex objects is a good idea to me, but it could additionally be nice to 
-    have a map that holds edges's map such that each vertex key has
-    an associated int number to it.  Might be a good approach, especially for debugging 
-    or visually displaying things
-     */
-    private void theGraphHashToNumberedVertices()
-    {
-//        Integer vertexNumber = 1;
-//        Iterator<Vertex> graphMapItr = edges.keySet().iterator();
-//        while (graphMapItr.hasNext())
-//        {
-//            Vertex currentVertex = graphMapItr.next();
-//            currentVertex.vertexNum = vertexNumber;
-//            theGraph.put(vertexNumber, currentVertex);
-//            vertexNumber++;
-//        }
-    }
-    
-    /**
      * Mathematical function for Euclidian distance between two 2-d points.
      * Distance between points P1(x_1, y_1) and P2(x_2, y_2) is
      *     distance(P1,P2) = sqrt[(x_2 - x_1)^2 + (y_2 - y_1)^2]
@@ -136,24 +127,56 @@ public class TempGraph
         return (float) Math.sqrt((Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2)));
     }
     
-    public void printPointLocations()
+    
+    // <editor-fold defaultstate="collapsed" desc="Various print methods">
+    /**
+     * Look through all entries in theGraph and display meaningful details
+     */
+    private void printGraph()
     {
-//        System.out.println("graphMap point locations:");
-//        edges.keySet().stream().forEach((vertex) -> 
-//        {
-//            System.out.format("(%.3f, %.3f)%n", vertex.getxValue(), vertex.getyValue());
-//        });
+        System.out.println("Printing Graph State...");
+        for (Integer key : theGraph.keySet()) {
+            System.out.format("Graph node %d. Printing vertex details...%n", key);
+            Vertex currentVertex = theGraph.get(key);
+            printVertexDetails(currentVertex);
+        }
     }
     
-    public void printPointLocationsAndVertexNumber()
+    /**
+     * Print to console the vertex number, (x,y) value, color (if assigned),
+     * and connected vertex numbers
+     * @param vertex : The vertex to print details about
+     */
+    public void printVertexDetails(Vertex vertex)
     {
-        System.out.println("theGraph point locations:");
-        theGraph.keySet().stream().forEach((Integer) -> {
-            System.out.format("Vertex %d: (%.3f, %.3f)%n", Integer,
-                theGraph.get(Integer).getxValue(), theGraph.get(Integer).getyValue());
-        });
+        System.out.format("Vertex number: %d, Location: (%f, %f), Color: %d%n", 
+                vertex.vertexNum, vertex.getxValue(), vertex.getyValue(), vertex.color);
+        if (!vertex.edges.isEmpty())
+        {
+            Iterator itr = vertex.edges.entrySet().iterator();
+            System.out.print("Edges: ");
+            while(itr.hasNext())
+            {
+                Map.Entry pair = (Map.Entry)itr.next();
+                int key = (int)pair.getKey();
+                Vertex value = (Vertex)pair.getValue();
+                if (key != value.vertexNum)
+                {
+                    System.out.format("%n%nConnected vertex has mismatch between key "
+                            + "and value.vertexNum. Key = %d, vaule.vertexNum = %d. Continuing...%n%n",
+                            key, value.vertexNum);
+                }
+                System.out.format("%d, ", key);
+            }
+            System.out.println();
+        }
+        else 
+            System.out.println("Edges: none assigned yet");
+        
     }
+    // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Basic Getters and Setters">
     /**
      * @return the graphSize
      */
@@ -161,6 +184,7 @@ public class TempGraph
     {
         return graphSize;
     }
+    // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="All the methods needed for doing merge sort">
     /**
