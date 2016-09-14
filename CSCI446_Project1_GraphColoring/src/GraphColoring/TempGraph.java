@@ -52,11 +52,11 @@ public class TempGraph
         // </editor-fold>
         
         MergeSort vertexSort = new MergeSort();
-        vertexSort.sort(generatedVertices);
+        generatedVertices = vertexSort.sort(generatedVertices);
         
         // <editor-fold defaultstate="collapsed" desc="Print vertex distance from 0 after sort">
         System.out.println("\nVertex distance order after sort: ");
-        vertexSort.inputArray.stream().forEach((vertex) -> {
+        generatedVertices.stream().forEach((vertex) -> {
             System.out.format("%f ", distance(0, 0, vertex.getxValue(), vertex.getyValue()));
         });
         System.out.println("\n");
@@ -178,12 +178,14 @@ public class TempGraph
         private Vertex[] tempArray;
         private int length;
         
-        private void sort(ArrayList<Vertex> input)
+        private ArrayList<Vertex> sort(ArrayList<Vertex> input)
         {
             this.inputArray = input;
             length = inputArray.size();
             tempArray = new Vertex[length];
             doMergeSort(0, length - 1);
+            
+            return inputArray;
         }
         
         private void doMergeSort(int lower, int higher)
