@@ -74,29 +74,20 @@ public class Graph_Generator
 
     private void findClosestPoint(Graph graph)
     {
-        int checkVertices[] = new int[numVertices];
-        ArrayList<Integer> possibleConnections = new ArrayList<Integer>();
-        for (int i = 0; i < numVertices; i++)
-        {
-            possibleConnections.add(i);
-        }
-        Map<Integer, ArrayList> vertices = new HashMap<Integer, ArrayList>();
-        for (int i = 0; i < numVertices; i++)
-        {
-            vertices.put(i, new ArrayList<Integer>(possibleConnections));
-        }
+        Map<Integer, ArrayList> vertices = initializeVertexMap(); 
 
-        int x = 0;
-        while (x < 5)//!vertices.isEmpty()
+        while (!vertices.isEmpty())//!vertices.isEmpty()
         {
             // variable for random index used to select random point
             ArrayList keysAsArray = new ArrayList(vertices.keySet());
-            int chosenPt = (int)keysAsArray.get(rand.nextInt(keysAsArray.size()));
+            int chosenPt = (int) keysAsArray.get(rand.nextInt(keysAsArray.size()));
             System.out.println("Point " + graph.getXPoint(chosenPt) + ", " + graph.getYPoint(chosenPt) + " chosen.");
 
-            int closest = 0;        // closest distance to selected point 
+            int closest = -1;        // closest distance to selected point 
             float dist;             // current distance being checked
             float pclosest = 100;   // closest distance to selected point seen thus far
+
+            System.out.println(chosenPt);
 
             // loop through all points
             ArrayList<Integer> current = vertices.get(chosenPt);
@@ -115,17 +106,48 @@ public class Graph_Generator
                     }
 
                     System.out.format("Distance between point %d and %d is %f.%n", chosenPt, secondPt, dist);
-                }
-                else 
+                } else
                 {
                     iterator.remove();
                 }
             }
             System.out.format("Closest point is %d.%n%n", closest);
-            graph.setEdge(chosenPt, closest, 1); // add the edge to the graph 
-            graph.setEdge(closest, chosenPt, 1); // add symmetric edge since graph is symmetric 
-            x++;
+
+            if (!current.isEmpty())
+            {
+                if (!edgesIntersect(graph, chosenPt, closest))
+                {
+                    graph.setEdge(chosenPt, closest, 1); // add the edge to the graph 
+                    graph.setEdge(closest, chosenPt, 1); // add symmetric edge since graph is symmetric 
+                } else
+                {
+                    System.out.println("Collision Detected\n");
+                    current.remove(current.indexOf(closest));
+                }
+            } else
+            {
+                {
+                    vertices.remove(chosenPt);
+                }
+            }
         }
+    }
+
+    private Map<Integer, ArrayList> initializeVertexMap()
+    {
+        ArrayList<Integer> possibleConnections = new ArrayList<Integer>();
+        for (int i = 0; i < numVertices; i++)
+        {
+            possibleConnections.add(i);
+        }
+        Map<Integer, ArrayList> vertices = new HashMap<Integer, ArrayList>();
+        for (int i = 0; i < numVertices; i++)
+        {
+            ArrayList<Integer> comparisonVertices = new ArrayList<Integer>(possibleConnections);
+            comparisonVertices.remove(i);
+            vertices.put(i, comparisonVertices);
+        }
+        return vertices;
     }
 
     /**
@@ -203,6 +225,7 @@ public class Graph_Generator
      */
     private boolean checkBounds(Graph graph, float xIntercept, float yIntercept, int point1, int point2)
     {
+        System.out.format("(%f, %f) 1:%d 2:%d.%n", xIntercept, yIntercept, point1, point2);
         //if intercept falls within x range of edge
         if ((xIntercept > graph.getXPoint(point1) && xIntercept < graph.getXPoint(point2))
                 || (xIntercept < graph.getXPoint(point1) && xIntercept > graph.getXPoint(point2)))//(graph.getXPoint(point1) < graph.getXPoint(point2))
