@@ -73,7 +73,7 @@ public class MinConflictsSolver extends ConstraintSolver
             // start up new iterator
             itr = graph.theGraph.keySet().iterator();
             while (itr.hasNext())
-            {
+            { 
                 int nextKey = (int)itr.next();
                 Vertex currentVertex = theGraph.get(nextKey);
                 if (Conflicts(nextKey) > 0)
@@ -84,7 +84,10 @@ public class MinConflictsSolver extends ConstraintSolver
             }    
             step++;
             
-            
+            if (checkSolution() == true)
+            {
+                step = steps;
+            }
         }
         // if not solved by now, stop
         System.out.println("minConflicts finished");
