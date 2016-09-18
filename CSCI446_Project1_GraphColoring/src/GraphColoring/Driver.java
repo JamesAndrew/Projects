@@ -9,7 +9,8 @@ public class Driver {
     public static void main(String[] args) 
     {
         startupProcedure();
-        GreedySolver greedySolver = new GreedySolver(graph);
+        //GreedySolver greedySolver = new GreedySolver(graph);
+        MinConflictsSolver minConflictsSolver = new MinConflictsSolver(graph, 10); 
         graph.printGraph();
     }
     
