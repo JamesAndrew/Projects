@@ -10,10 +10,10 @@ import java.util.Map;
  */
 public class GreedySolver extends ConstraintSolver
 {
-    private final TempGraph graph;
+    private final Graph graph;
     private final Map<Integer, Vertex> theGraph;
     
-    public GreedySolver(TempGraph graph)
+    public GreedySolver(Graph graph)
     {
         this.graph = graph;
         theGraph = graph.theGraph;

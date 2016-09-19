@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Driver {
     
-    static TempGraph graph;
+    static Graph graph;
     
     public static void main(String[] args) 
     {
@@ -24,7 +24,7 @@ public class Driver {
         int numVertices = input.nextInt();
         System.out.println();
         
-        Temp_Graph_Generator graphGen = new Temp_Graph_Generator(numVertices);
+        Graph_Generator graphGen = new Graph_Generator(numVertices);
         graph = graphGen.generateGraph();
     }
 }
