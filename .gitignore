@@ -18,6 +18,10 @@ nb-configuration.xml
 *.ear
 # =========================
 
+# =========================
+# UML program specific (SIMP) files to ignore
+# =========================
+*.simp.bak
 
 # Windows image file caches
 Thumbs.db
