@@ -1,6 +1,5 @@
 package GraphColoring;
 
-import Exceptions.NotImplementedException;
 import java.util.*;
 
 /**
@@ -37,6 +36,7 @@ public class Vertex
         yValue = y;
     }
 
+    // <editor-fold defaultstate="collapsed" desc="Basic Getters and Setters">
     /**
      * Add an <Integer, Vertex> entry in edges to show that this vertex
      * if connected to the provided vertex.
@@ -61,4 +61,5 @@ public class Vertex
     {
         return yValue;
     }
+    // </editor-fold>
 }
