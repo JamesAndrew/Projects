@@ -10,4 +10,10 @@ public class BacktrackingForwardCheckingSolver extends ConstraintSolver
     {
         
     }
+
+    @Override
+    public void runSolver() 
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
