@@ -5,12 +5,12 @@ package GraphColoring;
  *
  * @version 09/08/16
  */
-public class SimpleBacktrackingSolver extends ConstraintSolver1
+public class SimpleBacktrackingSolver extends ConstraintSolver
 {
 
     private int numColors;
     private int[] colors;
-    private Graph1 graph;
+    private OriginalGraph graph;
     private int numPoints;
     private int numberOfNodeColorings; 
 
@@ -19,7 +19,7 @@ public class SimpleBacktrackingSolver extends ConstraintSolver1
 
     }
 
-    public void solve(Graph1 graph, int numColors)
+    public void solve(OriginalGraph graph, int numColors)
     {
         this.numColors = numColors;
         this.graph = graph;

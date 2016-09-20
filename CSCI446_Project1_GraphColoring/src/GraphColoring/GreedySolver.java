@@ -5,7 +5,7 @@ package GraphColoring;
  * of how this program will work
  * @version 09/08/16
  */
-public class GreedySolver extends ConstraintSolver1
+public class GreedySolver extends ConstraintSolver
 {
     public GreedySolver()
     {

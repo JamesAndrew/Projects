@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Random;
 
-public class Graph_Generator1
+public class OriginalGraphGen
 {
 
     private int numVertices;
@@ -18,9 +18,9 @@ public class Graph_Generator1
     // create random instance 
     Random rand = new Random();
 
-    public Graph_Generator1()
+    public OriginalGraphGen()
     {
-        Graph1 graph = generate();
+        OriginalGraph graph = generate();
         SimpleBacktrackingSolver btSolver = new SimpleBacktrackingSolver(); 
         btSolver.solve(graph, 4);
         BacktrackingForwardCheckingSolver fSolver = new BacktrackingForwardCheckingSolver(); 
@@ -33,19 +33,19 @@ public class Graph_Generator1
      *
      * @return a Graph object of n vertices
      */
-    private Graph1 generate()
+    private OriginalGraph generate()
     {
         System.out.println("=== Graph generator started ===");
         System.out.println("Enter number of vertices...:");
         numVertices = input.nextInt();
         System.out.println();
 
-        Graph1 graph = new Graph1(numVertices);
+        OriginalGraph graph = new OriginalGraph(numVertices);
 
         // for each vertex point generate a random (x,y) location between [0,1]
         for (int i = 0; i < numVertices; i++)
         {
-            graph.setPoint(i, ((float) rand.nextInt(101)) / 100, ((float) rand.nextInt(101)) / 100);
+            graph.setPoint(i, ((float) rand.nextInt(1001)) / 1000, ((float) rand.nextInt(101)) / 100);
         }
         //printPointLocations(graph);
         graph.sortPoints();
@@ -81,7 +81,7 @@ public class Graph_Generator1
      *
      * @param graph
      */
-    private void findClosestPoint(Graph1 graph)
+    private void findClosestPoint(OriginalGraph graph)
     {
         Map<Integer, ArrayList> vertices = initializeVertexMap();
 
@@ -178,7 +178,7 @@ public class Graph_Generator1
      *
      * @param graph : the graph to interact with
      */
-    private void connectVertices(Graph1 graph)
+    private void connectVertices(OriginalGraph graph)
     {
 
     }
@@ -192,7 +192,7 @@ public class Graph_Generator1
      * @param point2
      * @return : true if intersection found, false if not
      */
-    private boolean edgesIntersect(Graph1 graph, int point1, int point2)
+    private boolean edgesIntersect(OriginalGraph graph, int point1, int point2)
     {
         float[] eq1 = getLineEquation(graph, point1, point2);
 
@@ -254,7 +254,7 @@ public class Graph_Generator1
      * @param point2
      * @return : true if within range, false if not
      */
-    private boolean checkBounds(Graph1 graph, float xIntercept, float yIntercept, int point1, int point2)
+    private boolean checkBounds(OriginalGraph graph, float xIntercept, float yIntercept, int point1, int point2)
     {
         //System.out.format("(%f, %f) 1:%d 2:%d.%n", xIntercept, yIntercept, point1, point2);
         //if intercept falls within x range of edge
@@ -279,7 +279,7 @@ public class Graph_Generator1
      * @param point2
      * @return array containing slope and y intercept or null if vertical
      */
-    private float[] getLineEquation(Graph1 graph, int point1, int point2)
+    private float[] getLineEquation(OriginalGraph graph, int point1, int point2)
     {
         float[] mb = new float[2];
         float x1 = graph.getXPoint(point1);
@@ -298,7 +298,7 @@ public class Graph_Generator1
         return null;
     }
 
-    private void printPointLocations(Graph1 graph)
+    private void printPointLocations(OriginalGraph graph)
     {
         System.out.println("Generated point locations:");
         for (float[] point : graph.getPoints())
@@ -308,7 +308,7 @@ public class Graph_Generator1
         System.out.println();
     }
 
-    private void printGraph(Graph1 graph)
+    private void printGraph(OriginalGraph graph)
     {
         System.out.println("Generated graph:");
         for (int i = 0; i < numVertices; i++)

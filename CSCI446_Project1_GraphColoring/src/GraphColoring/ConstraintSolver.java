@@ -8,7 +8,7 @@ import Exceptions.NotImplementedException;
  *
  * @version 09/08/16
  */
-public abstract class ConstraintSolver1
+public abstract class ConstraintSolver
 {
 
     /**
@@ -17,7 +17,7 @@ public abstract class ConstraintSolver1
      * @param graph : The graph to check satisfiability on
      * @return
      */
-    public boolean SatisfiesConstraint(Graph1 graph, int[] colors, int point)
+    public boolean SatisfiesConstraint(OriginalGraph graph, int[] colors, int point)
     {
         //currently checks all points. Probly change to just check adjacent 
         int graphSize = graph.getPoints().length;
