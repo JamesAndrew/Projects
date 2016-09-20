@@ -3,13 +3,13 @@ package GraphColoring;
 import java.util.Arrays;
 
 // class Graph represents a graph object with attributes points and matrix 
-public class Graph {
+public class Graph1 {
 
     private final float[][] points; // stores the points of vertices 
     private final int[][] matrix; // stores the adjacency matrix representing the edges
 
     // constructor to initialize Graph class and its attributes
-    public Graph(int n) 
+    public Graph1(int n) 
     {
         points = new float[n][2];
         matrix = new int[n][n];

@@ -5,43 +5,91 @@ package GraphColoring;
  *
  * @version 09/08/16
  */
-public class SimpleBacktrackingSolver extends ConstraintSolver
+public class SimpleBacktrackingSolver extends ConstraintSolver1
 {
 
     private int numColors;
     private int[] colors;
-    private Graph graph;
-    private int numPoints; 
+    private Graph1 graph;
+    private int numPoints;
+    private int numberOfNodeColorings; 
 
     public SimpleBacktrackingSolver()
     {
 
     }
 
-    public void solve(Graph graph, int numColors)
+    public void solve(Graph1 graph, int numColors)
     {
         this.numColors = numColors;
         this.graph = graph;
         numPoints = graph.getPoints().length;
         colors = new int[numPoints];
-        backtrack(0); 
+        numberOfNodeColorings = 0; 
+        System.out.println(backtrack(0));
+        System.out.format("Nodes colored: %d%n", numberOfNodeColorings);
+        for (int c : colors)
+        {
+            System.out.println(c);
+        }
     }
 
-    private void backtrack(int point)
+    private boolean backtrack(int point)
     {
-        for (int color = 1; color < numColors; color++)
+        for (int color = 1; color <= numColors; color++)
         {
             colors[point] = color;
-            if (SatisfiesConstraint(graph, colors))
+            numberOfNodeColorings++; 
+            for (int c : colors)
             {
-                for (int i = 0; i < numPoints; i++)
+                System.out.println(c);
+            }
+            System.out.println();
+            if (SatisfiesConstraint(graph, colors, point))
+            {
+                if (allAdjacentColored(point))
                 {
-                    if (graph.getEdge(point, i) == 1 && colors[i] == 0)
+                    return true;
+                } else
+                {
+                    for (int i = 0; i < numPoints; i++)
                     {
-                        backtrack(i); 
+                        if (graph.getEdge(point, i) == 1 && colors[i] == 0)
+                        {
+                            if (backtrack(i)  && allNodesColored())
+                            {
+                                return true;
+                            }
+                        }
                     }
                 }
             }
         }
+        colors[point] = 0;
+        return false;
+    }
+
+    private boolean allAdjacentColored(int point)
+    {
+        for (int i = 0; i < numPoints; i++)
+        {
+            if (graph.getEdge(point, i) == 1 && colors[i] == 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean allNodesColored()
+    {
+        for (int color : colors)
+        {
+            if (color == 0)
+            {
+                return false; 
+            }
+        }
+        return true; 
     }
 }
