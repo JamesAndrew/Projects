@@ -1,7 +1,6 @@
 package GraphColoring;
 
 import java.util.Iterator;
-import java.util.Map;
 
 /**
  * This strategy is not needed but is used as an initial approach to get a sense
@@ -10,17 +9,15 @@ import java.util.Map;
  */
 public class GreedySolver extends ConstraintSolver
 {
-    private final Graph graph;
-    private final Map<Integer, Vertex> theGraph;
     
-    public GreedySolver(Graph graph)
+    public GreedySolver()
     {
-        this.graph = graph;
-        theGraph = graph.theGraph;
-        greedyColoringStrategy();
+        
     }
     
-    private void greedyColoringStrategy()
+    
+    @Override
+    public void runSolver() 
     {
         Iterator itr = graph.theGraph.keySet().iterator();
         

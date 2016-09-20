@@ -1,6 +1,5 @@
 package GraphColoring;
 
-import Exceptions.NotImplementedException;
 import java.util.Map;
 
 /**
@@ -23,13 +22,36 @@ public abstract class ConstraintSolver
     protected int verticesRecolored; 
     
     /**
+     * Each solver has class variables that store the pointer to the current graph
+     * being used
+     */
+    protected Graph graph;
+    protected Map<Integer, Vertex> theGraph;
+    
+    /**
+     * The logic of the current solver instance
+     */
+    public abstract void runSolver();
+    
+    /**
+     * replace the current graph references with the next graph to run the 
+     * solver on 
+     * @param graph : the next graph to use
+     */
+    public void updateGraph(Graph graph)
+    {
+        this.graph = graph;
+        this.theGraph = graph.theGraph;
+    }
+    
+    /**
      * Determine if the state of a graph satisfied the constraint
      * @param graph : The graph to check satisfiability on 
      * @return boolean : true if the constraint is satisfied
      */
     public boolean SatisfiesConstraint(Graph graph)
     {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     // <editor-fold defaultstate="collapsed" desc="Basic Getters and Setters">

@@ -8,16 +8,16 @@ package GraphColoring;
  */
 public class Graph_Generator 
 {
-    private final int graphSize;
+    private final int size;
     
-    public Graph_Generator(int n)
+    public Graph_Generator(int size)
     {
-        graphSize = n;
+        this.size = size;
     }
     
     public Graph generateGraph()
     {
-        Graph graph = new Graph(graphSize);
+        Graph graph = new Graph(size);
         
         return graph;
     }

@@ -1,7 +1,5 @@
 package GraphColoring;
 
-import Exceptions.NotImplementedException;
-
 /**
  * Statistical behavior analyzer.  
  * Interacts with a ConstraintSolver class and provides metrics based on
@@ -23,6 +21,6 @@ public class ResultCalculator
      */
     public double calculateRunMetrics()
     {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

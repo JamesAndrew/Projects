@@ -22,9 +22,7 @@ public class Graph
     {
         graphSize = n;
         fillGraphVertices();
-        printGraph();
         fillGraphEdges();
-        printGraph();
     }
     
     /**
@@ -49,10 +47,10 @@ public class Graph
         }
         
         // <editor-fold defaultstate="collapsed" desc="Print vertex distances from 0 before sort">
-        System.out.println("Vertex distance order before sort: ");
-        generatedVertices.stream().forEach((vertex) -> {
-            System.out.format("%f ", distance(0, 0, vertex.getxValue(), vertex.getyValue()));
-        });
+//        System.out.println("Vertex distance order before sort: ");
+//        generatedVertices.stream().forEach((vertex) -> {
+//            System.out.format("%f ", distance(0, 0, vertex.getxValue(), vertex.getyValue()));
+//        });
         // </editor-fold>
         
         // sort the array based on distance to (0,0) using MergeSort
@@ -60,11 +58,11 @@ public class Graph
         generatedVertices = vertexSort.sort(generatedVertices);
         
         // <editor-fold defaultstate="collapsed" desc="Print vertex distances from 0 after sort">
-        System.out.println("\nVertex distance order after sort: ");
-        generatedVertices.stream().forEach((vertex) -> {
-            System.out.format("%f ", distance(0, 0, vertex.getxValue(), vertex.getyValue()));
-        });
-        System.out.println("\n");
+//        System.out.println("\nVertex distance order after sort: ");
+//        generatedVertices.stream().forEach((vertex) -> {
+//            System.out.format("%f ", distance(0, 0, vertex.getxValue(), vertex.getyValue()));
+//        });
+//        System.out.println("\n");
         // </editor-fold>
         
         // assign the vertex its number and fill class field 'theGraph' with ordered vertices
