@@ -81,7 +81,7 @@ public class Graph_Generator
         }
     }
     
-    // <editor-fold defaultstate="collapsed" desc="Find Closest Point">
+    // <editor-fold defaultstate="collapsed" desc="All methods for connecting graph adges">
         /**
      * Pick node, find closest node to it and connect edge if valid.
      *
@@ -182,7 +182,6 @@ public class Graph_Generator
     }
 
 
-    // <editor-fold defaultstate="collapsed" desc="Check Intersection">
     /**
      * Check whether or not edge between chosen point will intersect with
      * existing edges
@@ -297,6 +296,7 @@ public class Graph_Generator
         }
         return null;
     }
+    // </editor-fold>
     
     /**
      * Mathematical function for Euclidian distance between two 2-d points.
