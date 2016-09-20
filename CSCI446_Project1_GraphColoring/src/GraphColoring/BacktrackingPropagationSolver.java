@@ -130,5 +130,10 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
         }
         return satisfied; 
     }
+
+    @Override
+    public void runSolver() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

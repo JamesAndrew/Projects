@@ -1,4 +1,3 @@
-
 package GraphColoring;
 
 import java.util.*;
@@ -63,4 +62,6 @@ public class Vertex
         return yValue;
     }
     // </editor-fold>
+
 }
+
