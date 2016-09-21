@@ -22,9 +22,9 @@ public class OriginalGraphGen
     {
         OriginalGraph graph = generate();
         SimpleBacktrackingSolver btSolver = new SimpleBacktrackingSolver(); 
-        btSolver.solve(graph, 4);
+        //btSolver.solve(graph, 4);
         BacktrackingForwardCheckingSolver fSolver = new BacktrackingForwardCheckingSolver(); 
-        fSolver.solve(graph, 4);
+        //fSolver.solve(graph, 4);
     }
 
     /**

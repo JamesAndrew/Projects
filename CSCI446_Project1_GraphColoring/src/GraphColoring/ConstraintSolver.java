@@ -51,15 +51,15 @@ public abstract class ConstraintSolver
      * @param graph : The graph to check satisfiability on 
      * @return boolean : true if the constraint is satisfied
      */
-    public boolean SatisfiesConstraint(OriginalGraph graph, int[] colors, int point)
+    public boolean SatisfiesConstraint(int point)
     {
         //currently checks all adjacent points
-        int graphSize = graph.getPoints().length;
+        int graphSize = graph.getGraphSize();
         for (int i = 0; i < graphSize; i++)
         {
-            int pointColor = colors[i];
+            int pointColor = theGraph.get(i).color;
 
-            if (graph.getEdge(point, i) == 1 && pointColor == colors[point])
+            if (theGraph.get(point).edges.containsKey(i) && pointColor == theGraph.get(point).color)//getEdge(point, i) == 1 && pointColor == colors[point])
             {
                 return false;
             }
