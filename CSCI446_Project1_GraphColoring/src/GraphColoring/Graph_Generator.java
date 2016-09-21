@@ -78,7 +78,7 @@ public class Graph_Generator
         for (int i = 0; i < generatedVertices.size(); i++)
         {
             Vertex currentVertex = generatedVertices.get(i);
-            currentVertex.vertexNum = i;
+            currentVertex.setVertexNum(i); 
             theGraph.put(i, generatedVertices.get(i));
         }
     }
@@ -351,8 +351,7 @@ public class Graph_Generator
      */
     public void printVertexDetails(Vertex vertex)
     {
-        System.out.format("Vertex number: %d, Location: (%f, %f), Color: %d%n", 
-                vertex.vertexNum, vertex.getxValue(), vertex.getyValue(), vertex.color);
+        System.out.format("Vertex number: %d, Location: (%f, %f), Color: %d%n", vertex.getVertexNum(), vertex.getxValue(), vertex.getyValue(), vertex.color);
         if (!vertex.edges.isEmpty())
         {
             Iterator itr = vertex.edges.entrySet().iterator();
@@ -362,11 +361,11 @@ public class Graph_Generator
                 Map.Entry pair = (Map.Entry)itr.next();
                 int key = (int)pair.getKey();
                 Vertex value = (Vertex)pair.getValue();
-                if (key != value.vertexNum)
+                if (key != value.getVertexNum())
                 {
                     System.out.format("%n%nConnected vertex has mismatch between key "
                             + "and value.vertexNum. Key = %d, vaule.vertexNum = %d. Continuing...%n%n",
-                            key, value.vertexNum);
+                            key, value.getVertexNum());
                 }
                 System.out.format("%d, ", key);
             }
@@ -384,7 +383,7 @@ public class Graph_Generator
      */
     public void printVertexConnections(Vertex vertex)
     {
-        System.out.format("Vertex %d is connected to vertices: ", vertex.vertexNum);
+        System.out.format("Vertex %d is connected to vertices: ", vertex.getVertexNum());
         for (Integer key : vertex.edges.keySet()) 
         {
             System.out.format("%d, ", key);

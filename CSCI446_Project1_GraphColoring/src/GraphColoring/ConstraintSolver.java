@@ -10,7 +10,6 @@ import java.util.Map;
  */
 public abstract class ConstraintSolver
 {
-
     /**
      * The following properties are for tracking metrics to be used in the statistical
      * ResultCalculator class. Each value for these properties represents the total
@@ -22,6 +21,9 @@ public abstract class ConstraintSolver
     protected int validColorings;
     protected int verticesVisited;   // might not use this one. Lets talk about it
     protected int verticesRecolored; 
+    
+    // Set by the driver to decide whether 3 or 4 colors are allowed for the run
+    protected int maxColors;
     
     /**
      * Each solver has class variables that store the pointer to the current graph
@@ -49,6 +51,8 @@ public abstract class ConstraintSolver
     /**
      * Determine if the state of a graph satisfied the constraint
      * @param graph : The graph to check satisfiability on 
+     * @param colors 
+     * @param point 
      * @return boolean : true if the constraint is satisfied
      */
     public boolean SatisfiesConstraint(OriginalGraph graph, int[] colors, int point)

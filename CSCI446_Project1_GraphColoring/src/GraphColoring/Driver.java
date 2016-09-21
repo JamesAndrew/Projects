@@ -11,12 +11,12 @@ public class Driver {
      */
     private final static int numberOfGraphs = 1;
     // initial amount of nodes to have for first graph generation
-    private final static int initialNumVertices = 6;
+    private final static int initialNumVertices = 4;
     // how many more vertices to have for each iteration of the graph
-    private final static int vertexGrowthSize = 1;
+    private final static int vertexGrowthSize = 0;
     // put the solvers you want the program to run on in here
     private final static List<Class<?>> solverList = Arrays.asList(
-            GreedySolver.class
+            GeneticAlgorithmSolver.class
     );
     
     public static void main(String[] args) throws InstantiationException, IllegalAccessException 
@@ -48,6 +48,7 @@ public class Driver {
             Graph currentGraph = new Graph_Generator(numVertices).generateGraph();
             for (ConstraintSolver solver : solvers) 
             {
+                printNextRunData(solver.getClass(), numVertices);
                 solver.updateGraph(currentGraph);
                 solver.runSolver();
                 currentGraph.printGraph();
@@ -83,6 +84,18 @@ public class Driver {
         
         String output = outputStr.toString();
         return output;
+    }
+    
+    /**
+     * Shows which constraint solver is about to be run with associated data
+     * @param currentSolver
+     * @param size
+     */
+    public static void printNextRunData(Class currentSolver, int size)
+    {
+        System.out.println("= Running next solver =");
+        System.out.format("Current algorithm: %s%n", currentSolver.getSimpleName());
+        System.out.format("Graph size: %d%n", size);
     }
     // </editor-fold>
 }

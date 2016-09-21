@@ -55,7 +55,7 @@
       </counter>
       <counter>
         <item-type type-id="" type="AbstractElementGroup" />
-        <value>24</value>
+        <value>20</value>
       </counter>
     </entity-ids>
     <diagrams>
@@ -67,11 +67,11 @@
     <fields>
       <counter>
         <type>SoftwareIdeasModeler.Core.DiagramItems.Fields.AttributeField</type>
-        <value>29</value>
+        <value>32</value>
       </counter>
       <counter>
         <type>SoftwareIdeasModeler.Core.DiagramItems.Fields.OperationField</type>
-        <value>27</value>
+        <value>31</value>
       </counter>
     </fields>
   </counters>
@@ -176,7 +176,7 @@
       </meta>
       <abstract-items />
       <sub-models />
-      <diagram type="uml-class" id="pc7766567480c40c7990d1d1044452a2a_674754566" name="ClassDiagram1" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="true" view-location="-117,-89">
+      <diagram type="uml-class" id="pc7766567480c40c7990d1d1044452a2a_674754566" name="ClassDiagram1" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="true" view-location="-166,-89">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -354,7 +354,7 @@
               </operation>
             </operations>
           </item>
-          <item id="di585947204570927089" cid="REL039" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="09/15/2016 18:40:29" from="di199985818559434313">
+          <item id="di585947204570927089" cid="REL039" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="09/15/2016 18:40:29" from="di199985818559434313" to="di102257169119606745">
             <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
               <text-style type="name" use-defaults="false" color="#FF000000" font="Segoe UI;12;" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
               <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
@@ -477,6 +477,9 @@
               <attribute id="a2c95879b28e441c2873ad4c51979e2cf416" cid="ELEM028" name="theGraph" type="Map&lt;Integer, Vertex&gt;" type-id="Map&lt;Integer, Vertex&gt;" visibility="protected">
                 <style class="default" />
               </attribute>
+              <attribute id="af6f6336c3cf94219856572661e9f883e315" cid="ELEM031" name="maxColors" type="Integer" type-id="Uml.Integer" visibility="protected">
+                <style class="default" />
+              </attribute>
             </attributes>
             <operations>
               <operation id="oa02680fdffe443888a6ea166660a2f57681" cid="ELEM009" name="satisfiesConstraint" type="Boolean" type-id="Uml.Boolean" visibility="protected">
@@ -538,12 +541,21 @@
               <attribute id="a97d0b9dd52a647ad91d027de85473e2e688" cid="ELEM017" name="edges" type="Map&lt;Integer, Vertex&gt;" type-id="Map&lt;Integer, Vertex&gt;" visibility="undefined">
                 <style class="default" />
               </attribute>
+              <attribute id="a0b76540665d744978037def2c367835e874" cid="ELEM029" name="fitness" type="double" type-id="double" visibility="undefined">
+                <style class="default" />
+              </attribute>
             </attributes>
             <operations>
               <operation id="o4d67b1c2122040eba1408f8154a9edf7949" cid="ELEM018" name="setEdge" type="" type-id="" visibility="undefined">
                 <style class="default" />
                 <parameters>
                   <parameter id="p600db72d345144d6bc2a1238db0b5d0a" name="destination" type="Vertex" type-id="Class:di961262738283290905" />
+                </parameters>
+              </operation>
+              <operation id="oec914e9eea0d4234a81d5671e921a4744" cid="ELEM030" name="calculateFitness" type="double" type-id="double" visibility="public">
+                <style class="default" />
+                <parameters>
+                  <parameter id="p11f200719473477aa09033b1f1c1cedf" name="connections" type="Vertex" type-id="Class:di961262738283290905" multiplicity="*" />
                 </parameters>
               </operation>
             </operations>
@@ -682,7 +694,7 @@
             <class />
           </item>
           <item id="di961262738283290905" iid="8f99f1bc69c843d2be81c0992c5374df" creation-date="09/15/2016 18:18:09" order-index="22" type="entity">
-            <layout ax="37.00415" ay="359.4152" awidth="225.4395" aheight="150.5848" x="37.00415" y="359.4152" width="225.4395" height="150.5848" />
+            <layout ax="-75" ay="360" awidth="338" aheight="189" x="-75" y="360" width="338" height="189" />
             <class />
           </item>
           <item id="di650473002969488407" iid="ef2ed81338964627a7858ed28ea25680" creation-date="09/08/2016 21:15:52" order-index="1" type="entity">
@@ -690,22 +702,22 @@
             <class />
           </item>
           <item id="di800483327443039152" iid="48b0876c82da4323b14ed118de696a47" creation-date="09/15/2016 18:22:10" order-index="23" type="relation">
-            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="139" y1="300" x2="138" y2="359" start-border-pos="0.63702208574436" end-border-pos="0.111782126128674" name-position="0,0">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="139" y1="300" x2="76" y2="360" start-border-pos="0.63702208574436" end-border-pos="0.111782126128674" name-position="0,0">
               <points>
                 <point x="139" y="300" />
-                <point x="138" y="359" />
+                <point x="76" y="360" />
               </points>
             </layout>
             <relation from="di249063793781095931" from-iid="bb467d3157ef4b26905e1f41c8311bf4" to="di961262738283290905" to-iid="8f99f1bc69c843d2be81c0992c5374df" />
           </item>
           <item id="di621894038885243649" iid="7a14aaa1ff674a5aa41538b36752be46" creation-date="09/15/2016 18:26:01" order-index="24" type="relation">
-            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="53" y1="359" x2="37" y2="405" start-border-pos="0.0180181320756674" end-border-pos="0.924999997019768" name-position="0,0">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="60,15" line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="-45" y1="360" x2="-75" y2="435" start-border-pos="0.0221893489360809" end-border-pos="0.900793671607971" name-position="0,0">
               <points>
-                <point x="53" y="359" />
-                <point x="53.25214" y="315" />
-                <point x="-6.51687" y="315" />
-                <point x="-6.51687" y="405" />
-                <point x="37" y="405" />
+                <point x="-45" y="360" />
+                <point x="-45" y="315" />
+                <point x="-105" y="315" />
+                <point x="-105" y="435" />
+                <point x="-75" y="435" />
               </points>
             </layout>
             <relation from="di961262738283290905" from-iid="8f99f1bc69c843d2be81c0992c5374df" to="di961262738283290905" to-iid="8f99f1bc69c843d2be81c0992c5374df" />
@@ -728,25 +740,25 @@
             <relation from="di199985818559434313" from-iid="c660fa3f353f4ac19248305594ffc57a" />
           </item>
           <item id="di520720354538319535" iid="816abb3229424be281eefad25b4cdbbd" creation-date="09/15/2016 19:49:50" order-index="34" type="comment-connector">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="465" y1="401" x2="465" y2="420" start-border-pos="0.625181899425134" end-border-pos="0.125" name-position="0,0">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="465" y1="418" x2="465" y2="420" start-border-pos="0.625181899425134" end-border-pos="0.125" name-position="0,0">
               <points>
-                <point x="465" y="401" />
+                <point x="465" y="418" />
                 <point x="465" y="420" />
               </points>
             </layout>
             <relation from="di102257169119606745" from-iid="3e1884f62de140fe8c83679c9c079474" to="di335202065467631960" to-iid="ff192b8265d74d53834367e3982b8e53" />
           </item>
           <item id="di845769863561042354" iid="73a3b509a682440191b625ad1d4594c3" creation-date="09/15/2016 18:33:48" order-index="25" type="relation">
-            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="30.0144,-9.956684" line-style="perpendicular" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="315" y1="287" x2="262" y2="255" start-border-pos="0.888586461544037" end-border-pos="0.374327301979065" name-position="0,0">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="30.0144,-9.956684" line-style="perpendicular" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="315" y1="294" x2="262" y2="255" start-border-pos="0.888586461544037" end-border-pos="0.374327301979065" name-position="0,0">
               <points>
-                <point x="315" y="287" />
+                <point x="315" y="294" />
                 <point x="262" y="255" />
               </points>
             </layout>
             <relation from="di102257169119606745" from-iid="3e1884f62de140fe8c83679c9c079474" to="di249063793781095931" to-iid="bb467d3157ef4b26905e1f41c8311bf4" />
           </item>
           <item id="di102257169119606745" iid="3e1884f62de140fe8c83679c9c079474" creation-date="09/08/2016 21:26:11" order-index="4" type="entity">
-            <layout ax="315" ay="195" awidth="300.4372" aheight="206" x="315" y="195" width="300.4372" height="206" />
+            <layout ax="315" ay="195" awidth="300.4372" aheight="223" x="315" y="195" width="300.4372" height="223" />
             <class />
           </item>
         </layer>
