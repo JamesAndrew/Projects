@@ -9,7 +9,7 @@ public class Driver {
      * Test settings and parameters. Based on these values we should be able
      * to do as many runs on as many solvers as desired.
      */
-    private final static int numberOfGraphs = 5;
+    private final static int numberOfGraphs = 1;
     // initial amount of nodes to have for first graph generation
     private final static int initialNumVertices = 3;
     // how many more vertices to have for each iteration of the graph

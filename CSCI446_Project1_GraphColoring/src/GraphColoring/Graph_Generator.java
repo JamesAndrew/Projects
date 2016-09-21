@@ -42,12 +42,12 @@ public class Graph_Generator
     private void fillGraphVertices() 
     {
         ArrayList<Vertex> generatedVertices = new ArrayList<>(graphSize);
-        Random rand = new Random();
+        Random randInt = new Random();
         
         for (int i = 0; i < graphSize; i++)
         {
-            double xValue = (double)rand.nextInt(1001) / 1000;
-            double yValue = (double)rand.nextInt(1001) / 1000;
+            double xValue = (double)randInt.nextInt(1001) / 1000;
+            double yValue = (double)randInt.nextInt(1001) / 1000;
             
             Vertex newVertex = new Vertex(xValue, yValue);
             generatedVertices.add(i, newVertex);
@@ -166,15 +166,15 @@ public class Graph_Generator
      */
     private Map<Integer, ArrayList> initializeVertexMap()
     {
-        ArrayList<Integer> possibleConnections = new ArrayList<Integer>();
+        ArrayList<Integer> possibleConnections = new ArrayList<>();
         for (int i = 0; i < graphSize; i++)
         {
             possibleConnections.add(i);
         }
-        Map<Integer, ArrayList> vertices = new HashMap<Integer, ArrayList>();
+        Map<Integer, ArrayList> vertices = new HashMap<>();
         for (int i = 0; i < graphSize; i++)
         {
-            ArrayList<Integer> comparisonVertices = new ArrayList<Integer>(possibleConnections);
+            ArrayList<Integer> comparisonVertices = new ArrayList<>(possibleConnections);
             comparisonVertices.remove(i);
             vertices.put(i, comparisonVertices);
         }

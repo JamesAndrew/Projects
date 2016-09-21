@@ -1,7 +1,5 @@
 package GraphColoring;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -17,7 +15,7 @@ public class Graph {
         graphSize = theGraph.size();
     }
     
-        // <editor-fold defaultstate="collapsed" desc="Various print methods">
+    // <editor-fold defaultstate="collapsed" desc="Various print methods">
     /**
      * Look through all entries in theGraph and display meaningful details
      */
@@ -63,7 +61,6 @@ public class Graph {
         }
         else 
             System.out.println("Edges: none assigned yet");
-        
     }
     
     /**
