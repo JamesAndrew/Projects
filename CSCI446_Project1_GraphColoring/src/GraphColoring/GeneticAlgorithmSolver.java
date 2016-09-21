@@ -50,10 +50,10 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         //while (!satisfied)
         {
             // select parent set to keep based on tournament selection
-            selectParentSet();
+            int[] leftoverVertexNums = selectParentSet();
             
             // apply crossover to generate children
-            crossover();
+            crossover(leftoverVertexNums);
             
             // apply tournament selection, crossover, mutation until 
             
@@ -78,6 +78,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     
     /**
      * Apply tournament selection until the parent set is full
+     * @returns an integer array of the vertex numbers not used by the parents
      */
     private int[] selectParentSet()
     {
@@ -169,10 +170,15 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     
     /**
      * Fill the children set using crossover
+     * @param leftoverVertexNums : IDs to be assigned to by children 
      */
-    private void crossover()
+    private void crossover(int[] leftoverVertexNums)
     {
-        
+        // loop until child set is filled
+        while (childSet.size() < childSetSize)
+        {
+            
+        }
     }
     
     /**

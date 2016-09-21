@@ -1,0 +1,5 @@
+- Fitness linear scaling from [0,1] based on how many conflicts occur
+- Populating parent set using tournament selection
+- Single-Point Crossover:
+	- Uses idea that the pattern of series of well fit chromosomes are good to replicate
+	- 
