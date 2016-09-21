@@ -11,7 +11,7 @@ public class Driver {
      */
     private final static int numberOfGraphs = 1;
     // initial amount of nodes to have for first graph generation
-    private final static int initialNumVertices = 4;
+    private final static int initialNumVertices = 7;
     // how many more vertices to have for each iteration of the graph
     private final static int vertexGrowthSize = 0;
     // put the solvers you want the program to run on in here

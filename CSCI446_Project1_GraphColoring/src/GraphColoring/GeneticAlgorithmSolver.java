@@ -22,6 +22,8 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     {
         // randomize the colors of all vertices
         initializePopulation();
+        // calculate initial fitness of each vertex after randomization
+        calculateAllFitness();
     }
     
     /**
@@ -37,6 +39,15 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             Vertex currentVert = theGraph.get(key);
             int randColor = rand.nextInt(maxColors);
             currentVert.color = randColor;
+        }
+    }
+    
+    private void calculateAllFitness()
+    {
+        for (int key : theGraph.keySet())
+        {
+            Vertex currentVert = theGraph.get(key);
+            currentVert.calculateFitness();
         }
     }
 }

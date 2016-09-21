@@ -48,23 +48,26 @@ public class Vertex
      * is causing. A fitness of 1 means no violations occur. This method takes
      * a list of connected vertices as input. Currently using a linear scale
      * of 1 - (conflicts / connected_edges) to calculate the value
-     * @param connections : list of vertices this vertex has edges to
      * @return A number between 0 and 1 that represents how fit this vertex is
      */
-    public double calculateFitness(Vertex[] connections)
+    public double calculateFitness()
     {
-        int numConnections = connections.length;
+        if (edges.isEmpty())
+        {
+            throw new RuntimeException("Vertex " + vertexNum + " has no edges connected to it.");
+        }
+            
+        int numConnections = edges.values().size();
         int numConflicts = 0;
         
-        for (Vertex vertex : connections)
+        for (Vertex vertex : edges.values())
         {
-            if (this.color == vertex.color)
+            if (color == vertex.color)
             {
                 numConflicts++;
             }
         }
-        
-        double fitnessValue = 1 - (numConflicts / numConnections);
+        double fitnessValue = 1.0 - ((double)numConflicts / (double)numConnections);
         
         return fitnessValue;
     }
