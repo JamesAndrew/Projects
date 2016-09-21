@@ -23,12 +23,14 @@ public class Graph_Generator
     public Graph_Generator(int n)
     {
         graphSize = n;
-        fillGraphVertices();
-        findClosestPoint();
     }
     
     public Graph generateGraph() 
     {
+        fillGraphVertices();
+        printVertexPlacements();
+        connectEdges();
+        printGraph();
         return new Graph(theGraph); 
     }
     
@@ -42,12 +44,12 @@ public class Graph_Generator
     private void fillGraphVertices() 
     {
         ArrayList<Vertex> generatedVertices = new ArrayList<>(graphSize);
-        Random rand = new Random();
+        Random randInt = new Random();
         
         for (int i = 0; i < graphSize; i++)
         {
-            double xValue = (double)rand.nextInt(1001) / 1000;
-            double yValue = (double)rand.nextInt(1001) / 1000;
+            double xValue = (double)randInt.nextInt(1001) / 1000;
+            double yValue = (double)randInt.nextInt(1001) / 1000;
             
             Vertex newVertex = new Vertex(xValue, yValue);
             generatedVertices.add(i, newVertex);
@@ -76,18 +78,18 @@ public class Graph_Generator
         for (int i = 0; i < generatedVertices.size(); i++)
         {
             Vertex currentVertex = generatedVertices.get(i);
-            currentVertex.vertexNum = i;
+            currentVertex.setVertexNum(i); 
             theGraph.put(i, generatedVertices.get(i));
         }
     }
     
     // <editor-fold defaultstate="collapsed" desc="All methods for connecting graph adges">
-        /**
+    /**
      * Pick node, find closest node to it and connect edge if valid.
      *
      * @param graph
      */
-    private void findClosestPoint()
+    private void connectEdges()
     {
         Map<Integer, ArrayList> vertices = initializeVertexMap();
 
@@ -97,7 +99,8 @@ public class Graph_Generator
             ArrayList keysAsArray = new ArrayList(vertices.keySet());
             int chosenPt = (int) keysAsArray.get(rand.nextInt(keysAsArray.size()));
             boolean edgeSet = false;
-            System.out.println("Point " + theGraph.get(chosenPt).getxValue() + ", " + theGraph.get(chosenPt).getyValue() + " chosen.");
+
+            //System.out.format("Point %d (%f, %f) chosen.%n", chosenPt, theGraph.get(chosenPt).getxValue(), theGraph.get(chosenPt).getyValue());
 
             while (!edgeSet && vertices.containsKey(chosenPt))
             {
@@ -105,17 +108,16 @@ public class Graph_Generator
                 float dist;             // current distance being checked
                 float pclosest = 100;   // closest distance to selected point seen thus far
 
-                System.out.println(chosenPt);
-
                 // loop through all points
                 ArrayList<Integer> current = vertices.get(chosenPt);
-                for (Iterator<Integer> iterator = current.iterator(); iterator.hasNext();)//for (int secondPt = 0; secondPt < numVertices; secondPt++)
+                for (Iterator<Integer> iterator = current.iterator(); iterator.hasNext();) //for (int secondPt = 0; secondPt < numVertices; secondPt++)
                 {
                     int secondPt = iterator.next();
                     // only consider pairs that do not have an edge between them, both directions
                     if (!theGraph.get(chosenPt).edges.containsKey(secondPt))
                     {
-                        dist = distance(theGraph.get(chosenPt).getxValue(), theGraph.get(chosenPt).getyValue(), theGraph.get(secondPt).getxValue(), theGraph.get(secondPt).getyValue());
+                        dist = distance(theGraph.get(chosenPt).getxValue(), theGraph.get(chosenPt).getyValue(), 
+                                theGraph.get(secondPt).getxValue(), theGraph.get(secondPt).getyValue());
 
                         if (dist > 0 && dist < pclosest)
                         {
@@ -123,13 +125,13 @@ public class Graph_Generator
                             pclosest = dist;
                         }
 
-                        System.out.format("Distance between point %d and %d is %f.%n", chosenPt, secondPt, dist);
+                        //System.out.format("Distance between point %d and %d is %f.%n", chosenPt, secondPt, dist);
                     } else
                     {
                         iterator.remove();
                     }
                 }
-                System.out.format("Closest point is %d.%n%n", closest);
+                //System.out.format("Closest point is %d.%n%n", closest);
                 
                 if (!current.isEmpty())
                 {
@@ -144,7 +146,7 @@ public class Graph_Generator
                         edgeSet = true; 
                     } else
                     {
-                        System.out.println("Collision Detected\n");
+                        //System.out.println("Collision Detected\n");
                         current.remove(current.indexOf(closest));
                     }
                 } else
@@ -166,15 +168,15 @@ public class Graph_Generator
      */
     private Map<Integer, ArrayList> initializeVertexMap()
     {
-        ArrayList<Integer> possibleConnections = new ArrayList<Integer>();
+        ArrayList<Integer> possibleConnections = new ArrayList<>();
         for (int i = 0; i < graphSize; i++)
         {
             possibleConnections.add(i);
         }
-        Map<Integer, ArrayList> vertices = new HashMap<Integer, ArrayList>();
+        Map<Integer, ArrayList> vertices = new HashMap<>();
         for (int i = 0; i < graphSize; i++)
         {
-            ArrayList<Integer> comparisonVertices = new ArrayList<Integer>(possibleConnections);
+            ArrayList<Integer> comparisonVertices = new ArrayList<>(possibleConnections);
             comparisonVertices.remove(i);
             vertices.put(i, comparisonVertices);
         }
@@ -331,6 +333,17 @@ public class Graph_Generator
         System.out.println();
     }
     
+    public void printVertexPlacements()
+    {
+        System.out.println("= Printing Vertex Locations =");
+        for (Integer key : theGraph.keySet())
+        {
+            Vertex currentVertex = theGraph.get(key);
+            System.out.format("Vertex %d: (%f, %f)%n", key, currentVertex.getxValue(), currentVertex.getyValue());
+        }
+        System.out.println();
+    }
+    
     /**
      * Print to console the vertex number, (x,y) value, color (if assigned),
      * and connected vertex numbers
@@ -338,8 +351,7 @@ public class Graph_Generator
      */
     public void printVertexDetails(Vertex vertex)
     {
-        System.out.format("Vertex number: %d, Location: (%f, %f), Color: %d%n", 
-                vertex.vertexNum, vertex.getxValue(), vertex.getyValue(), vertex.color);
+        System.out.format("Vertex number: %d, Location: (%f, %f), Color: %d%n", vertex.getVertexNum(), vertex.getxValue(), vertex.getyValue(), vertex.color);
         if (!vertex.edges.isEmpty())
         {
             Iterator itr = vertex.edges.entrySet().iterator();
@@ -349,11 +361,11 @@ public class Graph_Generator
                 Map.Entry pair = (Map.Entry)itr.next();
                 int key = (int)pair.getKey();
                 Vertex value = (Vertex)pair.getValue();
-                if (key != value.vertexNum)
+                if (key != value.getVertexNum())
                 {
                     System.out.format("%n%nConnected vertex has mismatch between key "
                             + "and value.vertexNum. Key = %d, vaule.vertexNum = %d. Continuing...%n%n",
-                            key, value.vertexNum);
+                            key, value.getVertexNum());
                 }
                 System.out.format("%d, ", key);
             }
@@ -371,7 +383,7 @@ public class Graph_Generator
      */
     public void printVertexConnections(Vertex vertex)
     {
-        System.out.format("Vertex %d is connected to vertices: ", vertex.vertexNum);
+        System.out.format("Vertex %d is connected to vertices: ", vertex.getVertexNum());
         for (Integer key : vertex.edges.keySet()) 
         {
             System.out.format("%d, ", key);

@@ -1,5 +1,6 @@
 package GraphColoring;
 
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -10,7 +11,6 @@ import java.util.Map;
  */
 public abstract class ConstraintSolver
 {
-
     /**
      * The following properties are for tracking metrics to be used in the statistical
      * ResultCalculator class. Each value for these properties represents the total
@@ -22,6 +22,9 @@ public abstract class ConstraintSolver
     protected int validColorings;
     protected int verticesVisited;   // might not use this one. Lets talk about it
     protected int verticesRecolored; 
+    
+    // Set by the driver to decide whether 3 or 4 colors are allowed for the run
+    protected int maxColors;
     
     /**
      * Each solver has class variables that store the pointer to the current graph
@@ -47,18 +50,39 @@ public abstract class ConstraintSolver
     }
     
     /**
-     * Determine if the state of a graph satisfied the constraint
-     * @param graph : The graph to check satisfiability on 
-     * @return boolean : true if the constraint is satisfied
+     * Determine if the state of the graph satisfies the constraint
+     * @return boolean : true if all vertices do not share a color with any
+     * vertex they are connected to
      */
-    public boolean SatisfiesConstraint(int point)
+    protected boolean graphSatisfiesConstraint()
+    {
+        boolean satisfied = true;
+        // for each vertex in the graph...
+        for (Iterator<Vertex> vertItr = theGraph.values().iterator(); vertItr.hasNext();) 
+        {
+            Vertex currentVertex = vertItr.next();
+            int currentColor = currentVertex.color;
+            
+            // for each vertex the current vertex is connected to...
+            for (Iterator<Vertex> edgeItr = currentVertex.edges.values().iterator(); edgeItr.hasNext();)
+            {
+                Vertex connectedVertex = edgeItr.next();
+                if (currentColor == connectedVertex.color)
+                {
+                    satisfied = false;
+                }
+            }
+        }
+        return satisfied;
+    }
+    
+    protected boolean pointSatisfiesConstraint(int point)
     {
         //currently checks all adjacent points
         int graphSize = graph.getGraphSize();
         for (int i = 0; i < graphSize; i++)
         {
             int pointColor = theGraph.get(i).color;
-
             if (theGraph.get(point).edges.containsKey(i) && pointColor == theGraph.get(point).color)//getEdge(point, i) == 1 && pointColor == colors[point])
             {
                 return false;

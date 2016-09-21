@@ -24,7 +24,7 @@ public class GreedySolver extends ConstraintSolver
         // Color first vertex with first color
         int firstKey = (int)itr.next();
         theGraph.get(firstKey).color = 1;
-        System.out.format("Gave vertex %d color %d.%n", theGraph.get(firstKey).vertexNum, theGraph.get(firstKey).color);
+        System.out.format("Gave vertex %d color %d.%n", theGraph.get(firstKey).getVertexNum(), theGraph.get(firstKey).color);
         
         // For all other vertices color the vertex the lowest available color 
         //that is not used by any vertex it is connected to
@@ -46,7 +46,7 @@ public class GreedySolver extends ConstraintSolver
                 }
             }
             
-            System.out.format("Gave vertex %d color %d.%n", currentVertex.vertexNum, currentVertex.color);
+            System.out.format("Gave vertex %d color %d.%n", currentVertex.getVertexNum(), currentVertex.color);
         }
     }
 }
