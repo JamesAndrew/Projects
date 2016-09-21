@@ -1,5 +1,6 @@
 package GraphColoring;
 
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -11,6 +12,9 @@ import java.util.Random;
  */
 public class GeneticAlgorithmSolver extends ConstraintSolver
 {
+    // the parent subset of the chromosomes
+    private Map<Integer, Vertex> parentSet;
+    private Map<Integer, Vertex> childSet;
     
     public GeneticAlgorithmSolver()
     {
@@ -22,8 +26,16 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     {
         // randomize the colors of all vertices
         initializePopulation();
-        // calculate initial fitness of each vertex after randomization
-        calculateAllFitness();
+        // set initial fitness of each vertex after randomization
+        setAllFitnesses();
+        boolean satisfied = graphSatisfiesConstraint();
+        
+        // run the algorithm until all vertices are valid colors
+        for (int i = 0; i < 10; i++)
+        //while (!satisfied)
+        {
+            // generate parents subset through tournament selection
+        }
     }
     
     /**
@@ -42,7 +54,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         }
     }
     
-    private void calculateAllFitness()
+    private void setAllFitnesses()
     {
         for (int key : theGraph.keySet())
         {

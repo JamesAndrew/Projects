@@ -1,5 +1,6 @@
 package GraphColoring;
 
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -49,13 +50,33 @@ public abstract class ConstraintSolver
     }
     
     /**
-     * Determine if the state of a graph satisfied the constraint
-     * @param graph : The graph to check satisfiability on 
-     * @param colors 
-     * @param point 
-     * @return boolean : true if the constraint is satisfied
+     * Determine if the state of the graph satisfies the constraint
+     * @return boolean : true if all vertices do not share a color with any
+     * vertex they are connected to
      */
-    public boolean SatisfiesConstraint(OriginalGraph graph, int[] colors, int point)
+    protected boolean graphSatisfiesConstraint()
+    {
+        boolean satisfied = true;
+        // for each vertex in the graph...
+        for (Iterator<Vertex> vertItr = theGraph.values().iterator(); vertItr.hasNext();) 
+        {
+            Vertex currentVertex = vertItr.next();
+            int currentColor = currentVertex.color;
+            
+            // for each vertex the current vertex is connected to...
+            for (Iterator<Vertex> edgeItr = currentVertex.edges.values().iterator(); edgeItr.hasNext();)
+            {
+                Vertex connectedVertex = edgeItr.next();
+                if (currentColor == connectedVertex.color)
+                {
+                    satisfied = false;
+                }
+            }
+        }
+        return satisfied;
+    }
+    
+    protected boolean pointSatisfiesConstraint(OriginalGraph graph, int[] colors, int point)
     {
         //currently checks all adjacent points
         int graphSize = graph.getPoints().length;

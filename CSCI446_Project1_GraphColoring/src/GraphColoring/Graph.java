@@ -6,7 +6,7 @@ import java.util.Map;
 // class Graph represents a graph object with attributes points and matrix 
 public class Graph {
     public final Map<Integer, Vertex> theGraph;
-    private int graphSize; 
+    private final int graphSize; 
     
     // constructor to initialize Graph class and its attributes
     public Graph(Map<Integer, Vertex> theGraph) 

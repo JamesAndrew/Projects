@@ -38,7 +38,7 @@ public class BacktrackingForwardCheckingSolver extends ConstraintSolver
         for (int color = 1; color <= numColors; color++)
         {
             colors[point] = color;
-            if (SatisfiesConstraint(graph, colors, point))
+            if (pointSatisfiesConstraint(graph, colors, point))
             {
                 numberOfNodeColorings++; 
                 if (allAdjacentColored(point))

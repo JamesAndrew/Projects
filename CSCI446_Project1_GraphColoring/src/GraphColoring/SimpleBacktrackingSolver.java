@@ -45,7 +45,7 @@ public class SimpleBacktrackingSolver extends ConstraintSolver
                 System.out.println(c);
             }
             System.out.println();
-            if (SatisfiesConstraint(graph, colors, point))
+            if (pointSatisfiesConstraint(graph, colors, point))
             {
                 if (allAdjacentColored(point))
                 {
