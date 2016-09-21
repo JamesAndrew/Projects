@@ -32,13 +32,14 @@ public class Graph {
     }
     
     /**
-     * Print to console the vertex number, (x,y) value, color (if assigned),
+     * Print to console the vertex number, (x,y) value, color (if assigned), fitness value
      * and connected vertex numbers
      * @param vertex : The vertex to print details about
      */
-    public void printVertexDetails(Vertex vertex)
+    private void printVertexDetails(Vertex vertex)
     {
-        System.out.format("Vertex number: %d, Location: (%f, %f), Color: %d%n", vertex.getVertexNum(), vertex.getxValue(), vertex.getyValue(), vertex.color);
+        System.out.format("Vertex number: %d, Location: (%f, %f), Color: %d, Fitness: %f%n", 
+                vertex.getVertexNum(), vertex.getxValue(), vertex.getyValue(), vertex.color, vertex.getFitness());
         if (!vertex.edges.isEmpty())
         {
             Iterator itr = vertex.edges.entrySet().iterator();
@@ -59,7 +60,10 @@ public class Graph {
             System.out.println();
         }
         else 
-            System.out.println("Edges: none assigned yet");
+        {
+            System.out.println("Edge connections to vertices: ");
+            printVertexConnections(vertex);
+        }
     }
     
     /**
@@ -69,7 +73,6 @@ public class Graph {
      */
     public void printVertexConnections(Vertex vertex)
     {
-        System.out.format("Vertex %d is connected to vertices: ", vertex.getVertexNum());
         for (Integer key : vertex.edges.keySet()) 
         {
             System.out.format("%d, ", key);

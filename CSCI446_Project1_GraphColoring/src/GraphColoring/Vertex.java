@@ -72,6 +72,8 @@ public class Vertex
         return fitnessValue;
     }
     
+    // </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Basic Getters and Setters">
     /**
      * Add an <Integer, Vertex> entry in edges to show that this vertex
@@ -113,5 +115,14 @@ public class Vertex
     {
         this.vertexNum = vertexNum;
     }
+    
+    /**
+     * @return the fitness
+     */
+    public double getFitness() {
+        return fitness;
+    }
     // </editor-fold>
+
+    
 }

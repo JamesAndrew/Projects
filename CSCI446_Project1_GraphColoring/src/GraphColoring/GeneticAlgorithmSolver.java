@@ -47,7 +47,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         for (int key : theGraph.keySet())
         {
             Vertex currentVert = theGraph.get(key);
-            currentVert.calculateFitness();
+            currentVert.fitness = currentVert.calculateFitness();
         }
     }
 }
