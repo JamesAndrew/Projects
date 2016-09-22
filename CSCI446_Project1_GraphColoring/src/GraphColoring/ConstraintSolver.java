@@ -1,5 +1,6 @@
 package GraphColoring;
 
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -34,6 +35,12 @@ public abstract class ConstraintSolver
     protected Map<Integer, Vertex> theGraph;
     
     /**
+     * results and runs PrintWriter
+     */
+    protected static PrintWriter results;
+    protected static PrintWriter runs;
+    
+    /**
      * The logic of the current solver instance
      */
     public abstract void runSolver();
@@ -47,6 +54,14 @@ public abstract class ConstraintSolver
     {
         this.graph = graph;
         this.theGraph = graph.theGraph;
+    }
+    
+    /**
+     * method to give solver classes access to file writers
+     */
+    public void printFile(PrintWriter run)
+    {
+        runs = run;
     }
     
     /**
@@ -90,6 +105,7 @@ public abstract class ConstraintSolver
         }
         return true;
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="Basic Getters and Setters">
     /**

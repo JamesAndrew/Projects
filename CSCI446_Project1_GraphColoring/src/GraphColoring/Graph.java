@@ -1,5 +1,6 @@
 package GraphColoring;
 
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -8,11 +9,19 @@ public class Graph {
     public final Map<Integer, Vertex> theGraph;
     private final int graphSize; 
     
+    /**
+     * results and runs PrintWriter
+     */
+    protected static PrintWriter results;
+    protected static PrintWriter runs;
+    
     // constructor to initialize Graph class and its attributes
-    public Graph(Map<Integer, Vertex> theGraph) 
+    public Graph(Map<Integer, Vertex> theGraph, PrintWriter run) 
     {
         this.theGraph = theGraph;   
         graphSize = theGraph.size();
+        
+        runs = run;
     }
     
     // <editor-fold defaultstate="collapsed" desc="Various print methods">
@@ -21,14 +30,14 @@ public class Graph {
      */
     public final void printGraph()
     {
-        System.out.println("\n=== Printing Graph State... ===");
+        runs.println("\n=== Printing Graph State... ===");
         theGraph.keySet().stream().map((key) -> {
-            System.out.format("Graph node %d. Printing vertex details...%n", key);
+            runs.format("Graph node %d. Printing vertex details...%n", key);
             return key;
         }).map((key) -> theGraph.get(key)).forEach((currentVertex) -> {
             printVertexDetails(currentVertex);
         });
-        System.out.println();
+        runs.println();
     }
     
     /**
@@ -38,12 +47,12 @@ public class Graph {
      */
     private void printVertexDetails(Vertex vertex)
     {
-        System.out.format("Vertex number: %d, Location: (%f, %f), Color: %d, Fitness: %f%n", 
+        runs.format("Vertex number: %d, Location: (%f, %f), Color: %d, Fitness: %f%n", 
                 vertex.getVertexNum(), vertex.getxValue(), vertex.getyValue(), vertex.color, vertex.getFitness());
         if (!vertex.edges.isEmpty())
         {
             Iterator itr = vertex.edges.entrySet().iterator();
-            System.out.print("Edges: ");
+            runs.print("Edges: ");
             while(itr.hasNext())
             {
                 Map.Entry pair = (Map.Entry)itr.next();
@@ -51,17 +60,17 @@ public class Graph {
                 Vertex value = (Vertex)pair.getValue();
                 if (key != value.getVertexNum())
                 {
-                    System.out.format("%n%nConnected vertex has mismatch between key "
+                    runs.format("%n%nConnected vertex has mismatch between key "
                             + "and value.vertexNum. Key = %d, vaule.vertexNum = %d. Continuing...%n%n",
                             key, value.getVertexNum());
                 }
-                System.out.format("%d, ", key);
+                runs.format("%d, ", key);
             }
-            System.out.println();
+            runs.println();
         }
         else 
         {
-            System.out.println("Edge connections to vertices: ");
+            runs.println("Edge connections to vertices: ");
             printVertexConnections(vertex);
         }
     }
@@ -75,9 +84,9 @@ public class Graph {
     {
         for (Integer key : vertex.edges.keySet()) 
         {
-            System.out.format("%d, ", key);
+            runs.format("%d, ", key);
         }
-        System.out.println();
+        runs.println();
     }
     // </editor-fold>
 

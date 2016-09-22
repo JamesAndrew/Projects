@@ -29,10 +29,7 @@ public class MinConflictsSolver extends ConstraintSolver
         
         // create iterator to loop through nodes
         Iterator itr = graph.theGraph.keySet().iterator();
-        
-        System.out.println("minConflicts algorithm");
-        
-        
+        runs.println("minConflicts algorithm");
         
 
         // start up new iterator
@@ -44,7 +41,7 @@ public class MinConflictsSolver extends ConstraintSolver
         // Color first vertex with a random color
         int firstKey = (int)itr.next();
         theGraph.get(firstKey).color = rand.nextInt(maxColor-1) + 1;
-        System.out.format("Gave vertex %d color %d.%n", theGraph.get(firstKey).getVertexNum(), theGraph.get(firstKey).color);
+        runs.format("Gave vertex %d color %d.%n", theGraph.get(firstKey).getVertexNum(), theGraph.get(firstKey).color);
 
         // For all other vertices color the vertex a random color
         while (itr.hasNext())
@@ -53,7 +50,7 @@ public class MinConflictsSolver extends ConstraintSolver
             Vertex currentVertex = theGraph.get(nextKey);
             currentVertex.color = rand.nextInt(maxColor-1) + 1;
 
-            System.out.format("Gave vertex %d color %d.%n", currentVertex.getVertexNum(), currentVertex.color);
+            runs.format("Gave vertex %d color %d.%n", currentVertex.getVertexNum(), currentVertex.color);
         }    
         graph.printGraph();
         
@@ -64,7 +61,7 @@ public class MinConflictsSolver extends ConstraintSolver
         int step = 0;
         while (step < steps)
         {
-            System.out.println("step " + step);
+            runs.println("step " + step);
             /**
              * Go through all nodes with conflicts and resolve them
              */
@@ -73,12 +70,13 @@ public class MinConflictsSolver extends ConstraintSolver
             while (itr.hasNext())
             { 
                 int nextKey = (int)itr.next();
+                runs.println("Node " + nextKey);
                 Vertex currentVertex = theGraph.get(nextKey);
                 if (Conflicts(nextKey) > 0)
                 {
                     resolveConflicts(nextKey);
                 }
-                System.out.format("Gave vertex %d color %d.%n", currentVertex.getVertexNum(), currentVertex.color);
+                runs.format("Gave vertex %d color %d.%n", currentVertex.getVertexNum(), currentVertex.color);
             }    
             step++;
             
@@ -88,7 +86,7 @@ public class MinConflictsSolver extends ConstraintSolver
             }
         }
         // if not solved by now, stop
-        System.out.println("minConflicts finished");
+        runs.println("minConflicts finished");
     }
     
     /**
@@ -102,16 +100,16 @@ public class MinConflictsSolver extends ConstraintSolver
         boolean checkSolution = checkIfSolution();
         if (checkSolution == false)
         {
-            System.out.println("Not a solution");
+            runs.println("Not a solution");
             return false;
         }
         else if (checkSolution == true)
         {
-            System.out.println("It's a solution");
+            runs.println("It's a solution");
             return true;
         }
         else
-            System.out.println("checkIfSolution() seems to have failed...");
+            runs.println("checkIfSolution() seems to have failed...");
 
         return false;
     }
@@ -165,7 +163,7 @@ public class MinConflictsSolver extends ConstraintSolver
                 conflicts++;
             }
         }
-        System.out.println("Key " + curKey + " has " + conflicts + " conflicts");
+        runs.println("Node " + curKey + " has " + conflicts + " conflicts");
         return conflicts;
     }
     
@@ -182,7 +180,7 @@ public class MinConflictsSolver extends ConstraintSolver
         // loop through the colors
         for(int curColor = 1; curColor < maxColor + 1; curColor++)
         {
-            System.out.println("Key " + curKey + " with color " + curColor);
+            runs.println("Key " + curKey + " with color " + curColor);
             theGraph.get(curKey).color = curColor;
             if(Conflicts(curKey) < leastConflicts)
             {
