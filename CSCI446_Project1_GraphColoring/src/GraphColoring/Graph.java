@@ -4,15 +4,40 @@ import java.util.Iterator;
 import java.util.Map;
 
 // class Graph represents a graph object with attributes points and matrix 
-public class Graph {
+public class Graph 
+{
     public final Map<Integer, Vertex> theGraph;
     private final int graphSize; 
+    // fitness is determined by how many color violations the current graph has
+    // A fitness of 1 means no violations occur. Initial fitness 
+    // is 0 
+    public int fitness = 0;
     
     // constructor to initialize Graph class and its attributes
     public Graph(Map<Integer, Vertex> theGraph) 
     {
         this.theGraph = theGraph;   
         graphSize = theGraph.size();
+    }
+    
+    /**
+     * Fitness is determined by how many color violations the current graph
+     * is causing. A fitness of 1 means no violations occur. This method takes
+     * @return a number between [0, graph_size] showing how many vertices were
+     * not in conflict in the graph
+     */
+    public int calculateFitness()
+    {
+        fitness = 0;
+        for (Vertex vertex : theGraph.values())
+        {
+            boolean vertFitness = vertex.calculateFitness();
+            if (vertFitness)
+            {
+                fitness++;
+            }
+        }
+        return fitness;
     }
     
     // <editor-fold defaultstate="collapsed" desc="Various print methods">
@@ -38,7 +63,7 @@ public class Graph {
      */
     private void printVertexDetails(Vertex vertex)
     {
-        System.out.format("Vertex number: %d, Location: (%f, %f), Color: %d, Fitness: %f%n", 
+        System.out.format("Vertex number: %d, Location: (%f, %f), Color: %d, Fitness: %b%n", 
                 vertex.getVertexNum(), vertex.getxValue(), vertex.getyValue(), vertex.color, vertex.getFitness());
         if (!vertex.edges.isEmpty())
         {

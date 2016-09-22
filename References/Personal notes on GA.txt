@@ -1,5 +1,4 @@
-- Fitness linear scaling from [0,1] based on how many conflicts occur
+- Fitness is integer number based on how many vertcies are not valid in the graph. Don't care about how many conflicts each 
+	specific vertex has, just that there is a conflict.
 - Populating parent set using tournament selection
 - Single-Point Crossover:
-	- Uses idea that the pattern of series of well fit chromosomes are good to replicate
-	- 

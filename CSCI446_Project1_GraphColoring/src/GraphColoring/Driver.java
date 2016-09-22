@@ -11,7 +11,7 @@ public class Driver {
      */
     private final static int numberOfGraphs = 1;
     // initial amount of nodes to have for first graph generation
-    private final static int initialNumVertices = 10;
+    private final static int initialNumVertices = 4;
     // how many more vertices to have for each iteration of the graph
     private final static int vertexGrowthSize = 0;
     // put the solvers you want the program to run on in here
@@ -51,7 +51,11 @@ public class Driver {
                 printNextRunData(solver.getClass(), numVertices);
                 solver.updateGraph(currentGraph);
                 solver.runSolver();
-                currentGraph.printGraph();
+                
+                // <editor-fold defaultstate="collapsed" desc="Print graph after solver run if desired">
+//                System.out.println("\n=== Graph Print After Current Solver Run: ===");
+//                currentGraph.printGraph();
+                // </editor-fold>
             }
             
             numVertices += vertexGrowthSize;
