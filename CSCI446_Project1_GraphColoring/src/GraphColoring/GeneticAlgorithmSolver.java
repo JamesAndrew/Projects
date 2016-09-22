@@ -105,12 +105,21 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             
             // set bestGraph and determine loop condition. Exit if satisfied
             satisfied = determineStatus();
-            System.out.format("Satisfied value: %b%n", satisfied);
+            
+            // <editor-fold defaultstate="collapsed" desc="Print best graph state for current generation">
+//            System.out.format("Satisfied value: %b%n", satisfied);
             System.out.println("the graph value: " + graph.getFitness() + " out of " + graph.getGraphSize());
-            bestGraph.printGraph();
+//            bestGraph.printGraph();
+            // </editor-fold>
             
             loopIteration++;
         }
+        
+        // <editor-fold defaultstate="collapsed" desc="Print final graph state">
+        System.out.format("%n= Final Generation Graph =%n");
+        System.out.format("Satisfied value: %b%n", satisfied);
+        System.out.println("the graph value: " + graph.getFitness() + " out of " + graph.getGraphSize());
+        bestGraph.printGraph();
     }
     
     /**
