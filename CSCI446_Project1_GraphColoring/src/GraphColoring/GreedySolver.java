@@ -1,7 +1,6 @@
 package GraphColoring;
 
 import java.util.Iterator;
-import java.util.Map;
 
 /**
  * This strategy is not needed but is used as an initial approach to get a sense
@@ -10,24 +9,22 @@ import java.util.Map;
  */
 public class GreedySolver extends ConstraintSolver
 {
-    private final TempGraph graph;
-    private final Map<Integer, Vertex> theGraph;
     
-    public GreedySolver(TempGraph graph)
+    public GreedySolver()
     {
-        this.graph = graph;
-        theGraph = graph.theGraph;
-        greedyColoringStrategy();
+        
     }
     
-    private void greedyColoringStrategy()
+    
+    @Override
+    public void runSolver() 
     {
         Iterator itr = graph.theGraph.keySet().iterator();
         
         // Color first vertex with first color
         int firstKey = (int)itr.next();
         theGraph.get(firstKey).color = 1;
-        System.out.format("Gave vertex %d color %d.%n", theGraph.get(firstKey).vertexNum, theGraph.get(firstKey).color);
+        System.out.format("Gave vertex %d color %d.%n", theGraph.get(firstKey).getVertexNum(), theGraph.get(firstKey).color);
         
         // For all other vertices color the vertex the lowest available color 
         //that is not used by any vertex it is connected to
@@ -49,7 +46,7 @@ public class GreedySolver extends ConstraintSolver
                 }
             }
             
-            System.out.format("Gave vertex %d color %d.%n", currentVertex.vertexNum, currentVertex.color);
+            System.out.format("Gave vertex %d color %d.%n", currentVertex.getVertexNum(), currentVertex.color);
         }
     }
 }

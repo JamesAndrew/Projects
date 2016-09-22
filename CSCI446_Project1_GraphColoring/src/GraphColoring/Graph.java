@@ -1,117 +1,93 @@
 package GraphColoring;
 
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 // class Graph represents a graph object with attributes points and matrix 
 public class Graph {
-    public final Map<Vertex, Set<Vertex>> theGraph = new HashMap<>();
-
-    private final float[][] points; // stores the points of vertices 
-    private final int[][] matrix; // stores the adjacency matrix representing the edges
-
-    /** constructor to initialize Graph class and its attributes
-     * 
-     * @param n The number of vertices to have
-     */
-    public Graph(int n) 
+    public final Map<Integer, Vertex> theGraph;
+    private final int graphSize; 
+    
+    // constructor to initialize Graph class and its attributes
+    public Graph(Map<Integer, Vertex> theGraph) 
     {
-        
-        points = new float[n][2];
-        matrix = new int[n][n];
+        this.theGraph = theGraph;   
+        graphSize = theGraph.size();
     }
-
-    // method to set points coordinates given index i, value of x, and value of y 
-    public void setPoint(int i, float x, float y) 
-    {
-        points[i][0] = x;
-        points[i][1] = y;
-    }
-
-    // method to get x points coordinate 
-    public float getXPoint(int i) 
-    {
-        return points[i][0];
-    }
-
-    // method to get y points coordinate 
-    public float getYPoint(int i) 
-    {
-        return points[i][1];
-    }
-
-    // method to set points values given index i, index j, and value of v
-    public void setEdge(int i, int j, int v) 
-    {
-        matrix[i][j] = v;
-    }
-
-    // method to get matrix value given index i and index j
-    public int getEdge(int i, int j) 
-    {
-        return matrix[i][j];
-    }
-
+    
+    // <editor-fold defaultstate="collapsed" desc="Various print methods">
     /**
-     * @return the points
+     * Look through all entries in theGraph and display meaningful details
      */
-    public float[][] getPoints() 
+    public final void printGraph()
     {
-        return points;
+        System.out.println("\n=== Printing Graph State... ===");
+        theGraph.keySet().stream().map((key) -> {
+            System.out.format("Graph node %d. Printing vertex details...%n", key);
+            return key;
+        }).map((key) -> theGraph.get(key)).forEach((currentVertex) -> {
+            printVertexDetails(currentVertex);
+        });
+        System.out.println();
     }
     
     /**
-     * 
-     * @param graph 
-     * sort the points array by x then y while still maintaining pairs
-     * should make finding a range of coordinates faster in the long run
-     * uses a radix type sort using basic sort instead of counting sort
+     * Print to console the vertex number, (x,y) value, color (if assigned), fitness value
+     * and connected vertex numbers
+     * @param vertex : The vertex to print details about
      */
-    public void sortPoints()
+    private void printVertexDetails(Vertex vertex)
     {
-        // sort by y first then x or the order will be backwards 
-        float temp[] = new float [2]; // temporarily store smallest point
-        for (int j = 0; j < points.length; j++)
+        System.out.format("Vertex number: %d, Location: (%f, %f), Color: %d, Fitness: %f%n", 
+                vertex.getVertexNum(), vertex.getxValue(), vertex.getyValue(), vertex.color, vertex.getFitness());
+        if (!vertex.edges.isEmpty())
         {
-            int smallest = j; // assume smallest element is first one
-            for (int i = j; i < points.length; i++)
+            Iterator itr = vertex.edges.entrySet().iterator();
+            System.out.print("Edges: ");
+            while(itr.hasNext())
             {
-                if (points[i][1] < points[smallest][1])
+                Map.Entry pair = (Map.Entry)itr.next();
+                int key = (int)pair.getKey();
+                Vertex value = (Vertex)pair.getValue();
+                if (key != value.getVertexNum())
                 {
-                    smallest = i;
+                    System.out.format("%n%nConnected vertex has mismatch between key "
+                            + "and value.vertexNum. Key = %d, vaule.vertexNum = %d. Continuing...%n%n",
+                            key, value.getVertexNum());
                 }
+                System.out.format("%d, ", key);
             }
-            
-            temp = Arrays.copyOf(points[j], 2); // set temp to current row j
-            //System.out.println("current row: " + points[j][0] + ", " + points[j][1]);
-            points[j] = Arrays.copyOf(points[smallest], 2); // set first row to row with smallest y
-            //System.out.println("current row: " + points[j][0] + ", " + points[j][1]);
-            points[smallest] = Arrays.copyOf(temp, 2); // set the smallest row to temp
-            // rows should now be swapped
+            System.out.println();
         }
-        
-        // now sort x
-        for (int j = 0; j < points.length; j++)
+        else 
         {
-            int smallest = j; // assume smallest element is first one
-            for (int i = j; i < points.length; i++)
-            {
-                if (points[i][0] < points[smallest][0])
-                {
-                    smallest = i;
-                }
-            }
-            
-            temp = Arrays.copyOf(points[j], 2); // set temp to current row j
-            //System.out.println("current row: " + points[j][0] + ", " + points[j][1]);
-            points[j] = Arrays.copyOf(points[smallest], 2); // set first row to row with smallest y
-            //System.out.println("current row: " + points[j][0] + ", " + points[j][1]);
-            points[smallest] = Arrays.copyOf(temp, 2); // set the smallest row to temp
-            // rows should now be swapped
+            System.out.println("Edge connections to vertices: ");
+            printVertexConnections(vertex);
         }
     }
     
-    
+    /**
+     * Print to console the vertex numbers the input vertex is connected 
+     * (has an edge) to.
+     * @param vertex : The input vertex
+     */
+    public void printVertexConnections(Vertex vertex)
+    {
+        for (Integer key : vertex.edges.keySet()) 
+        {
+            System.out.format("%d, ", key);
+        }
+        System.out.println();
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Basic Getters and Setters">
+    /**
+     * @return the graphSize
+     */
+    public int getGraphSize() 
+    {
+        return graphSize;
+    }
+    // </editor-fold>
 }
