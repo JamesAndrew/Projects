@@ -13,3 +13,6 @@
 	- Used ceiling function of repair_rate * population_array.size to ensure repair happens at least once
 	- Find next closest chromosome to repair if current one is already fit
 	- Don't do anything if current chromosome cannot be repaired to a better value
+	
+- GA often gets trapped for larger graph sizes when there are less than 5 invalid nodes left. Ideas thus far are
+	- Try different evolution strategies depending how fit the graph is 

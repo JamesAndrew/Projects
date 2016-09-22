@@ -17,9 +17,9 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
      * update graph method
      */
     // Apply mutation on n% of chromosomes in a child individual
-    private final double mutationRate = 0.05;
+    private final double mutationRate = 0.30;
     // Apply repair function on n% of chromosomes for all individuals
-    private final double repairRate = 0.10;
+    private final double repairRate = 0.05;
     // The population is made of individuals which are a graph with [num_vertices] nodes
     private final int tournamentSize = 2;
     // population size must equal the number of vertices in the graph
@@ -40,7 +40,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     
     public GeneticAlgorithmSolver()
     {
-        maxColors = 3;
+        maxColors = 4;
     }
     
     @Override
@@ -52,7 +52,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         // loop until constraint is meet
         boolean satisfied = false;
         int loopIteration = 0;
-        while (!satisfied && loopIteration < 20000)
+        while (!satisfied && loopIteration < 10000)
         //for (int i = 0; i < 3; i++)
         {
             System.out.format("%n== Current Generation: %d ==%n", loopIteration);

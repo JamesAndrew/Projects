@@ -69,7 +69,6 @@ public abstract class ConstraintSolver
                 Vertex connectedVertex = edgeItr.next();
                 if (currentColor == connectedVertex.color)
                 {
-                    System.out.println("Setting satisfied to false.");
                     satisfied = false;
                     break;
                 }
