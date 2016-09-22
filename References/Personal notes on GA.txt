@@ -7,3 +7,5 @@
 		- Child 1 gets the first half of parent 1's choromosomes and second half of parent 2's choromosomes
 		- Child 2 gets the second half of parent 1's chromosomes and the first half of parent 1's choromosomes
 	- No preference on which parent gets +1 chromosome for odd numbered sizes
+- Mutation: Pick n% of chromosomes in each child. If the chromosome does not have perfect fitness, it a new random color 
+	- Used ceiling function of mutation_rate * children_array.size to ensure mutation happens at least once

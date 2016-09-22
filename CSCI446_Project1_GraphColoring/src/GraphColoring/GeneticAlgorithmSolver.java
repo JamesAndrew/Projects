@@ -15,6 +15,8 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
      * In order to be dynamically set, some instantiations are found in the 
      * update graph method
      */
+    // Apply mutation on n% of chromosomes in a child individual
+    private final double mutationRate = 0.05;
     // The population is made of individuals which are a graph with [num_vertices] nodes
     private final int tournamentSize = 2;
     // population size must equal the number of vertices in the graph
@@ -73,9 +75,62 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
 //            printPopulationValues(childSet);
             // </editor-fold>
             
+            // mutate some of the children
+            // <editor-fold defaultstate="collapsed" desc="Print children chromosomes before mutation">
+//            System.out.println("Children chromosomes before mutation: " );
+//            for (Graph child : childSet)
+//            {
+//                System.out.format("%s, %n", child.getChromosomeArray());
+//            }
+//            System.out.println();
+            // </editor-fold>
+            mutateChildren(childSet);
+            // <editor-fold defaultstate="collapsed" desc="Print children chromosomes after mutation">
+//            System.out.println("Children chromosomes after mutation: " );
+//            for (Graph child : childSet)
+//            {
+//                System.out.format("%s, %n", child.getChromosomeArray());
+//            }
+//            System.out.println();
+            // </editor-fold>
+            
             // set bestGraph and determine loop condition. Exit if satisfied
             satisfied = determineStatus();
             loopIteration++;
+        }
+    }
+    
+    /**
+     * For each individual, pick n% of nodes and change their color to a random 
+     * color if the chromosome's fitness is not already a valid coloring
+     * @param children 
+     */
+    private void mutateChildren(ArrayList<Graph> children)
+    {
+        Random rand = new Random();
+        int numMutations = (int) Math.ceil(children.size() * mutationRate);
+        
+        // for each child individual 
+        for (Graph child : children)
+        {
+            // for n mutations
+            for (int i = 0; i < numMutations; i++)
+            {
+                // get a random chromosome from the graph
+                int randIndex = rand.nextInt(child.theGraph.size());
+                Vertex currentVertex = child.theGraph.get(randIndex);
+                
+                // change its color to a random color if it isn't valid
+                if (!currentVertex.getFitness())
+                {
+                    int newColor = currentVertex.color;
+                    while (newColor == currentVertex.color)
+                    {
+                        newColor = rand.nextInt(maxColors);
+                    }
+                    currentVertex.color = newColor;
+                }
+            }
         }
     }
     

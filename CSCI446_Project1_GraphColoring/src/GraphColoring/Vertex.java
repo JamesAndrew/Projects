@@ -117,6 +117,7 @@ public class Vertex
      */
     public boolean getFitness() 
     {
+        calculateFitness();
         return fitness;
     }
     // </editor-fold>
