@@ -17,6 +17,8 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
      */
     // Apply mutation on n% of chromosomes in a child individual
     private final double mutationRate = 0.05;
+    // Apply repair function on n% of chromosomes for all individuals
+    private final double repairRate = 0.10;
     // The population is made of individuals which are a graph with [num_vertices] nodes
     private final int tournamentSize = 2;
     // population size must equal the number of vertices in the graph
@@ -93,6 +95,12 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
 //            }
 //            System.out.println();
             // </editor-fold>
+            
+            // generate new population from children and parents
+            evolve();
+                    
+            // repair some chromosomes in each population individual
+            repair();
             
             // set bestGraph and determine loop condition. Exit if satisfied
             satisfied = determineStatus();
@@ -239,6 +247,54 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         {
             Vertex currentVertex = currentGraph.theGraph.get(i);
             currentVertex.color = newChromosome.get(i);
+        }
+    }
+    
+    /**
+     * Regenerates the population list as a combination of the child and 
+     * parent subsets
+     */
+    private void evolve()
+    {
+        if (childSet.size() + parentSet.size() != population.size())
+        {
+            throw new RuntimeException("Union of child set and parent set does not add up to population size.");
+        }
+        population.clear();
+        population.addAll(childSet);
+        population.addAll(parentSet);
+    }
+    
+    /**
+     * Get n% of chromosomes in each population individual and change its
+     * color to be the most fit possible color
+     */
+    private void repair()
+    {
+        Random rand = new Random();
+        int numRepairs = (int) Math.ceil(graph.getGraphSize() * repairRate);
+        
+        // for each individual
+        for (Graph individual : population)
+        {
+            // for n repairs
+            for (int i = 0; i < numRepairs; i++)
+            {
+                // get a random chromosome from the graph
+                int randIndex = rand.nextInt(individual.theGraph.size());
+                Vertex currentVertex = individual.theGraph.get(randIndex);
+                
+                // change its color to the most fit color if it isn't valid
+                if (!currentVertex.getFitness())
+                {
+                    int newColor = currentVertex.mostFitColor(maxColors);
+                    while (newColor == currentVertex.color)
+                    {
+                        newColor = rand.nextInt(maxColors);
+                    }
+                    currentVertex.color = newColor;
+                }
+            }
         }
     }
     

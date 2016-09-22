@@ -68,6 +68,59 @@ public class Vertex
         return fitness;
     }
     
+    /**
+     * Calculates the color that minimizes this vertex's conflicts
+     * @param maxColors : the number of colors (3 or 4) allowed for this run
+     * @return bestColor : the color with least conflicts 
+     */
+    public int mostFitColor(int maxColors)
+    {
+        boolean updated;
+        int bestColor = color;
+        int conflicts = calculateConflicts();
+        int[] colorChoices = new int[maxColors];
+        
+        // fill color array with allowed colors
+        for (int i = 0; i < maxColors; i++)
+        {
+            colorChoices[i] = i;
+        }
+        
+        // iterate through color array, remember which one caused the least conflicts
+        for (int i = 0; i < maxColors; i++)
+        {
+            color = colorChoices[i];
+            int currentConflicts = calculateConflicts();
+            if (currentConflicts < conflicts)
+            {
+                updated = true;
+                conflicts = currentConflicts;
+                bestColor = color;
+            }
+        }
+        
+        return bestColor;
+    }
+    
+    /**
+     * calculates how many non-valid colorings this vertex has
+     * @return 
+     */
+    public int calculateConflicts()
+    {
+        int numConflicts = 0;
+        // for each vertex this is connected to
+        for (Vertex neighbor : edges.values())
+        {
+            if (color == neighbor.color)
+            {
+                numConflicts++;
+            }
+        }
+        
+        return numConflicts;
+    }
+    
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Basic Getters and Setters">
