@@ -52,8 +52,8 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         // loop until constraint is meet
         boolean satisfied = false;
         int loopIteration = 0;
-        //while (!satisfied)
-        for (int i = 0; i < 3; i++)
+        while (!satisfied)
+        //for (int i = 0; i < 3; i++)
         {
             System.out.format("%n== Loop Iteration: %d ==%n", loopIteration);
             // reset parent and child subsets
@@ -105,6 +105,10 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             
             // set bestGraph and determine loop condition. Exit if satisfied
             satisfied = determineStatus();
+            System.out.format("Satisfied value: %b%n", satisfied);
+            System.out.println("the graph value: " + graph.getFitness() + " out of " + graph.getGraphSize());
+            bestGraph.printGraph();
+            
             loopIteration++;
         }
     }
@@ -406,6 +410,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         // Assign graph to the most fit graph in the population
         bestGraph = findMostFit();
         graph = bestGraph;
+        super.graph = bestGraph;
         // If all colors are valid, exit the loop
         return graphSatisfiesConstraint();
     }

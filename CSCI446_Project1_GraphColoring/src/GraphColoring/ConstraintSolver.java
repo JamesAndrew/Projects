@@ -58,7 +58,7 @@ public abstract class ConstraintSolver
     {
         boolean satisfied = true;
         // for each vertex in the graph...
-        for (Iterator<Vertex> vertItr = theGraph.values().iterator(); vertItr.hasNext();) 
+        for (Iterator<Vertex> vertItr = graph.theGraph.values().iterator(); vertItr.hasNext();) 
         {
             Vertex currentVertex = vertItr.next();
             int currentColor = currentVertex.color;
@@ -69,9 +69,15 @@ public abstract class ConstraintSolver
                 Vertex connectedVertex = edgeItr.next();
                 if (currentColor == connectedVertex.color)
                 {
+                    System.out.println("Setting satisfied to false.");
                     satisfied = false;
+                    break;
                 }
+                if (satisfied == false)
+                    break;
             }
+            if (satisfied == false)
+                break;
         }
         return satisfied;
     }
