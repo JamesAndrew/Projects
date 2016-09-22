@@ -2,6 +2,7 @@ package GraphColoring;
 
 import com.rits.cloning.Cloner;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -293,6 +294,25 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
                         newColor = rand.nextInt(maxColors);
                     }
                     currentVertex.color = newColor;
+                }
+                // if it is valid, iterate until a non-valid node is found
+                else
+                {
+                    Iterator vertexItr = individual.theGraph.values().iterator();
+                    while (vertexItr.hasNext())
+                    {
+                        Vertex nextVert = (Vertex) vertexItr.next();
+                        if (!nextVert.getFitness())
+                        {
+                            int newColor = currentVertex.mostFitColor(maxColors);
+                            while (newColor == currentVertex.color)
+                            {
+                                newColor = rand.nextInt(maxColors);
+                            }
+                            currentVertex.color = newColor;
+                        }
+                        break;
+                    }
                 }
             }
         }
