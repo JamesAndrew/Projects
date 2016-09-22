@@ -57,6 +57,10 @@ public class BacktrackingForwardCheckingSolver extends ConstraintSolver
                             {
                                 return true;
                             }
+                            else 
+                            {
+                                break;
+                            }
                         }
                     }
                 }

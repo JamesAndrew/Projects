@@ -74,6 +74,10 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
                             {
                                 return true;
                             }
+                            else 
+                            {
+                                break;
+                            }
                         }
                     }
                 }

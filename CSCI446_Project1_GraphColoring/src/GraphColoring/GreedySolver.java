@@ -1,6 +1,7 @@
 package GraphColoring;
 
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * This strategy is not needed but is used as an initial approach to get a sense
@@ -48,5 +49,7 @@ public class GreedySolver extends ConstraintSolver
             
             System.out.format("Gave vertex %d color %d.%n", currentVertex.getVertexNum(), currentVertex.color);
         }
+
+            System.out.println(graphSatisfiesConstraint());
     }
 }

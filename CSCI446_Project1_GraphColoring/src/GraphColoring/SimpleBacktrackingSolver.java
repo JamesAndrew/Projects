@@ -53,6 +53,10 @@ public class SimpleBacktrackingSolver extends ConstraintSolver
                             {
                                 return true;
                             }
+                            else 
+                            {
+                                break;
+                            }
                         }
                     }
                 }

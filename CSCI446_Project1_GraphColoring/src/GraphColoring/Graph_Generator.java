@@ -259,12 +259,12 @@ public class Graph_Generator
     {
         //System.out.format("(%f, %f) 1:%d 2:%d.%n", xIntercept, yIntercept, point1, point2);
         //if intercept falls within x range of edge
-        if ((xIntercept > theGraph.get(point1).getxValue() + .001 && xIntercept < theGraph.get(point2).getxValue() - .001)
-                || (xIntercept < theGraph.get(point1).getxValue() - .001 && xIntercept > theGraph.get(point2).getxValue() + .001))
+        if ((xIntercept > theGraph.get(point1).getxValue() + .0001 && xIntercept < theGraph.get(point2).getxValue() - .0001)
+                || (xIntercept < theGraph.get(point1).getxValue() - .0001 && xIntercept > theGraph.get(point2).getxValue() + .0001))
         {
             //if intercept falls within y range of edge
-            if ((yIntercept > theGraph.get(point1).getyValue() + .001 && yIntercept < theGraph.get(point2).getyValue() - .001)
-                    || (yIntercept < theGraph.get(point1).getyValue() - .001 && yIntercept > theGraph.get(point2).getyValue() + .001))
+            if ((yIntercept > theGraph.get(point1).getyValue() + .0001 && yIntercept < theGraph.get(point2).getyValue() - .0001)
+                    || (yIntercept < theGraph.get(point1).getyValue() - .0001 && yIntercept > theGraph.get(point2).getyValue() + .0001))
             {
                 return true;
             }
