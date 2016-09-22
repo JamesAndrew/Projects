@@ -42,7 +42,9 @@ public class MinConflictsSolver extends ConstraintSolver
         int firstKey = (int)itr.next();
         theGraph.get(firstKey).color = rand.nextInt(maxColor-1) + 1;
         runs.format("Gave vertex %d color %d.%n", theGraph.get(firstKey).getVertexNum(), theGraph.get(firstKey).color);
-
+        
+        decisionsMade++;
+        
         // For all other vertices color the vertex a random color
         while (itr.hasNext())
         {
@@ -51,6 +53,7 @@ public class MinConflictsSolver extends ConstraintSolver
             currentVertex.color = rand.nextInt(maxColor-1) + 1;
 
             runs.format("Gave vertex %d color %d.%n", currentVertex.getVertexNum(), currentVertex.color);
+            decisionsMade++;
         }    
         graph.printGraph();
         
@@ -77,9 +80,11 @@ public class MinConflictsSolver extends ConstraintSolver
                     resolveConflicts(nextKey);
                 }
                 runs.format("Gave vertex %d color %d.%n", currentVertex.getVertexNum(), currentVertex.color);
+                decisionsMade++;
             }    
             step++;
             
+            decisionsMade++;
             if (checkSolution() == true)
             {
                 step = steps;
@@ -106,6 +111,7 @@ public class MinConflictsSolver extends ConstraintSolver
         else if (checkSolution == true)
         {
             runs.println("It's a solution");
+            validColorings++;
             return true;
         }
         else
@@ -133,6 +139,7 @@ public class MinConflictsSolver extends ConstraintSolver
             for (Iterator<Vertex> it = currentVertex.edges.values().iterator(); it.hasNext();) 
             {
                 Vertex connectedVertex = it.next();
+                decisionsMade++;
                 if (currentVertex.color == connectedVertex.color)
                 {
                     return false;
@@ -158,6 +165,7 @@ public class MinConflictsSolver extends ConstraintSolver
         for (Iterator<Vertex> it = currentVertex.edges.values().iterator(); it.hasNext();) 
         {
             Vertex connectedVertex = it.next();
+            decisionsMade++;
             if (currentVertex.color == connectedVertex.color)
             {
                 conflicts++;
@@ -182,6 +190,7 @@ public class MinConflictsSolver extends ConstraintSolver
         {
             runs.println("Key " + curKey + " with color " + curColor);
             theGraph.get(curKey).color = curColor;
+            decisionsMade++;
             if(Conflicts(curKey) < leastConflicts)
             {
                 leastConflicts = Conflicts(curKey);

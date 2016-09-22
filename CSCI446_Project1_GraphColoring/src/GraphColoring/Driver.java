@@ -78,17 +78,23 @@ public class Driver {
                 + "Solvers being used: %s%n%n",
                 numberOfGraphs, vertexGrowthSize, printSolversUsed());
         
+        results.println("Solver Decisions");
+        
         // while there are more graphs to generate
         while (currentGraphIteration < numberOfGraphs)
         {
+            results.println("Graph " + currentGraphIteration);
             // generate the graph to use this iteration
             Graph currentGraph = new Graph_Generator(numVertices, runs).generateGraph();
             for (ConstraintSolver solver : solvers) 
             {
+                results.print(solver.getClass() + " ");
                 printNextRunData(solver.getClass(), numVertices);
                 solver.updateGraph(currentGraph);
                 solver.printFile(runs);
                 solver.runSolver();
+                results.print(solver.getDecisionsMade() + " ");
+                results.println(solver.getValidColorings());
                 currentGraph.printGraph();
             }
             

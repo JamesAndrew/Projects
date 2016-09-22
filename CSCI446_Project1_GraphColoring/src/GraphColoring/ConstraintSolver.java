@@ -19,8 +19,8 @@ public abstract class ConstraintSolver
      * only gave a valid coloring on 7 of the 10 graphs, validColorings would equal 7.
      * If the average amount of decisions made was 100, decisions made would equal 1000).
      */
-    protected int decisionsMade;
-    protected int validColorings;
+    protected int decisionsMade = 0;
+    protected int validColorings = 0;
     protected int verticesVisited;   // might not use this one. Lets talk about it
     protected int verticesRecolored; 
     
