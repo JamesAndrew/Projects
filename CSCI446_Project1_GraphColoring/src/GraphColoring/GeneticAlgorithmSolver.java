@@ -40,7 +40,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     
     public GeneticAlgorithmSolver()
     {
-        maxColors = 4;
+        maxColors = 3;
     }
     
     @Override
@@ -52,10 +52,10 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         // loop until constraint is meet
         boolean satisfied = false;
         int loopIteration = 0;
-        while (!satisfied)
+        while (!satisfied && loopIteration < 20000)
         //for (int i = 0; i < 3; i++)
         {
-            System.out.format("%n== Loop Iteration: %d ==%n", loopIteration);
+            System.out.format("%n== Current Generation: %d ==%n", loopIteration);
             // reset parent and child subsets
             parentSet.clear();
             childSet.clear();
@@ -108,7 +108,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             
             // <editor-fold defaultstate="collapsed" desc="Print best graph state for current generation">
 //            System.out.format("Satisfied value: %b%n", satisfied);
-            System.out.println("the graph value: " + graph.getFitness() + " out of " + graph.getGraphSize());
+            System.out.println("Best Graph Value: " + graph.getFitness() + " out of " + graph.getGraphSize());
 //            bestGraph.printGraph();
             // </editor-fold>
             
@@ -118,7 +118,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         // <editor-fold defaultstate="collapsed" desc="Print final graph state">
         System.out.format("%n= Final Generation Graph =%n");
         System.out.format("Satisfied value: %b%n", satisfied);
-        System.out.println("the graph value: " + graph.getFitness() + " out of " + graph.getGraphSize());
+        System.out.println("The Graph Value: " + graph.getFitness() + " out of " + graph.getGraphSize());
         bestGraph.printGraph();
     }
     
