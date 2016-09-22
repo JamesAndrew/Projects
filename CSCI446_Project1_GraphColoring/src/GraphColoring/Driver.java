@@ -16,7 +16,7 @@ public class Driver {
     private final static int vertexGrowthSize = 0;
     // put the solvers you want the program to run on in here
     private final static List<Class<?>> solverList = Arrays.asList(
-            GeneticAlgorithmSolver.class
+            MinConflictsSolver.class
     );
     
     public static void main(String[] args) throws InstantiationException, IllegalAccessException 
