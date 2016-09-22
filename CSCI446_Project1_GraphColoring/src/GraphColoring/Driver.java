@@ -16,7 +16,9 @@ public class Driver {
     private final static int vertexGrowthSize = 0;
     // put the solvers you want the program to run on in here
     private final static List<Class<?>> solverList = Arrays.asList(
-            GeneticAlgorithmSolver.class
+            //GeneticAlgorithmSolver.class
+            SimpleBacktrackingSolver.class,
+            BacktrackingPropagationSolver.class
     );
     
     public static void main(String[] args) throws InstantiationException, IllegalAccessException 
@@ -50,6 +52,7 @@ public class Driver {
             {
                 printNextRunData(solver.getClass(), numVertices);
                 solver.updateGraph(currentGraph);
+                solver.setMaxColors(4);
                 solver.runSolver();
                 currentGraph.printGraph();
             }

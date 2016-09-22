@@ -119,5 +119,9 @@ public abstract class ConstraintSolver
     public int getVerticesRecolored() {
         return verticesRecolored;
     }
+    
+    public void setMaxColors(int max) {
+        maxColors = max; 
+    }
     // </editor-fold>
 }

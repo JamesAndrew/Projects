@@ -9,8 +9,6 @@ import java.util.Map;
  */
 public class SimpleBacktrackingSolver extends ConstraintSolver
 {
-
-    private int numColors;
     private int numPoints;
     private int numberOfNodeColorings;
 
@@ -19,9 +17,9 @@ public class SimpleBacktrackingSolver extends ConstraintSolver
 
     }
 
-    public void runSolver(int numColors)
+    @Override
+    public void runSolver()
     {
-        this.numColors = numColors;
         numPoints = graph.getGraphSize();
         numberOfNodeColorings = 0;
         System.out.println(backtrack(0));
@@ -30,7 +28,7 @@ public class SimpleBacktrackingSolver extends ConstraintSolver
 
     private boolean backtrack(int point)
     {
-        for (int color = 1; color <= numColors; color++)
+        for (int color = 1; color <= maxColors; color++)
         {
             theGraph.get(point).color = color;
             numberOfNodeColorings++;
@@ -44,7 +42,7 @@ public class SimpleBacktrackingSolver extends ConstraintSolver
                 {
                     for (int i = 0; i < numPoints; i++)
                     {
-                        if (theGraph.get(point).edges.containsKey(i) && theGraph.get(i).color == 0)
+                        if (theGraph.get(point).edges.containsKey(i) && theGraph.get(i).color == -1)
                         {
                             if (backtrack(i) && allNodesColored())
                             {
@@ -55,7 +53,7 @@ public class SimpleBacktrackingSolver extends ConstraintSolver
                 }
             }
         }
-        theGraph.get(point).color = 0;
+        theGraph.get(point).color = -1;
         return false;
     }
 
@@ -63,7 +61,7 @@ public class SimpleBacktrackingSolver extends ConstraintSolver
     {
         for (int i = 0; i < numPoints; i++)
         {
-            if (theGraph.get(point).edges.containsKey(i) && theGraph.get(i).color == 0)
+            if (theGraph.get(point).edges.containsKey(i) && theGraph.get(i).color == -1)
             {
                 return false;
             }
@@ -75,17 +73,11 @@ public class SimpleBacktrackingSolver extends ConstraintSolver
     {
         for (Map.Entry<Integer, Vertex> entry : theGraph.entrySet())
         {
-            if (entry.getValue().color == 0)
+            if (entry.getValue().color == -1)
             {
                 return false;
             }
         }
         return true;
-    }
-
-    @Override
-    public void runSolver()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

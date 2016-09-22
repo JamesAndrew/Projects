@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
+
 /**
  * Graph coloring constraint solver using the min conflicts strategy 
  * @version 09/08/16
