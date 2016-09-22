@@ -9,15 +9,16 @@ public class Driver {
      * Test settings and parameters. Based on these values we should be able
      * to do as many runs on as many solvers as desired.
      */
-    private final static int numberOfGraphs = 1;
+    private final static int numberOfGraphs = 3;
     // initial amount of nodes to have for first graph generation
-    private final static int initialNumVertices = 7;
+    private final static int initialNumVertices = 20;
     // how many more vertices to have for each iteration of the graph
-    private final static int vertexGrowthSize = 0;
+    private final static int vertexGrowthSize = 10;
     // put the solvers you want the program to run on in here
     private final static List<Class<?>> solverList = Arrays.asList(
             //GeneticAlgorithmSolver.class
             SimpleBacktrackingSolver.class,
+            BacktrackingForwardCheckingSolver.class,
             BacktrackingPropagationSolver.class
     );
     

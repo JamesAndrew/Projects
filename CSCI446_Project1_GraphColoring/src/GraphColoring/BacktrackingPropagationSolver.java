@@ -26,6 +26,7 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
         numPoints = graph.getGraphSize();
         numberOfNodeColorings = 0;
 
+        //set up lists to keep track of valid colorings for each node 
         ArrayList<ArrayList<Integer>> validColorings = new ArrayList<ArrayList<Integer>>();
         for (int i = 0; i < numPoints; i++)
         {
@@ -40,13 +41,24 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
         System.out.format("Nodes colored: %d%n", numberOfNodeColorings);
     }
 
+     /**
+     * Recursive backtracking algorithm to traverse graph 
+     * @param point
+     * @return true if path found, false if not
+     */
     private boolean backtrack(int point, ArrayList<ArrayList<Integer>> valColors)
     {
-        ArrayList<ArrayList<Integer>> validColorings = new ArrayList<ArrayList<Integer>>(valColors);
+        //iterate through current list of valid node colorings 
+        ArrayList<ArrayList<Integer>> validColorings = new ArrayList<ArrayList<Integer>>();
+        for (int i = 0; i < numPoints; i++)
+        {
+            validColorings.add(new ArrayList<Integer>(valColors.get(i)));
+        }
         for (Iterator<Integer> iterator = validColorings.get(point).iterator(); iterator.hasNext();)
         {
             theGraph.get(point).color = iterator.next();
             numberOfNodeColorings++;
+            //if future conflict not found, continue through edges 
             if (propagate(point, validColorings) && pointSatisfiesConstraint(point))
             {
                 if (allAdjacentColored(point))
@@ -56,7 +68,7 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
                 {
                     for (int i = 0; i < numPoints; i++)
                     {
-                        if (theGraph.get(point).edges.containsKey(i) && theGraph.get(i).color == -1)//colors[i] == 0) //getEdge(point, i) == 1 && colors[i] == 0)
+                        if (theGraph.get(point).edges.containsKey(i) && theGraph.get(i).color == -1)
                         {
                             if (backtrack(i, validColorings) && allNodesColored())
                             {
@@ -71,6 +83,11 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
         return false;
     }
 
+     /**
+     * Check that all adjacent points are colored 
+     * @param point
+     * @return 
+     */
     private boolean allAdjacentColored(int point)
     {
         for (int i = 0; i < numPoints; i++)
@@ -83,6 +100,10 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
         return true;
     }
 
+     /**
+     * Check that all nodes have been colored 
+     * @return 
+     */
     private boolean allNodesColored()
     {
         for (Map.Entry<Integer, Vertex> entry : theGraph.entrySet())
@@ -95,8 +116,12 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
         return true;
     }
 
-
-
+    /**
+     * move through graph and set valid colorings relative to surrounding nodes
+     * @param node
+     * @param validColorings
+     * @return 
+     */
     private boolean propagate(int node, ArrayList<ArrayList<Integer>> validColorings)
     {
         Map<Integer, Vertex> edges = theGraph.get(node).edges;

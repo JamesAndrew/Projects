@@ -26,6 +26,11 @@ public class SimpleBacktrackingSolver extends ConstraintSolver
         System.out.format("Nodes colored: %d%n", numberOfNodeColorings);
     }
 
+     /**
+     * Recursive backtracking algorithm to traverse graph 
+     * @param point
+     * @return true if path found, false if not
+     */
     private boolean backtrack(int point)
     {
         for (int color = 1; color <= maxColors; color++)
@@ -57,6 +62,11 @@ public class SimpleBacktrackingSolver extends ConstraintSolver
         return false;
     }
 
+     /**
+     * Check that all adjacent points are colored 
+     * @param point
+     * @return 
+     */
     private boolean allAdjacentColored(int point)
     {
         for (int i = 0; i < numPoints; i++)
@@ -69,6 +79,10 @@ public class SimpleBacktrackingSolver extends ConstraintSolver
         return true;
     }
 
+     /**
+     * Check that all nodes have been colored 
+     * @return 
+     */
     private boolean allNodesColored()
     {
         for (Map.Entry<Integer, Vertex> entry : theGraph.entrySet())
