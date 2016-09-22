@@ -1,5 +1,6 @@
 package GraphColoring;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -11,7 +12,9 @@ public class Graph
     // fitness is determined by how many color violations the current graph has
     // A fitness of 1 means no violations occur. Initial fitness 
     // is 0 
-    public int fitness = 0;
+    private int fitness = 0;
+    // The color of each vertex listen in the Map's key order
+    private ArrayList<Integer> chromosomeArray = new ArrayList<>();
     
     // constructor to initialize Graph class and its attributes
     public Graph(Map<Integer, Vertex> theGraph) 
@@ -113,6 +116,29 @@ public class Graph
     public int getGraphSize() 
     {
         return graphSize;
+    }
+    
+    /**
+     * @return the fitness
+     */
+    public int getFitness() 
+    {
+        calculateFitness();
+        return fitness;
+    }
+    
+    /**
+     * updates chromosome array before returning
+     * @return the chromosomeArray
+     */
+    public ArrayList<Integer> getChromosomeArray() 
+    {
+        chromosomeArray.clear();
+        for (Vertex chromosome : theGraph.values())
+        {
+            chromosomeArray.add(chromosome.color);
+        }
+        return chromosomeArray;
     }
     // </editor-fold>
 }

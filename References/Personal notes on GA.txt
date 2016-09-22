@@ -2,3 +2,8 @@
 	specific vertex has, just that there is a conflict.
 - Populating parent set using tournament selection
 - Single-Point Crossover:
+	- Pick two individuals from the parent population NOT using tournament selection
+	- Generate two new children
+		- Child 1 gets the first half of parent 1's choromosomes and second half of parent 2's choromosomes
+		- Child 2 gets the second half of parent 1's chromosomes and the first half of parent 1's choromosomes
+	- No preference on which parent gets +1 chromosome for odd numbered sizes

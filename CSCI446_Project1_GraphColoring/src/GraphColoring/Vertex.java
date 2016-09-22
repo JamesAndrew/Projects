@@ -120,6 +120,4 @@ public class Vertex
         return fitness;
     }
     // </editor-fold>
-
-    
 }
