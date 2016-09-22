@@ -122,6 +122,10 @@ public abstract class ConstraintSolver
     
     public void setMaxColors(int max) {
         maxColors = max; 
+        for (Iterator<Vertex> vertItr = theGraph.values().iterator(); vertItr.hasNext();) 
+        {
+            theGraph.get(vertItr.next().color = -1); 
+        }
     }
     // </editor-fold>
 }

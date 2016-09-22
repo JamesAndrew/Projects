@@ -30,7 +30,7 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
         for (int i = 0; i < numPoints; i++)
         {
             validColorings.add(new ArrayList<Integer>());
-            for (int j = 1; j <= maxColors; j++)
+            for (int j = 0; j < maxColors; j++)
             {
                 validColorings.get(i).add(j);
             }
@@ -47,7 +47,7 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
         {
             theGraph.get(point).color = iterator.next();
             numberOfNodeColorings++;
-            if (propagate(point, validColorings) && allAdjacentColored(point))
+            if (propagate(point, validColorings) && pointSatisfiesConstraint(point))
             {
                 if (allAdjacentColored(point))
                 {
@@ -119,7 +119,14 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
                 }
                 if (validColorings.get(edgePoint).size() == 1) 
                 {
-                    propagate(edgePoint, validColorings); 
+                    if (theGraph.get(node).color == -1 && validColorings.get(edgePoint).size() == 1 && validColorings.get(edgePoint).get(0) != validColorings.get(node).get(0))
+                    {
+                        
+                    }
+                    else
+                    {
+                        return propagate(edgePoint, validColorings);
+                    } 
                 }
             }
         }
