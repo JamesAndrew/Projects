@@ -120,11 +120,15 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             // </editor-fold>
             
             // generate new population from children and parents
-            runs.println("\nUpdating population to the next generation.");
             evolve();
                     
             // repair some chromosomes in each population individual
             repair();
+            
+            // <editor-fold defaultstate="collapsed" desc="Print evolved and repaired population">
+//            runs.println("Evolved and repaired population fitnesses and chromosomes: ");
+//            printPopulationValues(population);
+            // </editor-fold>
             
             // set bestGraph and determine loop condition. Exit if satisfied
             satisfied = determineStatus();
@@ -140,12 +144,13 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         }
         
         // <editor-fold defaultstate="collapsed" desc="Print final graph state">
-        runs.format("%n= Final Generation =%n");
-        runs.format("Satisfied value: %b%n", satisfied);
-        runs.println("Current population fitnesses and chromosomes: ");
-        printPopulationValues(population);
-        runs.print("The Graph Value: " + graph.getFitness() + " out of " + graph.getGraphSize());
-        bestGraph.printGraph();
+//        runs.format("%n= Final Generation =%n");
+//        runs.format("Satisfied value: %b%n", satisfied);
+//        runs.println("Current population fitnesses and chromosomes: ");
+//        printPopulationValues(population);
+//        runs.print("The Graph Value: " + graph.getFitness() + " out of " + graph.getGraphSize());
+//        bestGraph.printGraph();
+        // </editor-fold>
     }
     
     /**
@@ -303,9 +308,6 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         population.clear();
         population.addAll(childSet);
         population.addAll(parentSet);
-        
-        runs.println("Evolved population fitnesses and chromosomes: ");
-        printPopulationValues(population);
     }
     
     /**
