@@ -55,7 +55,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         while (!satisfied && loopIteration < 100000)
         //for (int i = 0; i < 3; i++)
         {
-            if (loopIteration % 2 == 0)
+            if (loopIteration % 1 == 0)
                 runs.format("%n== Current Generation: %d ==%n", loopIteration);
             // reset parent and child subsets
             parentSet.clear();
@@ -65,9 +65,9 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             parentSet = selectParentSet(population);
             
             // <editor-fold defaultstate="collapsed" desc="Print population and parent population fitnesses">
-//            System.out.println("Current population fitnesses: ");
-//            printPopulationValues(population);
-//            System.out.println("Current parent set fitnesses: ");
+            runs.println("Current population fitnesses and chromosomes: ");
+            printPopulationValues(population);
+//            runs.println("Current parent set fitnesses and chromosomes: ");
 //            printPopulationValues(parentSet);
             // </editor-fold>
             
@@ -109,7 +109,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             
             // <editor-fold defaultstate="collapsed" desc="Print best graph state for current generation">
 //            System.out.format("Satisfied value: %b%n", satisfied);
-            if (loopIteration % 2 == 0)
+            if (loopIteration % 1 == 0)
                 runs.println("Best Graph Value: " + graph.getFitness() + " out of " + graph.getGraphSize());
 //            bestGraph.printGraph();
             // </editor-fold>
@@ -464,8 +464,8 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         for (Graph individual : graphSet)
         {
             ArrayList<Integer> theArray = individual.getChromosomeArray();
-            System.out.format("Individual %d's fitness: %d |", i, individual.getFitness());
-            System.out.format(" chromosomes: %s%n", theArray.toString());
+            runs.format("Individual %d's fitness: %d |", i, individual.getFitness());
+            runs.format(" chromosomes: %s%n", theArray.toString());
             i++;
         }
     }
