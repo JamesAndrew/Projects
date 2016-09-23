@@ -16,7 +16,12 @@ nb-configuration.xml
 *.jar
 *.war
 *.ear
+
 # =========================
+# Auto-Generated Data files (not in deliverable folder)
+# =========================
+CSCI446_Project1_GraphColoring/*_runs.txt
+CSCI446_Project1_GraphColoring/*_results.txt
 
 # =========================
 # UML program specific (SIMP) files to ignore

@@ -60,7 +60,8 @@ public class Driver {
         
         // prompt user for filename
         System.out.println("filename?");
-        filename = input.next();
+        filename = "GA_testing";
+        //filename = input.next();
 
         try
         {
