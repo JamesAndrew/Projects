@@ -23,6 +23,8 @@ public class MinConflictsSolver extends ConstraintSolver
     @Override
     public void runSolver()
     {
+        decisionsMade = 0;
+        validColorings = 0;
         // create Scanner object to take input from user
         Scanner input = new Scanner(System.in);
         // create Random object to generate random numbers
