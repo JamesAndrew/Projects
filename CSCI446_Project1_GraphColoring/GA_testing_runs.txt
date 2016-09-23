@@ -4,177 +4,77 @@ Vertex growth size: 0
 Solvers being used: GeneticAlgorithmSolver, 
 
 = Printing Vertex Locations =
-Vertex 0: (0.014000, 0.203000)
-Vertex 1: (0.167000, 0.194000)
-Vertex 2: (0.291000, 0.010000)
-Vertex 3: (0.301000, 0.075000)
-Vertex 4: (0.330000, 0.006000)
-Vertex 5: (0.268000, 0.200000)
-Vertex 6: (0.219000, 0.312000)
-Vertex 7: (0.105000, 0.554000)
-Vertex 8: (0.182000, 0.570000)
-Vertex 9: (0.636000, 0.071000)
-Vertex 10: (0.641000, 0.159000)
-Vertex 11: (0.234000, 0.651000)
-Vertex 12: (0.345000, 0.623000)
-Vertex 13: (0.714000, 0.062000)
-Vertex 14: (0.303000, 0.670000)
-Vertex 15: (0.563000, 0.512000)
-Vertex 16: (0.260000, 0.757000)
-Vertex 17: (0.307000, 0.776000)
-Vertex 18: (0.781000, 0.333000)
-Vertex 19: (0.830000, 0.293000)
-Vertex 20: (0.882000, 0.074000)
-Vertex 21: (0.679000, 0.604000)
-Vertex 22: (0.578000, 0.760000)
-Vertex 23: (0.949000, 0.155000)
-Vertex 24: (0.864000, 0.451000)
-Vertex 25: (0.968000, 0.127000)
-Vertex 26: (0.303000, 0.970000)
-Vertex 27: (0.995000, 0.549000)
-Vertex 28: (0.849000, 0.824000)
-Vertex 29: (0.925000, 0.837000)
+Vertex 0: (0.183000, 0.285000)
+Vertex 1: (0.067000, 0.333000)
+Vertex 2: (0.579000, 0.116000)
+Vertex 3: (0.581000, 0.133000)
+Vertex 4: (0.142000, 0.657000)
+Vertex 5: (0.396000, 0.704000)
+Vertex 6: (0.843000, 0.090000)
+Vertex 7: (0.846000, 0.267000)
+Vertex 8: (0.900000, 0.128000)
+Vertex 9: (0.785000, 0.807000)
 
 
 === Printing Graph State... ===
 Graph node 0. Printing vertex details...
-Vertex number: 0, Location: (0.014000, 0.203000), Color: -1
-Edges: 1, 2, 7, 
+Vertex number: 0, Location: (0.183000, 0.285000), Color: -1
+Edges: 1, 2, 3, 4, 5, 7, 
 Graph node 1. Printing vertex details...
-Vertex number: 1, Location: (0.167000, 0.194000), Color: -1
-Edges: 0, 2, 5, 6, 7, 
+Vertex number: 1, Location: (0.067000, 0.333000), Color: -1
+Edges: 0, 2, 4, 
 Graph node 2. Printing vertex details...
-Vertex number: 2, Location: (0.291000, 0.010000), Color: -1
-Edges: 0, 1, 3, 4, 5, 
+Vertex number: 2, Location: (0.579000, 0.116000), Color: -1
+Edges: 0, 1, 3, 6, 
 Graph node 3. Printing vertex details...
-Vertex number: 3, Location: (0.301000, 0.075000), Color: -1
-Edges: 2, 4, 20, 5, 9, 26, 14, 
+Vertex number: 3, Location: (0.581000, 0.133000), Color: -1
+Edges: 0, 2, 6, 7, 8, 
 Graph node 4. Printing vertex details...
-Vertex number: 4, Location: (0.330000, 0.006000), Color: -1
-Edges: 2, 3, 20, 5, 9, 13, 
+Vertex number: 4, Location: (0.142000, 0.657000), Color: -1
+Edges: 0, 1, 5, 9, 
 Graph node 5. Printing vertex details...
-Vertex number: 5, Location: (0.268000, 0.200000), Color: -1
-Edges: 1, 2, 3, 4, 6, 9, 10, 13, 15, 
+Vertex number: 5, Location: (0.396000, 0.704000), Color: -1
+Edges: 0, 4, 7, 9, 
 Graph node 6. Printing vertex details...
-Vertex number: 6, Location: (0.219000, 0.312000), Color: -1
-Edges: 1, 5, 7, 8, 12, 14, 15, 
+Vertex number: 6, Location: (0.843000, 0.090000), Color: -1
+Edges: 2, 3, 7, 8, 
 Graph node 7. Printing vertex details...
-Vertex number: 7, Location: (0.105000, 0.554000), Color: -1
-Edges: 0, 1, 6, 8, 26, 11, 
+Vertex number: 7, Location: (0.846000, 0.267000), Color: -1
+Edges: 0, 3, 5, 6, 8, 9, 
 Graph node 8. Printing vertex details...
-Vertex number: 8, Location: (0.182000, 0.570000), Color: -1
-Edges: 6, 7, 11, 14, 
+Vertex number: 8, Location: (0.900000, 0.128000), Color: -1
+Edges: 3, 6, 7, 9, 
 Graph node 9. Printing vertex details...
-Vertex number: 9, Location: (0.636000, 0.071000), Color: -1
-Edges: 3, 4, 5, 10, 13, 
-Graph node 10. Printing vertex details...
-Vertex number: 10, Location: (0.641000, 0.159000), Color: -1
-Edges: 18, 19, 5, 9, 13, 15, 
-Graph node 11. Printing vertex details...
-Vertex number: 11, Location: (0.234000, 0.651000), Color: -1
-Edges: 16, 7, 8, 26, 14, 
-Graph node 12. Printing vertex details...
-Vertex number: 12, Location: (0.345000, 0.623000), Color: -1
-Edges: 16, 17, 6, 14, 15, 
-Graph node 13. Printing vertex details...
-Vertex number: 13, Location: (0.714000, 0.062000), Color: -1
-Edges: 19, 20, 4, 5, 9, 10, 
-Graph node 14. Printing vertex details...
-Vertex number: 14, Location: (0.303000, 0.670000), Color: -1
-Edges: 16, 17, 3, 6, 8, 26, 11, 12, 
-Graph node 15. Printing vertex details...
-Vertex number: 15, Location: (0.563000, 0.512000), Color: -1
-Edges: 17, 18, 19, 21, 5, 22, 6, 24, 10, 12, 
-Graph node 16. Printing vertex details...
-Vertex number: 16, Location: (0.260000, 0.757000), Color: -1
-Edges: 17, 22, 26, 11, 12, 14, 
-Graph node 17. Printing vertex details...
-Vertex number: 17, Location: (0.307000, 0.776000), Color: -1
-Edges: 16, 22, 26, 12, 28, 14, 15, 
-Graph node 18. Printing vertex details...
-Vertex number: 18, Location: (0.781000, 0.333000), Color: -1
-Edges: 19, 24, 10, 27, 15, 
-Graph node 19. Printing vertex details...
-Vertex number: 19, Location: (0.830000, 0.293000), Color: -1
-Edges: 18, 20, 23, 10, 27, 13, 15, 
-Graph node 20. Printing vertex details...
-Vertex number: 20, Location: (0.882000, 0.074000), Color: -1
-Edges: 19, 3, 4, 23, 25, 13, 
-Graph node 21. Printing vertex details...
-Vertex number: 21, Location: (0.679000, 0.604000), Color: -1
-Edges: 22, 24, 27, 28, 29, 15, 
-Graph node 22. Printing vertex details...
-Vertex number: 22, Location: (0.578000, 0.760000), Color: -1
-Edges: 16, 17, 21, 28, 15, 
-Graph node 23. Printing vertex details...
-Vertex number: 23, Location: (0.949000, 0.155000), Color: -1
-Edges: 19, 20, 25, 27, 
-Graph node 24. Printing vertex details...
-Vertex number: 24, Location: (0.864000, 0.451000), Color: -1
-Edges: 18, 21, 27, 15, 
-Graph node 25. Printing vertex details...
-Vertex number: 25, Location: (0.968000, 0.127000), Color: -1
-Edges: 20, 23, 27, 
-Graph node 26. Printing vertex details...
-Vertex number: 26, Location: (0.303000, 0.970000), Color: -1
-Edges: 16, 17, 3, 7, 11, 28, 29, 14, 
-Graph node 27. Printing vertex details...
-Vertex number: 27, Location: (0.995000, 0.549000), Color: -1
-Edges: 18, 19, 21, 23, 24, 25, 29, 
-Graph node 28. Printing vertex details...
-Vertex number: 28, Location: (0.849000, 0.824000), Color: -1
-Edges: 17, 21, 22, 26, 29, 
-Graph node 29. Printing vertex details...
-Vertex number: 29, Location: (0.925000, 0.837000), Color: -1
-Edges: 21, 26, 27, 28, 
+Vertex number: 9, Location: (0.785000, 0.807000), Color: -1
+Edges: 4, 5, 7, 8, 
 
 = Running next solver =
 Current algorithm: GeneticAlgorithmSolver
-Graph size: 30
+Graph size: 10
 Tunable parameter settings: 
- - Population Size: 30
- - Parent Size: 6
- - Child Size: 24
- - Mutation Rate: 0.500000
+ - Population Size: 10
+ - Parent Size: 2
+ - Child Size: 8
+ - Mutation Rate: 0.300000
  - Repair Rate: 0.050000
  - Tournament Size: 2
 
 == Current Generation: 0 ==
 Satisfied value: false
 
-Best Graph Value: 14 out of 30
+Best Graph Value: 8 out of 10
 
 = Final Generation =
 Satisfied value: true
 Current population fitnesses and chromosomes: 
-Individual 0's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 2, 3]
-Individual 1's fitness: 22 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 2, 1, 2, 1, 2, 1, 1, 3, 3, 2, 2, 1, 0, 0, 3]
-Individual 2's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 0, 3]
-Individual 3's fitness: 30 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 3, 2]
-Individual 4's fitness: 27 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 1, 3]
-Individual 5's fitness: 30 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 3, 2]
-Individual 6's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 3, 3]
-Individual 7's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 3, 3]
-Individual 8's fitness: 24 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 3, 0, 1, 3]
-Individual 9's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 1, 3, 2, 2, 1, 0, 0, 3]
-Individual 10's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 3, 3]
-Individual 11's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 3, 3]
-Individual 12's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 2, 3]
-Individual 13's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 3, 3]
-Individual 14's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 2, 3]
-Individual 15's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 3, 3]
-Individual 16's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 2, 3]
-Individual 17's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 3, 3]
-Individual 18's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 3, 3]
-Individual 19's fitness: 26 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 0, 3, 0, 3, 3, 1, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 2, 3]
-Individual 20's fitness: 26 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 2, 0, 3, 2, 2, 1, 0, 1, 3]
-Individual 21's fitness: 26 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 2, 0, 3, 2, 2, 1, 0, 1, 3]
-Individual 22's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 2, 1, 3, 2, 2, 1, 0, 0, 3]
-Individual 23's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 2, 3]
-Individual 24's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 1, 3, 2, 2, 1, 0, 0, 3]
-Individual 25's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 3, 3]
-Individual 26's fitness: 30 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 3, 2]
-Individual 27's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 2, 3]
-Individual 28's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 2, 3]
-Individual 29's fitness: 28 | chromosomes: [1, 3, 2, 3, 0, 1, 2, 0, 1, 2, 0, 2, 1, 3, 0, 3, 3, 2, 1, 2, 1, 1, 0, 3, 2, 2, 1, 0, 3, 3]
-The Graph Value: 30 out of 30
+Individual 0's fitness: 8 | chromosomes: [2, 0, 3, 0, 3, 0, 1, 3, 3, 1]
+Individual 1's fitness: 8 | chromosomes: [2, 0, 3, 0, 3, 0, 1, 3, 3, 1]
+Individual 2's fitness: 6 | chromosomes: [2, 0, 3, 0, 3, 0, 2, 1, 1, 0]
+Individual 3's fitness: 10 | chromosomes: [2, 0, 3, 0, 3, 0, 1, 3, 2, 1]
+Individual 4's fitness: 8 | chromosomes: [2, 0, 3, 0, 3, 0, 1, 3, 3, 1]
+Individual 5's fitness: 7 | chromosomes: [2, 0, 3, 0, 3, 0, 1, 0, 3, 1]
+Individual 6's fitness: 6 | chromosomes: [2, 0, 3, 0, 3, 0, 2, 1, 1, 0]
+Individual 7's fitness: 6 | chromosomes: [2, 0, 3, 0, 3, 0, 2, 1, 1, 0]
+Individual 8's fitness: 10 | chromosomes: [2, 0, 3, 0, 3, 0, 1, 3, 2, 1]
+Individual 9's fitness: 6 | chromosomes: [2, 0, 3, 0, 3, 0, 2, 1, 1, 0]
+The Graph Value: 10 out of 10
