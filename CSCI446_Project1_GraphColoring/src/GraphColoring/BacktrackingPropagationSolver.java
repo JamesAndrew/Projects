@@ -49,17 +49,19 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
     private boolean backtrack(int point, ArrayList<ArrayList<Integer>> valColors)
     {
         //iterate through current list of valid node colorings 
-        ArrayList<ArrayList<Integer>> validColorings = new ArrayList<ArrayList<Integer>>();
+        ArrayList<ArrayList<Integer>> validColorings = new ArrayList<ArrayList<Integer>>(valColors);
         for (int i = 0; i < numPoints; i++)
         {
             validColorings.add(new ArrayList<Integer>(valColors.get(i)));
         }
+//        for (int adf : validColorings.get(point)){
+//            System.out.println(adf);
+//        }
         for (Iterator<Integer> iterator = validColorings.get(point).iterator(); iterator.hasNext();)
         {
-            theGraph.get(point).color = iterator.next();
             numberOfNodeColorings++;
-            //if future conflict not found, continue through edges 
-            if (propagate(point, validColorings) && pointSatisfiesConstraint(point))
+            theGraph.get(point).color = iterator.next(); 
+            if (pointSatisfiesConstraint(point) && propagate(point, validColorings))
             {
                 if (allAdjacentColored(point))
                 {
@@ -134,7 +136,7 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
             int edgePoint = entry.getKey();
             if (theGraph.get(edgePoint).color == -1) 
             {
-                if (theGraph.get(node).color == -1)
+                if (theGraph.get(node).color == -1 && validColorings.get(node).size() == 1)
                 {
                     validColorings.get(edgePoint).remove((Integer) validColorings.get(node).get(0));
                 }
@@ -148,7 +150,7 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
                 }
                 if (validColorings.get(edgePoint).size() == 1) 
                 {
-                    if (theGraph.get(node).color == -1 && validColorings.get(edgePoint).size() == 1 && validColorings.get(edgePoint).get(0) != validColorings.get(node).get(0))
+                    if (theGraph.get(node).color == -1 && validColorings.get(node).size() == 1 && validColorings.get(edgePoint).get(0) != validColorings.get(node).get(0))
                     {
                         
                     }

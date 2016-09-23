@@ -33,7 +33,7 @@ public class SimpleBacktrackingSolver extends ConstraintSolver
      */
     private boolean backtrack(int point)
     {
-        for (int color = 1; color <= maxColors; color++)
+        for (int color = 0; color < maxColors; color++)
         {
             theGraph.get(point).color = color;
             numberOfNodeColorings++;

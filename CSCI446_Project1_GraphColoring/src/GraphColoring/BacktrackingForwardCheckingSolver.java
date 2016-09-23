@@ -36,7 +36,7 @@ public class BacktrackingForwardCheckingSolver extends ConstraintSolver
     private boolean backtrack(int point)
     {
         //for each color, set node to color and move to first non colored edge
-        for (int color = 1; color <= maxColors; color++)
+        for (int color = 0; color < maxColors; color++)
         {
             theGraph.get(point).color = color;
             if (pointSatisfiesConstraint(point))

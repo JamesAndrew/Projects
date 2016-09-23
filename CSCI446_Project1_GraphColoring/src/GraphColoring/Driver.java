@@ -17,7 +17,7 @@ public class Driver {
     // put the solvers you want the program to run on in here
     private final static List<Class<?>> solverList = Arrays.asList(
             //GeneticAlgorithmSolver.class
-            GreedySolver.class,
+            //GreedySolver.class,
             SimpleBacktrackingSolver.class,
             BacktrackingForwardCheckingSolver.class,
             BacktrackingPropagationSolver.class
