@@ -176,13 +176,14 @@ public class MinConflictsSolver extends ConstraintSolver
         for (Iterator<Vertex> it = currentVertex.edges.values().iterator(); it.hasNext();) 
         {
             Vertex connectedVertex = it.next();
+            //runs.println("Connected Node " + connectedVertex.getVertexNum());
             decisionsMade++;
             if (currentVertex.color == connectedVertex.color)
             {
                 conflicts++;
             }
         }
-        //runs.println("Node " + curKey + " has " + conflicts + " conflicts");
+        runs.println("Node " + curKey + " has least number of conflicts at " + conflicts + " conflicts");
         return conflicts;
     }
     
@@ -199,7 +200,8 @@ public class MinConflictsSolver extends ConstraintSolver
         // loop through the colors
         for(int curColor = 1; curColor < maxColor + 1; curColor++)
         {
-            //runs.println("Node " + curKey + " with color " + curColor);
+            runs.print(" Node " + curKey + " with color " + curColor);
+            runs.println();
             theGraph.get(curKey).color = curColor;
             decisionsMade++;
             if(Conflicts(curKey) < leastConflicts)
