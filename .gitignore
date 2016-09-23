@@ -13,8 +13,6 @@ nb-configuration.xml
 *.class
 
 # Package Files #
-*.jar
-!CSCI446_Project1_GraphColoring/libraries/*
 *.war
 *.ear
 
