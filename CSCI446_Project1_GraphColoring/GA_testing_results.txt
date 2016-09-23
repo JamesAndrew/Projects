@@ -1,0 +1,3 @@
+Solver Decisions
+Graph 0
+class GraphColoring.GeneticAlgorithmSolver 0 0

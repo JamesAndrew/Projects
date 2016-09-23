@@ -1,13 +1,21 @@
 package GraphColoring;
 
+import java.util.ArrayList;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Map;
 
 // class Graph represents a graph object with attributes points and matrix 
-public class Graph {
+public class Graph 
+{
     public final Map<Integer, Vertex> theGraph;
     private final int graphSize; 
+    // fitness is determined by how many color violations the current graph has
+    // A fitness of 1 means no violations occur. Initial fitness 
+    // is 0 
+    private int fitness = 0;
+    // The color of each vertex listen in the Map's key order
+    private final ArrayList<Integer> chromosomeArray = new ArrayList<>();
     
     /**
      * results and runs PrintWriter
@@ -22,6 +30,26 @@ public class Graph {
         graphSize = theGraph.size();
         
         runs = run;
+    }
+    
+    /**
+     * Fitness is determined by how many color violations the current graph
+     * is causing. A fitness of 1 means no violations occur. This method takes
+     * @return a number between [0, graph_size] showing how many vertices were
+     * not in conflict in the graph
+     */
+    public int calculateFitness()
+    {
+        fitness = 0;
+        for (Vertex vertex : theGraph.values())
+        {
+            boolean vertFitness = vertex.calculateFitness();
+            if (vertFitness)
+            {
+                fitness++;
+            }
+        }
+        return fitness;
     }
     
     // <editor-fold defaultstate="collapsed" desc="Various print methods">
@@ -47,7 +75,8 @@ public class Graph {
      */
     private void printVertexDetails(Vertex vertex)
     {
-        runs.format("Vertex number: %d, Location: (%f, %f), Color: %d, Fitness: %f%n", 
+        //System.out.format("Vertex number: %d, Location: (%f, %f), Color: %d, Fitness: %b%n", 
+        runs.format("Vertex number: %d, Location: (%f, %f), Color: %d, Fitness: %b%n", 
                 vertex.getVertexNum(), vertex.getxValue(), vertex.getyValue(), vertex.color, vertex.getFitness());
         if (!vertex.edges.isEmpty())
         {
@@ -97,6 +126,29 @@ public class Graph {
     public int getGraphSize() 
     {
         return graphSize;
+    }
+    
+    /**
+     * @return the fitness
+     */
+    public int getFitness() 
+    {
+        calculateFitness();
+        return fitness;
+    }
+    
+    /**
+     * updates chromosome array before returning
+     * @return the chromosomeArray
+     */
+    public ArrayList<Integer> getChromosomeArray() 
+    {
+        chromosomeArray.clear();
+        for (Vertex chromosome : theGraph.values())
+        {
+            chromosomeArray.add(chromosome.color);
+        }
+        return chromosomeArray;
     }
     // </editor-fold>
 }

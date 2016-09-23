@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.io.PrintWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.*;
 
@@ -21,12 +20,11 @@ public class Driver {
     private final static int vertexGrowthSize = 10;
     // put the solvers you want the program to run on in here
     private final static List<Class<?>> solverList = Arrays.asList(
-            //GeneticAlgorithmSolver.class
-            //GreedySolver.class,
             SimpleBacktrackingSolver.class,
             BacktrackingForwardCheckingSolver.class,
             BacktrackingPropagationSolver.class,
-            MinConflictsSolver.class
+            MinConflictsSolver.class,
+            GeneticAlgorithmSolver.class
     );
     
     /**
@@ -102,9 +100,14 @@ public class Driver {
                 solver.printFile(runs);
 
                 solver.runSolver();
+                
+                // <editor-fold defaultstate="collapsed" desc="Print graph after solver run if desired">
+//                System.out.println("\n=== Graph Print After Current Solver Run: ===");
+//                currentGraph.printGraph();
+                // </editor-fold>
+                
                 results.print(solver.getDecisionsMade() + " ");
                 results.println(solver.getValidColorings());
-                currentGraph.printGraph();
             }
             
             numVertices += vertexGrowthSize;
