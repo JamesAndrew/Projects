@@ -27,9 +27,13 @@ public class MinConflictsSolver extends ConstraintSolver
         // create Random object to generate random numbers
         Random rand = new Random();
         
+        runs.println("Tunable parameter settings:");
+        runs.println("Number of allowed steps: " + steps);
+        runs.println();
+        
         // create iterator to loop through nodes
         Iterator itr = graph.theGraph.keySet().iterator();
-        runs.println("minConflicts algorithm");
+        //runs.println("minConflicts algorithm");
         
 
         // start up new iterator
@@ -55,7 +59,7 @@ public class MinConflictsSolver extends ConstraintSolver
             runs.format("Gave vertex %d color %d.%n", currentVertex.getVertexNum(), currentVertex.color);
             decisionsMade++;
         }    
-        graph.printGraph();
+        //graph.printGraph();
         
         /**
          * keeping trying solutions till a solution has been found or 
@@ -73,7 +77,7 @@ public class MinConflictsSolver extends ConstraintSolver
             while (itr.hasNext())
             { 
                 int nextKey = (int)itr.next();
-                runs.println("Node " + nextKey);
+                //runs.println("Node " + nextKey);
                 Vertex currentVertex = theGraph.get(nextKey);
                 if (Conflicts(nextKey) > 0)
                 {
@@ -89,9 +93,11 @@ public class MinConflictsSolver extends ConstraintSolver
             {
                 step = steps;
             }
+            runs.println();
         }
         // if not solved by now, stop
         runs.println("minConflicts finished");
+        runs.println();
     }
     
     /**
@@ -105,18 +111,23 @@ public class MinConflictsSolver extends ConstraintSolver
         boolean checkSolution = checkIfSolution();
         if (checkSolution == false)
         {
+            runs.println();
             runs.println("Not a solution");
             return false;
         }
         else if (checkSolution == true)
         {
+            runs.println();
             runs.println("It's a solution");
             validColorings++;
             return true;
         }
         else
+        {
+            runs.println();
             runs.println("checkIfSolution() seems to have failed...");
-
+        }
+            
         return false;
     }
     
@@ -171,7 +182,7 @@ public class MinConflictsSolver extends ConstraintSolver
                 conflicts++;
             }
         }
-        runs.println("Node " + curKey + " has " + conflicts + " conflicts");
+        //runs.println("Node " + curKey + " has " + conflicts + " conflicts");
         return conflicts;
     }
     
@@ -188,7 +199,7 @@ public class MinConflictsSolver extends ConstraintSolver
         // loop through the colors
         for(int curColor = 1; curColor < maxColor + 1; curColor++)
         {
-            runs.println("Key " + curKey + " with color " + curColor);
+            //runs.println("Node " + curKey + " with color " + curColor);
             theGraph.get(curKey).color = curColor;
             decisionsMade++;
             if(Conflicts(curKey) < leastConflicts)
@@ -198,7 +209,7 @@ public class MinConflictsSolver extends ConstraintSolver
             }
         }
         theGraph.get(curKey).color = bestColor;
-        graph.printGraph();
+        //graph.printGraph();
     }
 
     
