@@ -15,12 +15,12 @@ public class Driver {
      */
     private final static int numberOfGraphs = 1;
     // initial amount of nodes to have for first graph generation
-    private final static int initialNumVertices = 10;
+    private final static int initialNumVertices = 20;
     // how many more vertices to have for each iteration of the graph
     private final static int vertexGrowthSize = 0;
     // put the solvers you want the program to run on in here
     private final static List<Class<?>> solverList = Arrays.asList(
-            MinConflictsSolver.class
+            GeneticAlgorithmSolver.class
     );
     
     /**
@@ -56,7 +56,8 @@ public class Driver {
         
         // prompt user for filename
         System.out.println("filename?");
-        filename = input.next();
+        filename = "testing";
+        //filename = input.next();
 
         try
         {

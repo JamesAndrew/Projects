@@ -26,6 +26,7 @@ public class Graph_Generator
     /** constructor to initialize Graph class and its attributes
      * 
      * @param n The number of vertices to have
+     * @param run : writer used for text file output
      */
     public Graph_Generator(int n, PrintWriter run)
     {

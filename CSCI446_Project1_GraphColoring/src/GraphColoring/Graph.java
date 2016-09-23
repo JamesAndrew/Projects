@@ -15,7 +15,7 @@ public class Graph
     // is 0 
     private int fitness = 0;
     // The color of each vertex listen in the Map's key order
-    private ArrayList<Integer> chromosomeArray = new ArrayList<>();
+    private final ArrayList<Integer> chromosomeArray = new ArrayList<>();
     
     /**
      * results and runs PrintWriter
