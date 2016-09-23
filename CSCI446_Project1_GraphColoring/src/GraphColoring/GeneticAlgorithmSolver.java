@@ -60,7 +60,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         // loop until constraint is meet
         boolean satisfied = false;
         int loopIteration = 0;
-        while (!satisfied && loopIteration < 100000)
+        while (!satisfied && loopIteration < 50000)
         {
             if (loopIteration % loopIterationPrintMod == 0)
                 runs.format("%n== Current Generation: %d ==%n", loopIteration);
