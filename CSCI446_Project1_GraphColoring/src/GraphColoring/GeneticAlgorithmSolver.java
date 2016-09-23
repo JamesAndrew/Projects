@@ -44,7 +44,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     }
     
     // used for displaying run data values
-    private final int loopIterationPrintMod = 1;
+    private final int loopIterationPrintMod = 100;
     
     @Override
     public void runSolver() 
@@ -60,8 +60,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         // loop until constraint is meet
         boolean satisfied = false;
         int loopIteration = 0;
-        while (!satisfied && loopIteration < 100000)
-        //for (int i = 0; i < 3; i++)
+        while (!satisfied && loopIteration < 20000)
         {
             if (loopIteration % loopIterationPrintMod == 0)
                 runs.format("%n== Current Generation: %d ==%n", loopIteration);
@@ -70,7 +69,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             childSet.clear();
             
             // assign parent set though tournament selection
-            runs.println("Selecting parent set using tournament selection\n");
+            // runs.println("Selecting parent set using tournament selection\n");
             parentSet = selectParentSet(population);
             
             // <editor-fold defaultstate="collapsed" desc="Print population and parent population fitnesses">
@@ -134,21 +133,23 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             satisfied = determineStatus();
             
             // <editor-fold defaultstate="collapsed" desc="Print best graph state for current generation">
-            runs.format("Satisfied value: %b%n", satisfied);
             if (loopIteration % loopIterationPrintMod == 0)
+            {
+                runs.format("Satisfied value: %b%n", satisfied);
                 runs.println("\nBest Graph Value: " + graph.getFitness() + " out of " + graph.getGraphSize());
-//            bestGraph.printGraph();
+                //bestGraph.printGraph();
+            }
             // </editor-fold>
             
             loopIteration++;
         }
         
         // <editor-fold defaultstate="collapsed" desc="Print final graph state">
-//        runs.format("%n= Final Generation =%n");
-//        runs.format("Satisfied value: %b%n", satisfied);
-//        runs.println("Current population fitnesses and chromosomes: ");
-//        printPopulationValues(population);
-//        runs.print("The Graph Value: " + graph.getFitness() + " out of " + graph.getGraphSize());
+        runs.format("%n= Final Generation =%n");
+        runs.format("Satisfied value: %b%n", satisfied);
+        runs.println("Current population fitnesses and chromosomes: ");
+        printPopulationValues(population);
+        runs.print("The Graph Value: " + graph.getFitness() + " out of " + graph.getGraphSize());
 //        bestGraph.printGraph();
         // </editor-fold>
     }
@@ -539,7 +540,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         
         // dynamically set tunable parameters
         populationSize = graph.getGraphSize();
-        parentSetSize = populationSize / 2;
+        parentSetSize = populationSize / 5;
         parentSet = new ArrayList<>(parentSetSize);
         childSetSize = populationSize - parentSetSize;
         childSet = new ArrayList<>(childSetSize);
