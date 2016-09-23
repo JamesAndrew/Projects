@@ -43,9 +43,17 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         maxColors = 4;
     }
     
+    // used for displaying run data values
+    private final int loopIterationPrintMod = 20;
+    
     @Override
     public void runSolver() 
     {
+        
+        runs.println("Tunable parameter settings: ");
+        runs.format(" - Population Size: %d%n - Parent Size: %d%n - Child Size: %d%n - Mutation Rate: %f%n - Repair Rate: %f%n - Tournament Size: %d%n", 
+                populationSize, parentSetSize, childSetSize, mutationRate, repairRate, tournamentSize);
+        
         initializePopulation();
         setAllFitnesses();
         
@@ -62,43 +70,57 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             childSet.clear();
             
             // assign parent set though tournament selection
+            runs.println("Selecting parent set using tournament selection");
             parentSet = selectParentSet(population);
             
             // <editor-fold defaultstate="collapsed" desc="Print population and parent population fitnesses">
-//            System.out.println("Current population fitnesses: ");
-//            printPopulationValues(population);
-//            System.out.println("Current parent set fitnesses: ");
-//            printPopulationValues(parentSet);
+            if (loopIteration % loopIterationPrintMod == 0)
+            {
+                runs.println("Current population fitnesses and chromosomes: ");
+                printPopulationValues(population);
+                runs.println("Current parent set fitnesses and chromosomes: ");
+                printPopulationValues(parentSet);
+            }
             // </editor-fold>
             
             // assign children set through crossover
             childSet = selectChildrenSet(parentSet);
             
             // <editor-fold defaultstate="collapsed" desc="Print population and parent population fitnesses">
-//            System.out.println("Current children set fitnesses and chromosomes: ");
-//            printPopulationValues(childSet);
+            if (loopIteration % loopIterationPrintMod == 0)
+            {
+                runs.println("Current children set fitnesses and chromosomes: ");
+                printPopulationValues(childSet);
+            }
             // </editor-fold>
             
             // mutate some of the children
             // <editor-fold defaultstate="collapsed" desc="Print children chromosomes before mutation">
-//            System.out.println("Children chromosomes before mutation: " );
-//            for (Graph child : childSet)
-//            {
-//                System.out.format("%s, %n", child.getChromosomeArray());
-//            }
-//            System.out.println();
+            if (loopIteration % loopIterationPrintMod == 0)
+            {
+                runs.println("Children chromosomes before mutation: " );
+                for (Graph child : childSet)
+                {
+                    runs.format("%s, %n", child.getChromosomeArray());
+                }
+                runs.println();
+            }
             // </editor-fold>
             mutateChildren(childSet);
             // <editor-fold defaultstate="collapsed" desc="Print children chromosomes after mutation">
-//            System.out.println("Children chromosomes after mutation: " );
-//            for (Graph child : childSet)
-//            {
-//                System.out.format("%s, %n", child.getChromosomeArray());
-//            }
-//            System.out.println();
+            if (loopIteration % loopIterationPrintMod == 0)
+            {
+                runs.println("Children chromosomes after mutation: " );
+                for (Graph child : childSet)
+                {
+                    runs.format("%s, %n", child.getChromosomeArray());
+                }
+                runs.println();
+            }
             // </editor-fold>
             
             // generate new population from children and parents
+            runs.println("Updating population to the next generation.");
             evolve();
                     
             // repair some chromosomes in each population individual
@@ -309,6 +331,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
                         newColor = rand.nextInt(maxColors);
                     }
                     currentVertex.color = newColor;
+                    runs.format("Repaird chromosome %d to have new color %d%n", currentVertex.getVertexNum(), currentVertex.color);
                 }
                 // if it is valid, iterate until a non-valid node is found
                 else
@@ -325,6 +348,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
                                 newColor = rand.nextInt(maxColors);
                             }
                             currentVertex.color = newColor;
+                            runs.format("Repaird chromosome %d to have new color %d%n", currentVertex.getVertexNum(), currentVertex.color);
                         }
                         break;
                     }
@@ -451,6 +475,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         childSetSize = populationSize - parentSetSize;
         childSet = new ArrayList<>(childSetSize);
         population = new ArrayList<>(populationSize);
+        
     }
     
     // <editor-fold defaultstate="collapsed" desc="Various print methods">
@@ -464,8 +489,8 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         for (Graph individual : graphSet)
         {
             ArrayList<Integer> theArray = individual.getChromosomeArray();
-            System.out.format("Individual %d's fitness: %d |", i, individual.getFitness());
-            System.out.format(" chromosomes: %s%n", theArray.toString());
+            runs.format("Individual %d's fitness: %d |", i, individual.getFitness());
+            runs.format(" chromosomes: %s%n", theArray.toString());
             i++;
         }
     }

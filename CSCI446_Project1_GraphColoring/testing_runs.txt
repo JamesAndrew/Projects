@@ -4,102 +4,1488 @@ Vertex growth size: 0
 Solvers being used: GeneticAlgorithmSolver, 
 
 = Printing Vertex Locations =
-Vertex 0: (0.357000, 0.123000)
-Vertex 1: (0.372000, 0.390000)
-Vertex 2: (0.189000, 0.609000)
-Vertex 3: (0.521000, 0.399000)
-Vertex 4: (0.512000, 0.416000)
-Vertex 5: (0.508000, 0.455000)
-Vertex 6: (0.519000, 0.525000)
-Vertex 7: (0.773000, 0.099000)
-Vertex 8: (0.619000, 0.501000)
-Vertex 9: (0.586000, 0.546000)
-Vertex 10: (0.732000, 0.379000)
-Vertex 11: (0.036000, 0.863000)
-Vertex 12: (0.427000, 0.781000)
-Vertex 13: (0.440000, 0.865000)
-Vertex 14: (0.883000, 0.455000)
-Vertex 15: (0.999000, 0.628000)
-Vertex 16: (0.905000, 0.776000)
-Vertex 17: (0.691000, 0.990000)
-Vertex 18: (0.868000, 0.862000)
-Vertex 19: (0.779000, 0.959000)
+Vertex 0: (0.150000, 0.098000)
+Vertex 1: (0.067000, 0.299000)
+Vertex 2: (0.101000, 0.347000)
+Vertex 3: (0.075000, 0.450000)
+Vertex 4: (0.523000, 0.239000)
+Vertex 5: (0.617000, 0.243000)
+Vertex 6: (0.435000, 0.570000)
+Vertex 7: (0.171000, 0.728000)
+Vertex 8: (0.036000, 0.770000)
+Vertex 9: (0.354000, 0.695000)
+Vertex 10: (0.862000, 0.273000)
+Vertex 11: (0.046000, 0.991000)
+Vertex 12: (0.193000, 0.976000)
+Vertex 13: (0.958000, 0.679000)
+Vertex 14: (0.652000, 0.979000)
+Vertex 15: (0.825000, 0.846000)
+Vertex 16: (0.640000, 0.999000)
+Vertex 17: (0.755000, 0.990000)
+Vertex 18: (0.863000, 0.956000)
+Vertex 19: (0.883000, 0.966000)
 
 
 === Printing Graph State... ===
 Graph node 0. Printing vertex details...
-Vertex number: 0, Location: (0.357000, 0.123000), Color: -1
-Edges: 1, 2, 7, 11, 
+Vertex number: 0, Location: (0.150000, 0.098000), Color: -1
+Edges: 1, 2, 4, 5, 10, 13, 
 Graph node 1. Printing vertex details...
-Vertex number: 1, Location: (0.372000, 0.390000), Color: -1
-Edges: 0, 2, 3, 4, 5, 7, 12, 13, 
+Vertex number: 1, Location: (0.067000, 0.299000), Color: -1
+Edges: 0, 2, 3, 8, 
 Graph node 2. Printing vertex details...
-Vertex number: 2, Location: (0.189000, 0.609000), Color: -1
-Edges: 0, 1, 11, 12, 
+Vertex number: 2, Location: (0.101000, 0.347000), Color: -1
+Edges: 0, 1, 3, 13, 
 Graph node 3. Printing vertex details...
-Vertex number: 3, Location: (0.521000, 0.399000), Color: -1
-Edges: 1, 4, 5, 6, 7, 10, 12, 
+Vertex number: 3, Location: (0.075000, 0.450000), Color: -1
+Edges: 1, 2, 6, 8, 13, 
 Graph node 4. Printing vertex details...
-Vertex number: 4, Location: (0.512000, 0.416000), Color: -1
-Edges: 1, 3, 5, 10, 
+Vertex number: 4, Location: (0.523000, 0.239000), Color: -1
+Edges: 0, 5, 13, 
 Graph node 5. Printing vertex details...
-Vertex number: 5, Location: (0.508000, 0.455000), Color: -1
-Edges: 1, 3, 4, 6, 8, 10, 12, 14, 
+Vertex number: 5, Location: (0.617000, 0.243000), Color: -1
+Edges: 0, 4, 10, 13, 
 Graph node 6. Printing vertex details...
-Vertex number: 6, Location: (0.519000, 0.525000), Color: -1
-Edges: 3, 5, 8, 9, 12, 
+Vertex number: 6, Location: (0.435000, 0.570000), Color: -1
+Edges: 3, 7, 8, 9, 13, 
 Graph node 7. Printing vertex details...
-Vertex number: 7, Location: (0.773000, 0.099000), Color: -1
-Edges: 0, 1, 3, 10, 14, 15, 
+Vertex number: 7, Location: (0.171000, 0.728000), Color: -1
+Edges: 6, 8, 9, 12, 
 Graph node 8. Printing vertex details...
-Vertex number: 8, Location: (0.619000, 0.501000), Color: -1
-Edges: 5, 6, 9, 10, 
+Vertex number: 8, Location: (0.036000, 0.770000), Color: -1
+Edges: 1, 3, 6, 7, 9, 11, 12, 
 Graph node 9. Printing vertex details...
-Vertex number: 9, Location: (0.586000, 0.546000), Color: -1
-Edges: 16, 17, 6, 8, 10, 12, 13, 
+Vertex number: 9, Location: (0.354000, 0.695000), Color: -1
+Edges: 16, 6, 7, 8, 12, 13, 14, 
 Graph node 10. Printing vertex details...
-Vertex number: 10, Location: (0.732000, 0.379000), Color: -1
-Edges: 16, 3, 4, 5, 7, 8, 9, 14, 
+Vertex number: 10, Location: (0.862000, 0.273000), Color: -1
+Edges: 0, 18, 5, 13, 
 Graph node 11. Printing vertex details...
-Vertex number: 11, Location: (0.036000, 0.863000), Color: -1
-Edges: 0, 17, 18, 2, 12, 13, 
+Vertex number: 11, Location: (0.046000, 0.991000), Color: -1
+Edges: 16, 17, 8, 12, 14, 
 Graph node 12. Printing vertex details...
-Vertex number: 12, Location: (0.427000, 0.781000), Color: -1
-Edges: 1, 2, 3, 5, 6, 9, 11, 13, 
+Vertex number: 12, Location: (0.193000, 0.976000), Color: -1
+Edges: 7, 8, 9, 11, 14, 
 Graph node 13. Printing vertex details...
-Vertex number: 13, Location: (0.440000, 0.865000), Color: -1
-Edges: 17, 1, 9, 11, 12, 
+Vertex number: 13, Location: (0.958000, 0.679000), Color: -1
+Edges: 0, 2, 19, 3, 4, 5, 6, 9, 10, 14, 15, 
 Graph node 14. Printing vertex details...
-Vertex number: 14, Location: (0.883000, 0.455000), Color: -1
-Edges: 16, 5, 7, 10, 15, 
+Vertex number: 14, Location: (0.652000, 0.979000), Color: -1
+Edges: 16, 9, 11, 12, 13, 15, 
 Graph node 15. Printing vertex details...
-Vertex number: 15, Location: (0.999000, 0.628000), Color: -1
-Edges: 16, 18, 7, 14, 
+Vertex number: 15, Location: (0.825000, 0.846000), Color: -1
+Edges: 16, 18, 19, 13, 14, 
 Graph node 16. Printing vertex details...
-Vertex number: 16, Location: (0.905000, 0.776000), Color: -1
-Edges: 17, 18, 19, 9, 10, 14, 15, 
+Vertex number: 16, Location: (0.640000, 0.999000), Color: -1
+Edges: 17, 18, 9, 11, 14, 15, 
 Graph node 17. Printing vertex details...
-Vertex number: 17, Location: (0.691000, 0.990000), Color: -1
-Edges: 16, 19, 9, 11, 13, 
+Vertex number: 17, Location: (0.755000, 0.990000), Color: -1
+Edges: 16, 18, 19, 11, 
 Graph node 18. Printing vertex details...
-Vertex number: 18, Location: (0.868000, 0.862000), Color: -1
-Edges: 16, 19, 11, 15, 
+Vertex number: 18, Location: (0.863000, 0.956000), Color: -1
+Edges: 16, 17, 19, 10, 15, 
 Graph node 19. Printing vertex details...
-Vertex number: 19, Location: (0.779000, 0.959000), Color: -1
-Edges: 16, 17, 18, 
+Vertex number: 19, Location: (0.883000, 0.966000), Color: -1
+Edges: 17, 18, 13, 15, 
 
 = Running next solver =
 Current algorithm: GeneticAlgorithmSolver
 Graph size: 20
+Tunable parameter settings: 
+ - Population Size: 20
+ - Parent Size: 10
+ - Child Size: 10
+ - Mutation Rate: 0.300000
+ - Repair Rate: 0.050000
+ - Tournament Size: 2
 
 == Current Generation: 0 ==
-Best Graph Value: 8 out of 20
+Selecting parent set using tournament selection
+Current population fitnesses and chromosomes: 
+Individual 0's fitness: 4 | chromosomes: [1, 0, 3, 2, 1, 3, 2, 1, 2, 0, 3, 1, 3, 0, 3, 2, 3, 1, 1, 0]
+Individual 1's fitness: 2 | chromosomes: [0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 3, 0, 3, 3, 3, 1, 2, 1]
+Individual 2's fitness: 6 | chromosomes: [2, 0, 0, 1, 0, 0, 1, 0, 1, 3, 0, 3, 1, 1, 3, 1, 0, 1, 2, 3]
+Individual 3's fitness: 6 | chromosomes: [0, 3, 1, 3, 2, 3, 0, 1, 3, 2, 3, 0, 3, 2, 3, 3, 2, 1, 0, 1]
+Individual 4's fitness: 6 | chromosomes: [1, 3, 3, 1, 0, 2, 0, 0, 2, 1, 1, 0, 0, 1, 3, 1, 2, 3, 1, 1]
+Individual 5's fitness: 2 | chromosomes: [1, 3, 0, 3, 1, 0, 1, 1, 1, 3, 0, 3, 3, 0, 2, 1, 2, 1, 2, 2]
+Individual 6's fitness: 4 | chromosomes: [2, 3, 3, 2, 1, 3, 3, 1, 1, 1, 3, 3, 3, 1, 0, 0, 3, 0, 2, 2]
+Individual 7's fitness: 8 | chromosomes: [2, 2, 0, 1, 3, 2, 2, 0, 3, 2, 1, 1, 1, 2, 2, 2, 2, 1, 3, 0]
+Individual 8's fitness: 1 | chromosomes: [1, 2, 2, 1, 2, 2, 2, 1, 0, 2, 1, 0, 1, 2, 1, 3, 1, 0, 0, 3]
+Individual 9's fitness: 8 | chromosomes: [2, 0, 1, 2, 1, 3, 3, 1, 3, 0, 1, 0, 1, 3, 1, 1, 2, 1, 1, 3]
+Individual 10's fitness: 5 | chromosomes: [2, 0, 1, 3, 0, 3, 0, 1, 0, 1, 2, 2, 3, 1, 2, 2, 0, 0, 2, 3]
+Individual 11's fitness: 3 | chromosomes: [2, 3, 0, 2, 1, 2, 0, 0, 3, 0, 1, 0, 0, 3, 3, 1, 1, 0, 1, 1]
+Individual 12's fitness: 4 | chromosomes: [1, 2, 2, 0, 3, 3, 0, 3, 3, 1, 3, 2, 0, 3, 1, 2, 0, 1, 1, 2]
+Individual 13's fitness: 3 | chromosomes: [3, 3, 1, 1, 0, 3, 1, 1, 2, 1, 1, 0, 2, 3, 0, 3, 0, 0, 0, 2]
+Individual 14's fitness: 6 | chromosomes: [2, 2, 1, 3, 0, 1, 1, 2, 1, 3, 0, 1, 0, 3, 1, 3, 2, 2, 1, 1]
+Individual 15's fitness: 3 | chromosomes: [3, 2, 2, 2, 2, 3, 2, 0, 2, 1, 3, 0, 0, 3, 3, 1, 1, 3, 0, 1]
+Individual 16's fitness: 5 | chromosomes: [3, 0, 0, 1, 2, 1, 0, 0, 0, 1, 0, 2, 2, 0, 3, 0, 1, 3, 1, 3]
+Individual 17's fitness: 4 | chromosomes: [3, 2, 1, 3, 2, 1, 3, 1, 0, 0, 3, 0, 3, 1, 0, 1, 1, 3, 1, 3]
+Individual 18's fitness: 6 | chromosomes: [3, 0, 2, 3, 1, 0, 3, 3, 3, 1, 2, 0, 3, 3, 1, 1, 3, 3, 3, 3]
+Individual 19's fitness: 4 | chromosomes: [3, 0, 2, 2, 3, 2, 0, 0, 2, 1, 3, 1, 0, 2, 1, 3, 0, 2, 1, 2]
+Current parent set fitnesses and chromosomes: 
+Individual 0's fitness: 4 | chromosomes: [3, 2, 1, 3, 2, 1, 3, 1, 0, 0, 3, 0, 3, 1, 0, 1, 1, 3, 1, 3]
+Individual 1's fitness: 6 | chromosomes: [2, 0, 0, 1, 0, 0, 1, 0, 1, 3, 0, 3, 1, 1, 3, 1, 0, 1, 2, 3]
+Individual 2's fitness: 4 | chromosomes: [2, 3, 3, 2, 1, 3, 3, 1, 1, 1, 3, 3, 3, 1, 0, 0, 3, 0, 2, 2]
+Individual 3's fitness: 4 | chromosomes: [3, 2, 1, 3, 2, 1, 3, 1, 0, 0, 3, 0, 3, 1, 0, 1, 1, 3, 1, 3]
+Individual 4's fitness: 5 | chromosomes: [3, 0, 0, 1, 2, 1, 0, 0, 0, 1, 0, 2, 2, 0, 3, 0, 1, 3, 1, 3]
+Individual 5's fitness: 6 | chromosomes: [3, 0, 2, 3, 1, 0, 3, 3, 3, 1, 2, 0, 3, 3, 1, 1, 3, 3, 3, 3]
+Individual 6's fitness: 6 | chromosomes: [2, 0, 0, 1, 0, 0, 1, 0, 1, 3, 0, 3, 1, 1, 3, 1, 0, 1, 2, 3]
+Individual 7's fitness: 5 | chromosomes: [2, 0, 1, 3, 0, 3, 0, 1, 0, 1, 2, 2, 3, 1, 2, 2, 0, 0, 2, 3]
+Individual 8's fitness: 8 | chromosomes: [2, 0, 1, 2, 1, 3, 3, 1, 3, 0, 1, 0, 1, 3, 1, 1, 2, 1, 1, 3]
+Individual 9's fitness: 5 | chromosomes: [2, 0, 1, 3, 0, 3, 0, 1, 0, 1, 2, 2, 3, 1, 2, 2, 0, 0, 2, 3]
+Current children set fitnesses and chromosomes: 
+Individual 0's fitness: 3 | chromosomes: [3, 0, 0, 1, 2, 1, 0, 0, 0, 1, 1, 0, 1, 3, 1, 1, 2, 1, 1, 3]
+Individual 1's fitness: 8 | chromosomes: [2, 0, 1, 2, 1, 3, 3, 1, 3, 0, 0, 2, 2, 0, 3, 0, 1, 3, 1, 3]
+Individual 2's fitness: 7 | chromosomes: [2, 0, 1, 2, 1, 3, 3, 1, 3, 0, 2, 0, 3, 3, 1, 1, 3, 3, 3, 3]
+Individual 3's fitness: 6 | chromosomes: [3, 0, 2, 3, 1, 0, 3, 3, 3, 1, 1, 0, 1, 3, 1, 1, 2, 1, 1, 3]
+Individual 4's fitness: 4 | chromosomes: [2, 3, 3, 2, 1, 3, 3, 1, 1, 1, 3, 3, 3, 1, 0, 0, 3, 0, 2, 2]
+Individual 5's fitness: 4 | chromosomes: [2, 3, 3, 2, 1, 3, 3, 1, 1, 1, 3, 3, 3, 1, 0, 0, 3, 0, 2, 2]
+Individual 6's fitness: 8 | chromosomes: [2, 0, 1, 2, 1, 3, 3, 1, 3, 0, 0, 3, 1, 1, 3, 1, 0, 1, 2, 3]
+Individual 7's fitness: 4 | chromosomes: [2, 0, 0, 1, 0, 0, 1, 0, 1, 3, 1, 0, 1, 3, 1, 1, 2, 1, 1, 3]
+Individual 8's fitness: 6 | chromosomes: [3, 0, 2, 3, 1, 0, 3, 3, 3, 1, 1, 0, 1, 3, 1, 1, 2, 1, 1, 3]
+Individual 9's fitness: 7 | chromosomes: [2, 0, 1, 2, 1, 3, 3, 1, 3, 0, 2, 0, 3, 3, 1, 1, 3, 3, 3, 3]
+Children chromosomes before mutation: 
+[3, 0, 0, 1, 2, 1, 0, 0, 0, 1, 1, 0, 1, 3, 1, 1, 2, 1, 1, 3], 
+[2, 0, 1, 2, 1, 3, 3, 1, 3, 0, 0, 2, 2, 0, 3, 0, 1, 3, 1, 3], 
+[2, 0, 1, 2, 1, 3, 3, 1, 3, 0, 2, 0, 3, 3, 1, 1, 3, 3, 3, 3], 
+[3, 0, 2, 3, 1, 0, 3, 3, 3, 1, 1, 0, 1, 3, 1, 1, 2, 1, 1, 3], 
+[2, 3, 3, 2, 1, 3, 3, 1, 1, 1, 3, 3, 3, 1, 0, 0, 3, 0, 2, 2], 
+[2, 3, 3, 2, 1, 3, 3, 1, 1, 1, 3, 3, 3, 1, 0, 0, 3, 0, 2, 2], 
+[2, 0, 1, 2, 1, 3, 3, 1, 3, 0, 0, 3, 1, 1, 3, 1, 0, 1, 2, 3], 
+[2, 0, 0, 1, 0, 0, 1, 0, 1, 3, 1, 0, 1, 3, 1, 1, 2, 1, 1, 3], 
+[3, 0, 2, 3, 1, 0, 3, 3, 3, 1, 1, 0, 1, 3, 1, 1, 2, 1, 1, 3], 
+[2, 0, 1, 2, 1, 3, 3, 1, 3, 0, 2, 0, 3, 3, 1, 1, 3, 3, 3, 3], 
+
+Children chromosomes after mutation: 
+[3, 0, 0, 1, 2, 1, 0, 0, 0, 1, 0, 0, 0, 3, 1, 1, 2, 1, 1, 0], 
+[2, 0, 1, 2, 1, 3, 3, 1, 1, 0, 0, 3, 2, 0, 3, 1, 1, 3, 1, 3], 
+[3, 0, 1, 2, 1, 3, 2, 1, 1, 0, 2, 0, 3, 3, 1, 1, 3, 3, 3, 3], 
+[3, 0, 2, 3, 1, 0, 1, 3, 1, 1, 1, 0, 1, 3, 1, 1, 2, 1, 1, 0], 
+[2, 3, 3, 2, 0, 3, 3, 1, 1, 1, 3, 3, 3, 1, 0, 0, 3, 0, 0, 2], 
+[2, 3, 3, 2, 1, 3, 3, 1, 1, 1, 3, 3, 3, 1, 0, 0, 3, 0, 2, 1], 
+[2, 0, 2, 1, 1, 3, 3, 1, 3, 0, 0, 3, 1, 1, 3, 1, 2, 1, 2, 3], 
+[2, 0, 0, 1, 0, 0, 1, 0, 2, 3, 1, 0, 1, 3, 1, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 0, 1, 3, 3, 1, 1, 0, 1, 3, 1, 1, 2, 1, 0, 3], 
+[2, 0, 1, 2, 1, 3, 3, 1, 3, 0, 3, 0, 3, 3, 1, 1, 3, 3, 3, 3], 
+
+Updating population to the next generation.
+Repaird chromosome 1 to have new color 2
+Repaird chromosome 15 to have new color 2
+Repaird chromosome 11 to have new color 0
+Repaird chromosome 4 to have new color 1
+Repaird chromosome 9 to have new color 2
+Repaird chromosome 14 to have new color 2
+Repaird chromosome 15 to have new color 0
+Repaird chromosome 9 to have new color 2
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 6 to have new color 0
+Repaird chromosome 14 to have new color 2
+Repaird chromosome 12 to have new color 2
+Repaird chromosome 1 to have new color 0
+Repaird chromosome 18 to have new color 0
+Repaird chromosome 13 to have new color 2
+Repaird chromosome 14 to have new color 2
+Repaird chromosome 13 to have new color 2
+Repaird chromosome 7 to have new color 2
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 1 to have new color 0
+Best Graph Value: 6 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 10 to have new color 2
+Repaird chromosome 0 to have new color 2
+Repaird chromosome 15 to have new color 1
+Repaird chromosome 18 to have new color 1
+Repaird chromosome 7 to have new color 1
+Repaird chromosome 12 to have new color 1
+Repaird chromosome 13 to have new color 2
+Repaird chromosome 8 to have new color 2
+Repaird chromosome 8 to have new color 2
+Repaird chromosome 8 to have new color 2
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 14 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 17 to have new color 2
+Repaird chromosome 15 to have new color 1
+Repaird chromosome 17 to have new color 1
+Repaird chromosome 6 to have new color 2
+
+== Current Generation: 2 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 12 to have new color 2
+Repaird chromosome 1 to have new color 0
+Repaird chromosome 0 to have new color 1
+Repaird chromosome 9 to have new color 2
+Repaird chromosome 14 to have new color 2
+Repaird chromosome 12 to have new color 2
+Repaird chromosome 15 to have new color 1
+Repaird chromosome 15 to have new color 1
+Repaird chromosome 16 to have new color 0
+Repaird chromosome 5 to have new color 0
+Repaird chromosome 12 to have new color 0
+Repaird chromosome 9 to have new color 1
+Repaird chromosome 8 to have new color 1
+Repaird chromosome 3 to have new color 1
+Repaird chromosome 12 to have new color 0
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 11 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 11 to have new color 0
+Repaird chromosome 11 to have new color 0
+Repaird chromosome 14 to have new color 1
+Repaird chromosome 7 to have new color 2
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 8 to have new color 2
+Repaird chromosome 14 to have new color 2
+
+== Current Generation: 4 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 10 to have new color 1
+Repaird chromosome 5 to have new color 2
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 12 to have new color 1
+Repaird chromosome 13 to have new color 2
+Repaird chromosome 7 to have new color 1
+Repaird chromosome 8 to have new color 2
+Repaird chromosome 6 to have new color 1
+Best Graph Value: 14 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 8 to have new color 2
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 12 to have new color 1
+Repaird chromosome 5 to have new color 2
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 6 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 8 to have new color 2
+Repaird chromosome 16 to have new color 2
+Repaird chromosome 16 to have new color 1
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 16 to have new color 1
+Best Graph Value: 17 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 4 to have new color 1
+Repaird chromosome 16 to have new color 2
+
+== Current Generation: 8 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 5 to have new color 2
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 13 to have new color 2
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 14 to have new color 2
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 5 to have new color 2
+
+== Current Generation: 10 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 0 to have new color 2
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 10 to have new color 1
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 12 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 15 to have new color 2
+Repaird chromosome 4 to have new color 1
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 14 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 15 to have new color 1
+Repaird chromosome 19 to have new color 2
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 2
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 6 to have new color 1
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 15 to have new color 1
+Repaird chromosome 14 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 16 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 1
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 18 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
 
 == Current Generation: 20 ==
-Best Graph Value: 16 out of 20
+Selecting parent set using tournament selection
+Current population fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 2's fitness: 17 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 2, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 6's fitness: 17 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 1, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 8's fitness: 17 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 3, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 10's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 11's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 12's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 13's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 14's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 15's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 16's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 17's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 18's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 19's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Current parent set fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Current children set fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Children chromosomes before mutation: 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+
+Children chromosomes after mutation: 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 1, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 1, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+
+Updating population to the next generation.
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 22 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 7 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 24 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 26 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 16 to have new color 2
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 0 to have new color 1
+Repaird chromosome 12 to have new color 1
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 6 to have new color 1
+
+== Current Generation: 28 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 6 to have new color 1
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+
+== Current Generation: 30 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 16 to have new color 2
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 1 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 32 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 14 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 6 to have new color 1
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 34 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 15 to have new color 1
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 19 to have new color 2
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 36 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 7 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 38 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
 
 == Current Generation: 40 ==
+Selecting parent set using tournament selection
+Current population fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 2's fitness: 17 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 2, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 4's fitness: 17 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 2, 3, 1, 2, 1, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 10's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 11's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 12's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 13's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 14's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 15's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 16's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 17's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 18's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 19's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Current parent set fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Current children set fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Children chromosomes before mutation: 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+
+Children chromosomes after mutation: 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 2, 1, 0, 1, 0, 3, 1, 3, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 1, 2, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 1, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 1, 1, 2, 1, 3, 2, 0, 1, 0, 1, 3, 3, 1, 2, 1, 0, 3], 
+
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 5 to have new color 2
+Repaird chromosome 9 to have new color 0
 Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 17 to have new color 1
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 42 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 44 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 14 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 46 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 7 to have new color 1
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 48 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 15 to have new color 1
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 11 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 50 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 1 to have new color 0
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 2 to have new color 2
+
+== Current Generation: 52 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 16 to have new color 2
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 54 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 10 to have new color 1
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 56 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 5 to have new color 2
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 6 to have new color 1
+
+== Current Generation: 58 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 2 to have new color 1
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 60 ==
+Selecting parent set using tournament selection
+Current population fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 2's fitness: 14 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 1, 3, 2, 2, 1, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 4's fitness: 17 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 2, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [3, 0, 1, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 2, 3, 1, 2, 1, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 10's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 11's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 12's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 13's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 14's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 15's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 16's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 17's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 18's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 19's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Current parent set fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Current children set fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Children chromosomes before mutation: 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+
+Children chromosomes after mutation: 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 14 to have new color 1
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 62 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 64 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 10 to have new color 1
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 66 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 68 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 19 to have new color 2
+Repaird chromosome 10 to have new color 1
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 70 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 2 to have new color 2
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 18 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 72 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 2 to have new color 2
+Repaird chromosome 10 to have new color 1
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 11 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 1 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 11 to have new color 0
+
+== Current Generation: 74 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 5 to have new color 2
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 14 to have new color 0
+
+== Current Generation: 76 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 6 to have new color 1
+Repaird chromosome 7 to have new color 1
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 8 to have new color 2
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 78 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 15 to have new color 1
+Repaird chromosome 10 to have new color 1
+
+== Current Generation: 80 ==
+Selecting parent set using tournament selection
+Current population fitnesses and chromosomes: 
+Individual 0's fitness: 15 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 1, 3, 1, 2, 1, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 4's fitness: 17 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 2, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 5's fitness: 15 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 1, 3, 1, 2, 1, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 8's fitness: 17 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 2, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 10's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 11's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 12's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 13's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 14's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 15's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 16's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 17's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 18's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 19's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Current parent set fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Current children set fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Children chromosomes before mutation: 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+
+Children chromosomes after mutation: 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 1, 3, 1, 2, 1, 0, 3], 
+
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 14 to have new color 2
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 0 to have new color 2
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 82 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 11 to have new color 0
+Repaird chromosome 8 to have new color 2
+Best Graph Value: 16 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 3 to have new color 1
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 84 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 19 to have new color 2
+Repaird chromosome 12 to have new color 1
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 10 to have new color 1
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 86 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 5 to have new color 0
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 88 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 3 to have new color 0
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 14 to have new color 2
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 90 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 6 to have new color 1
+Repaird chromosome 6 to have new color 1
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 6 to have new color 1
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 92 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 19 to have new color 0
+Repaird chromosome 14 to have new color 1
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 5 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 94 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 96 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 15 to have new color 1
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 3 to have new color 2
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 98 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 100 ==
+Selecting parent set using tournament selection
+Current population fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 3's fitness: 17 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 1, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 10's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 11's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 12's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 13's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 14's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 15's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 16's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 17's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 18's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 19's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Current parent set fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Current children set fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Children chromosomes before mutation: 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+
+Children chromosomes after mutation: 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 1, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 2, 1, 0, 1, 0, 3, 1, 3, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 3, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 102 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 7 to have new color 1
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 12 to have new color 1
+
+== Current Generation: 104 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 17 to have new color 1
+
+== Current Generation: 106 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 108 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 8 to have new color 2
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 14 to have new color 0
+
+== Current Generation: 110 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 112 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 15 to have new color 1
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 114 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 4 to have new color 1
+Repaird chromosome 4 to have new color 1
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 7 to have new color 1
+Repaird chromosome 7 to have new color 0
+Repaird chromosome 18 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 0 to have new color 1
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 16 to have new color 2
+
+== Current Generation: 116 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 7 to have new color 2
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 15 to have new color 1
+
+== Current Generation: 118 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+
+== Current Generation: 120 ==
+Selecting parent set using tournament selection
+Current population fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 10's fitness: 17 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 2, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 11's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 12's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 13's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 14's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 15's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 16's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 17's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 18's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 19's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Current parent set fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Current children set fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3]
+Children chromosomes before mutation: 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+
+Children chromosomes after mutation: 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 2, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 1, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+[3, 0, 2, 3, 1, 2, 1, 3, 2, 0, 1, 0, 1, 0, 3, 1, 2, 1, 0, 3], 
+
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 6 to have new color 1
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 122 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 1 to have new color 0
+Repaird chromosome 3 to have new color 2
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 5 to have new color 0
+
+== Current Generation: 124 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 8 to have new color 2
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 18 to have new color 0
+Repaird chromosome 12 to have new color 1
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 126 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 17 to have new color 1
+Repaird chromosome 2 to have new color 1
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 8 to have new color 2
+Repaird chromosome 7 to have new color 1
+Repaird chromosome 1 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 16 to have new color 2
+
+== Current Generation: 128 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 5 to have new color 2
+Repaird chromosome 4 to have new color 1
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 5 to have new color 0
+
+== Current Generation: 130 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 1 to have new color 0
+Repaird chromosome 6 to have new color 1
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 132 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 6 to have new color 1
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 134 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 5 to have new color 2
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 12 to have new color 1
+Repaird chromosome 15 to have new color 1
+Repaird chromosome 13 to have new color 0
+Best Graph Value: 18 out of 20
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+
+== Current Generation: 136 ==
+Selecting parent set using tournament selection
+Updating population to the next generation.
+Repaird chromosome 5 to have new color 0
+Repaird chromosome 13 to have new color 0
+Repaird chromosome 9 to have new color 0
+Repaird chromosome 9 to have new color 0
+Best Graph Value: 20 out of 20
 
 = Final Generation Graph =
 Satisfied value: true
@@ -107,63 +1493,63 @@ The Graph Value: 20 out of 20
 
 === Printing Graph State... ===
 Graph node 0. Printing vertex details...
-Vertex number: 0, Location: (0.357000, 0.123000), Color: 0, Fitness: true
-Edges: 1, 2, 7, 11, 
+Vertex number: 0, Location: (0.150000, 0.098000), Color: 3, Fitness: true
+Edges: 1, 2, 4, 5, 10, 13, 
 Graph node 1. Printing vertex details...
-Vertex number: 1, Location: (0.372000, 0.390000), Color: 2, Fitness: true
-Edges: 0, 2, 3, 4, 5, 7, 12, 13, 
+Vertex number: 1, Location: (0.067000, 0.299000), Color: 0, Fitness: true
+Edges: 0, 2, 3, 8, 
 Graph node 2. Printing vertex details...
-Vertex number: 2, Location: (0.189000, 0.609000), Color: 1, Fitness: true
-Edges: 0, 1, 11, 12, 
+Vertex number: 2, Location: (0.101000, 0.347000), Color: 1, Fitness: true
+Edges: 0, 1, 3, 13, 
 Graph node 3. Printing vertex details...
-Vertex number: 3, Location: (0.521000, 0.399000), Color: 3, Fitness: true
-Edges: 1, 4, 5, 6, 7, 10, 12, 
+Vertex number: 3, Location: (0.075000, 0.450000), Color: 3, Fitness: true
+Edges: 1, 2, 6, 8, 13, 
 Graph node 4. Printing vertex details...
-Vertex number: 4, Location: (0.512000, 0.416000), Color: 0, Fitness: true
-Edges: 1, 3, 5, 10, 
+Vertex number: 4, Location: (0.523000, 0.239000), Color: 1, Fitness: true
+Edges: 0, 5, 13, 
 Graph node 5. Printing vertex details...
-Vertex number: 5, Location: (0.508000, 0.455000), Color: 1, Fitness: true
-Edges: 1, 3, 4, 6, 8, 10, 12, 14, 
+Vertex number: 5, Location: (0.617000, 0.243000), Color: 0, Fitness: true
+Edges: 0, 4, 10, 13, 
 Graph node 6. Printing vertex details...
-Vertex number: 6, Location: (0.519000, 0.525000), Color: 2, Fitness: true
-Edges: 3, 5, 8, 9, 12, 
+Vertex number: 6, Location: (0.435000, 0.570000), Color: 1, Fitness: true
+Edges: 3, 7, 8, 9, 13, 
 Graph node 7. Printing vertex details...
-Vertex number: 7, Location: (0.773000, 0.099000), Color: 1, Fitness: true
-Edges: 0, 1, 3, 10, 14, 15, 
+Vertex number: 7, Location: (0.171000, 0.728000), Color: 3, Fitness: true
+Edges: 6, 8, 9, 12, 
 Graph node 8. Printing vertex details...
-Vertex number: 8, Location: (0.619000, 0.501000), Color: 0, Fitness: true
-Edges: 5, 6, 9, 10, 
+Vertex number: 8, Location: (0.036000, 0.770000), Color: 2, Fitness: true
+Edges: 1, 3, 6, 7, 9, 11, 12, 
 Graph node 9. Printing vertex details...
-Vertex number: 9, Location: (0.586000, 0.546000), Color: 1, Fitness: true
-Edges: 16, 17, 6, 8, 10, 12, 13, 
+Vertex number: 9, Location: (0.354000, 0.695000), Color: 0, Fitness: true
+Edges: 16, 6, 7, 8, 12, 13, 14, 
 Graph node 10. Printing vertex details...
-Vertex number: 10, Location: (0.732000, 0.379000), Color: 2, Fitness: true
-Edges: 16, 3, 4, 5, 7, 8, 9, 14, 
+Vertex number: 10, Location: (0.862000, 0.273000), Color: 1, Fitness: true
+Edges: 0, 18, 5, 13, 
 Graph node 11. Printing vertex details...
-Vertex number: 11, Location: (0.036000, 0.863000), Color: 2, Fitness: true
-Edges: 0, 17, 18, 2, 12, 13, 
+Vertex number: 11, Location: (0.046000, 0.991000), Color: 0, Fitness: true
+Edges: 16, 17, 8, 12, 14, 
 Graph node 12. Printing vertex details...
-Vertex number: 12, Location: (0.427000, 0.781000), Color: 0, Fitness: true
-Edges: 1, 2, 3, 5, 6, 9, 11, 13, 
+Vertex number: 12, Location: (0.193000, 0.976000), Color: 1, Fitness: true
+Edges: 7, 8, 9, 11, 14, 
 Graph node 13. Printing vertex details...
-Vertex number: 13, Location: (0.440000, 0.865000), Color: 3, Fitness: true
-Edges: 17, 1, 9, 11, 12, 
+Vertex number: 13, Location: (0.958000, 0.679000), Color: 2, Fitness: true
+Edges: 0, 2, 19, 3, 4, 5, 6, 9, 10, 14, 15, 
 Graph node 14. Printing vertex details...
-Vertex number: 14, Location: (0.883000, 0.455000), Color: 0, Fitness: true
-Edges: 16, 5, 7, 10, 15, 
+Vertex number: 14, Location: (0.652000, 0.979000), Color: 3, Fitness: true
+Edges: 16, 9, 11, 12, 13, 15, 
 Graph node 15. Printing vertex details...
-Vertex number: 15, Location: (0.999000, 0.628000), Color: 2, Fitness: true
-Edges: 16, 18, 7, 14, 
+Vertex number: 15, Location: (0.825000, 0.846000), Color: 1, Fitness: true
+Edges: 16, 18, 19, 13, 14, 
 Graph node 16. Printing vertex details...
-Vertex number: 16, Location: (0.905000, 0.776000), Color: 3, Fitness: true
-Edges: 17, 18, 19, 9, 10, 14, 15, 
+Vertex number: 16, Location: (0.640000, 0.999000), Color: 2, Fitness: true
+Edges: 17, 18, 9, 11, 14, 15, 
 Graph node 17. Printing vertex details...
-Vertex number: 17, Location: (0.691000, 0.990000), Color: 0, Fitness: true
-Edges: 16, 19, 9, 11, 13, 
+Vertex number: 17, Location: (0.755000, 0.990000), Color: 1, Fitness: true
+Edges: 16, 18, 19, 11, 
 Graph node 18. Printing vertex details...
-Vertex number: 18, Location: (0.868000, 0.862000), Color: 1, Fitness: true
-Edges: 16, 19, 11, 15, 
+Vertex number: 18, Location: (0.863000, 0.956000), Color: 0, Fitness: true
+Edges: 16, 17, 19, 10, 15, 
 Graph node 19. Printing vertex details...
-Vertex number: 19, Location: (0.779000, 0.959000), Color: 2, Fitness: true
-Edges: 16, 17, 18, 
+Vertex number: 19, Location: (0.883000, 0.966000), Color: 3, Fitness: true
+Edges: 17, 18, 13, 15, 
 
