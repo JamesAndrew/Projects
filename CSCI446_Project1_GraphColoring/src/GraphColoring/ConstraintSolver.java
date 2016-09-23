@@ -74,22 +74,18 @@ public abstract class ConstraintSolver
     {
         boolean satisfied = true;
         // for each vertex in the graph...
-        for (Iterator<Vertex> vertItr = graph.theGraph.values().iterator(); vertItr.hasNext();) 
+        for (Vertex vertex : graph.theGraph.values()) 
         {
-            Vertex currentVertex = vertItr.next();
-            int currentColor = currentVertex.color;
+            int currentColor = vertex.color;
             
             // for each vertex the current vertex is connected to...
-            for (Iterator<Vertex> edgeItr = currentVertex.edges.values().iterator(); edgeItr.hasNext();)
+            for (Vertex connection : vertex.edges.values())
             {
-                Vertex connectedVertex = edgeItr.next();
-                if (currentColor == connectedVertex.color)
+                if (currentColor == connection.color)
                 {
                     satisfied = false;
                     break;
                 }
-                if (satisfied == false)
-                    break;
             }
             if (satisfied == false)
                 break;

@@ -44,7 +44,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     }
     
     // used for displaying run data values
-    private final int loopIterationPrintMod = 20;
+    private final int loopIterationPrintMod = 1;
     
     @Override
     public void runSolver() 
@@ -63,14 +63,14 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         while (!satisfied && loopIteration < 100000)
         //for (int i = 0; i < 3; i++)
         {
-            if (loopIteration % 2 == 0)
+            if (loopIteration % loopIterationPrintMod == 0)
                 runs.format("%n== Current Generation: %d ==%n", loopIteration);
             // reset parent and child subsets
             parentSet.clear();
             childSet.clear();
             
             // assign parent set though tournament selection
-            runs.println("Selecting parent set using tournament selection");
+            runs.println("Selecting parent set using tournament selection\n");
             parentSet = selectParentSet(population);
             
             // <editor-fold defaultstate="collapsed" desc="Print population and parent population fitnesses">
@@ -86,41 +86,41 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             // assign children set through crossover
             childSet = selectChildrenSet(parentSet);
             
-            // <editor-fold defaultstate="collapsed" desc="Print population and parent population fitnesses">
-            if (loopIteration % loopIterationPrintMod == 0)
-            {
-                runs.println("Current children set fitnesses and chromosomes: ");
-                printPopulationValues(childSet);
-            }
+            // <editor-fold defaultstate="collapsed" desc="Print population and children population fitnesses">
+//            if (loopIteration % loopIterationPrintMod == 0)
+//            {
+//                runs.println("Current children set fitnesses and chromosomes: ");
+//                printPopulationValues(childSet);
+//            }
             // </editor-fold>
             
             // mutate some of the children
             // <editor-fold defaultstate="collapsed" desc="Print children chromosomes before mutation">
-            if (loopIteration % loopIterationPrintMod == 0)
-            {
-                runs.println("Children chromosomes before mutation: " );
-                for (Graph child : childSet)
-                {
-                    runs.format("%s, %n", child.getChromosomeArray());
-                }
-                runs.println();
-            }
+//            if (loopIteration % loopIterationPrintMod == 0)
+//            {
+//                runs.println("Children chromosomes before mutation: " );
+//                for (Graph child : childSet)
+//                {
+//                    runs.format("%s, %n", child.getChromosomeArray());
+//                }
+//                runs.println();
+//            }
             // </editor-fold>
             mutateChildren(childSet);
             // <editor-fold defaultstate="collapsed" desc="Print children chromosomes after mutation">
-            if (loopIteration % loopIterationPrintMod == 0)
-            {
-                runs.println("Children chromosomes after mutation: " );
-                for (Graph child : childSet)
-                {
-                    runs.format("%s, %n", child.getChromosomeArray());
-                }
-                runs.println();
-            }
+//            if (loopIteration % loopIterationPrintMod == 0)
+//            {
+//                runs.println("Children chromosomes after mutation: " );
+//                for (Graph child : childSet)
+//                {
+//                    runs.format("%s, %n", child.getChromosomeArray());
+//                }
+//                runs.println();
+//            }
             // </editor-fold>
             
             // generate new population from children and parents
-            runs.println("Updating population to the next generation.");
+            runs.println("\nUpdating population to the next generation.");
             evolve();
                     
             // repair some chromosomes in each population individual
@@ -130,9 +130,9 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             satisfied = determineStatus();
             
             // <editor-fold defaultstate="collapsed" desc="Print best graph state for current generation">
-//            System.out.format("Satisfied value: %b%n", satisfied);
-            if (loopIteration % 2 == 0)
-                runs.println("Best Graph Value: " + graph.getFitness() + " out of " + graph.getGraphSize());
+            runs.format("Satisfied value: %b%n", satisfied);
+            if (loopIteration % loopIterationPrintMod == 0)
+                runs.println("\nBest Graph Value: " + graph.getFitness() + " out of " + graph.getGraphSize());
 //            bestGraph.printGraph();
             // </editor-fold>
             
@@ -140,9 +140,11 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         }
         
         // <editor-fold defaultstate="collapsed" desc="Print final graph state">
-        runs.format("%n= Final Generation Graph =%n");
+        runs.format("%n= Final Generation =%n");
         runs.format("Satisfied value: %b%n", satisfied);
-        runs.println("The Graph Value: " + graph.getFitness() + " out of " + graph.getGraphSize());
+        runs.println("Current population fitnesses and chromosomes: ");
+        printPopulationValues(population);
+        runs.print("The Graph Value: " + graph.getFitness() + " out of " + graph.getGraphSize());
         bestGraph.printGraph();
     }
     
@@ -301,6 +303,9 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         population.clear();
         population.addAll(childSet);
         population.addAll(parentSet);
+        
+        runs.println("Evolved population fitnesses and chromosomes: ");
+        printPopulationValues(population);
     }
     
     /**
@@ -331,7 +336,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
                         newColor = rand.nextInt(maxColors);
                     }
                     currentVertex.color = newColor;
-                    runs.format("Repaird chromosome %d to have new color %d%n", currentVertex.getVertexNum(), currentVertex.color);
+                    runs.format("Repaired a chromosome have new color %d%n", currentVertex.color);
                 }
                 // if it is valid, iterate until a non-valid node is found
                 else
@@ -348,7 +353,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
                                 newColor = rand.nextInt(maxColors);
                             }
                             currentVertex.color = newColor;
-                            runs.format("Repaird chromosome %d to have new color %d%n", currentVertex.getVertexNum(), currentVertex.color);
+                            runs.format("Repaired a chromosome have new color %d%n", currentVertex.color);
                         }
                         break;
                     }
@@ -443,11 +448,73 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     private boolean determineStatus()
     {
         // Assign graph to the most fit graph in the population
-        bestGraph = findMostFit();
+        bestGraph = tempFindMostFit();
         graph = bestGraph;
         super.graph = bestGraph;
         // If all colors are valid, exit the loop
-        return graphSatisfiesConstraint();
+        return tempSatisfies();
+    }
+    
+    private Graph tempFindMostFit()
+    {
+        Graph mostFitGraph = null;
+        int mostFitValue = 0;
+                
+        for (Graph member : population)
+        {
+            int currentGraphFitness = 0;
+            
+            for (Vertex chromosome : member.theGraph.values())
+            {
+                int currentColor = chromosome.color;
+                boolean fitChromosome = true;
+                
+                for (Vertex neighbor : chromosome.edges.values())
+                {
+                    if (currentColor == neighbor.color)
+                    {
+                        fitChromosome = false;
+                    }
+                }
+                if (fitChromosome)
+                {
+                    currentGraphFitness++;
+                }
+            }
+            
+            if (currentGraphFitness > mostFitValue)
+            {
+                mostFitValue = currentGraphFitness;
+                mostFitGraph = member;
+            }
+        }
+        
+        return mostFitGraph;
+    }
+    
+    private boolean tempSatisfies()
+    {
+         boolean satisfied = true;
+        // for each vertex in the graph...
+        for (Vertex vertex : graph.theGraph.values()) 
+        {
+            int currentColor = vertex.color;
+            
+            // for each vertex the current vertex is connected to...
+            for (Vertex neighbor : vertex.edges.values())
+            {
+                if (currentColor == neighbor.color)
+                {
+                    satisfied = false;
+                    break;
+                }
+            }
+            if (!satisfied)
+            {
+                break;
+            }
+        }
+        return satisfied;
     }
     
     /**
