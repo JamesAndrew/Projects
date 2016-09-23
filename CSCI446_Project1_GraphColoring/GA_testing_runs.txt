@@ -1,0 +1,1027 @@
+=== Starting Runs ===
+Number of graphs for each solver: 1
+Vertex growth size: 0
+Solvers being used: GeneticAlgorithmSolver, 
+
+= Printing Vertex Locations =
+Vertex 0: (0.222000, 0.115000)
+Vertex 1: (0.257000, 0.180000)
+Vertex 2: (0.247000, 0.234000)
+Vertex 3: (0.419000, 0.187000)
+Vertex 4: (0.216000, 0.431000)
+Vertex 5: (0.598000, 0.048000)
+Vertex 6: (0.580000, 0.253000)
+Vertex 7: (0.623000, 0.242000)
+Vertex 8: (0.281000, 0.625000)
+Vertex 9: (0.500000, 0.504000)
+Vertex 10: (0.038000, 0.867000)
+Vertex 11: (0.879000, 0.048000)
+Vertex 12: (0.122000, 0.902000)
+Vertex 13: (0.078000, 0.952000)
+Vertex 14: (0.610000, 0.762000)
+Vertex 15: (0.799000, 0.575000)
+Vertex 16: (0.938000, 0.389000)
+Vertex 17: (0.920000, 0.473000)
+Vertex 18: (0.772000, 0.945000)
+Vertex 19: (0.972000, 0.837000)
+
+
+=== Printing Graph State... ===
+Graph node 0. Printing vertex details...
+Vertex number: 0, Location: (0.222000, 0.115000), Color: -1
+Edges: 1, 2, 3, 4, 5, 6, 10, 
+Graph node 1. Printing vertex details...
+Vertex number: 1, Location: (0.257000, 0.180000), Color: -1
+Edges: 0, 2, 3, 4, 6, 8, 
+Graph node 2. Printing vertex details...
+Vertex number: 2, Location: (0.247000, 0.234000), Color: -1
+Edges: 0, 1, 4, 6, 8, 
+Graph node 3. Printing vertex details...
+Vertex number: 3, Location: (0.419000, 0.187000), Color: -1
+Edges: 0, 1, 5, 6, 7, 
+Graph node 4. Printing vertex details...
+Vertex number: 4, Location: (0.216000, 0.431000), Color: -1
+Edges: 0, 1, 2, 8, 10, 
+Graph node 5. Printing vertex details...
+Vertex number: 5, Location: (0.598000, 0.048000), Color: -1
+Edges: 0, 3, 7, 11, 
+Graph node 6. Printing vertex details...
+Vertex number: 6, Location: (0.580000, 0.253000), Color: -1
+Edges: 0, 1, 2, 3, 7, 8, 9, 
+Graph node 7. Printing vertex details...
+Vertex number: 7, Location: (0.623000, 0.242000), Color: -1
+Edges: 3, 5, 6, 9, 11, 
+Graph node 8. Printing vertex details...
+Vertex number: 8, Location: (0.281000, 0.625000), Color: -1
+Edges: 1, 2, 4, 6, 9, 10, 12, 14, 
+Graph node 9. Printing vertex details...
+Vertex number: 9, Location: (0.500000, 0.504000), Color: -1
+Edges: 6, 7, 8, 11, 14, 
+Graph node 10. Printing vertex details...
+Vertex number: 10, Location: (0.038000, 0.867000), Color: -1
+Edges: 0, 4, 8, 12, 13, 
+Graph node 11. Printing vertex details...
+Vertex number: 11, Location: (0.879000, 0.048000), Color: -1
+Edges: 16, 5, 7, 9, 14, 15, 
+Graph node 12. Printing vertex details...
+Vertex number: 12, Location: (0.122000, 0.902000), Color: -1
+Edges: 8, 10, 13, 14, 
+Graph node 13. Printing vertex details...
+Vertex number: 13, Location: (0.078000, 0.952000), Color: -1
+Edges: 18, 10, 12, 14, 
+Graph node 14. Printing vertex details...
+Vertex number: 14, Location: (0.610000, 0.762000), Color: -1
+Edges: 18, 19, 8, 9, 11, 12, 13, 15, 
+Graph node 15. Printing vertex details...
+Vertex number: 15, Location: (0.799000, 0.575000), Color: -1
+Edges: 16, 17, 19, 11, 14, 
+Graph node 16. Printing vertex details...
+Vertex number: 16, Location: (0.938000, 0.389000), Color: -1
+Edges: 17, 19, 11, 15, 
+Graph node 17. Printing vertex details...
+Vertex number: 17, Location: (0.920000, 0.473000), Color: -1
+Edges: 16, 19, 15, 
+Graph node 18. Printing vertex details...
+Vertex number: 18, Location: (0.772000, 0.945000), Color: -1
+Edges: 19, 13, 14, 
+Graph node 19. Printing vertex details...
+Vertex number: 19, Location: (0.972000, 0.837000), Color: -1
+Edges: 16, 17, 18, 14, 15, 
+
+= Running next solver =
+Current algorithm: GeneticAlgorithmSolver
+Graph size: 20
+Tunable parameter settings: 
+ - Population Size: 20
+ - Parent Size: 10
+ - Child Size: 10
+ - Mutation Rate: 0.300000
+ - Repair Rate: 0.050000
+ - Tournament Size: 2
+
+== Current Generation: 0 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 4 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 3, 0, 0, 3, 1, 1, 0, 2, 2, 3, 1, 0]
+Individual 1's fitness: 10 | chromosomes: [3, 1, 1, 0, 1, 1, 0, 3, 2, 0, 1, 2, 0, 3, 2, 0, 1, 2, 0, 3]
+Individual 2's fitness: 6 | chromosomes: [1, 1, 1, 3, 1, 1, 2, 0, 2, 3, 1, 1, 0, 3, 2, 0, 1, 2, 3, 3]
+Individual 3's fitness: 4 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 3, 0, 3, 3, 1, 0, 1, 3, 1, 1, 0, 2]
+Individual 4's fitness: 9 | chromosomes: [3, 1, 1, 0, 1, 1, 2, 3, 2, 0, 1, 2, 0, 3, 2, 0, 1, 2, 3, 3]
+Individual 5's fitness: 6 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 1, 2, 3, 3, 1, 1, 1, 2, 2, 3, 0, 0]
+Individual 6's fitness: 2 | chromosomes: [0, 2, 0, 2, 3, 3, 0, 0, 3, 1, 0, 3, 1, 3, 1, 2, 2, 3, 0, 0]
+Individual 7's fitness: 9 | chromosomes: [3, 1, 1, 0, 1, 1, 2, 3, 2, 0, 0, 0, 2, 3, 3, 3, 1, 2, 2, 0]
+Individual 8's fitness: 8 | chromosomes: [0, 2, 0, 0, 2, 1, 3, 1, 1, 0, 1, 2, 0, 3, 3, 0, 1, 2, 2, 3]
+Individual 9's fitness: 8 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 3, 0, 3, 1, 1, 2, 3, 1, 2, 3, 3, 0]
+Individual 10's fitness: 6 | chromosomes: [3, 1, 1, 0, 1, 1, 2, 3, 2, 0, 0, 3, 1, 1, 1, 2, 2, 3, 0, 0]
+Individual 11's fitness: 5 | chromosomes: [1, 2, 1, 3, 1, 1, 2, 0, 2, 3, 3, 3, 1, 0, 1, 3, 3, 1, 0, 2]
+Individual 12's fitness: 10 | chromosomes: [2, 2, 0, 0, 2, 1, 3, 1, 1, 0, 3, 1, 2, 2, 3, 1, 2, 3, 2, 0]
+Individual 13's fitness: 7 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 3, 0, 1, 2, 0, 3, 2, 0, 1, 2, 3, 3]
+Individual 14's fitness: 6 | chromosomes: [1, 2, 3, 0, 2, 0, 0, 1, 3, 3, 2, 0, 1, 3, 0, 1, 1, 0, 0, 3]
+Individual 15's fitness: 7 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 3, 0, 1, 2, 0, 3, 2, 0, 1, 2, 3, 3]
+Individual 16's fitness: 10 | chromosomes: [2, 2, 0, 0, 2, 1, 3, 1, 1, 0, 3, 1, 2, 2, 3, 1, 2, 3, 2, 0]
+Individual 17's fitness: 5 | chromosomes: [0, 2, 0, 3, 3, 3, 0, 0, 0, 1, 0, 0, 2, 3, 3, 3, 1, 0, 3, 0]
+Individual 18's fitness: 5 | chromosomes: [1, 0, 0, 2, 3, 2, 2, 0, 0, 1, 1, 2, 1, 0, 0, 3, 2, 1, 3, 1]
+Individual 19's fitness: 6 | chromosomes: [0, 1, 1, 2, 2, 1, 1, 3, 3, 1, 2, 0, 3, 1, 2, 1, 1, 2, 2, 2]
+Satisfied value: false
+
+Best Graph Value: 10 out of 20
+
+== Current Generation: 1 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 6 | chromosomes: [3, 2, 3, 3, 0, 2, 0, 0, 3, 0, 2, 3, 3, 1, 2, 1, 1, 2, 2, 2]
+Individual 1's fitness: 9 | chromosomes: [0, 0, 1, 2, 2, 1, 1, 3, 3, 1, 3, 3, 1, 2, 3, 1, 2, 3, 3, 0]
+Individual 2's fitness: 5 | chromosomes: [3, 1, 1, 0, 1, 1, 0, 3, 1, 0, 3, 1, 2, 2, 3, 1, 2, 3, 2, 0]
+Individual 3's fitness: 8 | chromosomes: [3, 2, 0, 0, 2, 2, 3, 1, 1, 0, 0, 3, 1, 1, 1, 2, 2, 3, 0, 0]
+Individual 4's fitness: 5 | chromosomes: [1, 2, 3, 0, 2, 0, 2, 1, 3, 3, 1, 0, 1, 3, 0, 1, 1, 0, 1, 3]
+Individual 5's fitness: 6 | chromosomes: [1, 2, 3, 0, 2, 0, 0, 1, 3, 3, 2, 0, 1, 3, 0, 2, 1, 0, 3, 3]
+Individual 6's fitness: 7 | chromosomes: [1, 2, 3, 0, 2, 0, 0, 1, 2, 3, 3, 1, 1, 2, 3, 1, 2, 3, 0, 0]
+Individual 7's fitness: 7 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 0, 0, 2, 0, 1, 3, 0, 1, 1, 0, 0, 3]
+Individual 8's fitness: 11 | chromosomes: [2, 1, 0, 0, 2, 0, 3, 1, 1, 0, 1, 2, 0, 3, 2, 0, 1, 2, 0, 3]
+Individual 9's fitness: 7 | chromosomes: [3, 1, 3, 0, 0, 1, 0, 3, 2, 0, 3, 1, 2, 2, 3, 1, 2, 3, 2, 0]
+Individual 10's fitness: 10 | chromosomes: [3, 1, 1, 0, 1, 1, 0, 3, 2, 0, 1, 2, 0, 3, 2, 0, 1, 2, 0, 3]
+Individual 11's fitness: 6 | chromosomes: [3, 1, 1, 0, 1, 1, 2, 3, 2, 0, 0, 3, 1, 1, 1, 2, 2, 3, 0, 0]
+Individual 12's fitness: 9 | chromosomes: [3, 1, 1, 0, 1, 1, 2, 3, 2, 0, 1, 2, 0, 3, 2, 0, 1, 2, 3, 3]
+Individual 13's fitness: 6 | chromosomes: [0, 1, 1, 2, 2, 1, 1, 3, 3, 1, 2, 0, 3, 1, 2, 1, 1, 2, 2, 2]
+Individual 14's fitness: 9 | chromosomes: [2, 2, 0, 0, 2, 0, 3, 1, 1, 0, 3, 1, 2, 2, 3, 1, 2, 3, 2, 0]
+Individual 15's fitness: 6 | chromosomes: [0, 1, 1, 2, 2, 1, 1, 3, 3, 1, 2, 0, 3, 1, 2, 1, 1, 2, 2, 2]
+Individual 16's fitness: 9 | chromosomes: [2, 2, 0, 0, 2, 0, 3, 1, 1, 0, 3, 1, 2, 2, 3, 1, 2, 3, 2, 0]
+Individual 17's fitness: 6 | chromosomes: [1, 2, 3, 0, 2, 0, 0, 1, 3, 3, 2, 0, 1, 3, 0, 1, 1, 0, 0, 3]
+Individual 18's fitness: 8 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 3, 0, 3, 1, 1, 2, 3, 1, 2, 3, 3, 0]
+Individual 19's fitness: 8 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 3, 0, 3, 1, 1, 2, 3, 1, 2, 3, 3, 0]
+Satisfied value: false
+
+Best Graph Value: 12 out of 20
+
+== Current Generation: 2 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 8 | chromosomes: [3, 2, 0, 0, 2, 2, 3, 1, 1, 0, 3, 1, 1, 2, 3, 1, 2, 3, 3, 0]
+Individual 1's fitness: 5 | chromosomes: [1, 2, 3, 0, 3, 2, 1, 0, 3, 0, 0, 3, 1, 1, 1, 2, 2, 3, 0, 3]
+Individual 2's fitness: 12 | chromosomes: [3, 2, 0, 0, 0, 2, 3, 1, 1, 0, 2, 0, 0, 3, 2, 1, 1, 0, 0, 3]
+Individual 3's fitness: 6 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 0, 0, 3, 1, 1, 0, 2, 2, 3, 0, 0]
+Individual 4's fitness: 6 | chromosomes: [2, 2, 0, 0, 2, 1, 3, 1, 1, 0, 0, 3, 0, 1, 1, 2, 2, 3, 0, 0]
+Individual 5's fitness: 7 | chromosomes: [3, 2, 0, 0, 2, 2, 3, 1, 1, 0, 3, 1, 2, 2, 1, 1, 2, 3, 2, 0]
+Individual 6's fitness: 5 | chromosomes: [3, 1, 1, 0, 1, 0, 0, 3, 1, 1, 3, 1, 1, 2, 3, 1, 2, 3, 3, 0]
+Individual 7's fitness: 6 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 0, 3, 0, 0, 0, 3, 2, 0, 1, 2, 3, 2, 0]
+Individual 8's fitness: 9 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 0, 0, 2, 0, 1, 3, 2, 0, 1, 0, 0, 3]
+Individual 9's fitness: 9 | chromosomes: [0, 2, 3, 0, 0, 2, 0, 0, 1, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 10's fitness: 7 | chromosomes: [2, 2, 0, 0, 2, 0, 3, 1, 1, 0, 3, 1, 2, 2, 1, 1, 2, 3, 2, 0]
+Individual 11's fitness: 7 | chromosomes: [2, 2, 0, 0, 2, 0, 3, 1, 1, 0, 3, 1, 2, 2, 1, 1, 2, 3, 2, 0]
+Individual 12's fitness: 8 | chromosomes: [3, 2, 0, 0, 2, 2, 3, 1, 1, 0, 0, 3, 1, 1, 1, 2, 2, 3, 0, 0]
+Individual 13's fitness: 6 | chromosomes: [0, 1, 1, 2, 2, 1, 1, 3, 3, 1, 2, 0, 3, 1, 2, 1, 1, 2, 2, 2]
+Individual 14's fitness: 9 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 0, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 15's fitness: 9 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 0, 3, 0, 3, 1, 1, 2, 3, 1, 2, 3, 3, 0]
+Individual 16's fitness: 7 | chromosomes: [3, 1, 1, 0, 1, 1, 0, 3, 1, 0, 3, 0, 2, 2, 3, 1, 2, 3, 2, 0]
+Individual 17's fitness: 9 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 0, 3, 0, 3, 1, 1, 2, 3, 1, 2, 3, 3, 0]
+Individual 18's fitness: 9 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 0, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 19's fitness: 8 | chromosomes: [3, 2, 0, 0, 2, 2, 3, 1, 1, 0, 0, 3, 1, 1, 1, 2, 2, 3, 0, 0]
+Satisfied value: false
+
+Best Graph Value: 12 out of 20
+
+== Current Generation: 3 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 9 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 0, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 1's fitness: 10 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 3, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 2's fitness: 10 | chromosomes: [3, 2, 2, 0, 0, 2, 3, 1, 1, 0, 2, 0, 1, 3, 2, 0, 1, 0, 0, 3]
+Individual 3's fitness: 7 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 2, 0, 2, 0, 0, 3, 2, 0, 1, 0, 0, 3]
+Individual 4's fitness: 8 | chromosomes: [3, 2, 0, 0, 0, 2, 3, 1, 1, 0, 2, 1, 3, 1, 2, 1, 2, 2, 2, 2]
+Individual 5's fitness: 12 | chromosomes: [0, 1, 1, 2, 2, 1, 1, 3, 3, 1, 2, 0, 0, 3, 2, 1, 1, 0, 0, 3]
+Individual 6's fitness: 8 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 0, 2, 2, 0, 1, 3, 2, 0, 1, 0, 0, 3]
+Individual 7's fitness: 7 | chromosomes: [3, 2, 3, 2, 0, 2, 0, 0, 0, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 8's fitness: 8 | chromosomes: [2, 2, 3, 0, 0, 2, 0, 0, 3, 0, 2, 0, 1, 3, 2, 0, 1, 2, 0, 3]
+Individual 9's fitness: 8 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 2, 0, 2, 0, 1, 3, 2, 0, 1, 2, 0, 3]
+Individual 10's fitness: 6 | chromosomes: [2, 2, 0, 0, 2, 1, 3, 1, 1, 0, 0, 3, 0, 1, 1, 2, 2, 3, 0, 0]
+Individual 11's fitness: 7 | chromosomes: [0, 1, 1, 2, 2, 1, 1, 3, 3, 1, 2, 0, 3, 1, 2, 1, 2, 2, 2, 2]
+Individual 12's fitness: 9 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 0, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 13's fitness: 9 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 0, 0, 2, 0, 1, 3, 2, 0, 1, 0, 0, 3]
+Individual 14's fitness: 9 | chromosomes: [0, 2, 3, 0, 0, 2, 0, 0, 1, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 15's fitness: 9 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 0, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 16's fitness: 9 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 0, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 17's fitness: 9 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 0, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 18's fitness: 12 | chromosomes: [3, 2, 0, 0, 0, 2, 3, 1, 1, 0, 2, 0, 0, 3, 2, 1, 1, 0, 0, 3]
+Individual 19's fitness: 9 | chromosomes: [0, 2, 3, 0, 0, 2, 0, 0, 1, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 12 out of 20
+
+== Current Generation: 4 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 8 | chromosomes: [3, 2, 3, 0, 3, 2, 0, 0, 0, 2, 2, 1, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 1's fitness: 10 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 1, 0, 0, 2, 1, 1, 3, 2, 0, 1, 0, 0, 3]
+Individual 2's fitness: 9 | chromosomes: [2, 2, 0, 0, 2, 2, 3, 1, 1, 2, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 3's fitness: 8 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 0, 0, 3, 0, 1, 0, 2, 0, 3, 0, 0]
+Individual 4's fitness: 8 | chromosomes: [3, 2, 2, 0, 3, 2, 0, 0, 0, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 5's fitness: 12 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 0, 2, 3, 1, 3, 2, 0, 1, 0, 0, 3]
+Individual 6's fitness: 6 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 1, 1, 3, 0, 3, 0, 1, 1, 2, 2, 3, 0, 0]
+Individual 7's fitness: 7 | chromosomes: [2, 2, 0, 0, 0, 1, 3, 1, 1, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 8's fitness: 13 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 0, 1, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 11 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 10's fitness: 12 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 1, 0, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 11's fitness: 10 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 0, 1, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 1]
+Individual 12's fitness: 11 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 13's fitness: 12 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 1, 0, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 14's fitness: 8 | chromosomes: [3, 2, 3, 0, 0, 2, 0, 0, 0, 2, 2, 0, 1, 3, 2, 0, 1, 0, 0, 3]
+Individual 15's fitness: 11 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 16's fitness: 11 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 17's fitness: 11 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 18's fitness: 6 | chromosomes: [2, 2, 0, 0, 2, 1, 3, 1, 1, 0, 0, 3, 0, 1, 1, 2, 2, 3, 0, 0]
+Individual 19's fitness: 12 | chromosomes: [0, 1, 1, 2, 2, 1, 1, 3, 3, 1, 2, 0, 0, 3, 2, 1, 1, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 13 out of 20
+
+== Current Generation: 5 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 11 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 0, 1, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 1's fitness: 9 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 2, 0, 1, 2, 0, 1, 3, 2, 0, 1, 0, 0, 1]
+Individual 2's fitness: 13 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 1, 2, 3, 1, 3, 2, 0, 1, 0, 0, 3]
+Individual 3's fitness: 11 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 0, 2, 1, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 4's fitness: 13 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 11 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 1, 2, 0, 0, 3, 2, 1, 3, 0, 0, 3]
+Individual 6's fitness: 11 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 0, 2, 3, 1, 3, 2, 3, 1, 0, 0, 3]
+Individual 7's fitness: 12 | chromosomes: [3, 2, 1, 1, 0, 2, 0, 1, 0, 0, 2, 3, 1, 3, 2, 0, 1, 0, 0, 3]
+Individual 8's fitness: 9 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 1, 0, 0, 0, 3, 0, 2, 1, 2, 2, 3, 1, 0]
+Individual 9's fitness: 8 | chromosomes: [2, 2, 0, 0, 2, 1, 3, 1, 1, 0, 2, 0, 1, 3, 2, 0, 1, 0, 0, 3]
+Individual 10's fitness: 12 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 0, 2, 3, 1, 3, 2, 0, 1, 0, 0, 3]
+Individual 11's fitness: 12 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 1, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 12's fitness: 13 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 0, 1, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 12 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 0, 2, 3, 1, 3, 2, 0, 1, 0, 0, 3]
+Individual 14's fitness: 7 | chromosomes: [2, 2, 0, 0, 2, 1, 3, 1, 1, 0, 0, 3, 0, 2, 1, 2, 2, 3, 0, 0]
+Individual 15's fitness: 9 | chromosomes: [3, 2, 2, 1, 3, 2, 0, 0, 0, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 16's fitness: 12 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 1, 0, 0, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 17's fitness: 9 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 0, 1, 0, 2, 0, 1, 3, 2, 0, 1, 0, 0, 1]
+Individual 18's fitness: 12 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 1, 2, 0, 1, 3, 2, 1, 1, 0, 0, 3]
+Individual 19's fitness: 12 | chromosomes: [0, 1, 1, 2, 2, 1, 1, 3, 3, 1, 2, 0, 0, 3, 2, 1, 1, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 15 out of 20
+
+== Current Generation: 6 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 11 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 1, 1, 2, 3, 1, 3, 2, 0, 1, 0, 0, 3]
+Individual 1's fitness: 13 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 1, 2, 3, 1, 3, 2, 0, 1, 0, 0, 3]
+Individual 2's fitness: 8 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 0, 1, 1, 2, 0, 3, 3, 2, 0, 1, 0, 0, 1]
+Individual 3's fitness: 12 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 1, 2, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 13 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 14 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 13 | chromosomes: [3, 2, 1, 1, 2, 2, 0, 2, 0, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 9 | chromosomes: [0, 2, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 0, 3, 0, 0, 1]
+Individual 8's fitness: 10 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 0, 3, 3, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 13 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 14 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 0, 1, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 14 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 0, 1, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 13 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 12 | chromosomes: [3, 2, 1, 1, 0, 2, 0, 0, 0, 0, 2, 3, 1, 3, 2, 3, 1, 0, 0, 3]
+Individual 14's fitness: 13 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 1, 2, 3, 1, 3, 2, 0, 1, 0, 0, 3]
+Individual 15's fitness: 9 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 2, 0, 1, 2, 0, 1, 3, 2, 0, 1, 0, 0, 1]
+Individual 16's fitness: 13 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 13 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 13 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 15 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 1, 2, 3, 1, 3, 2, 0, 1, 2, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 15 out of 20
+
+== Current Generation: 7 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 16 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 3, 0, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 11 | chromosomes: [3, 1, 0, 2, 2, 1, 1, 3, 3, 1, 2, 3, 1, 3, 2, 0, 1, 0, 0, 3]
+Individual 2's fitness: 15 | chromosomes: [3, 2, 1, 0, 0, 2, 2, 3, 2, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 14 | chromosomes: [3, 1, 1, 0, 0, 2, 0, 1, 2, 3, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 14 | chromosomes: [0, 1, 0, 3, 2, 1, 2, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 12 | chromosomes: [3, 2, 1, 0, 0, 2, 2, 1, 2, 1, 2, 0, 1, 2, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 11 | chromosomes: [0, 1, 0, 2, 2, 1, 3, 3, 3, 1, 2, 0, 1, 2, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 12 | chromosomes: [0, 1, 3, 2, 2, 1, 2, 3, 3, 1, 0, 0, 1, 2, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 13 | chromosomes: [1, 1, 0, 2, 2, 1, 2, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 10 | chromosomes: [1, 2, 3, 0, 0, 2, 1, 2, 1, 1, 2, 0, 1, 2, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 12 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 1, 2, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 13 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 12 | chromosomes: [0, 1, 0, 2, 2, 1, 2, 3, 3, 1, 2, 0, 1, 2, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 15 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 1, 2, 3, 1, 3, 2, 0, 1, 2, 0, 3]
+Individual 14's fitness: 12 | chromosomes: [0, 1, 0, 2, 2, 1, 2, 3, 3, 1, 2, 0, 1, 2, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 13 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 13 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 0, 0, 1, 2, 3, 1, 3, 2, 0, 1, 0, 0, 3]
+Individual 17's fitness: 14 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 2, 1, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 13 | chromosomes: [3, 2, 1, 1, 2, 2, 0, 2, 0, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 14 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 2, 1, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 16 out of 20
+
+== Current Generation: 8 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 9 | chromosomes: [1, 1, 0, 2, 2, 1, 3, 0, 3, 1, 2, 0, 1, 2, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 12 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 1, 2, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 14 | chromosomes: [0, 1, 1, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 13 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 13 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 15 | chromosomes: [3, 1, 1, 0, 0, 2, 2, 3, 1, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 13 | chromosomes: [3, 2, 1, 0, 0, 2, 2, 1, 2, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 9 | chromosomes: [1, 2, 3, 0, 0, 0, 0, 2, 1, 1, 2, 1, 1, 2, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 11 | chromosomes: [3, 2, 1, 1, 2, 2, 1, 2, 0, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 13 | chromosomes: [0, 1, 3, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 14 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 2, 1, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 14 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 2, 1, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 13 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 13 | chromosomes: [3, 2, 1, 1, 2, 2, 0, 2, 0, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 12 | chromosomes: [3, 2, 1, 0, 0, 2, 2, 1, 2, 1, 2, 0, 1, 2, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 13 | chromosomes: [1, 1, 0, 2, 2, 1, 2, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 14 | chromosomes: [3, 1, 1, 0, 0, 2, 2, 3, 2, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 13 | chromosomes: [3, 2, 1, 1, 2, 2, 0, 2, 0, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 13 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 13 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 15 out of 20
+
+== Current Generation: 9 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 16 | chromosomes: [3, 1, 1, 0, 0, 2, 2, 3, 1, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 13 | chromosomes: [1, 1, 0, 2, 2, 1, 2, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 12 | chromosomes: [1, 1, 0, 2, 2, 3, 2, 3, 3, 1, 0, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 15 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 1, 1, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 15 | chromosomes: [0, 1, 0, 2, 2, 1, 0, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 13 | chromosomes: [1, 1, 0, 2, 2, 1, 2, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 13 | chromosomes: [0, 1, 2, 2, 2, 1, 1, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 15 | chromosomes: [0, 1, 0, 2, 2, 1, 0, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 11 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 1, 2, 1, 1, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 13 | chromosomes: [0, 0, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 15 | chromosomes: [3, 1, 1, 0, 0, 2, 2, 3, 1, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 12 | chromosomes: [3, 2, 1, 0, 0, 2, 0, 1, 2, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 13 | chromosomes: [1, 1, 0, 2, 2, 1, 2, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 15 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 1, 1, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 13 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 13 | chromosomes: [1, 1, 0, 2, 2, 1, 2, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 13 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 15 | chromosomes: [3, 1, 1, 0, 0, 2, 2, 3, 1, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 10 | chromosomes: [0, 1, 0, 2, 2, 1, 1, 3, 0, 1, 2, 0, 1, 3, 2, 1, 2, 0, 1, 0]
+Individual 19's fitness: 14 | chromosomes: [3, 1, 1, 0, 0, 2, 2, 3, 2, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 16 out of 20
+
+== Current Generation: 10 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 1, 3, 3, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 12 | chromosomes: [1, 1, 1, 0, 0, 2, 2, 3, 2, 1, 3, 0, 1, 1, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 13 | chromosomes: [3, 0, 1, 0, 0, 2, 2, 3, 2, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 13 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 1, 2, 3, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 15 | chromosomes: [1, 1, 0, 2, 2, 1, 1, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 13 | chromosomes: [0, 1, 2, 2, 0, 1, 1, 3, 3, 3, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 11 | chromosomes: [1, 1, 0, 2, 2, 1, 1, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 1]
+Individual 7's fitness: 10 | chromosomes: [1, 1, 0, 2, 2, 1, 2, 3, 1, 1, 3, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 16 | chromosomes: [2, 1, 0, 0, 2, 1, 2, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 9 | chromosomes: [1, 1, 0, 2, 2, 1, 2, 3, 0, 1, 3, 0, 1, 3, 2, 1, 2, 0, 0, 1]
+Individual 10's fitness: 15 | chromosomes: [0, 1, 0, 2, 2, 1, 0, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 13 | chromosomes: [0, 1, 2, 2, 2, 1, 1, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 13 | chromosomes: [0, 1, 2, 2, 2, 1, 1, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 15 | chromosomes: [0, 1, 0, 2, 2, 1, 0, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 13 | chromosomes: [1, 1, 0, 2, 2, 1, 2, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 15 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 1, 1, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 13 | chromosomes: [1, 1, 0, 2, 2, 1, 2, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 11 | chromosomes: [1, 1, 0, 2, 2, 1, 2, 3, 3, 1, 2, 0, 1, 3, 2, 1, 2, 0, 0, 1]
+Individual 18's fitness: 13 | chromosomes: [0, 1, 2, 2, 2, 1, 1, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 15 | chromosomes: [3, 1, 1, 0, 0, 2, 2, 3, 2, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 16 out of 20
+
+== Current Generation: 11 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 13 | chromosomes: [0, 2, 2, 2, 3, 1, 1, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 17 | chromosomes: [2, 1, 0, 0, 2, 1, 2, 3, 3, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 11 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 1, 1, 1, 0, 0, 3, 3, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 14 | chromosomes: [0, 1, 2, 2, 2, 1, 1, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 12 | chromosomes: [0, 1, 2, 2, 2, 1, 1, 3, 3, 1, 3, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 17 | chromosomes: [2, 1, 0, 0, 2, 1, 2, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 15 | chromosomes: [1, 1, 0, 2, 2, 1, 2, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 13 | chromosomes: [0, 1, 2, 2, 2, 1, 1, 3, 3, 0, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 13 | chromosomes: [0, 1, 2, 2, 3, 1, 1, 3, 3, 1, 2, 0, 1, 1, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 13 | chromosomes: [1, 1, 1, 0, 0, 2, 2, 3, 2, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 1, 3, 3, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 12 | chromosomes: [1, 1, 1, 0, 0, 2, 2, 3, 2, 1, 3, 0, 1, 1, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 13 | chromosomes: [0, 1, 2, 2, 2, 1, 1, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 15 | chromosomes: [1, 1, 0, 2, 2, 1, 1, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 16 | chromosomes: [2, 1, 0, 0, 2, 1, 2, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 15 | chromosomes: [1, 1, 0, 2, 2, 1, 1, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 13 | chromosomes: [1, 1, 0, 2, 2, 1, 2, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 13 | chromosomes: [0, 1, 2, 2, 2, 1, 1, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 15 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 1, 1, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 15 | chromosomes: [1, 2, 3, 0, 0, 2, 0, 1, 1, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 17 out of 20
+
+== Current Generation: 12 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 13 | chromosomes: [1, 2, 0, 1, 2, 1, 2, 3, 3, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 12 | chromosomes: [1, 3, 2, 2, 0, 1, 1, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 16 | chromosomes: [0, 1, 0, 0, 2, 1, 2, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 13 | chromosomes: [1, 1, 0, 2, 2, 1, 2, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 15 | chromosomes: [1, 1, 0, 2, 2, 2, 2, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 15 | chromosomes: [1, 1, 0, 2, 2, 2, 2, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 12 | chromosomes: [0, 3, 2, 2, 2, 1, 1, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 13 | chromosomes: [1, 1, 0, 2, 2, 1, 2, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 2, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 14 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 2, 0, 1, 1, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 1, 3, 3, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 15 | chromosomes: [1, 1, 0, 2, 2, 1, 1, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 15 | chromosomes: [1, 1, 0, 2, 2, 1, 2, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 16 | chromosomes: [2, 1, 0, 0, 2, 1, 2, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 1, 3, 3, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 15 | chromosomes: [1, 1, 0, 2, 2, 1, 2, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 15 | chromosomes: [1, 1, 0, 2, 2, 1, 1, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 13 | chromosomes: [0, 1, 2, 2, 3, 1, 1, 3, 3, 1, 2, 0, 1, 1, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 14 | chromosomes: [0, 1, 2, 2, 2, 1, 1, 3, 3, 1, 2, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 15 | chromosomes: [1, 1, 0, 2, 2, 1, 2, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 16 out of 20
+
+== Current Generation: 13 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 13 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 2, 0, 0, 0, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 14 | chromosomes: [2, 1, 0, 0, 2, 1, 2, 3, 3, 1, 2, 0, 1, 1, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 2, 3, 2, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 17 | chromosomes: [2, 1, 0, 0, 2, 1, 2, 3, 3, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 13 | chromosomes: [0, 1, 2, 2, 3, 1, 2, 3, 0, 1, 2, 0, 0, 0, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 11 | chromosomes: [0, 0, 2, 2, 3, 1, 1, 3, 3, 1, 2, 0, 1, 2, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 13 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 2, 0, 1, 2, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 14 | chromosomes: [2, 1, 0, 0, 2, 1, 2, 3, 3, 1, 1, 0, 0, 0, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 14 | chromosomes: [2, 1, 0, 0, 2, 1, 2, 3, 3, 1, 2, 0, 0, 0, 2, 1, 2, 0, 1, 3]
+Individual 10's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 1, 3, 3, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 2, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 14 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 2, 0, 1, 1, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 13 | chromosomes: [2, 1, 0, 0, 2, 1, 2, 3, 3, 1, 2, 0, 0, 0, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 15 | chromosomes: [1, 1, 0, 2, 2, 1, 1, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 15 | chromosomes: [1, 1, 0, 2, 2, 1, 1, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 16 | chromosomes: [0, 1, 0, 0, 2, 1, 2, 3, 3, 1, 0, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 1, 3, 3, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 2, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 13 | chromosomes: [0, 1, 2, 2, 3, 1, 1, 3, 3, 1, 2, 0, 1, 1, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 17 out of 20
+
+== Current Generation: 14 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 2, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 1, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 16 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 16 | chromosomes: [0, 0, 2, 2, 1, 1, 1, 3, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 14 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 1, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 2, 2, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 17 | chromosomes: [2, 1, 0, 0, 2, 1, 2, 3, 3, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 11 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 2, 1, 1, 0, 0, 0, 2, 1, 2, 0, 3, 3]
+Individual 8's fitness: 14 | chromosomes: [2, 1, 0, 0, 2, 1, 0, 3, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 10 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 1, 0, 2, 0, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 16 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 14 | chromosomes: [2, 1, 0, 0, 2, 1, 2, 3, 3, 1, 1, 0, 0, 0, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 16 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 16 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 2, 3, 2, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 11 | chromosomes: [2, 1, 0, 0, 2, 1, 2, 3, 3, 1, 2, 0, 1, 1, 2, 1, 2, 0, 0, 2]
+Individual 18's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 2, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 16 out of 20
+
+== Current Generation: 15 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 14 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 14 | chromosomes: [0, 1, 2, 2, 3, 1, 2, 3, 2, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 0, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 2, 3, 2, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 2, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 2, 3, 2, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 14 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 16 | chromosomes: [2, 1, 0, 0, 2, 1, 2, 2, 3, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 16 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 16 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 16 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 14 | chromosomes: [2, 1, 0, 0, 2, 1, 2, 3, 3, 1, 1, 0, 0, 0, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 16 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 2, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 2, 3, 2, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 16 out of 20
+
+== Current Generation: 16 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 2, 3, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 14 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 14 | chromosomes: [0, 1, 2, 3, 3, 1, 2, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 13 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 2, 1, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 16 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 0, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 16 | chromosomes: [3, 1, 0, 0, 2, 1, 2, 2, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 3, 3, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 1, 3, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 16 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 14 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 16 | chromosomes: [0, 3, 2, 2, 1, 1, 1, 3, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 2, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 16 | chromosomes: [2, 1, 0, 0, 2, 1, 2, 2, 3, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 16 out of 20
+
+== Current Generation: 17 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 2, 3, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 14 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 2, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [3, 1, 0, 0, 2, 1, 2, 2, 3, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 3, 2, 3, 1, 2, 0, 0, 3]
+Individual 5's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 14 | chromosomes: [0, 1, 2, 2, 2, 1, 3, 3, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 2, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 3, 3, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 16 | chromosomes: [3, 1, 0, 0, 2, 1, 2, 2, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 2, 3, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 3, 3, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 16 | chromosomes: [3, 1, 0, 0, 2, 1, 2, 2, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 16 | chromosomes: [3, 1, 0, 0, 2, 1, 2, 2, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 0, 3, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 18 out of 20
+
+== Current Generation: 18 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 15 | chromosomes: [3, 1, 0, 0, 2, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 2, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 1, 0, 3, 3, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 16 | chromosomes: [3, 1, 0, 0, 2, 1, 2, 2, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 18 out of 20
+
+== Current Generation: 19 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 15 | chromosomes: [3, 1, 0, 0, 0, 1, 2, 0, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 16 | chromosomes: [3, 1, 0, 0, 2, 1, 2, 2, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 15 | chromosomes: [3, 1, 0, 0, 2, 1, 1, 2, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 16 | chromosomes: [3, 1, 0, 0, 2, 1, 2, 2, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 1, 1, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 2, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 16 | chromosomes: [3, 1, 0, 0, 2, 1, 2, 2, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 16 | chromosomes: [3, 1, 0, 0, 2, 1, 2, 2, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 18 out of 20
+
+== Current Generation: 20 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 13 | chromosomes: [3, 1, 0, 0, 2, 0, 2, 1, 3, 1, 2, 0, 1, 0, 2, 1, 2, 0, 1, 3]
+Individual 2's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 15 | chromosomes: [0, 1, 2, 2, 3, 1, 1, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 1, 0, 2, 1, 2, 0, 1, 3]
+Individual 5's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 0, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 15 | chromosomes: [3, 1, 0, 0, 2, 1, 2, 1, 3, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 1, 0, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 18 out of 20
+
+== Current Generation: 21 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 0, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 2, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 18 out of 20
+
+== Current Generation: 22 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 2, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 1, 1, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 17 | chromosomes: [0, 1, 2, 2, 3, 1, 0, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 17 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 1, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 2, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 1, 1, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 2, 0, 1, 2, 0, 0, 1, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 18 out of 20
+
+== Current Generation: 23 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 17 | chromosomes: [0, 1, 2, 2, 3, 1, 0, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 17 | chromosomes: [0, 1, 2, 2, 3, 1, 0, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 18 out of 20
+
+== Current Generation: 24 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 17 | chromosomes: [0, 1, 2, 2, 3, 1, 2, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 17 | chromosomes: [0, 1, 2, 2, 3, 1, 1, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 2, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 2, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 18 out of 20
+
+== Current Generation: 25 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 17 | chromosomes: [0, 1, 2, 2, 3, 1, 2, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 18 out of 20
+
+== Current Generation: 26 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 2, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 17 | chromosomes: [0, 1, 2, 2, 3, 1, 0, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 17 | chromosomes: [0, 1, 2, 2, 3, 1, 1, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Satisfied value: false
+
+Best Graph Value: 18 out of 20
+
+== Current Generation: 27 ==
+Selecting parent set using tournament selection
+
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 20 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 3, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 1, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 17 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 2, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Satisfied value: true
+
+Best Graph Value: 20 out of 20
+
+= Final Generation =
+Satisfied value: true
+Current population fitnesses and chromosomes: 
+Individual 0's fitness: 17 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 1, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 1's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 2's fitness: 20 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 3, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 3's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 4's fitness: 16 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 1, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 5's fitness: 17 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 2, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 6's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 7's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 8's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 2, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 9's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 10's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 11's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 12's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 13's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 14's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 15's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 16's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 17's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 0, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 18's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+Individual 19's fitness: 18 | chromosomes: [0, 1, 2, 2, 3, 1, 3, 3, 0, 1, 2, 0, 3, 1, 2, 1, 2, 0, 0, 3]
+The Graph Value: 20 out of 20
+=== Printing Graph State... ===
+Graph node 0. Printing vertex details...
+Vertex number: 0, Location: (0.222000, 0.115000), Color: 0, Fitness: true
+Edges: 1, 2, 3, 4, 5, 6, 10, 
+Graph node 1. Printing vertex details...
+Vertex number: 1, Location: (0.257000, 0.180000), Color: 1, Fitness: true
+Edges: 0, 2, 3, 4, 6, 8, 
+Graph node 2. Printing vertex details...
+Vertex number: 2, Location: (0.247000, 0.234000), Color: 2, Fitness: true
+Edges: 0, 1, 4, 6, 8, 
+Graph node 3. Printing vertex details...
+Vertex number: 3, Location: (0.419000, 0.187000), Color: 2, Fitness: true
+Edges: 0, 1, 5, 6, 7, 
+Graph node 4. Printing vertex details...
+Vertex number: 4, Location: (0.216000, 0.431000), Color: 3, Fitness: true
+Edges: 0, 1, 2, 8, 10, 
+Graph node 5. Printing vertex details...
+Vertex number: 5, Location: (0.598000, 0.048000), Color: 1, Fitness: true
+Edges: 0, 3, 7, 11, 
+Graph node 6. Printing vertex details...
+Vertex number: 6, Location: (0.580000, 0.253000), Color: 3, Fitness: true
+Edges: 0, 1, 2, 3, 7, 8, 9, 
+Graph node 7. Printing vertex details...
+Vertex number: 7, Location: (0.623000, 0.242000), Color: 0, Fitness: true
+Edges: 3, 5, 6, 9, 11, 
+Graph node 8. Printing vertex details...
+Vertex number: 8, Location: (0.281000, 0.625000), Color: 0, Fitness: true
+Edges: 1, 2, 4, 6, 9, 10, 12, 14, 
+Graph node 9. Printing vertex details...
+Vertex number: 9, Location: (0.500000, 0.504000), Color: 1, Fitness: true
+Edges: 6, 7, 8, 11, 14, 
+Graph node 10. Printing vertex details...
+Vertex number: 10, Location: (0.038000, 0.867000), Color: 2, Fitness: true
+Edges: 0, 4, 8, 12, 13, 
+Graph node 11. Printing vertex details...
+Vertex number: 11, Location: (0.879000, 0.048000), Color: 3, Fitness: true
+Edges: 16, 5, 7, 9, 14, 15, 
+Graph node 12. Printing vertex details...
+Vertex number: 12, Location: (0.122000, 0.902000), Color: 3, Fitness: true
+Edges: 8, 10, 13, 14, 
+Graph node 13. Printing vertex details...
+Vertex number: 13, Location: (0.078000, 0.952000), Color: 1, Fitness: true
+Edges: 18, 10, 12, 14, 
+Graph node 14. Printing vertex details...
+Vertex number: 14, Location: (0.610000, 0.762000), Color: 2, Fitness: true
+Edges: 18, 19, 8, 9, 11, 12, 13, 15, 
+Graph node 15. Printing vertex details...
+Vertex number: 15, Location: (0.799000, 0.575000), Color: 1, Fitness: true
+Edges: 16, 17, 19, 11, 14, 
+Graph node 16. Printing vertex details...
+Vertex number: 16, Location: (0.938000, 0.389000), Color: 2, Fitness: true
+Edges: 17, 19, 11, 15, 
+Graph node 17. Printing vertex details...
+Vertex number: 17, Location: (0.920000, 0.473000), Color: 0, Fitness: true
+Edges: 16, 19, 15, 
+Graph node 18. Printing vertex details...
+Vertex number: 18, Location: (0.772000, 0.945000), Color: 0, Fitness: true
+Edges: 19, 13, 14, 
+Graph node 19. Printing vertex details...
+Vertex number: 19, Location: (0.972000, 0.837000), Color: 3, Fitness: true
+Edges: 16, 17, 18, 14, 15, 
+

@@ -76,10 +76,10 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             // <editor-fold defaultstate="collapsed" desc="Print population and parent population fitnesses">
             if (loopIteration % loopIterationPrintMod == 0)
             {
-                runs.println("Current population fitnesses and chromosomes: ");
-                printPopulationValues(population);
-                runs.println("Current parent set fitnesses and chromosomes: ");
-                printPopulationValues(parentSet);
+//                runs.println("Current population fitnesses and chromosomes: ");
+//                printPopulationValues(population);
+//                runs.println("Current parent set fitnesses and chromosomes: ");
+//                printPopulationValues(parentSet);
             }
             // </editor-fold>
             
@@ -336,7 +336,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
                         newColor = rand.nextInt(maxColors);
                     }
                     currentVertex.color = newColor;
-                    runs.format("Repaired a chromosome have new color %d%n", currentVertex.color);
+                    // runs.format("Repaired a chromosome have new color %d%n", currentVertex.color);
                 }
                 // if it is valid, iterate until a non-valid node is found
                 else
@@ -353,7 +353,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
                                 newColor = rand.nextInt(maxColors);
                             }
                             currentVertex.color = newColor;
-                            runs.format("Repaired a chromosome have new color %d%n", currentVertex.color);
+                            // runs.format("Repaired a chromosome have new color %d%n", currentVertex.color);
                         }
                         break;
                     }
