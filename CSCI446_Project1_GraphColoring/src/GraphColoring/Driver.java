@@ -13,13 +13,13 @@ public class Driver {
      * Test settings and parameters. Based on these values we should be able
      * to do as many runs on as many solvers as desired.
      */
-    private final static int numberOfGraphs = 3;
+    private final static int numberOfGraphs = 10;
     // initial amount of nodes to have for first graph generation
     private final static int initialNumVertices = 10;
     // how many more vertices to have for each iteration of the graph
     private final static int vertexGrowthSize = 10;
     // put the solvers you want the program to run on in here
-    private final static List<Class<?>> solverList = Arrays.asList(
+    public final static List<Class<?>> solverList = Arrays.asList(
             SimpleBacktrackingSolver.class,
             BacktrackingForwardCheckingSolver.class,
             BacktrackingPropagationSolver.class,
@@ -114,7 +114,8 @@ public class Driver {
             numVertices += vertexGrowthSize;
             currentGraphIteration++;
         }
-        
+        ResultCalculator calc = new ResultCalculator(); 
+        calc.calculateRunMetrics(solvers);
         results.close();
         runs.close();
     }
