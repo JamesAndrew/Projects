@@ -16,3 +16,9 @@
 	
 - GA often gets trapped for larger graph sizes when there are less than 5 invalid nodes left. Ideas thus far are
 	- Try different evolution strategies depending how fit the graph is 
+	- Trapping is because the population gets loaded with identical individuals. Strategy to maintain diversity:
+		- Smaller parent set size (1/3rd?)
+		- Don't directly copy half and half of each parent chromosome, but add +1 (with wraparound) to the value from parent 1
+		
+	- Other crossover ideas:
+		- 
