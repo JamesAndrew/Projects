@@ -9,7 +9,6 @@ import java.util.Map;
 public class BacktrackingForwardCheckingSolver extends ConstraintSolver
 {
     private int numPoints;
-    private int numberOfNodeColorings; 
 
     public BacktrackingForwardCheckingSolver()
     {
@@ -23,9 +22,12 @@ public class BacktrackingForwardCheckingSolver extends ConstraintSolver
     public void runSolver()
     {
         numPoints = graph.getGraphSize();
-        numberOfNodeColorings = 0; 
-        System.out.println(backtrack(0));
-        System.out.format("Nodes colored: %d%n", numberOfNodeColorings);
+        verticesVisited = 0; 
+        if(backtrack(0))
+        {
+            validColorings++; 
+        }
+        System.out.format("Nodes colored: %d%n", verticesVisited);
     }
 
     /**
@@ -41,22 +43,28 @@ public class BacktrackingForwardCheckingSolver extends ConstraintSolver
             theGraph.get(point).color = color;
             if (pointSatisfiesConstraint(point))
             {
-                numberOfNodeColorings++; 
+                runs.format("node %d given color %d%n", point, color);
+                decisionsMade++; 
+                verticesVisited++; 
                 if (allAdjacentColored(point))
                 {
+                    runs.println("All surrounding nodes colored");
                     return true;
                 } else
                 {
                     //move through each edge
                     for (int i = 0; i < numPoints; i++)
                     {
+                        decisionsMade++; 
                         if (theGraph.get(point).edges.containsKey(i) && theGraph.get(i).color == -1)
                         {
                             //point reached with all edge nodes colored and all graph nodes colored. 
                             if (backtrack(i) && allNodesColored())
                             {
+                                runs.println("Solution found");
                                 return true;
                             }
+                            //exit edge loop if unsuccessful coloring found 
                             else 
                             {
                                 break;
@@ -64,8 +72,9 @@ public class BacktrackingForwardCheckingSolver extends ConstraintSolver
                         }
                     }
                 }
+                runs.println("Backtracking");
             }
-        }
+        }        
         theGraph.get(point).color = -1;
         return false;
     }
@@ -79,6 +88,7 @@ public class BacktrackingForwardCheckingSolver extends ConstraintSolver
     {
         for (int i = 0; i < numPoints; i++)
         {
+            decisionsMade++; 
             if (theGraph.get(point).edges.containsKey(i) && theGraph.get(i).color == -1)
             {
                 return false;
@@ -95,6 +105,7 @@ public class BacktrackingForwardCheckingSolver extends ConstraintSolver
     {
         for (Map.Entry<Integer, Vertex> entry : theGraph.entrySet())
         {
+            decisionsMade++; 
             if (entry.getValue().color == -1)
             {
                 return false;

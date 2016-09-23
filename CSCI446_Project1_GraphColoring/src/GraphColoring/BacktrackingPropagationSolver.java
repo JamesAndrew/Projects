@@ -12,8 +12,6 @@ import java.util.Map;
 public class BacktrackingPropagationSolver extends ConstraintSolver
 {
     private int numPoints;
-    private int numberOfNodeColorings;
-    //private ArrayList<ArrayList<Integer>> validColorings;
 
     public BacktrackingPropagationSolver()
     {
@@ -24,21 +22,25 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
     public void runSolver()
     {
         numPoints = graph.getGraphSize();
-        numberOfNodeColorings = 0;
+        verticesVisited = 0;
 
         //set up lists to keep track of valid colorings for each node 
-        ArrayList<ArrayList<Integer>> validColorings = new ArrayList<ArrayList<Integer>>();
+        ArrayList<ArrayList<Integer>> valColorings = new ArrayList<ArrayList<Integer>>();
         for (int i = 0; i < numPoints; i++)
         {
-            validColorings.add(new ArrayList<Integer>());
+            valColorings.add(new ArrayList<Integer>());
             for (int j = 0; j < maxColors; j++)
             {
-                validColorings.get(i).add(j);
+                decisionsMade++; 
+                valColorings.get(i).add(j);
             }
         }
 
-        System.out.println(backtrack(0, validColorings));
-        System.out.format("Nodes colored: %d%n", numberOfNodeColorings);
+        if(backtrack((0), valColorings))
+        {
+            validColorings++; 
+        }
+        System.out.format("Nodes colored: %d%n", verticesVisited);
     }
 
      /**
@@ -49,19 +51,22 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
     private boolean backtrack(int point, ArrayList<ArrayList<Integer>> valColors)
     {
         //iterate through current list of valid node colorings 
-        ArrayList<ArrayList<Integer>> validColorings = new ArrayList<ArrayList<Integer>>(valColors);
+        ArrayList<ArrayList<Integer>> valColorings = new ArrayList<ArrayList<Integer>>(valColors);
         for (int i = 0; i < numPoints; i++)
         {
-            validColorings.add(new ArrayList<Integer>(valColors.get(i)));
+            decisionsMade++; 
+            valColorings.add(new ArrayList<Integer>(valColors.get(i)));
         }
 //        for (int adf : validColorings.get(point)){
 //            System.out.println(adf);
 //        }
-        for (Iterator<Integer> iterator = validColorings.get(point).iterator(); iterator.hasNext();)
+        for (Iterator<Integer> iterator = valColorings.get(point).iterator(); iterator.hasNext();)
         {
-            numberOfNodeColorings++;
-            theGraph.get(point).color = iterator.next(); 
-            if (pointSatisfiesConstraint(point) && propagate(point, validColorings))
+            verticesVisited++;
+            decisionsMade++; 
+            int color = theGraph.get(point).color = iterator.next(); 
+            runs.format("node %d given color %d%n", point, color);
+            if (pointSatisfiesConstraint(point) && propagate(point, valColorings))
             {
                 if (allAdjacentColored(point))
                 {
@@ -70,10 +75,13 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
                 {
                     for (int i = 0; i < numPoints; i++)
                     {
+                        decisionsMade++; 
                         if (theGraph.get(point).edges.containsKey(i) && theGraph.get(i).color == -1)
                         {
-                            if (backtrack(i, validColorings) && allNodesColored())
+                            //return true if end found else re color current node
+                            if (backtrack(i, valColorings) && allNodesColored())
                             {
+                                runs.println("Solution found");
                                 return true;
                             }
                             else 
@@ -84,6 +92,7 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
                     }
                 }
             }
+            runs.println("Backtracking");
         }
         theGraph.get(point).color = -1;
         return false;
@@ -98,6 +107,7 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
     {
         for (int i = 0; i < numPoints; i++)
         {
+            decisionsMade++; 
             if (theGraph.get(point).edges.containsKey(i) && theGraph.get(i).color == -1)
             {
                 return false;
@@ -114,6 +124,7 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
     {
         for (Map.Entry<Integer, Vertex> entry : theGraph.entrySet())
         {
+            decisionsMade++; 
             if (entry.getValue().color == -1)
             {
                 return false;
@@ -130,26 +141,35 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
      */
     private boolean propagate(int node, ArrayList<ArrayList<Integer>> validColorings)
     {
+        //iterate through all edges
         Map<Integer, Vertex> edges = theGraph.get(node).edges;
         for (Map.Entry<Integer, Vertex> entry : edges.entrySet())
         {
+            decisionsMade++; 
             int edgePoint = entry.getKey();
             if (theGraph.get(edgePoint).color == -1) 
             {
+                //current node has only 1 valid coloring. remove from edges
                 if (theGraph.get(node).color == -1 && validColorings.get(node).size() == 1)
                 {
+                    runs.format("removing color %d from node %d's valid colors%n", validColorings.get(node).get(0), edgePoint);
                     validColorings.get(edgePoint).remove((Integer) validColorings.get(node).get(0));
                 }
                 else 
                 {
+                    //remove current node color from edges
+                    runs.format("removing color %d from node %d's valid colors%n", theGraph.get(node).color, edgePoint);
                      validColorings.get(edgePoint).remove((Integer) theGraph.get(node).color); 
                 }
                 if (validColorings.get(edgePoint).isEmpty()) 
                 {
+                    runs.println("invalid future coloring found");
+                    //reached point with no valid coloring
                     return false; 
                 }
                 if (validColorings.get(edgePoint).size() == 1) 
                 {
+                    //do not move from node with one valid coloring to node with one different valid coloring
                     if (theGraph.get(node).color == -1 && validColorings.get(node).size() == 1 && validColorings.get(edgePoint).get(0) != validColorings.get(node).get(0))
                     {
                         
