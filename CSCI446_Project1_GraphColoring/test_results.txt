@@ -1,0 +1,11 @@
+Solver Decisions
+class GraphColoring.MinConflictsSolver 257 1
+class GraphColoring.MinConflictsSolver 503 2
+class GraphColoring.MinConflictsSolver 1917 2
+class GraphColoring.MinConflictsSolver 3385 2
+class GraphColoring.MinConflictsSolver 4804 2
+class GraphColoring.MinConflictsSolver 6236 2
+class GraphColoring.MinConflictsSolver 8087 2
+class GraphColoring.MinConflictsSolver 9171 2
+class GraphColoring.MinConflictsSolver 9460 3
+class GraphColoring.MinConflictsSolver 9774 4
