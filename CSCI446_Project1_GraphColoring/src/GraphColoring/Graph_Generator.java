@@ -1,5 +1,6 @@
 package GraphColoring;
 
+import java.io.PrintWriter;
 import java.util.*;
 
 /**
@@ -16,13 +17,21 @@ public class Graph_Generator
     // constant to refer to for the provided graph size
     private final int graphSize;
     
+    /**
+     * results and runs PrintWriter
+     */
+    protected static PrintWriter results;
+    protected static PrintWriter runs;
+    
     /** constructor to initialize Graph class and its attributes
      * 
      * @param n The number of vertices to have
      */
-    public Graph_Generator(int n)
+    public Graph_Generator(int n, PrintWriter run)
     {
         graphSize = n;
+        
+        runs = run;
     }
     
     public Graph generateGraph() 
@@ -31,7 +40,7 @@ public class Graph_Generator
         printVertexPlacements();
         connectEdges();
         printGraph();
-        return new Graph(theGraph); 
+        return new Graph(theGraph, runs); 
     }
     
     /**
@@ -323,25 +332,25 @@ public class Graph_Generator
      */
     public final void printGraph()
     {
-        System.out.println("\n=== Printing Graph State... ===");
+        runs.println("\n=== Printing Graph State... ===");
         theGraph.keySet().stream().map((key) -> {
-            System.out.format("Graph node %d. Printing vertex details...%n", key);
+            runs.format("Graph node %d. Printing vertex details...%n", key);
             return key;
         }).map((key) -> theGraph.get(key)).forEach((currentVertex) -> {
             printVertexDetails(currentVertex);
         });
-        System.out.println();
+        runs.println();
     }
     
     public void printVertexPlacements()
     {
-        System.out.println("= Printing Vertex Locations =");
+        runs.println("= Printing Vertex Locations =");
         for (Integer key : theGraph.keySet())
         {
             Vertex currentVertex = theGraph.get(key);
-            System.out.format("Vertex %d: (%f, %f)%n", key, currentVertex.getxValue(), currentVertex.getyValue());
+            runs.format("Vertex %d: (%f, %f)%n", key, currentVertex.getxValue(), currentVertex.getyValue());
         }
-        System.out.println();
+        runs.println();
     }
     
     /**
@@ -351,11 +360,11 @@ public class Graph_Generator
      */
     public void printVertexDetails(Vertex vertex)
     {
-        System.out.format("Vertex number: %d, Location: (%f, %f), Color: %d%n", vertex.getVertexNum(), vertex.getxValue(), vertex.getyValue(), vertex.color);
+        runs.format("Vertex number: %d, Location: (%f, %f), Color: %d%n", vertex.getVertexNum(), vertex.getxValue(), vertex.getyValue(), vertex.color);
         if (!vertex.edges.isEmpty())
         {
             Iterator itr = vertex.edges.entrySet().iterator();
-            System.out.print("Edges: ");
+            runs.print("Edges: ");
             while(itr.hasNext())
             {
                 Map.Entry pair = (Map.Entry)itr.next();
@@ -363,16 +372,16 @@ public class Graph_Generator
                 Vertex value = (Vertex)pair.getValue();
                 if (key != value.getVertexNum())
                 {
-                    System.out.format("%n%nConnected vertex has mismatch between key "
+                    runs.format("%n%nConnected vertex has mismatch between key "
                             + "and value.vertexNum. Key = %d, vaule.vertexNum = %d. Continuing...%n%n",
                             key, value.getVertexNum());
                 }
-                System.out.format("%d, ", key);
+                runs.format("%d, ", key);
             }
-            System.out.println();
+            runs.println();
         }
         else 
-            System.out.println("Edges: none assigned yet");
+            runs.println("Edges: none assigned yet");
         
     }
     
@@ -383,12 +392,12 @@ public class Graph_Generator
      */
     public void printVertexConnections(Vertex vertex)
     {
-        System.out.format("Vertex %d is connected to vertices: ", vertex.getVertexNum());
+        runs.format("Vertex %d is connected to vertices: ", vertex.getVertexNum());
         for (Integer key : vertex.edges.keySet()) 
         {
-            System.out.format("%d, ", key);
+            runs.format("%d, ", key);
         }
-        System.out.println();
+        runs.println();
     }
     // </editor-fold>
 

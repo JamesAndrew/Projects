@@ -3,6 +3,11 @@ package GraphColoring;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
+import java.io.PrintWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.*;
 
 public class Driver {
     /**
@@ -11,7 +16,7 @@ public class Driver {
      */
     private final static int numberOfGraphs = 3;
     // initial amount of nodes to have for first graph generation
-    private final static int initialNumVertices = 20;
+    private final static int initialNumVertices = 10;
     // how many more vertices to have for each iteration of the graph
     private final static int vertexGrowthSize = 10;
     // put the solvers you want the program to run on in here
@@ -20,8 +25,15 @@ public class Driver {
             //GreedySolver.class,
             SimpleBacktrackingSolver.class,
             BacktrackingForwardCheckingSolver.class,
-            BacktrackingPropagationSolver.class
+            BacktrackingPropagationSolver.class,
+            MinConflictsSolver.class
     );
+    
+    /**
+     * results and runs PrintWriter
+     */
+    private static PrintWriter results;
+    private static PrintWriter runs;
     
     public static void main(String[] args) throws InstantiationException, IllegalAccessException 
     {
@@ -39,29 +51,68 @@ public class Driver {
         int numVertices = initialNumVertices;
         ArrayList<ConstraintSolver> solvers = instantiateSolvers();
         
-        System.out.println("=== Starting Runs ===");
-        System.out.format("Number of graphs for each solver: %d%n"
+        /**
+         * Create files to write results and sample runs
+         */
+        // create Scanner instance input prompt user for filename
+        Scanner input = new Scanner(System.in);
+
+        // name of current run of experimental
+        String filename;
+        
+        // prompt user for filename
+        System.out.println("filename?");
+        filename = input.next();
+
+        try
+        {
+            results = new PrintWriter(new FileWriter(filename + "_results.txt"));
+            runs = new PrintWriter(new FileWriter(filename + "_runs.txt"));
+        }
+        catch(IOException e)
+        {
+            System.err.println("Caught IOException: " + e.getMessage());
+        }
+        
+        /**
+         * Start initializing experiment
+         */
+        runs.println("=== Starting Runs ===");
+        runs.format("Number of graphs for each solver: %d%n"
                 + "Vertex growth size: %d%n"
                 + "Solvers being used: %s%n%n",
                 numberOfGraphs, vertexGrowthSize, printSolversUsed());
         
+        results.println("Solver Decisions");
+        
         // while there are more graphs to generate
         while (currentGraphIteration < numberOfGraphs)
         {
+            results.println("Graph " + currentGraphIteration);
             // generate the graph to use this iteration
-            Graph currentGraph = new Graph_Generator(numVertices).generateGraph();
+            Graph currentGraph = new Graph_Generator(numVertices, runs).generateGraph();
             for (ConstraintSolver solver : solvers) 
             {
+                results.print(solver.getClass() + " ");
                 printNextRunData(solver.getClass(), numVertices);
                 solver.updateGraph(currentGraph);
+
                 solver.setMaxColors(4);
+
+                solver.printFile(runs);
+
                 solver.runSolver();
+                results.print(solver.getDecisionsMade() + " ");
+                results.println(solver.getValidColorings());
                 currentGraph.printGraph();
             }
             
             numVertices += vertexGrowthSize;
             currentGraphIteration++;
         }
+        
+        results.close();
+        runs.close();
     }
     
     private static ArrayList<ConstraintSolver> instantiateSolvers() throws InstantiationException, IllegalAccessException
@@ -98,9 +149,9 @@ public class Driver {
      */
     public static void printNextRunData(Class currentSolver, int size)
     {
-        System.out.println("= Running next solver =");
-        System.out.format("Current algorithm: %s%n", currentSolver.getSimpleName());
-        System.out.format("Graph size: %d%n", size);
+        runs.println("= Running next solver =");
+        runs.format("Current algorithm: %s%n", currentSolver.getSimpleName());
+        runs.format("Graph size: %d%n", size);
     }
     // </editor-fold>
 }
