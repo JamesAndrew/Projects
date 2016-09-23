@@ -23,6 +23,8 @@ public class BacktrackingForwardCheckingSolver extends ConstraintSolver
     {
         numPoints = graph.getGraphSize();
         verticesVisited = 0; 
+        decisionsMade = 0;
+        validColorings = 0;
         if(backtrack(0))
         {
             validColorings++; 

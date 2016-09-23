@@ -23,6 +23,8 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
     {
         numPoints = graph.getGraphSize();
         verticesVisited = 0;
+        decisionsMade = 0;
+        validColorings = 0;
 
         //set up lists to keep track of valid colorings for each node 
         ArrayList<ArrayList<Integer>> valColorings = new ArrayList<ArrayList<Integer>>();

@@ -29,11 +29,12 @@ public class ResultCalculator {
      *
      * @return
      */
-    public void calculateRunMetrics(ArrayList<ConstraintSolver> solvers) {
+    public void calculateRunMetrics(ArrayList<ConstraintSolver> solvers, int numVertices) {
         for (ConstraintSolver s : solvers) {
             solverMap.get(s.getClass())[0] += s.decisionsMade;
             solverMap.get(s.getClass())[1] += s.validColorings;
-            System.out.println("Solver: " + s.getClass() + " Decisions: " + solverMap.get(s.getClass())[0]);
+            System.out.println("Solver: " + s.getClass().getSimpleName() + " Graph size: " + numVertices);
+            System.out.println(solverMap.get(s.getClass())[0] + "," + solverMap.get(s.getClass())[1]);
         }
     }
 }

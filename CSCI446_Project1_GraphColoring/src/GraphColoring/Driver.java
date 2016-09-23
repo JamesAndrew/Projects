@@ -13,7 +13,7 @@ public class Driver {
      * Test settings and parameters. Based on these values we should be able
      * to do as many runs on as many solvers as desired.
      */
-    private final static int numberOfGraphs = 10;
+    private final static int numberOfGraphs = 3;
     // initial amount of nodes to have for first graph generation
     private final static int initialNumVertices = 10;
     // how many more vertices to have for each iteration of the graph
@@ -45,6 +45,7 @@ public class Driver {
      */
     private static void runSolvers() throws InstantiationException, IllegalAccessException
     {
+        ResultCalculator calc = new ResultCalculator(); 
         int currentGraphIteration = 0;
         int numVertices = initialNumVertices;
         ArrayList<ConstraintSolver> solvers = instantiateSolvers();
@@ -110,12 +111,12 @@ public class Driver {
                 results.print(solver.getDecisionsMade() + " ");
                 results.println(solver.getValidColorings());
             }
-            
+            calc.calculateRunMetrics(solvers, numVertices);
             numVertices += vertexGrowthSize;
             currentGraphIteration++;
         }
-        ResultCalculator calc = new ResultCalculator(); 
-        calc.calculateRunMetrics(solvers);
+        
+        
         results.close();
         runs.close();
     }
