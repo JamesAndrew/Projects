@@ -1,5 +1,6 @@
 package GraphColoring;
 
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -18,8 +19,8 @@ public abstract class ConstraintSolver
      * only gave a valid coloring on 7 of the 10 graphs, validColorings would equal 7.
      * If the average amount of decisions made was 100, decisions made would equal 1000).
      */
-    protected int decisionsMade;
-    protected int validColorings;
+    protected int decisionsMade = 0;
+    protected int validColorings = 0;
     protected int verticesVisited;   // might not use this one. Lets talk about it
     protected int verticesRecolored; 
     
@@ -32,6 +33,12 @@ public abstract class ConstraintSolver
      */
     protected Graph graph;
     protected Map<Integer, Vertex> theGraph;
+    
+    /**
+     * results and runs PrintWriter
+     */
+    protected static PrintWriter results;
+    protected static PrintWriter runs;
     
     /**
      * The logic of the current solver instance
@@ -47,6 +54,14 @@ public abstract class ConstraintSolver
     {
         this.graph = graph;
         this.theGraph = graph.theGraph;
+    }
+    
+    /**
+     * method to give solver classes access to file writers
+     */
+    public void printFile(PrintWriter run)
+    {
+        runs = run;
     }
     
     /**
@@ -81,21 +96,21 @@ public abstract class ConstraintSolver
         return satisfied;
     }
     
-    protected boolean pointSatisfiesConstraint(OriginalGraph graph, int[] colors, int point)
+    protected boolean pointSatisfiesConstraint(int point)
     {
         //currently checks all adjacent points
-        int graphSize = graph.getPoints().length;
+        int graphSize = graph.getGraphSize();
         for (int i = 0; i < graphSize; i++)
         {
-            int pointColor = colors[i];
-
-            if (graph.getEdge(point, i) == 1 && pointColor == colors[point])
+            int pointColor = theGraph.get(i).color;
+            if (theGraph.get(point).edges.containsKey(i) && pointColor == theGraph.get(point).color)//getEdge(point, i) == 1 && pointColor == colors[point])
             {
                 return false;
             }
         }
         return true;
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="Basic Getters and Setters">
     /**

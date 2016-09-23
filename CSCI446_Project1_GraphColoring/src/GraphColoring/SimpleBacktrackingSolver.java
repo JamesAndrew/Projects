@@ -1,5 +1,7 @@
 package GraphColoring;
 
+import java.util.Map;
+
 /**
  * Graph coloring constraint solver using the basic backtracking strategy
  *
@@ -9,43 +11,31 @@ public class SimpleBacktrackingSolver extends ConstraintSolver
 {
 
     private int numColors;
-    private int[] colors;
-    private OriginalGraph graph;
     private int numPoints;
-    private int numberOfNodeColorings; 
+    private int numberOfNodeColorings;
 
     public SimpleBacktrackingSolver()
     {
 
     }
 
-    public void solve(OriginalGraph graph, int numColors)
+    public void runSolver(int numColors)
     {
         this.numColors = numColors;
-        this.graph = graph;
-        numPoints = graph.getPoints().length;
-        colors = new int[numPoints];
-        numberOfNodeColorings = 0; 
+        numPoints = graph.getGraphSize();
+        numberOfNodeColorings = 0;
         System.out.println(backtrack(0));
         System.out.format("Nodes colored: %d%n", numberOfNodeColorings);
-        for (int c : colors)
-        {
-            System.out.println(c);
-        }
     }
 
     private boolean backtrack(int point)
     {
         for (int color = 1; color <= numColors; color++)
         {
-            colors[point] = color;
-            numberOfNodeColorings++; 
-            for (int c : colors)
-            {
-                System.out.println(c);
-            }
-            System.out.println();
-            if (pointSatisfiesConstraint(graph, colors, point))
+            theGraph.get(point).color = color;
+            numberOfNodeColorings++;
+
+            if (pointSatisfiesConstraint(point))
             {
                 if (allAdjacentColored(point))
                 {
@@ -54,9 +44,9 @@ public class SimpleBacktrackingSolver extends ConstraintSolver
                 {
                     for (int i = 0; i < numPoints; i++)
                     {
-                        if (graph.getEdge(point, i) == 1 && colors[i] == 0)
+                        if (theGraph.get(point).edges.containsKey(i) && theGraph.get(i).color == 0)
                         {
-                            if (backtrack(i)  && allNodesColored())
+                            if (backtrack(i) && allNodesColored())
                             {
                                 return true;
                             }
@@ -65,7 +55,7 @@ public class SimpleBacktrackingSolver extends ConstraintSolver
                 }
             }
         }
-        colors[point] = 0;
+        theGraph.get(point).color = 0;
         return false;
     }
 
@@ -73,7 +63,7 @@ public class SimpleBacktrackingSolver extends ConstraintSolver
     {
         for (int i = 0; i < numPoints; i++)
         {
-            if (graph.getEdge(point, i) == 1 && colors[i] == 0)
+            if (theGraph.get(point).edges.containsKey(i) && theGraph.get(i).color == 0)
             {
                 return false;
             }
@@ -83,18 +73,18 @@ public class SimpleBacktrackingSolver extends ConstraintSolver
 
     private boolean allNodesColored()
     {
-        for (int color : colors)
+        for (Map.Entry<Integer, Vertex> entry : theGraph.entrySet())
         {
-            if (color == 0)
+            if (entry.getValue().color == 0)
             {
-                return false; 
+                return false;
             }
         }
-        return true; 
+        return true;
     }
 
     @Override
-    public void runSolver() 
+    public void runSolver()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
