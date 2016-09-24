@@ -67,8 +67,7 @@ public class Driver
 
         // prompt user for filename
         System.out.println("filename?");
-        filename = "FP_testing";
-        //filename = input.next();
+        filename = input.next();
 
         try
         {
