@@ -17,10 +17,9 @@ public class Driver
      */
     private final static int numberOfGraphs = 3;
     // initial amount of nodes to have for first graph generation
-    private final static int initialNumVertices = 70;
+    private final static int initialNumVertices = 10;
     // how many more vertices to have for each iteration of the graph
     private final static int vertexGrowthSize = 10;
-    //number of times to run each graph size 
     private final static int suiteSize = 10;
     // put the solvers you want the program to run on in here
     public final static List<Class<?>> solverList = Arrays.asList(
