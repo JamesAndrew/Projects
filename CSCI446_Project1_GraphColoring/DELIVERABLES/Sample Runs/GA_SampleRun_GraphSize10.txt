@@ -218,6 +218,5 @@ Edges: 4, 5, 6, 7, 8,
 
 
  === Program Output Values ===
-Valid Coloring: 
-true, with 10 of 10 nodes correctly colored.
+Valid Coloring: true, with 10 of 10 nodes correctly colored.
 Decisions Made: 4161

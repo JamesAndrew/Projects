@@ -18,9 +18,8 @@ public class SimpleBacktrackingSolver extends ConstraintSolver {
 
     @Override
     public void runSolver() {
-        // create Scanner object to take input from user
-        Scanner input = new Scanner(System.in);
-        runs.println("simpleBacktracking algorithm");
+        runs.println();
+        
         numPoints = graph.getGraphSize();
         verticesVisited = 0;
         decisionsMade = 0;
@@ -28,7 +27,14 @@ public class SimpleBacktrackingSolver extends ConstraintSolver {
         if (backtrack(0)) {                                                     addDecision();
             validColorings++;
         }
-        System.out.format("Nodes colored: %d%n", verticesVisited);
+        
+        runs.print("\nRun finished.");
+        graph.printGraph();
+        
+        runs.println("=== Program Output Values ===");
+        runs.format("Valid Coloring: %b, with %d out of %d nodes correctly colored.%n",
+                graphSatisfiesConstraint(), graph.calculateFitness(), graph.getGraphSize());
+        runs.format("Decisions Made: %d", decisionsMade);
     }
 
     /**
@@ -42,10 +48,10 @@ public class SimpleBacktrackingSolver extends ConstraintSolver {
         for (int color = 0; color < maxColors; color++) {           
             theGraph.get(point).color = color;                                  addDecision();
             verticesVisited++;
-            runs.format("node %d given color %d%n", point, color);
+            runs.format("Node %d given color %d%n", point, color);
             if (pointSatisfiesConstraint(point)) {                              addDecision();
                 if (allAdjacentColored(point)) {                                addDecision();
-                    runs.println("All surrounding nodes colored");
+                    runs.println("All surrounding nodes colored.");
                     return true;                                                
                 } else {
                     //iterate through all edges 
@@ -64,7 +70,7 @@ public class SimpleBacktrackingSolver extends ConstraintSolver {
                     }
                 }
             }
-            runs.println("Backtracking");
+            runs.println("Backtracking...\n");
         }
         theGraph.get(point).color = -1;
         return false;
