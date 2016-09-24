@@ -24,11 +24,11 @@ public class Driver
     private final static int suiteSize = 1;
     // put the solvers you want the program to run on in here
     public final static List<Class<?>> solverList = Arrays.asList(
-            //SimpleBacktrackingSolver.class,
+            SimpleBacktrackingSolver.class
             //BacktrackingForwardCheckingSolver.class,
             //BacktrackingPropagationSolver.class,
             //MinConflictsSolver.class,
-            GeneticAlgorithmSolver.class
+            //GeneticAlgorithmSolver.class
     );
 
     /**
@@ -67,7 +67,8 @@ public class Driver
 
         // prompt user for filename
         System.out.println("filename?");
-        filename = input.next();
+        filename = "SB_testing";
+        //filename = input.next();
 
         try
         {
