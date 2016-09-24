@@ -44,7 +44,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     }
     
     // used for displaying run data values
-    private final int loopIterationPrintMod = 2;
+    private final int loopIterationPrintMod = 1;
     
     @Override
     public void runSolver() 
