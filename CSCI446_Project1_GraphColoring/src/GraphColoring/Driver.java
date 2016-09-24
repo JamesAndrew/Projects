@@ -24,7 +24,7 @@ public class Driver
     // number of times to run each graph size during an instance suite
     private final static int instanceSuiteIterations = 1;
     // number of iterations of n-graph runs to do for a run suite
-    private final static int runSuiteIterations = 2;
+    private final static int runSuiteIterations = 1;
     // number of graphs to use for each run suite iteration
     private final static int numberOfGraphs = 5;
     // initial amount of nodes to have for first graph generation
@@ -43,8 +43,9 @@ public class Driver
     /**
      * results and runs PrintWriter
      */
-    private static PrintWriter results;
-    private static PrintWriter runs;
+    private static PrintWriter results_log;
+    private static PrintWriter run_log;
+    private static PrintWriter result_data;
 
     public static void main(String[] args) throws InstantiationException, IllegalAccessException
     {
@@ -82,8 +83,8 @@ public class Driver
 
         try
         {
-            results = new PrintWriter(new FileWriter(filename + "_results.txt"));
-            runs = new PrintWriter(new FileWriter(filename + "_runs.txt"));
+            results_log = new PrintWriter(new FileWriter(filename + "_results.txt"));
+            run_log = new PrintWriter(new FileWriter(filename + "_runs.txt"));
         } catch (IOException e)
         {
             System.err.println("Caught IOException: " + e.getMessage());
@@ -94,8 +95,8 @@ public class Driver
         /**
          * Start initializing experiment
          */
-        results.println("=== Starting Runs ===");
-        results.format("Number of graphs for each solver: %d%n"
+        results_log.println("=== Starting Runs ===");
+        results_log.format("Number of graphs for each solver: %d%n"
                 + "Vertex growth size: %d%n"
                 + "Solvers being used: %s%n%n",
                 numberOfGraphs, vertexGrowthSize, printSolversUsed());
@@ -107,31 +108,33 @@ public class Driver
         {
             // instance suite
             case 1:
+                calc.setRunType("Instance Suite");
                 
                 break;
                 
             // run suite
             case 2:
+                calc.setRunType("Run Suite");
                 // repeat [run_suite_iterations] times
-                results.println("Beginning Run Suite...");
+                results_log.println("Beginning Run Suite...");
                 for (int iteration = 0; iteration < runSuiteIterations; iteration++)
                 {
-                    results.format("%n== Run suite iteration: %d ==%n", iteration);
+                    results_log.format("%n== Run suite iteration: %d ==%n", iteration);
                     System.out.println("Run suite iteration: " + iteration);
                     
                     // while there are more graphs to generate
                     for (int i = 0; i < numberOfGraphs; i++)
                     {
-                        results.format("%n= Graph iteration: %d =%n", i);
+                        results_log.format("%n= Graph iteration: %d =%n", i);
                         
-                        Graph currentGraph = new Graph_Generator(numVertices, runs).generateGraph();
+                        Graph currentGraph = new Graph_Generator(numVertices, run_log).generateGraph();
                         for (ConstraintSolver solver : solvers)
                         {
                             printNextRunData(solver.getClass(), numVertices);
                             
                             solver.updateGraph(currentGraph);
                             solver.setMaxColors(maxColors);
-                            solver.assignPrintWriter(runs);
+                            solver.assignPrintWriter(run_log);
                             solver.runSolver();
 
                             // <editor-fold defaultstate="collapsed" desc="Print graph after solver run if desired">
@@ -139,8 +142,8 @@ public class Driver
         //                currentGraph.printGraph();
                             // </editor-fold>
                         
-                            results.format("Instance Decisions Made: %d%n", solver.getDecisionsMade());
-                            results.format("Instance valid coloring: %b%n", solver.isSatisfiesConstraint());
+                            results_log.format("Instance Decisions Made: %d%n", solver.getDecisionsMade());
+                            results_log.format("Instance valid coloring: %b%n", solver.isSatisfiesConstraint());
                             
                             calc.calculateInstanceMetrics(solver);
                         }
@@ -157,10 +160,11 @@ public class Driver
             break;
         }
         
-        calc.printTotals(totalIterations);
+        calc.printRunResults();
+        
         calc.closeWriter(); 
-        results.close();
-        runs.close();
+        results_log.close();
+        run_log.close();
     }
 
     private static ArrayList<ConstraintSolver> instantiateSolvers() throws InstantiationException, IllegalAccessException
@@ -198,9 +202,9 @@ public class Driver
      */
     public static void printNextRunData(Class currentSolver, int size)
     {
-        results.println("\nRunning next solver ");
-        results.format("Current algorithm: %s%n", currentSolver.getSimpleName());
-        results.format("Graph size: %d%n", size);
+        results_log.println("\nRunning next solver ");
+        results_log.format("Current algorithm: %s%n", currentSolver.getSimpleName());
+        results_log.format("Graph size: %d%n", size);
         
         System.out.println("\nRunning next solver ");
         System.out.format("Current algorithm: %s%n", currentSolver.getSimpleName());
