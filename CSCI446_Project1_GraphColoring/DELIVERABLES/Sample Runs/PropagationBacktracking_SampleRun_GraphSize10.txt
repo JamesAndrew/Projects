@@ -1,0 +1,190 @@
+=== Starting Runs ===
+Number of graphs for each solver: 1
+Vertex growth size: 1
+Solvers being used: BacktrackingPropagationSolver, 
+
+= Printing Vertex Locations =
+Vertex 0: (0.013000, 0.262000)
+Vertex 1: (0.379000, 0.055000)
+Vertex 2: (0.032000, 0.503000)
+Vertex 3: (0.391000, 0.477000)
+Vertex 4: (0.493000, 0.398000)
+Vertex 5: (0.843000, 0.116000)
+Vertex 6: (0.921000, 0.137000)
+Vertex 7: (0.656000, 0.770000)
+Vertex 8: (0.852000, 0.942000)
+Vertex 9: (0.910000, 0.967000)
+
+
+=== Printing Graph State... ===
+Graph node 0. Printing vertex details...
+Vertex number: 0, Location: (0.013000, 0.262000), Color: -1
+Edges: 1, 2, 3, 
+Graph node 1. Printing vertex details...
+Vertex number: 1, Location: (0.379000, 0.055000), Color: -1
+Edges: 0, 3, 4, 5, 9, 
+Graph node 2. Printing vertex details...
+Vertex number: 2, Location: (0.032000, 0.503000), Color: -1
+Edges: 0, 3, 7, 8, 
+Graph node 3. Printing vertex details...
+Vertex number: 3, Location: (0.391000, 0.477000), Color: -1
+Edges: 0, 1, 2, 4, 7, 
+Graph node 4. Printing vertex details...
+Vertex number: 4, Location: (0.493000, 0.398000), Color: -1
+Edges: 1, 3, 7, 9, 
+Graph node 5. Printing vertex details...
+Vertex number: 5, Location: (0.843000, 0.116000), Color: -1
+Edges: 1, 6, 9, 
+Graph node 6. Printing vertex details...
+Vertex number: 6, Location: (0.921000, 0.137000), Color: -1
+Edges: 5, 9, 
+Graph node 7. Printing vertex details...
+Vertex number: 7, Location: (0.656000, 0.770000), Color: -1
+Edges: 2, 3, 4, 8, 9, 
+Graph node 8. Printing vertex details...
+Vertex number: 8, Location: (0.852000, 0.942000), Color: -1
+Edges: 2, 7, 9, 
+Graph node 9. Printing vertex details...
+Vertex number: 9, Location: (0.910000, 0.967000), Color: -1
+Edges: 1, 4, 5, 6, 7, 8, 
+
+= Running next solver =
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 10
+
+Node 0 given color 0
+removing color 0 from node 1's valid colors
+removing color 0 from node 2's valid colors
+removing color 0 from node 3's valid colors
+
+Node 1 given color 1
+removing color 1 from node 3's valid colors
+removing color 1 from node 4's valid colors
+removing color 1 from node 5's valid colors
+removing color 1 from node 9's valid colors
+
+Node 3 given color 2
+removing color 2 from node 2's valid colors
+removing color 2 from node 4's valid colors
+removing color 2 from node 7's valid colors
+
+Node 2 given color 1
+removing color 1 from node 7's valid colors
+removing color 1 from node 8's valid colors
+
+Node 7 given color 0
+removing color 0 from node 4's valid colors
+removing color 3 from node 9's valid colors
+
+Node 4 given color 3
+removing color 3 from node 9's valid colors
+
+Node 9 given color 0
+Backtracking...
+
+Node 9 given color 2
+removing color 2 from node 5's valid colors
+removing color 2 from node 6's valid colors
+removing color 2 from node 8's valid colors
+
+Node 5 given color 0
+removing color 0 from node 6's valid colors
+
+Node 6 given color 1
+Backtracking...
+
+Node 5 given color 3
+Backtracking...
+Backtracking...
+Backtracking...
+
+Node 7 given color 3
+removing color 3 from node 4's valid colors
+Invalid future coloring found
+Backtracking...
+Backtracking...
+
+Node 2 given color 3
+removing color 3 from node 7's valid colors
+removing color 0 from node 4's valid colors
+Invalid future coloring found
+Backtracking...
+Backtracking...
+
+Node 3 given color 3
+removing color 3 from node 2's valid colors
+removing color 1 from node 7's valid colors
+removing color 1 from node 8's valid colors
+
+Node 2 given color 1
+removing color 1 from node 7's valid colors
+removing color 0 from node 4's valid colors
+Invalid future coloring found
+Backtracking...
+Backtracking...
+Backtracking...
+
+Node 1 given color 2
+removing color 2 from node 3's valid colors
+removing color 3 from node 2's valid colors
+removing color 3 from node 4's valid colors
+Invalid future coloring found
+Backtracking...
+
+Node 1 given color 3
+Backtracking...
+Backtracking...
+
+Node 0 given color 1
+removing color 1 from node 1's valid colors
+removing color 1 from node 2's valid colors
+Invalid future coloring found
+Backtracking...
+
+Node 0 given color 2
+removing color 2 from node 1's valid colors
+removing color 3 from node 3's valid colors
+Invalid future coloring found
+Backtracking...
+
+Node 0 given color 3
+removing color 3 from node 1's valid colors
+Invalid future coloring found
+Backtracking...
+
+Run finished.
+=== Printing Graph State... ===
+Graph node 0. Printing vertex details...
+Vertex number: 0, Location: (0.013000, 0.262000), Color: -1, Fitness: false
+Edges: 1, 2, 3, 
+Graph node 1. Printing vertex details...
+Vertex number: 1, Location: (0.379000, 0.055000), Color: -1, Fitness: false
+Edges: 0, 3, 4, 5, 9, 
+Graph node 2. Printing vertex details...
+Vertex number: 2, Location: (0.032000, 0.503000), Color: -1, Fitness: false
+Edges: 0, 3, 7, 8, 
+Graph node 3. Printing vertex details...
+Vertex number: 3, Location: (0.391000, 0.477000), Color: -1, Fitness: false
+Edges: 0, 1, 2, 4, 7, 
+Graph node 4. Printing vertex details...
+Vertex number: 4, Location: (0.493000, 0.398000), Color: -1, Fitness: false
+Edges: 1, 3, 7, 9, 
+Graph node 5. Printing vertex details...
+Vertex number: 5, Location: (0.843000, 0.116000), Color: 3, Fitness: true
+Edges: 1, 6, 9, 
+Graph node 6. Printing vertex details...
+Vertex number: 6, Location: (0.921000, 0.137000), Color: 1, Fitness: true
+Edges: 5, 9, 
+Graph node 7. Printing vertex details...
+Vertex number: 7, Location: (0.656000, 0.770000), Color: -1, Fitness: false
+Edges: 2, 3, 4, 8, 9, 
+Graph node 8. Printing vertex details...
+Vertex number: 8, Location: (0.852000, 0.942000), Color: -1, Fitness: false
+Edges: 2, 7, 9, 
+Graph node 9. Printing vertex details...
+Vertex number: 9, Location: (0.910000, 0.967000), Color: -1, Fitness: false
+Edges: 1, 4, 5, 6, 7, 8, 
+
+=== Program Output Values ===
+Valid Coloring: false, with 2 out of 10 nodes correctly colored.
+Decisions Made: 387
