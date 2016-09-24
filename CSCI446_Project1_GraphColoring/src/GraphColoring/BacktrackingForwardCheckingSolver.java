@@ -33,7 +33,6 @@ public class BacktrackingForwardCheckingSolver extends ConstraintSolver
             validColorings++; 
             validColoring = true;
         }
-        System.out.format("Nodes colored: %d%n", verticesVisited);
         
         runs.println();
         

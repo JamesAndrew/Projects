@@ -445,6 +445,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
      */
     private void initializePopulation()
     {
+        population.clear();
         Random rand = new Random();
         for (int i = 0; i < populationSize; i++)
         {

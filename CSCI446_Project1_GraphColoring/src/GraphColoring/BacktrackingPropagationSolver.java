@@ -61,7 +61,7 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
         ArrayList<ArrayList<Integer>> valColorings = new ArrayList<>(valColors);
         for (int i = 0; i < numPoints; i++)
         {
-            valColorings.add(new ArrayList<Integer>(valColors.get(i)));         addDecision();
+            valColorings.add(new ArrayList<>(valColors.get(i)));         addDecision();
         }
 //        for (int adf : validColorings.get(point)){
 //            System.out.println(adf);

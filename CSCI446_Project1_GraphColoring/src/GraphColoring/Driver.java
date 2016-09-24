@@ -24,13 +24,13 @@ public class Driver
     // number of times to run each graph size during an instance suite
     private final static int instanceSuiteIterations = 1;
     // number of iterations of n-graph runs to do for a run suite
-    private final static int runSuiteIterations = 1;
-    // number of graphs to use for teach run suite iteration
-    private final static int numberOfGraphs = 1;
+    private final static int runSuiteIterations = 2;
+    // number of graphs to use for each run suite iteration
+    private final static int numberOfGraphs = 5;
     // initial amount of nodes to have for first graph generation
     private final static int initialNumVertices = 10;
     // how many more vertices to have for each iteration of the graph
-    private final static int vertexGrowthSize = 0;
+    private final static int vertexGrowthSize = 10;
     // put the solvers you want the program to run on in here
     public final static List<Class<?>> solverList = Arrays.asList(
             SimpleBacktrackingSolver.class,
@@ -116,12 +116,13 @@ public class Driver
                 results.println("Beginning Run Suite...");
                 for (int iteration = 0; iteration < runSuiteIterations; iteration++)
                 {
-                    results.println("Run suite iteration: " + iteration);
+                    results.format("%n== Run suite iteration: %d ==%n", iteration);
+                    System.out.println("Run suite iteration: " + iteration);
                     
                     // while there are more graphs to generate
-                    while (currentGraphIteration < numberOfGraphs)
+                    for (int i = 0; i < numberOfGraphs; i++)
                     {
-                        results.println("Graph iteration: " + currentGraphIteration);
+                        results.format("%n= Graph iteration: %d =%n", i);
                         
                         Graph currentGraph = new Graph_Generator(numVertices, runs).generateGraph();
                         for (ConstraintSolver solver : solvers)
@@ -150,7 +151,6 @@ public class Driver
                     }
                     
                     // set up for next run suite iteration
-                    currentGraphIteration = 0;
                     numVertices = initialNumVertices;
                     totalIterations++; 
                 }
@@ -198,9 +198,13 @@ public class Driver
      */
     public static void printNextRunData(Class currentSolver, int size)
     {
-        results.println("\n= Running next solver =");
+        results.println("\nRunning next solver ");
         results.format("Current algorithm: %s%n", currentSolver.getSimpleName());
         results.format("Graph size: %d%n", size);
+        
+        System.out.println("\nRunning next solver ");
+        System.out.format("Current algorithm: %s%n", currentSolver.getSimpleName());
+        System.out.format("Graph size: %d%n", size);
     }
     // </editor-fold>
 }
