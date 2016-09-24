@@ -1,3 +1,0 @@
-Solver Decisions
-Graph 0
-class GraphColoring.MinConflictsSolver 440 1

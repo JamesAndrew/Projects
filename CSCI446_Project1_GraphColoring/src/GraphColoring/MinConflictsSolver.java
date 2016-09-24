@@ -22,6 +22,8 @@ public class MinConflictsSolver extends ConstraintSolver
     @Override
     public void runSolver()
     {
+        boolean validColoring = false;
+        decisionsMade = 0;
         // create Scanner object to take input from user
         Scanner input = new Scanner(System.in);
         // create Random object to generate random numbers
@@ -92,10 +94,20 @@ public class MinConflictsSolver extends ConstraintSolver
             if (checkSolution() == true)
             {
                 step = steps;
+                validColoring = true;
             }
             runs.println();
         }
         // if not solved by now, stop
+        
+        /**
+         * Output program values
+         */
+        runs.println();
+        runs.println("=== Program Output Values ===");
+        runs.println("Valid Coloring: " + validColoring + ", with " + graph.calculateFitness() + " of 10 nodes correctly colored.");
+        runs.println("Decisions Made: " + decisionsMade);
+        runs.println();
         runs.println("minConflicts finished");
         runs.println();
     }

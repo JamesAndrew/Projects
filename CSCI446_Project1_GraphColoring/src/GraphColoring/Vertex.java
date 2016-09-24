@@ -20,7 +20,7 @@ public class Vertex
     
     // fitness is determined by how many color violations the current vertex
     // is causing. A fitness of 1 means no violations occur.
-    public double fitness;
+    public boolean fitness;
     
     // The arbitrary "number" the vertex is identified as according to the
     // 'theGraph' field in TempGraph
@@ -50,28 +50,27 @@ public class Vertex
      * of 1 - (conflicts / connected_edges) to calculate the value
      * @return A number between 0 and 1 that represents how fit this vertex is
      */
-    public double calculateFitness()
-    {
-        if (edges.isEmpty())
-        {
-            throw new RuntimeException("Vertex " + vertexNum + " has no edges connected to it.");
-        }
-            
-        int numConnections = edges.values().size();
-        int numConflicts = 0;
-        
-        for (Vertex vertex : edges.values())
-        {
-            if (color == vertex.color)
-            {
-                numConflicts++;
-            }
-        }
-        double fitnessValue = 1.0 - ((double)numConflicts / (double)numConnections);
-        
-        return fitnessValue;
-    }
     
+    
+    public boolean calculateFitness()
+{
+	fitness = true;
+	
+	if (edges.isEmpty())
+	{
+		throw new RuntimeException("Vertex " + vertexNum + " has no edges connected to it.");
+	}
+	
+	for (Vertex vertex : edges.values())
+	{
+		if (color == vertex.color)
+		{
+			fitness = false;
+		}
+	}
+	
+	return fitness;
+}
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Basic Getters and Setters">
@@ -119,7 +118,7 @@ public class Vertex
     /**
      * @return the fitness
      */
-    public double getFitness() {
+    public boolean getFitness() {
         return fitness;
     }
     // </editor-fold>

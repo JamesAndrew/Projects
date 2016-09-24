@@ -15,6 +15,8 @@ public class Graph {
     protected static PrintWriter results;
     protected static PrintWriter runs;
     
+    public int fitness;
+    
     // constructor to initialize Graph class and its attributes
     public Graph(Map<Integer, Vertex> theGraph, PrintWriter run) 
     {
@@ -97,6 +99,20 @@ public class Graph {
     public int getGraphSize() 
     {
         return graphSize;
+    }
+    
+    public int calculateFitness()
+    {
+            fitness = 0;
+            for (Vertex vertex : theGraph.values())
+            {
+                    boolean vertFitness = vertex.calculateFitness();
+                    if (vertFitness)
+                    {
+                            fitness++;
+                    }
+            }
+            return fitness;
     }
     // </editor-fold>
 }
