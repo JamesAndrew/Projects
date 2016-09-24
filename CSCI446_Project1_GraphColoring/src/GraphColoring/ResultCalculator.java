@@ -20,13 +20,19 @@ import java.util.logging.Logger;
 public class ResultCalculator
 {
     private static PrintWriter results;
-    private Map<Class<?>, int[]> solverTotalsMap = new HashMap<Class<?>, int[]>();
-    private Map<Class<?>, ArrayList<int[]>> solverSingleRunMap = new HashMap<Class<?>, ArrayList<int[]>>();
+    // A mapping of an algotihm to its integer array representing data from its run suite.
+    // Array index 0: Total decisions made (over entire run suite)
+    // Array index 1: Successful colorings (over entire run suite)
+    private Map<Class<?>, int[]> runSuiteMap = new HashMap<>();
+    // A mapping of an algotihm to its integer array representing data from 
+    // a instance suite run (1 graph only, done [n] repetitions)
+    // Array index 0: Total decisions made (over entire instance suite)
+    // Array index 1: Successful colorings (over entire instance suite)
+    private Map<Class<?>, int[]> instanceSuiteMap = new HashMap<>();
     ConstraintSolver solver;
 
     public ResultCalculator()
     {
-        this.solver = solver;
         try
         {
             results = new PrintWriter(new FileWriter("Experimenting_With_Experimental_results.txt"));
@@ -36,11 +42,11 @@ public class ResultCalculator
         }
         for (Class<?> solverClass : Driver.solverList)
         {
-            solverTotalsMap.put(solverClass, new int[2]);
+            runSuiteMap.put(solverClass, new int[2]);
         }
         for (Class<?> solverClass : Driver.solverList)
         {
-            solverSingleRunMap.put(solverClass, new ArrayList<int[]>());
+            instanceSuiteMap.put(solverClass, new int[2]);
         }
     }
 
@@ -48,28 +54,28 @@ public class ResultCalculator
      * Work in progress. May take 1 to 4 inputs depending how we want to
      * calculate metrics
      *
-     * @return
+     * @param solvers
+     * @param numVertices
+     * @param iteration
      */
     public void calculateRunMetrics(ArrayList<ConstraintSolver> solvers, int numVertices, int iteration)
     {
-        for (ConstraintSolver s : solvers)
+        for (ConstraintSolver solver : solvers)
         {
-            solverTotalsMap.get(s.getClass())[0] += s.decisionsMade;
-            solverTotalsMap.get(s.getClass())[1] += s.validColorings;
+            runSuiteMap.get(solver.getClass())[0] += solver.decisionsMade;
+            runSuiteMap.get(solver.getClass())[1] += solver.validColorings;
 
-            solverSingleRunMap.get(s.getClass()).add(new int[]
+            instanceSuiteMap.get(solver.getClass()).add(new int[]
             {
-                iteration, s.decisionsMade, s.validColorings
+                iteration, solver.decisionsMade, solver.validColorings
             });
-
-            
         }
     }
 
     public void printRuns(int numVertices)
     {
         int iterations = 0; 
-        for (Map.Entry<Class<?>, ArrayList<int[]>> entry : solverSingleRunMap.entrySet())
+        for (Map.Entry<Class<?>, ArrayList<int[]>> entry : instanceSuiteMap.entrySet())
         {
             float averageDecisions = 0; 
             float averageColorings = 0; 
@@ -92,7 +98,7 @@ public class ResultCalculator
     public void printTotals(int iterations) 
     {
         System.out.println(iterations);
-        for (Map.Entry<Class<?>, int[]> entry : solverTotalsMap.entrySet())
+        for (Map.Entry<Class<?>, int[]> entry : runSuiteMap.entrySet())
         {
             results.println(entry.getKey().getSimpleName() + " average decisions: " + (float) entry.getValue()[0] / iterations);
             results.println(entry.getKey().getSimpleName() + " average successful colorings: " + (float) entry.getValue()[1] / iterations + "\n");

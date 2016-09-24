@@ -15,13 +15,22 @@ public class Driver
      * Test settings and parameters. Based on these values we should be able to
      * do as many runs on as many solvers as desired.
      */
+    // set constraint to 3 or 4 max colors allowed
+    private final static int maxColors = 4;
+    // how to automate the runs:
+    // suiteType 1: do an instance suite
+    // suiteType 2: do a run suite
+    private final static int suiteType = 1;
+    // number of times to run each graph size during an instance suite
+    private final static int instanceSuiteIterations = 1;
+    // number of iterations of n-graph runs to do for a run suite
+    private final static int runSuiteIterations = 1;
+    // number of graphs to use for teach run suite iteration
     private final static int numberOfGraphs = 1;
     // initial amount of nodes to have for first graph generation
-    private final static int initialNumVertices = 100;
+    private final static int initialNumVertices = 20;
     // how many more vertices to have for each iteration of the graph
-    private final static int vertexGrowthSize = 1;
-    //number of times to run each graph size 
-    private final static int suiteSize = 1;
+    private final static int vertexGrowthSize = 0;
     // put the solvers you want the program to run on in here
     public final static List<Class<?>> solverList = Arrays.asList(
             //SimpleBacktrackingSolver.class
@@ -50,6 +59,7 @@ public class Driver
      */
     private static void runSolvers() throws InstantiationException, IllegalAccessException
     {
+        // <editor-fold defaultstate="collapsed" desc="Prerequisite setup before the run actually happens">
         ResultCalculator calc = new ResultCalculator();
         int currentGraphIteration = 0;
         int numVertices = initialNumVertices;
@@ -67,7 +77,7 @@ public class Driver
 
         // prompt user for filename
         System.out.println("filename?");
-        filename = "GAtesting";
+        filename = "instance_suite_testing";
         //filename = input.next();
 
         try
@@ -79,6 +89,8 @@ public class Driver
             System.err.println("Caught IOException: " + e.getMessage());
         }
 
+        // </editor-fold>
+        
         /**
          * Start initializing experiment
          */
@@ -90,40 +102,59 @@ public class Driver
 
         results.println("Solver Decisions");
 
-        // while there are more graphs to generate
-        while (currentGraphIteration < numberOfGraphs)
+        // how to automate the runs.
+        // suiteType 1: do an instance suite
+        // suiteType 2: do a run suite
+        switch (suiteType)
         {
-            results.println("Graph " + currentGraphIteration);
-            for (int i = 0; i < suiteSize; i++)
-            {
-                // generate the graph to use this iteration
-                Graph currentGraph = new Graph_Generator(numVertices, runs).generateGraph();
-                for (ConstraintSolver solver : solvers)
+            // instance suite
+            case 1:
+                
+                break;
+                
+            // run suite
+            case 2:
+                // repeat [run_suite_iterations] times
+                for (int iteration = 0; iteration < runSuiteIterations; iteration++)
                 {
-                    results.print(solver.getClass() + " ");
-                    printNextRunData(solver.getClass(), numVertices);
-                    solver.updateGraph(currentGraph);
+                    // while there are more graphs to generate
+                    while (currentGraphIteration < numberOfGraphs)
+                    {
+                        results.println("Graph " + currentGraphIteration);
+                        for (int i = 0; i < instanceSuiteIterations; i++)
+                        {
+                            // generate the graph to use this iteration
+                            Graph currentGraph = new Graph_Generator(numVertices, runs).generateGraph();
+                            for (ConstraintSolver solver : solvers)
+                            {
+                                results.print(solver.getClass() + " ");
+                                printNextRunData(solver.getClass(), numVertices);
+                                solver.updateGraph(currentGraph);
 
-                    solver.setMaxColors(4);
+                                solver.setMaxColors(maxColors);
 
-                    solver.printFile(runs);
+                                solver.assignPrintWriter(runs);
 
-                    solver.runSolver();
+                                solver.runSolver();
 
-                    // <editor-fold defaultstate="collapsed" desc="Print graph after solver run if desired">
-//                System.out.println("\n=== Graph Print After Current Solver Run: ===");
-//                currentGraph.printGraph();
-                    // </editor-fold>
-                    results.print(solver.getDecisionsMade() + " ");
-                    results.println(solver.getValidColorings());
+                                // <editor-fold defaultstate="collapsed" desc="Print graph after solver run if desired">
+            //                System.out.println("\n=== Graph Print After Current Solver Run: ===");
+            //                currentGraph.printGraph();
+                                // </editor-fold>
+                                results.print(solver.getDecisionsMade() + " ");
+                                results.println(solver.getValidColorings());
+                            }
+                            totalIterations++; 
+                            calc.calculateRunMetrics(solvers, numVertices, i);
+                        }
+                        numVertices += vertexGrowthSize;
+                        currentGraphIteration++;
+                        calc.printRuns(numVertices);
+                    }
                 }
-                totalIterations++; 
-                calc.calculateRunMetrics(solvers, numVertices, i);
-            }
-            numVertices += vertexGrowthSize;
-            currentGraphIteration++;
-            calc.printRuns(numVertices);
+            break;
         }
+        
         calc.printTotals(totalIterations);
         calc.closeWriter(); 
         results.close();
