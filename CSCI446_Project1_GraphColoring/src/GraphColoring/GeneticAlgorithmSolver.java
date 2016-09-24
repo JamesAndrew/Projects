@@ -16,26 +16,22 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
      * In order to be dynamically set, some instantiations are found in the 
      * update graph method
      */
-    // Apply mutation on n% of chromosomes in a child individual
-    private final double mutationRate = 0.30;
-    // Apply repair function on n% of chromosomes for all individuals
-    private final double repairRate = 0.05;
-    // The population is made of individuals which are a graph with [num_vertices] nodes
+    private final double childMutationRate = 0.20;
+    private final double allMutationRate = 0.15;
+    // number of population to remove based on highest penalty values
+    private final int penaltySize = 1;
     private final int tournamentSize = 2;
-    // population size must equal the number of vertices in the graph
-    private int populationSize;
-    
-    private int parentSetSize;
-    private ArrayList<Graph> parentSet;
-    
-    private int childSetSize;
-    private ArrayList<Graph> childSet; 
+    private final int populationSize = 40;
+    private final int parentSetSize = populationSize / 2;
+    private final int childSetSize = populationSize - parentSetSize;
     
     /**
      * Other class properties
      */
     // the population of graphs
-    private ArrayList<Graph> population;
+    private final ArrayList<Graph> population = new ArrayList<>(populationSize);
+    private ArrayList<Graph> parentSet = new ArrayList<>(parentSetSize);
+    private ArrayList<Graph> childSet = new ArrayList<>(childSetSize);
     private Graph bestGraph;
     
     public GeneticAlgorithmSolver()
@@ -44,15 +40,15 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     }
     
     // used for displaying run data values
-    private final int loopIterationPrintMod = 1;
+    private final int loopIterationPrintMod = 500;
     
     @Override
     public void runSolver() 
     {
         
         runs.println("Tunable parameter settings: ");
-        runs.format(" - Population Size: %d%n - Parent Size: %d%n - Child Size: %d%n - Mutation Rate: %f%n - Repair Rate: %f%n - Tournament Size: %d%n", 
-                populationSize, parentSetSize, childSetSize, mutationRate, repairRate, tournamentSize);
+        runs.format(" - Population Size: %d%n - Parent Size: %d%n - Child Size: %d%n - Mutation Rate: %f%n - Penalty Size: %d%n - Tournament Size: %d%n", 
+                populationSize, parentSetSize, childSetSize, allMutationRate, penaltySize, tournamentSize);
         
         initializePopulation();
         setAllFitnesses();
@@ -69,17 +65,16 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             childSet.clear();
             
             // assign parent set though tournament selection
-            // runs.println("Selecting parent set using tournament selection\n");
             parentSet = selectParentSet(population);
             
             // <editor-fold defaultstate="collapsed" desc="Print population and parent population fitnesses">
-            if (loopIteration % loopIterationPrintMod == 0)
-            {
+//            if (loopIteration % loopIterationPrintMod == 0)
+//            {
 //                runs.println("Current population fitnesses and chromosomes: ");
 //                printPopulationValues(population);
 //                runs.println("Current parent set fitnesses and chromosomes: ");
 //                printPopulationValues(parentSet);
-            }
+//            }
             // </editor-fold>
             
             // assign children set through crossover
@@ -121,8 +116,11 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             // generate new population from children and parents
             evolve();
                     
-            // repair some chromosomes in each population individual
-            repair();
+            // apply penalty function to least fit population individuals
+            penalize();
+            
+            // apply a second mutation strategy to all individuals
+            mutateAll();
             
             // <editor-fold defaultstate="collapsed" desc="Print evolved and repaired population">
 //            runs.println("Evolved and repaired population fitnesses and chromosomes: ");
@@ -162,7 +160,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     private void mutateChildren(ArrayList<Graph> children)
     {
         Random rand = new Random();
-        int numMutations = (int) Math.ceil(children.size() * mutationRate);
+        int numMutations = (int) Math.ceil(children.size() * childMutationRate);
         
         // for each child individual 
         for (Graph child : children)
@@ -204,7 +202,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             // assign [tournament_size] players at random
             for (int i = 0; i < tournamentSize; i++)
             {
-                int individualIndex = rand.nextInt(graph.getGraphSize());
+                int individualIndex = rand.nextInt(parentSetSize);
                 tournamentPlayers[i] = population.get(individualIndex);
             }
             // return the winner of the tournament
@@ -313,20 +311,16 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         population.addAll(parentSet);
     }
     
-    /**
-     * Get n% of chromosomes in each population individual and change its
-     * color to be the most fit possible color
-     */
-    private void repair()
+    private void mutateAll()
     {
         Random rand = new Random();
-        int numRepairs = (int) Math.ceil(graph.getGraphSize() * repairRate);
+        int numMutations = (int) Math.ceil(graph.getGraphSize() * allMutationRate);
         
         // for each individual
         for (Graph individual : population)
         {
             // for n repairs
-            for (int i = 0; i < numRepairs; i++)
+            for (int i = 0; i < numMutations; i++)
             {
                 // get a random chromosome from the graph
                 int randIndex = rand.nextInt(individual.theGraph.size());
@@ -341,7 +335,6 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
                         newColor = rand.nextInt(maxColors);
                     }
                     currentVertex.color = newColor;
-                    // runs.format("Repaired a chromosome have new color %d%n", currentVertex.color);
                 }
                 // if it is valid, iterate until a non-valid node is found
                 else
@@ -358,12 +351,53 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
                                 newColor = rand.nextInt(maxColors);
                             }
                             currentVertex.color = newColor;
-                            // runs.format("Repaired a chromosome have new color %d%n", currentVertex.color);
                         }
                         break;
                     }
                 }
             }
+        }
+    }
+    
+    /**
+     * remove [penalty_size] individuals from the population
+     */
+    private void penalize()
+    {
+        Random rand = new Random();
+        
+        for (int i = 0; i < penaltySize; i++)
+        {
+            // find fitness of worst individual
+            int lowestFitness = graph.getGraphSize();
+            Graph worstIndividual = null;
+
+            for (Graph individual : population)
+            {
+                if (individual.getFitness() < lowestFitness)
+                {
+                    lowestFitness = individual.getFitness();
+                    worstIndividual = individual;                
+                }
+            }
+
+            if (worstIndividual == null)
+            {
+                throw new RuntimeException("The worst individual was never set in penalize function.");
+            }
+
+            // remove worst individual
+            population.remove(worstIndividual);
+
+            // replace with new individual
+            Graph newIndividual = deepGraphCopy();
+            // randomize color values in new individual
+            for (Vertex neighbor : newIndividual.theGraph.values())
+            {
+                int randColor = rand.nextInt(maxColors);
+                neighbor.color = randColor;
+            }
+            population.add(newIndividual);
         }
     }
     
@@ -539,15 +573,6 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     {
         this.graph = graph;
         this.theGraph = graph.theGraph;
-        
-        // dynamically set tunable parameters
-        populationSize = graph.getGraphSize();
-        parentSetSize = populationSize / 2;
-        parentSet = new ArrayList<>(parentSetSize);
-        childSetSize = populationSize - parentSetSize;
-        childSet = new ArrayList<>(childSetSize);
-        population = new ArrayList<>(populationSize);
-        
     }
     
     // <editor-fold defaultstate="collapsed" desc="Various print methods">
@@ -564,6 +589,85 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             runs.format("Individual %d's fitness: %d |", i, individual.getFitness());
             runs.format(" chromosomes: %s%n", theArray.toString());
             i++;
+        }
+    }
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="All the methods needed for doing merge sort">
+    /**
+     * Takes an arraylist of graph and sorts them into a new arraylist in order
+     * of fitness from worst to best
+     * Uses merge sort.
+     * Merge sort implementation referenced from 
+     * http://www.java2novice.com/java-sorting-algorithms/merge-sort/
+     * and nearly every java algorithms book written
+     */
+    class MergeSort
+    {
+        private ArrayList<Graph> inputArray;
+        private Graph[] tempArray;
+        private int length;
+        
+        /**
+         * @param input : The array of graphs to sort
+         * @return the graphs in sorted order from worst to best
+         */
+        private ArrayList<Graph> sort(ArrayList<Graph> input)
+        {
+            this.inputArray = input;
+            length = inputArray.size();
+            tempArray = new Graph[length];
+            doMergeSort(0, length - 1);
+            
+            return inputArray;
+        }
+        
+        private void doMergeSort(int lower, int higher)
+        {
+            if (lower < higher)
+            {
+                int middle = lower + (higher - lower) / 2;
+                doMergeSort(lower, middle);
+                doMergeSort(middle+1, higher);
+                mergeParts(lower, middle, higher);
+            }
+        }
+        
+        private void mergeParts(int lower, int middle, int higher)
+        {
+            for (int i = lower; i <= higher; i++)
+            {
+                tempArray[i] = inputArray.get(i);
+            }
+            int i = lower;
+            int j = middle + 1;
+            int k = lower;
+            while (i <= middle && j <= higher)
+            {
+                if (getFitnessAtIndex(i, tempArray) <= getFitnessAtIndex(j, tempArray))
+                {
+                    inputArray.set(k, tempArray[i]);
+                    i++;
+                }
+                else
+                {
+                    inputArray.set(k, tempArray[j]);
+                    j++;
+                }
+                k++;
+            }
+            while (i <= middle)
+            {
+                inputArray.set(k, tempArray[i]);
+                k++;
+                i++;
+            }
+        }
+        
+        private int getFitnessAtIndex(int index, Graph[] array)
+        {
+            Graph currentGraph = array[index];
+            return currentGraph.getFitness();
         }
     }
     // </editor-fold>
