@@ -17,10 +17,9 @@ public class Vertex
     // The "Color" of the vertex. Just a value of 0, 1, 2, or 3
     // Initial color is -1 "not assigned"
     public int color = -1;
-    
-    // fitness is determined by how many color violations the current vertex
-    // is causing. A fitness of 1 means no violations occur.
-    public boolean fitness;
+    // fitness is determined by if the current vertex is in conflict with any
+    // of its connected vertices. True means no conflict occured
+    public boolean fitness = false;
     
     // The arbitrary "number" the vertex is identified as according to the
     // 'theGraph' field in TempGraph
@@ -43,14 +42,59 @@ public class Vertex
         yValue = y;
     }
 
-    /**
-     * Fitness is determined by how many color violations the current vertex
-     * is causing. A fitness of 1 means no violations occur. This method takes
-     * a list of connected vertices as input. Currently using a linear scale
-     * of 1 - (conflicts / connected_edges) to calculate the value
-     * @return A number between 0 and 1 that represents how fit this vertex is
-     */
     
+    /**
+     * Calculates the color that minimizes this vertex's conflicts
+     * @param maxColors : the number of colors (3 or 4) allowed for this run
+     * @return bestColor : the color with least conflicts 
+     */
+    public int mostFitColor(int maxColors)
+    {
+        boolean updated;
+        int bestColor = color;
+        int conflicts = calculateConflicts();
+        int[] colorChoices = new int[maxColors];
+        
+        // fill color array with allowed colors
+        for (int i = 0; i < maxColors; i++)
+        {
+            colorChoices[i] = i;
+        }
+        
+        // iterate through color array, remember which one caused the least conflicts
+        for (int i = 0; i < maxColors; i++)
+        {
+            color = colorChoices[i];
+            int currentConflicts = calculateConflicts();
+            if (currentConflicts < conflicts)
+            {
+                updated = true;
+                conflicts = currentConflicts;
+                bestColor = color;
+            }
+        }
+        
+        return bestColor;
+    }
+    
+    /**
+     * calculates how many non-valid colorings this vertex has
+     * @return 
+     */
+    public int calculateConflicts()
+    {
+        int numConflicts = 0;
+        // for each vertex this is connected to
+        for (Vertex neighbor : edges.values())
+        {
+            if (color == neighbor.color)
+            {
+                numConflicts++;
+            }
+        }
+        
+        return numConflicts;
+    }
     
     public boolean calculateFitness()
 {
@@ -118,10 +162,10 @@ public class Vertex
     /**
      * @return the fitness
      */
-    public boolean getFitness() {
+    public boolean getFitness() 
+    {
+        calculateFitness();
         return fitness;
     }
     // </editor-fold>
-
-    
 }

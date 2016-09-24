@@ -1,0 +1,223 @@
+=== Starting Runs ===
+Number of graphs for each solver: 1
+Vertex growth size: 0
+Solvers being used: GeneticAlgorithmSolver, 
+
+= Printing Vertex Locations =
+Vertex 0: (0.329000, 0.319000)
+Vertex 1: (0.093000, 0.460000)
+Vertex 2: (0.568000, 0.053000)
+Vertex 3: (0.628000, 0.122000)
+Vertex 4: (0.664000, 0.111000)
+Vertex 5: (0.719000, 0.104000)
+Vertex 6: (0.488000, 0.545000)
+Vertex 7: (0.461000, 0.773000)
+Vertex 8: (0.754000, 0.624000)
+Vertex 9: (0.858000, 0.527000)
+
+
+=== Printing Graph State... ===
+Graph node 0. Printing vertex details...
+Vertex number: 0, Location: (0.329000, 0.319000), Color: -1
+Edges: 1, 2, 3, 6, 
+Graph node 1. Printing vertex details...
+Vertex number: 1, Location: (0.093000, 0.460000), Color: -1
+Edges: 0, 2, 6, 7, 
+Graph node 2. Printing vertex details...
+Vertex number: 2, Location: (0.568000, 0.053000), Color: -1
+Edges: 0, 1, 3, 4, 5, 
+Graph node 3. Printing vertex details...
+Vertex number: 3, Location: (0.628000, 0.122000), Color: -1
+Edges: 0, 2, 4, 6, 
+Graph node 4. Printing vertex details...
+Vertex number: 4, Location: (0.664000, 0.111000), Color: -1
+Edges: 2, 3, 5, 6, 9, 
+Graph node 5. Printing vertex details...
+Vertex number: 5, Location: (0.719000, 0.104000), Color: -1
+Edges: 2, 4, 9, 
+Graph node 6. Printing vertex details...
+Vertex number: 6, Location: (0.488000, 0.545000), Color: -1
+Edges: 0, 1, 3, 4, 7, 9, 
+Graph node 7. Printing vertex details...
+Vertex number: 7, Location: (0.461000, 0.773000), Color: -1
+Edges: 1, 6, 8, 9, 
+Graph node 8. Printing vertex details...
+Vertex number: 8, Location: (0.754000, 0.624000), Color: -1
+Edges: 7, 9, 
+Graph node 9. Printing vertex details...
+Vertex number: 9, Location: (0.858000, 0.527000), Color: -1
+Edges: 4, 5, 6, 7, 8, 
+
+= Running next solver =
+Current algorithm: GeneticAlgorithmSolver
+Graph size: 10
+Tunable parameter settings: 
+ - Population Size: 10
+ - Parent Size: 5
+ - Child Size: 5
+ - Mutation Rate: 0.300000
+ - Repair Rate: 0.050000
+ - Tournament Size: 2
+
+== Current Generation: 0 ==
+Selecting parent set using tournament selection
+
+Crossover Process: 
+parent1 array: [3, 0, 2, 2, 0, 1, 2, 1, 0, 1]
+parent2 array: [3, 0, 2, 2, 0, 1, 2, 1, 0, 1]
+chromosome1 array: [3, 0, 2, 2, 0, 1, 2, 1, 0, 1]
+chromosome2 array: [3, 0, 2, 2, 0, 1, 2, 1, 0, 1]
+Crossover Process: 
+parent1 array: [3, 0, 2, 2, 0, 1, 2, 1, 0, 1]
+parent2 array: [1, 1, 1, 3, 2, 3, 2, 1, 2, 2]
+chromosome1 array: [3, 0, 2, 2, 0, 3, 2, 1, 2, 2]
+chromosome2 array: [1, 1, 1, 3, 2, 1, 2, 1, 0, 1]
+Crossover Process: 
+parent1 array: [0, 2, 3, 2, 1, 1, 3, 1, 2, 1]
+parent2 array: [3, 0, 2, 2, 0, 1, 2, 1, 0, 1]
+chromosome1 array: [0, 2, 3, 2, 1, 1, 2, 1, 0, 1]
+chromosome2 array: [3, 0, 2, 2, 0, 1, 3, 1, 2, 1]
+Mutated color 1 to be 3
+Mutated color 1 to be 0
+Mutated color 1 to be 3
+Mutated color 1 to be 0
+Mutated color 1 to be 3
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 4 | chromosomes: [3, 0, 2, 2, 0, 1, 2, 1, 0, 1]
+Individual 1's fitness: 5 | chromosomes: [3, 0, 2, 2, 0, 1, 2, 3, 0, 1]
+Individual 2's fitness: 5 | chromosomes: [3, 0, 2, 2, 0, 3, 2, 1, 2, 2]
+Individual 3's fitness: 4 | chromosomes: [0, 1, 1, 3, 2, 3, 2, 1, 0, 1]
+Individual 4's fitness: 3 | chromosomes: [0, 2, 3, 2, 3, 1, 2, 1, 0, 0]
+Individual 5's fitness: 2 | chromosomes: [1, 1, 1, 3, 2, 3, 2, 1, 2, 2]
+Individual 6's fitness: 6 | chromosomes: [0, 2, 3, 2, 1, 1, 3, 1, 2, 1]
+Individual 7's fitness: 6 | chromosomes: [0, 2, 3, 2, 1, 1, 3, 1, 2, 1]
+Individual 8's fitness: 4 | chromosomes: [3, 0, 2, 2, 0, 1, 2, 1, 0, 1]
+Individual 9's fitness: 4 | chromosomes: [3, 0, 2, 2, 0, 1, 2, 1, 0, 1]
+Satisfied value: false
+
+Best Graph Value: 6 out of 10
+
+== Current Generation: 1 ==
+Selecting parent set using tournament selection
+
+Crossover Process: 
+.
+.
+.
+Mutated color 1 to be 2
+.
+.
+.
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 4 | chromosomes: [3, 0, 2, 2, 0, 1, 2, 1, 0, 1]
+Individual 1's fitness: 4 | chromosomes: [3, 0, 2, 2, 0, 1, 2, 1, 0, 0]
+Individual 2's fitness: 2 | chromosomes: [0, 0, 3, 2, 2, 1, 2, 1, 0, 1]
+Individual 3's fitness: 2 | chromosomes: [3, 0, 2, 2, 0, 0, 3, 1, 2, 1]
+Individual 4's fitness: 3 | chromosomes: [0, 0, 2, 2, 0, 2, 3, 1, 2, 1]
+Individual 5's fitness: 4 | chromosomes: [3, 0, 2, 2, 0, 1, 2, 1, 0, 1]
+Individual 6's fitness: 6 | chromosomes: [0, 2, 3, 2, 1, 1, 3, 1, 2, 1]
+Individual 7's fitness: 4 | chromosomes: [3, 0, 2, 2, 0, 1, 2, 1, 0, 1]
+Individual 8's fitness: 6 | chromosomes: [0, 2, 3, 2, 1, 1, 3, 1, 2, 1]
+Individual 9's fitness: 4 | chromosomes: [3, 0, 2, 2, 0, 1, 2, 1, 0, 1]
+Satisfied value: false
+
+Best Graph Value: 6 out of 10
+
+== Current Generation: 2 ==
+.
+.
+.
+
+== Current Generation: 27 ==
+Selecting parent set using tournament selection
+
+Crossover Process: 
+.
+.
+.
+Mutated color 1 to be 0
+.
+.
+.
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 8 | chromosomes: [0, 1, 2, 1, 0, 3, 3, 0, 0, 2]
+Individual 1's fitness: 8 | chromosomes: [0, 0, 2, 1, 0, 3, 3, 1, 0, 2]
+Individual 2's fitness: 8 | chromosomes: [3, 0, 2, 1, 0, 3, 3, 1, 0, 2]
+Individual 3's fitness: 8 | chromosomes: [0, 1, 2, 1, 0, 3, 3, 0, 0, 2]
+Individual 4's fitness: 8 | chromosomes: [0, 1, 2, 1, 0, 3, 3, 1, 0, 2]
+Individual 5's fitness: 8 | chromosomes: [0, 1, 2, 1, 0, 3, 3, 1, 0, 2]
+Individual 6's fitness: 8 | chromosomes: [0, 2, 2, 1, 0, 3, 3, 1, 0, 2]
+Individual 7's fitness: 8 | chromosomes: [3, 0, 2, 1, 0, 3, 3, 1, 0, 2]
+Individual 8's fitness: 8 | chromosomes: [0, 0, 2, 1, 0, 3, 3, 1, 0, 2]
+Individual 9's fitness: 8 | chromosomes: [3, 0, 2, 1, 0, 3, 3, 1, 0, 2]
+Satisfied value: false
+
+Best Graph Value: 8 out of 10
+
+== Current Generation: 28 ==
+.
+.
+.
+
+Updating population to the next generation.
+Evolved population fitnesses and chromosomes: 
+Individual 0's fitness: 8 | chromosomes: [0, 1, 2, 1, 0, 3, 3, 0, 0, 2]
+Individual 1's fitness: 8 | chromosomes: [3, 0, 2, 1, 0, 3, 3, 1, 0, 2]
+Individual 2's fitness: 8 | chromosomes: [1, 0, 2, 1, 0, 3, 3, 1, 0, 2]
+Individual 3's fitness: 8 | chromosomes: [3, 0, 2, 1, 0, 3, 3, 1, 0, 2]
+Individual 4's fitness: 10 | chromosomes: [0, 1, 2, 1, 0, 3, 3, 0, 1, 2]
+Individual 5's fitness: 8 | chromosomes: [0, 1, 2, 1, 0, 3, 3, 0, 0, 2]
+Individual 6's fitness: 8 | chromosomes: [0, 1, 2, 1, 0, 3, 3, 0, 0, 2]
+Individual 7's fitness: 8 | chromosomes: [0, 1, 2, 1, 0, 3, 3, 1, 0, 2]
+Individual 8's fitness: 8 | chromosomes: [3, 0, 2, 1, 0, 3, 3, 1, 0, 2]
+Individual 9's fitness: 8 | chromosomes: [3, 0, 2, 1, 0, 3, 3, 1, 0, 2]
+Satisfied value: true
+
+Best Graph Value: 10 out of 10
+
+= Final Generation =
+Satisfied value: true
+The Graph Value: 10 out of 10
+=== Printing Graph State... ===
+Graph node 0. Printing vertex details...
+Vertex number: 0, Location: (0.329000, 0.319000), Color: 0, Fitness: true
+Edges: 1, 2, 3, 6, 
+Graph node 1. Printing vertex details...
+Vertex number: 1, Location: (0.093000, 0.460000), Color: 1, Fitness: true
+Edges: 0, 2, 6, 7, 
+Graph node 2. Printing vertex details...
+Vertex number: 2, Location: (0.568000, 0.053000), Color: 2, Fitness: true
+Edges: 0, 1, 3, 4, 5, 
+Graph node 3. Printing vertex details...
+Vertex number: 3, Location: (0.628000, 0.122000), Color: 1, Fitness: true
+Edges: 0, 2, 4, 6, 
+Graph node 4. Printing vertex details...
+Vertex number: 4, Location: (0.664000, 0.111000), Color: 0, Fitness: true
+Edges: 2, 3, 5, 6, 9, 
+Graph node 5. Printing vertex details...
+Vertex number: 5, Location: (0.719000, 0.104000), Color: 3, Fitness: true
+Edges: 2, 4, 9, 
+Graph node 6. Printing vertex details...
+Vertex number: 6, Location: (0.488000, 0.545000), Color: 3, Fitness: true
+Edges: 0, 1, 3, 4, 7, 9, 
+Graph node 7. Printing vertex details...
+Vertex number: 7, Location: (0.461000, 0.773000), Color: 0, Fitness: true
+Edges: 1, 6, 8, 9, 
+Graph node 8. Printing vertex details...
+Vertex number: 8, Location: (0.754000, 0.624000), Color: 1, Fitness: true
+Edges: 7, 9, 
+Graph node 9. Printing vertex details...
+Vertex number: 9, Location: (0.858000, 0.527000), Color: 2, Fitness: true
+Edges: 4, 5, 6, 7, 8, 
+
+
+ === Program Output Values ===
+Valid Coloring: 
+true, with 10 of 10 nodes correctly colored.
+Decisions Made: 4161
