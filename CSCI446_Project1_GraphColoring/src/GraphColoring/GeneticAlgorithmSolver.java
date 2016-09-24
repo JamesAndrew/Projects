@@ -65,7 +65,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             childSet.clear();
             
             // assign parent set though tournament selection
-            parentSet = selectParentSet(population);
+            parentSet = selectParentSet(population);                            addDecision();
             
             // <editor-fold defaultstate="collapsed" desc="Print population and parent population fitnesses">
 //            if (loopIteration % loopIterationPrintMod == 0)
@@ -78,7 +78,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             // </editor-fold>
             
             // assign children set through crossover
-            childSet = selectChildrenSet(parentSet);
+            childSet = selectChildrenSet(parentSet);                            addDecision();
             
             // <editor-fold defaultstate="collapsed" desc="Print population and children population fitnesses">
 //            if (loopIteration % loopIterationPrintMod == 0)
@@ -114,7 +114,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             // </editor-fold>
             
             // generate new population from children and parents
-            evolve();
+            evolve();                                                           addDecision();
                     
             // apply penalty function to least fit population individuals
             penalize();
@@ -128,7 +128,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             // </editor-fold>
             
             // set bestGraph and determine loop condition. Exit if satisfied
-            satisfied = determineStatus();
+            satisfied = determineStatus();                                      addDecision();
             
             // <editor-fold defaultstate="collapsed" desc="Print best graph state for current generation">
             if (loopIteration % loopIterationPrintMod == 0)
@@ -178,9 +178,9 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
                     int newColor = currentVertex.color;
                     while (newColor == currentVertex.color)
                     {
-                        newColor = rand.nextInt(maxColors);
+                        newColor = rand.nextInt(maxColors);                     
                     }
-                    currentVertex.color = newColor;
+                    currentVertex.color = newColor;                             addDecision();
                 }
             }
         }
@@ -203,12 +203,12 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             for (int i = 0; i < tournamentSize; i++)
             {
                 int individualIndex = rand.nextInt(parentSetSize);
-                tournamentPlayers[i] = population.get(individualIndex);
+                tournamentPlayers[i] = population.get(individualIndex);         addDecision();
             }
             // return the winner of the tournament
             Graph winner = tournamentSelection(tournamentPlayers);
             // and add to the subset to return
-            returnedSet.add(winner);
+            returnedSet.add(winner);                                            addDecision();
         }
         
         return returnedSet;
@@ -236,8 +236,8 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         // loop through child set and update colors
         for (int i = 0; i < returnedSet.size(); i++)
         {
-            parents[0] = input.get(rand.nextInt(input.size()));
-            parents[1] = input.get(rand.nextInt(input.size()));
+            parents[0] = input.get(rand.nextInt(input.size()));                 addDecision();
+            parents[1] = input.get(rand.nextInt(input.size()));                 addDecision();
             
             ArrayList<Integer> chromosome1 = new ArrayList<>();
             ArrayList<Integer> chromosome2 = new ArrayList<>();
@@ -248,14 +248,14 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
                 if (j < chromosomeLength / 2)
                 {
                     int newValue = (parents[0].getChromosomeArray().get(j) + 1) % maxColors;
-                    chromosome1.add(newValue);
-                    chromosome2.add(parents[1].getChromosomeArray().get(j));
+                    chromosome1.add(newValue);                                  addDecision();
+                    chromosome2.add(parents[1].getChromosomeArray().get(j));    addDecision();
                 }
                 else
                 {
                     int newValue = (parents[1].getChromosomeArray().get(j) + 1) % maxColors;
-                    chromosome1.add(newValue);
-                    chromosome2.add(parents[0].getChromosomeArray().get(j));
+                    chromosome1.add(newValue);                                  addDecision();
+                    chromosome2.add(parents[0].getChromosomeArray().get(j));    addDecision();
                 }
             }
             
@@ -292,7 +292,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         for (int i = 0; i < newChromosome.size(); i++)
         {
             Vertex currentVertex = currentGraph.theGraph.get(i);
-            currentVertex.color = newChromosome.get(i);
+            currentVertex.color = newChromosome.get(i);                         addDecision();
         }
     }
     
@@ -332,9 +332,9 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
                     int newColor = currentVertex.mostFitColor(maxColors);
                     while (newColor == currentVertex.color)
                     {
-                        newColor = rand.nextInt(maxColors);
+                        newColor = rand.nextInt(maxColors);                     
                     }
-                    currentVertex.color = newColor;
+                    currentVertex.color = newColor;                             addDecision();
                 }
                 // if it is valid, iterate until a non-valid node is found
                 else
@@ -350,7 +350,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
                             {
                                 newColor = rand.nextInt(maxColors);
                             }
-                            currentVertex.color = newColor;
+                            currentVertex.color = newColor;                     addDecision();
                         }
                         break;
                     }
@@ -387,7 +387,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             }
 
             // remove worst individual
-            population.remove(worstIndividual);
+            population.remove(worstIndividual);                                 addDecision();
 
             // replace with new individual
             Graph newIndividual = deepGraphCopy();
@@ -395,9 +395,9 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             for (Vertex neighbor : newIndividual.theGraph.values())
             {
                 int randColor = rand.nextInt(maxColors);
-                neighbor.color = randColor;
+                neighbor.color = randColor;                                     addDecision();
             }
-            population.add(newIndividual);
+            population.add(newIndividual);                                      addDecision();
         }
     }
     
@@ -435,7 +435,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     {
         for (Graph individual : population)
         {
-            individual.calculateFitness();
+            individual.calculateFitness();                                      addDecision();
         }
     }
     
@@ -445,6 +445,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
      */
     private void initializePopulation()
     {
+        population.clear();
         Random rand = new Random();
         for (int i = 0; i < populationSize; i++)
         {
@@ -453,10 +454,10 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             for (Vertex neighbor : newGraph.theGraph.values())
             {
                 int randColor = rand.nextInt(maxColors);
-                neighbor.color = randColor;
+                neighbor.color = randColor;                                     addDecision();
             }
             
-            population.add(newGraph);
+            population.add(newGraph);                                           addDecision();
         }
     }
     
@@ -573,6 +574,14 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     {
         this.graph = graph;
         this.theGraph = graph.theGraph;
+    }
+    
+    /**
+     * add +1 to decisions made for the current instance run
+     */
+    public void addDecision()
+    {
+        decisionsMade++;
     }
     
     // <editor-fold defaultstate="collapsed" desc="Various print methods">
