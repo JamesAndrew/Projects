@@ -17,25 +17,22 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
      * update graph method
      */
     // Apply mutation on n% of chromosomes in a child individual
-    private final double mutationRate = 0.30;
-    // Apply repair function on n% of chromosomes for all individuals
-    private final double repairRate = 0.05;
+    private final double mutationRate = 0.20;
+    // percentage of population to remove based on highest penalty values
+    private final double penaltyRate = 0.05;
     // The population is made of individuals which are a graph with [num_vertices] nodes
     private final int tournamentSize = 2;
-    // population size must equal the number of vertices in the graph
-    private int populationSize;
-    
-    private int parentSetSize;
-    private ArrayList<Graph> parentSet;
-    
-    private int childSetSize;
-    private ArrayList<Graph> childSet; 
+    private final int populationSize = 35;
+    private final int parentSetSize = populationSize / 2;
+    private final int childSetSize = populationSize - parentSetSize;
     
     /**
      * Other class properties
      */
     // the population of graphs
-    private ArrayList<Graph> population;
+    private final ArrayList<Graph> population = new ArrayList<>(populationSize);
+    private ArrayList<Graph> parentSet = new ArrayList<>(parentSetSize);
+    private ArrayList<Graph> childSet = new ArrayList<>(childSetSize);
     private Graph bestGraph;
     
     public GeneticAlgorithmSolver()
@@ -44,7 +41,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     }
     
     // used for displaying run data values
-    private final int loopIterationPrintMod = 1;
+    private final int loopIterationPrintMod = 100;
     
     @Override
     public void runSolver() 
@@ -52,7 +49,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         
         runs.println("Tunable parameter settings: ");
         runs.format(" - Population Size: %d%n - Parent Size: %d%n - Child Size: %d%n - Mutation Rate: %f%n - Repair Rate: %f%n - Tournament Size: %d%n", 
-                populationSize, parentSetSize, childSetSize, mutationRate, repairRate, tournamentSize);
+                populationSize, parentSetSize, childSetSize, mutationRate, penaltyRate, tournamentSize);
         
         initializePopulation();
         setAllFitnesses();
@@ -60,7 +57,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         // loop until constraint is meet
         boolean satisfied = false;
         int loopIteration = 0;
-        while (!satisfied && loopIteration < 50000)
+        while (!satisfied && loopIteration < 40000)
         {
             if (loopIteration % loopIterationPrintMod == 0)
                 runs.format("%n== Current Generation: %d ==%n", loopIteration);
@@ -69,17 +66,16 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             childSet.clear();
             
             // assign parent set though tournament selection
-            // runs.println("Selecting parent set using tournament selection\n");
             parentSet = selectParentSet(population);
             
             // <editor-fold defaultstate="collapsed" desc="Print population and parent population fitnesses">
-            if (loopIteration % loopIterationPrintMod == 0)
-            {
+//            if (loopIteration % loopIterationPrintMod == 0)
+//            {
 //                runs.println("Current population fitnesses and chromosomes: ");
 //                printPopulationValues(population);
 //                runs.println("Current parent set fitnesses and chromosomes: ");
 //                printPopulationValues(parentSet);
-            }
+//            }
             // </editor-fold>
             
             // assign children set through crossover
@@ -121,8 +117,8 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             // generate new population from children and parents
             evolve();
                     
-            // repair some chromosomes in each population individual
-            repair();
+            // apply penalty function to least fit population individuals
+            penalize();
             
             // <editor-fold defaultstate="collapsed" desc="Print evolved and repaired population">
 //            runs.println("Evolved and repaired population fitnesses and chromosomes: ");
@@ -204,7 +200,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             // assign [tournament_size] players at random
             for (int i = 0; i < tournamentSize; i++)
             {
-                int individualIndex = rand.nextInt(graph.getGraphSize());
+                int individualIndex = rand.nextInt(parentSetSize);
                 tournamentPlayers[i] = population.get(individualIndex);
             }
             // return the winner of the tournament
@@ -314,13 +310,12 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     }
     
     /**
-     * Get n% of chromosomes in each population individual and change its
-     * color to be the most fit possible color
+     * remove [penalty_rate] individuals from the 
      */
-    private void repair()
+    private void penalize()
     {
         Random rand = new Random();
-        int numRepairs = (int) Math.ceil(graph.getGraphSize() * repairRate);
+        int numRepairs = (int) Math.ceil(graph.getGraphSize() * penaltyRate);
         
         // for each individual
         for (Graph individual : population)
@@ -539,15 +534,6 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     {
         this.graph = graph;
         this.theGraph = graph.theGraph;
-        
-        // dynamically set tunable parameters
-        populationSize = graph.getGraphSize();
-        parentSetSize = populationSize / 2;
-        parentSet = new ArrayList<>(parentSetSize);
-        childSetSize = populationSize - parentSetSize;
-        childSet = new ArrayList<>(childSetSize);
-        population = new ArrayList<>(populationSize);
-        
     }
     
     // <editor-fold defaultstate="collapsed" desc="Various print methods">

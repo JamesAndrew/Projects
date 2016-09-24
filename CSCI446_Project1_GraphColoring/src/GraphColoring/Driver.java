@@ -17,7 +17,7 @@ public class Driver
      */
     private final static int numberOfGraphs = 1;
     // initial amount of nodes to have for first graph generation
-    private final static int initialNumVertices = 10;
+    private final static int initialNumVertices = 70;
     // how many more vertices to have for each iteration of the graph
     private final static int vertexGrowthSize = 1;
     //number of times to run each graph size 
@@ -26,9 +26,9 @@ public class Driver
     public final static List<Class<?>> solverList = Arrays.asList(
             //SimpleBacktrackingSolver.class
             //BacktrackingForwardCheckingSolver.class,
-            BacktrackingPropagationSolver.class
+            //BacktrackingPropagationSolver.class
             //MinConflictsSolver.class,
-            //GeneticAlgorithmSolver.class
+            GeneticAlgorithmSolver.class
     );
 
     /**
@@ -67,7 +67,8 @@ public class Driver
 
         // prompt user for filename
         System.out.println("filename?");
-        filename = input.next();
+        filename = "GAtesting";
+        //filename = input.next();
 
         try
         {

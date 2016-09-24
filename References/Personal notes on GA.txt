@@ -1,20 +1,20 @@
-- Fitness is integer number based on how many vertcies are not valid in the graph. Don't care about how many conflicts each 
+Fitness is integer number based on how many vertcies are not valid in the graph. Don't care about how many conflicts each 
 	specific vertex has, just that there is a conflict.
-- Populating parent set using tournament selection
-- Single-Point Crossover:
+	
+Populating parent set using tournament selection
+
+Single-Point Crossover: (this will change)
 	- Pick two individuals from the parent population NOT using tournament selection
 	- Generate two new children
 		- Child 1 gets the first half of parent 1's choromosomes and second half of parent 2's choromosomes
 		- Child 2 gets the second half of parent 1's chromosomes and the first half of parent 1's choromosomes
 	- No preference on which parent gets +1 chromosome for odd numbered sizes
-- Mutation: Pick n% of chromosomes in each child. If the chromosome does not have perfect fitness, it a new random color 
-	- Used ceiling function of mutation_rate * children_array.size to ensure mutation happens at least once
-- Repair: Once next generation is ready, pick n% of chromosomes in each individual and change its color to the most fit value
-	- Used ceiling function of repair_rate * population_array.size to ensure repair happens at least once
-	- Find next closest chromosome to repair if current one is already fit
-	- Don't do anything if current chromosome cannot be repaired to a better value
 	
-- GA often gets trapped for larger graph sizes when there are less than 5 invalid nodes left. Ideas thus far are
+Mutation: Pick n% of chromosomes in each child. If the chromosome does not have perfect fitness, give it a new random color 
+	- Used ceiling function of mutation_rate * children_array.size to ensure mutation happens at least once
+	
+	
+GA often gets trapped for larger graph sizes when there are less than 5 invalid nodes left. Ideas thus far are
 	- Try different evolution strategies depending how fit the graph is 
 	- Trapping is because the population gets loaded with identical individuals. Strategy to maintain diversity:
 		- Smaller parent set size (1/3rd?)
@@ -22,3 +22,8 @@
 		
 	- Other crossover ideas:
 		- 
+		
+Penalty Function
+	- Exterior, additive penaltry function
+	- Static Penalty strategy:
+		- At the end of every generation, remove the bottom 20% of the population, replace with random individuals
