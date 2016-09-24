@@ -44,7 +44,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     }
     
     // used for displaying run data values
-    private final int loopIterationPrintMod = 100;
+    private final int loopIterationPrintMod = 1;
     
     @Override
     public void runSolver() 
@@ -60,7 +60,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         // loop until constraint is meet
         boolean satisfied = false;
         int loopIteration = 0;
-        while (!satisfied && loopIteration < 20000)
+        while (!satisfied && loopIteration < 50000)
         {
             if (loopIteration % loopIterationPrintMod == 0)
                 runs.format("%n== Current Generation: %d ==%n", loopIteration);
@@ -249,12 +249,14 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             {
                 if (j < chromosomeLength / 2)
                 {
-                    chromosome1.add(parents[0].getChromosomeArray().get(j));
+                    int newValue = (parents[0].getChromosomeArray().get(j) + 1) % maxColors;
+                    chromosome1.add(newValue);
                     chromosome2.add(parents[1].getChromosomeArray().get(j));
                 }
                 else
                 {
-                    chromosome1.add(parents[1].getChromosomeArray().get(j));
+                    int newValue = (parents[1].getChromosomeArray().get(j) + 1) % maxColors;
+                    chromosome1.add(newValue);
                     chromosome2.add(parents[0].getChromosomeArray().get(j));
                 }
             }
@@ -540,7 +542,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         
         // dynamically set tunable parameters
         populationSize = graph.getGraphSize();
-        parentSetSize = populationSize / 5;
+        parentSetSize = populationSize / 2;
         parentSet = new ArrayList<>(parentSetSize);
         childSetSize = populationSize - parentSetSize;
         childSet = new ArrayList<>(childSetSize);
