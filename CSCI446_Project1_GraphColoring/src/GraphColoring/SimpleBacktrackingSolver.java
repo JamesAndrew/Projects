@@ -25,7 +25,7 @@ public class SimpleBacktrackingSolver extends ConstraintSolver {
         verticesVisited = 0;
         decisionsMade = 0;
         validColorings = 0;
-        if (backtrack(0)) {
+        if (backtrack(0)) {                                                     addDecision();
             validColorings++;
         }
         System.out.format("Nodes colored: %d%n", verticesVisited);
@@ -39,23 +39,22 @@ public class SimpleBacktrackingSolver extends ConstraintSolver {
      */
     private boolean backtrack(int point) {
         //iterate through all possible colors
-        for (int color = 0; color < maxColors; color++) {
-            decisionsMade++;
-            theGraph.get(point).color = color;
+        for (int color = 0; color < maxColors; color++) {           
+            theGraph.get(point).color = color;                                  addDecision();
             verticesVisited++;
             runs.format("node %d given color %d%n", point, color);
-            if (pointSatisfiesConstraint(point)) {
-                if (allAdjacentColored(point)) {
+            if (pointSatisfiesConstraint(point)) {                              addDecision();
+                if (allAdjacentColored(point)) {                                addDecision();
                     runs.println("All surrounding nodes colored");
-                    return true;
+                    return true;                                                
                 } else {
                     //iterate through all edges 
                     for (int i = 0; i < numPoints; i++) {
-                        decisionsMade++;
                         //move to uncolored edge nodes
-                        if (theGraph.get(point).edges.containsKey(i) && theGraph.get(i).color == -1) {
+                        if (theGraph.get(point).edges.containsKey(i) 
+                                && theGraph.get(i).color == -1) {               addDecision();
                             //return true if end found else re color current node
-                            if (backtrack(i) && allNodesColored()) {
+                            if (backtrack(i) && allNodesColored()) {            addDecision();
                                 runs.println("Solution found");
                                 return true;
                             } else {
@@ -79,8 +78,8 @@ public class SimpleBacktrackingSolver extends ConstraintSolver {
      */
     private boolean allAdjacentColored(int point) {
         for (int i = 0; i < numPoints; i++) {
-            decisionsMade++;
-            if (theGraph.get(point).edges.containsKey(i) && theGraph.get(i).color == -1) {
+            if (theGraph.get(point).edges.containsKey(i) 
+                    && theGraph.get(i).color == -1) {                           addDecision();
                 return false;
             }
         }
@@ -94,11 +93,15 @@ public class SimpleBacktrackingSolver extends ConstraintSolver {
      */
     private boolean allNodesColored() {
         for (Map.Entry<Integer, Vertex> entry : theGraph.entrySet()) {
-            decisionsMade++;
-            if (entry.getValue().color == -1) {
+            if (entry.getValue().color == -1) {                                 addDecision();
                 return false;
             }
         }
         return true;
+    }
+    
+    private void addDecision()
+    {
+        decisionsMade++;
     }
 }
