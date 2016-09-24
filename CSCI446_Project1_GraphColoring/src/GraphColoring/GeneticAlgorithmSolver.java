@@ -22,7 +22,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     private final double penaltyRate = 0.05;
     // The population is made of individuals which are a graph with [num_vertices] nodes
     private final int tournamentSize = 2;
-    private final int populationSize = 35;
+    private final int populationSize = 40;
     private final int parentSetSize = populationSize / 2;
     private final int childSetSize = populationSize - parentSetSize;
     

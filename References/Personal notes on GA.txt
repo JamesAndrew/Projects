@@ -27,3 +27,7 @@ Penalty Function
 	- Exterior, additive penaltry function
 	- Static Penalty strategy:
 		- At the end of every generation, remove the bottom 20% of the population, replace with random individuals
+		
+To try for tomorrow:
+	- The repair function actually seems to do some good.  See if a combination of repairing some of the parents 
+		and mutating some of the children makes even better. Commit 4f6780067d91 works on occasion on size=70.
