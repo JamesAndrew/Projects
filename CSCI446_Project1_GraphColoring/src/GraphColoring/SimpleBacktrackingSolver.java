@@ -1,7 +1,6 @@
 package GraphColoring;
 
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  * Graph coloring constraint solver using the basic backtracking strategy
@@ -21,12 +20,8 @@ public class SimpleBacktrackingSolver extends ConstraintSolver {
         runs.println();
         
         numPoints = graph.getGraphSize();
-        verticesVisited = 0;
         decisionsMade = 0;
-        validColorings = 0;
-        if (backtrack(0)) {                                                     addDecision();
-            validColorings++;
-        }
+       backtrack(0);                                                            addDecision();
         
         runs.print("\nRun finished.");
         graph.printGraph();
@@ -47,7 +42,6 @@ public class SimpleBacktrackingSolver extends ConstraintSolver {
         //iterate through all possible colors
         for (int color = 0; color < maxColors; color++) {           
             theGraph.get(point).color = color;                                  addDecision();
-            verticesVisited++;
             runs.format("Node %d given color %d%n", point, color);
             if (pointSatisfiesConstraint(point)) {                              addDecision();
                 if (allAdjacentColored(point)) {                                addDecision();

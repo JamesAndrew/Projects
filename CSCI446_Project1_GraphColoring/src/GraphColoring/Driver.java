@@ -20,7 +20,7 @@ public class Driver
     // how to automate the runs:
     // suiteType 1: do an instance suite
     // suiteType 2: do a run suite
-    private final static int suiteType = 1;
+    private final static int suiteType = 2;
     // number of times to run each graph size during an instance suite
     private final static int instanceSuiteIterations = 1;
     // number of iterations of n-graph runs to do for a run suite
@@ -28,15 +28,15 @@ public class Driver
     // number of graphs to use for teach run suite iteration
     private final static int numberOfGraphs = 1;
     // initial amount of nodes to have for first graph generation
-    private final static int initialNumVertices = 20;
+    private final static int initialNumVertices = 10;
     // how many more vertices to have for each iteration of the graph
     private final static int vertexGrowthSize = 0;
     // put the solvers you want the program to run on in here
     public final static List<Class<?>> solverList = Arrays.asList(
-            //SimpleBacktrackingSolver.class
-            //BacktrackingForwardCheckingSolver.class,
-            //BacktrackingPropagationSolver.class
-            //MinConflictsSolver.class,
+            SimpleBacktrackingSolver.class,
+            BacktrackingForwardCheckingSolver.class,
+            BacktrackingPropagationSolver.class,
+            MinConflictsSolver.class,
             GeneticAlgorithmSolver.class
     );
 
@@ -94,13 +94,11 @@ public class Driver
         /**
          * Start initializing experiment
          */
-        runs.println("=== Starting Runs ===");
-        runs.format("Number of graphs for each solver: %d%n"
+        results.println("=== Starting Runs ===");
+        results.format("Number of graphs for each solver: %d%n"
                 + "Vertex growth size: %d%n"
                 + "Solvers being used: %s%n%n",
                 numberOfGraphs, vertexGrowthSize, printSolversUsed());
-
-        results.println("Solver Decisions");
 
         // how to automate the runs.
         // suiteType 1: do an instance suite
@@ -115,42 +113,46 @@ public class Driver
             // run suite
             case 2:
                 // repeat [run_suite_iterations] times
+                results.println("Beginning Run Suite...");
                 for (int iteration = 0; iteration < runSuiteIterations; iteration++)
                 {
+                    results.println("Run suite iteration: " + iteration);
+                    
                     // while there are more graphs to generate
                     while (currentGraphIteration < numberOfGraphs)
                     {
-                        results.println("Graph " + currentGraphIteration);
-                        for (int i = 0; i < instanceSuiteIterations; i++)
+                        results.println("Graph iteration: " + currentGraphIteration);
+                        
+                        Graph currentGraph = new Graph_Generator(numVertices, runs).generateGraph();
+                        for (ConstraintSolver solver : solvers)
                         {
-                            // generate the graph to use this iteration
-                            Graph currentGraph = new Graph_Generator(numVertices, runs).generateGraph();
-                            for (ConstraintSolver solver : solvers)
-                            {
-                                results.print(solver.getClass() + " ");
-                                printNextRunData(solver.getClass(), numVertices);
-                                solver.updateGraph(currentGraph);
+                            printNextRunData(solver.getClass(), numVertices);
+                            
+                            solver.updateGraph(currentGraph);
+                            solver.setMaxColors(maxColors);
+                            solver.assignPrintWriter(runs);
+                            solver.runSolver();
 
-                                solver.setMaxColors(maxColors);
-
-                                solver.assignPrintWriter(runs);
-
-                                solver.runSolver();
-
-                                // <editor-fold defaultstate="collapsed" desc="Print graph after solver run if desired">
-            //                System.out.println("\n=== Graph Print After Current Solver Run: ===");
-            //                currentGraph.printGraph();
-                                // </editor-fold>
-                                results.print(solver.getDecisionsMade() + " ");
-                                results.println(solver.getValidColorings());
-                            }
-                            totalIterations++; 
-                            calc.calculateRunMetrics(solvers, numVertices, i);
+                            // <editor-fold defaultstate="collapsed" desc="Print graph after solver run if desired">
+        //                System.out.println("\n=== Graph Print After Current Solver Run: ===");
+        //                currentGraph.printGraph();
+                            // </editor-fold>
+                        
+                            results.format("Instance Decisions Made: %d%n", solver.getDecisionsMade());
+                            results.format("Instance valid coloring: %b%n", solver.isSatisfiesConstraint());
+                            
+                            calc.calculateInstanceMetrics(solver);
                         }
+                        
+                        // increase class variables to set up for next graph
                         numVertices += vertexGrowthSize;
                         currentGraphIteration++;
-                        calc.printRuns(numVertices);
                     }
+                    
+                    // set up for next run suite iteration
+                    currentGraphIteration = 0;
+                    numVertices = initialNumVertices;
+                    totalIterations++; 
                 }
             break;
         }
@@ -196,9 +198,9 @@ public class Driver
      */
     public static void printNextRunData(Class currentSolver, int size)
     {
-        runs.println("= Running next solver =");
-        runs.format("Current algorithm: %s%n", currentSolver.getSimpleName());
-        runs.format("Graph size: %d%n", size);
+        results.println("\n= Running next solver =");
+        results.format("Current algorithm: %s%n", currentSolver.getSimpleName());
+        results.format("Graph size: %d%n", size);
     }
     // </editor-fold>
 }

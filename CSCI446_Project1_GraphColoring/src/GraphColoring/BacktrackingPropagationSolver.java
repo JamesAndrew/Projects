@@ -12,6 +12,7 @@ import java.util.Map;
 public class BacktrackingPropagationSolver extends ConstraintSolver
 {
     private int numPoints;
+    int validColorings = 0;
 
     public BacktrackingPropagationSolver()
     {
@@ -22,15 +23,13 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
     public void runSolver()
     {
         numPoints = graph.getGraphSize();
-        verticesVisited = 0;
         decisionsMade = 0;
-        validColorings = 0;
 
         //set up lists to keep track of valid colorings for each node 
-        ArrayList<ArrayList<Integer>> valColorings = new ArrayList<ArrayList<Integer>>();
+        ArrayList<ArrayList<Integer>> valColorings = new ArrayList<>();
         for (int i = 0; i < numPoints; i++)
         {
-            valColorings.add(new ArrayList<Integer>());
+            valColorings.add(new ArrayList<>());
             for (int j = 0; j < maxColors; j++)
             {
                 valColorings.get(i).add(j);                                     addDecision();
@@ -59,7 +58,7 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
     private boolean backtrack(int point, ArrayList<ArrayList<Integer>> valColors)
     {
         //iterate through current list of valid node colorings 
-        ArrayList<ArrayList<Integer>> valColorings = new ArrayList<ArrayList<Integer>>(valColors);
+        ArrayList<ArrayList<Integer>> valColorings = new ArrayList<>(valColors);
         for (int i = 0; i < numPoints; i++)
         {
             valColorings.add(new ArrayList<Integer>(valColors.get(i)));         addDecision();
@@ -69,7 +68,6 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
 //        }
         for (Iterator<Integer> iterator = valColorings.get(point).iterator(); iterator.hasNext();)
         {
-            verticesVisited++;
             int color = theGraph.get(point).color = iterator.next();            addDecision();
             runs.format("%nNode %d given color %d%n", point, color);
             if (pointSatisfiesConstraint(point) && propagate(point, valColorings))
@@ -157,7 +155,7 @@ public class BacktrackingPropagationSolver extends ConstraintSolver
                 if (theGraph.get(node).color == -1 && validColorings.get(node).size() == 1)
                 {
                     runs.format("removing color %d from node %d's valid colors%n", validColorings.get(node).get(0), edgePoint);
-                    validColorings.get(edgePoint).remove((Integer) validColorings.get(node).get(0));
+                    validColorings.get(edgePoint).remove(validColorings.get(node).get(0));
                 }
                 else 
                 {

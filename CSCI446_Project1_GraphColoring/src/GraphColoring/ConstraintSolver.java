@@ -12,17 +12,9 @@ import java.util.Map;
  */
 public abstract class ConstraintSolver
 {
-    /**
-     * The following properties are for tracking metrics to be used in the statistical
-     * ResultCalculator class. Each value for these properties represents the total
-     * amount over all 10 provided graphs. (In other words, if the GeneticAlgorithmSolver
-     * only gave a valid coloring on 7 of the 10 graphs, validColorings would equal 7.
-     * If the average amount of decisions made was 100, decisions made would equal 1000).
-     */
+    // Metrics for the result calculator 
     protected int decisionsMade = 0;
-    protected int validColorings = 0;
-    protected int verticesVisited;   // might not use this one. Lets talk about it
-    protected int verticesRecolored; 
+    private boolean satisfiesConstraint;
     
     // Set by the driver to decide whether 3 or 4 colors are allowed for the run
     protected int maxColors;
@@ -90,6 +82,7 @@ public abstract class ConstraintSolver
             if (satisfied == false)
                 break;
         }
+        satisfiesConstraint = satisfied;
         return satisfied;
     }
     
@@ -108,37 +101,36 @@ public abstract class ConstraintSolver
         return true;
     }
     
+    /**
+     * resets decisionsMade
+     * This is called by driver after each instance run has finished
+     */
+    protected void resetRunMetrics()
+    {
+        decisionsMade = 0;
+    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="Basic Getters and Setters">
     /**
      * @return the decisionsMade
      */
-    public int getDecisionsMade() {
+    public int getDecisionsMade() 
+    {
         return decisionsMade;
     }
-
+    
     /**
-     * @return the validColorings
+     * @return the satisfiesConstraint
      */
-    public int getValidColorings() {
-        return validColorings;
-    }
-
-    /**
-     * @return the verticesVisited
-     */
-    public int getVerticesVisited() {
-        return verticesVisited;
-    }
-
-    /**
-     * @return the verticesRecolored
-     */
-    public int getVerticesRecolored() {
-        return verticesRecolored;
+    public boolean isSatisfiesConstraint() 
+    {
+        graphSatisfiesConstraint();
+        return satisfiesConstraint;
     }
     
-    public void setMaxColors(int max) {
+    public void setMaxColors(int max) 
+    {
         maxColors = max; 
         for (Iterator<Vertex> vertItr = theGraph.values().iterator(); vertItr.hasNext();) 
         {

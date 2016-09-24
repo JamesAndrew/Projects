@@ -24,9 +24,9 @@ public class BacktrackingForwardCheckingSolver extends ConstraintSolver
         boolean validColoring = false;
         
         numPoints = graph.getGraphSize();
-        verticesVisited = 0; 
+        int verticesVisited = 0; 
         decisionsMade = 0;
-        validColorings = 0;
+        int validColorings = 0;
         
         if(backtrack(0))
         {
@@ -63,7 +63,6 @@ public class BacktrackingForwardCheckingSolver extends ConstraintSolver
             {
                 runs.format("node %d given color %d%n", point, color);
                 decisionsMade++; 
-                verticesVisited++; 
                 if (allAdjacentColored(point))
                 {
                     runs.println("All surrounding nodes colored");
