@@ -29,7 +29,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
      * Other class properties
      */
     // the population of graphs
-    private ArrayList<Graph> population = new ArrayList<>(populationSize);
+    private final ArrayList<Graph> population = new ArrayList<>(populationSize);
     private ArrayList<Graph> parentSet = new ArrayList<>(parentSetSize);
     private ArrayList<Graph> childSet = new ArrayList<>(childSetSize);
     private Graph bestGraph;
@@ -40,7 +40,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     }
     
     // used for displaying run data values
-    private final int loopIterationPrintMod = 100;
+    private final int loopIterationPrintMod = 500;
     
     @Override
     public void runSolver() 
@@ -56,7 +56,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         // loop until constraint is meet
         boolean satisfied = false;
         int loopIteration = 0;
-        while (!satisfied && loopIteration < 40000)
+        while (!satisfied && loopIteration < 50000)
         {
             if (loopIteration % loopIterationPrintMod == 0)
                 runs.format("%n== Current Generation: %d ==%n", loopIteration);
