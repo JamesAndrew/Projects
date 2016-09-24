@@ -21,15 +21,31 @@ public class BacktrackingForwardCheckingSolver extends ConstraintSolver
     @Override
     public void runSolver()
     {
+        boolean validColoring = false;
+        
         numPoints = graph.getGraphSize();
         verticesVisited = 0; 
         decisionsMade = 0;
         validColorings = 0;
+        
         if(backtrack(0))
         {
             validColorings++; 
+            validColoring = true;
         }
         System.out.format("Nodes colored: %d%n", verticesVisited);
+        
+        runs.println();
+        
+        graph.printGraph();
+        /**
+         * Output program values
+         */
+        runs.println();
+        runs.println("=== Program Output Values ===");
+        runs.println("Valid Coloring: " + validColoring + ", with " + graph.calculateFitness() + " of 10 nodes correctly colored.");
+        runs.println("Decisions Made: " + decisionsMade);
+        runs.println();
     }
 
     /**

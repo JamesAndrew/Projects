@@ -28,7 +28,7 @@ public class Driver
             //BacktrackingForwardCheckingSolver.class,
             //BacktrackingPropagationSolver.class,
             //MinConflictsSolver.class,
-            GeneticAlgorithmSolver.class
+            MinConflictsSolver.class
     );
 
     /**

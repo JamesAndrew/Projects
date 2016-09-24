@@ -40,8 +40,9 @@ public class MinConflictsSolver extends ConstraintSolver
         // create iterator to loop through nodes
         Iterator itr = graph.theGraph.keySet().iterator();
         //runs.println("minConflicts algorithm");
-        
-
+       
+        runs.println();
+        runs.println("== Initialization phase ==");
         // start up new iterator
         itr = graph.theGraph.keySet().iterator();
 
@@ -85,6 +86,8 @@ public class MinConflictsSolver extends ConstraintSolver
                 int nextKey = (int)itr.next();
                 //runs.println("Node " + nextKey);
                 Vertex currentVertex = theGraph.get(nextKey);
+                runs.println();
+                runs.println("Checking conflicts of Node " + nextKey);
                 if (Conflicts(nextKey) > 0)
                 {
                     resolveConflicts(nextKey);
@@ -103,6 +106,8 @@ public class MinConflictsSolver extends ConstraintSolver
             runs.println();
         }
         // if not solved by now, stop
+        
+        graph.printGraph();
         
         /**
          * Output program values
@@ -216,7 +221,7 @@ public class MinConflictsSolver extends ConstraintSolver
         // loop through the colors
         for(int curColor = 1; curColor < maxColor + 1; curColor++)
         {
-            runs.print(" Node " + curKey + " with color " + curColor);
+            runs.print("If Node " + curKey + " colored with color " + curColor);
             runs.println();
             theGraph.get(curKey).color = curColor;
             decisionsMade++;
