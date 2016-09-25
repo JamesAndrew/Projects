@@ -31,3 +31,6 @@ Penalty Function
 To try for tomorrow:
 	- The repair function actually seems to do some good.  See if a combination of repairing some of the parents 
 		and mutating some of the children makes even better. Commit 4f6780067d91 works on occasion on size=70.
+		
+Run Results
+	- We can easily make a graph of x-axis: graph size, y-axis: average decisions made / coloring success / etc. Would look great!

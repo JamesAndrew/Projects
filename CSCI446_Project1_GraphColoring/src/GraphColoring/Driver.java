@@ -13,7 +13,7 @@ public class Driver
     // this will produce [numRuns] files. e.g. if this is set to 10 and 
     // [nextRunGraphSizeIncrease] is set to 10, this will produce 10 .txt files.
     // The first file shows results for graph size 10, next .txt file for 20, ... etc.
-    private final static int numRuns = 10;
+    private final static int numRuns = 1;
     private final static int nextRunGraphSizeIncrease = 10;
     private final static String fileOutputName = "Run_Results_GraphSize_";
 
@@ -24,19 +24,19 @@ public class Driver
     // set constraint to 3 or 4 max colors allowed
     private final static int maxColors = 4;
     // number of iterations of n-graph runs to do for a run suite
-    private final static int runSuiteIterations = 20;
+    private final static int runSuiteIterations = 1;
     // number of graphs to use for each run suite iteration
     private final static int numberOfGraphs = 1;
     // initial amount of nodes to have for first graph generation
-    private static int initialNumVertices = 10;
+    private static int initialNumVertices = 30;
     // how many more vertices to have for each iteration of the graph
     private final static int vertexGrowthSize = 0;
     // put the solvers you want the program to run on in here
     public final static List<Class<?>> solverList = Arrays.asList(
-            SimpleBacktrackingSolver.class,
-            BacktrackingForwardCheckingSolver.class,
-            BacktrackingPropagationSolver.class,
-            MinConflictsSolver.class,
+//            SimpleBacktrackingSolver.class,
+//            BacktrackingForwardCheckingSolver.class,
+//            BacktrackingPropagationSolver.class,
+//            MinConflictsSolver.class
             GeneticAlgorithmSolver.class
     );
 
@@ -100,7 +100,7 @@ public class Driver
             for (int iteration = 0; iteration < runSuiteIterations; iteration++)
             {
                 results_log.format("%n== Run suite iteration: %d ==%n", iteration);
-                System.out.println("Run suite iteration: " + iteration);
+                System.out.println("= Run suite iteration: " + iteration + " =");
 
                 // while there are more graphs to generate
                 for (int i = 0; i < numberOfGraphs; i++)
@@ -137,6 +137,7 @@ public class Driver
             }
 
             calc.printRunResults();
+            calc.clearClassVariables();
 
             calc.closeWriter(); 
             results_log.close();
@@ -146,10 +147,6 @@ public class Driver
         }
     }
 
-    private static void resetEverything()
-    {
-        
-    }
     
     private static ArrayList<ConstraintSolver> instantiateSolvers() throws InstantiationException, IllegalAccessException
     {

@@ -240,7 +240,5 @@ public class MinConflictsSolver extends ConstraintSolver
         theGraph.get(curKey).color = bestColor;
         //graph.printGraph();
     }
-
-    
 }
 

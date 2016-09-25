@@ -59,6 +59,14 @@ public class ResultCalculator
             runValues.put(solverClass, new int[]{0, 0, 0, Integer.MIN_VALUE, Integer.MAX_VALUE});
         }
     }
+    
+    /**
+     * After each new run, clear out the data in the result calculator
+     */
+    public void clearClassVariables()
+    {
+        runValues.clear();
+    }
 
     /**
      * Updates information for the result of one graph being run on one
