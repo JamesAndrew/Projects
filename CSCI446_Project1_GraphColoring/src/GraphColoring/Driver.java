@@ -10,7 +10,7 @@ import java.io.*;
 public class Driver
 {
     // Parameters used for running multiple runs 
-    private final static int numRuns = 3;
+    private final static int numRuns = 4;
     private final static int nextRunGraphSizeIncrease = 10;
     private final static String fileOutputName = "Run_Results_GraphSize_";
 
@@ -21,7 +21,7 @@ public class Driver
     // set constraint to 3 or 4 max colors allowed
     private final static int maxColors = 4;
     // number of iterations of n-graph runs to do for a run suite
-    private final static int runSuiteIterations = 10;
+    private final static int runSuiteIterations = 20;
     // number of graphs to use for each run suite iteration
     private final static int numberOfGraphs = 1;
     // initial amount of nodes to have for first graph generation
