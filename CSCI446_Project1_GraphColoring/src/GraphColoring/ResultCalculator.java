@@ -17,6 +17,13 @@ import java.util.logging.Logger;
  */
 public class ResultCalculator
 {
+    // Run parameters:
+    private int maxColors;
+    private int runSuiteIterations;
+    private int numberOfGraphs;
+    private int initialNumVertices;
+    private int vertexGrowthSize;
+    
     // A mapping of an algotihm to its integer array representing data from its run suite.
     // Array index 0: Total decisions made (over entire run suite)
     // Array index 1: Successful colorings (over entire run suite)
@@ -30,8 +37,14 @@ public class ResultCalculator
     private String runType;
     ConstraintSolver solver;
 
-    public ResultCalculator()
+    public ResultCalculator(int colors, int suiteIterations, int numGraphs, int initNumVertices, int vertexGrowth)
     {
+        maxColors = colors;
+        runSuiteIterations = suiteIterations;
+        numberOfGraphs = numGraphs;
+        initialNumVertices = initNumVertices;
+        vertexGrowthSize = vertexGrowth;
+        
         try
         {
             result_data = new PrintWriter(new FileWriter("Run_Results.txt"));
@@ -91,7 +104,11 @@ public class ResultCalculator
         String formatHeaders = "%-40s%-20s%-20s%-20s%-20s%n";
         String formatData = "%-40s%-20.2f%-20d%-20d%-20.2f%n";
         
-        result_data.format("=== %s Results ===%n%n", "", runType);
+        result_data.format("=== %s Results ===%n", "", runType);
+        result_data.println("Run parameters: ");
+        result_data.format(" - Max Colors: %d%n - Suite Iterations: %d%n - Graphs per iteration: %d%n - Initial Num Vertices: %d%n - Vertex Growth Size: %d%n%n", 
+                maxColors, runSuiteIterations, numberOfGraphs, initialNumVertices, vertexGrowthSize);
+        
         result_data.format(formatHeaders, "Name of Algorithm", "Avg. Decisions", "Max Decisions", "Min Decisions", "Ratio of Successful Colorings");
         for (Map.Entry<Class<?>, int[]> entry : runValues.entrySet())
         {

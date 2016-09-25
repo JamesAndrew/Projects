@@ -54,7 +54,7 @@ public class Driver
     private static void runSolvers() throws InstantiationException, IllegalAccessException
     {
         // <editor-fold defaultstate="collapsed" desc="Prerequisite setup before the run actually happens">
-        ResultCalculator calc = new ResultCalculator();
+        ResultCalculator calc = new ResultCalculator(maxColors, runSuiteIterations, numberOfGraphs, initialNumVertices, vertexGrowthSize);
         int numVertices = initialNumVertices;
         ArrayList<ConstraintSolver> solvers = instantiateSolvers();
 
