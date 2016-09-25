@@ -21,6 +21,7 @@ nb-configuration.xml
 # =========================
 CSCI446_Project1_GraphColoring/*_runs.txt
 CSCI446_Project1_GraphColoring/*_results.txt
+CSCI446_Project1_GraphColoring/Run_Results.txt
 
 # =========================
 # UML program specific (SIMP) files to ignore
