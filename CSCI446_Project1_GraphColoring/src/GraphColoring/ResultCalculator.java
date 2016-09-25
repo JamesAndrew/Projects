@@ -88,21 +88,15 @@ public class ResultCalculator
      */
     public void printRunResults()
     {
-        result_data.format("%30s=== %s Results ===%n%n", "", runType);
+        String formatHeaders = "%-40s%-20s%-20s%-20s%-20s%n";
+        String formatData = "%-40s%-20.2f%-20d%-20d%-20.2f%n";
         
-        
-        
+        result_data.format("=== %s Results ===%n%n", "", runType);
+        result_data.format(formatHeaders, "Name of Algorithm", "Avg. Decisions", "Max Decisions", "Min Decisions", "Ratio of Successful Colorings");
         for (Map.Entry<Class<?>, int[]> entry : runValues.entrySet())
         {
-            int[] dataArray = entry.getValue();
-            String formatHeaders = "%-20s%-20s%-20s%-20s%n";
-            String formatData = "%-20.2f%-20d%-20d%-20.2f%n%n";
-            
-            result_data.format("%n%nNumber of runs: %d%n%n", dataArray[2]);
-            
-            result_data.format("%30s= %s =%n", "", entry.getKey().getSimpleName());
-            result_data.format(formatHeaders, "Avg. Decisions", "Max Decisions", "Min Decisions", "Ratio of Successful Colorings");
-            result_data.format(formatData, calculateAverage(dataArray, 0), dataArray[3], dataArray[4], calculateAverage(dataArray, 1));
+            int[] dataArray = entry.getValue();            
+            result_data.format(formatData, entry.getKey().getSimpleName(), calculateAverage(dataArray, 0), dataArray[3], dataArray[4], calculateAverage(dataArray, 1));
         }
     }
 

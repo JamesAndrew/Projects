@@ -18,7 +18,7 @@ public class Driver
     // set constraint to 3 or 4 max colors allowed
     private final static int maxColors = 4;
     // number of iterations of n-graph runs to do for a run suite
-    private final static int runSuiteIterations = 100;
+    private final static int runSuiteIterations = 10;
     // number of graphs to use for each run suite iteration
     private final static int numberOfGraphs = 1;
     // initial amount of nodes to have for first graph generation
@@ -27,10 +27,10 @@ public class Driver
     private final static int vertexGrowthSize = 0;
     // put the solvers you want the program to run on in here
     public final static List<Class<?>> solverList = Arrays.asList(
-            //SimpleBacktrackingSolver.class,
-            //BacktrackingForwardCheckingSolver.class,
-            //BacktrackingPropagationSolver.class
-            //MinConflictsSolver.class,
+            SimpleBacktrackingSolver.class,
+            BacktrackingForwardCheckingSolver.class,
+            BacktrackingPropagationSolver.class,
+            MinConflictsSolver.class,
             GeneticAlgorithmSolver.class
     );
 
@@ -92,6 +92,7 @@ public class Driver
                 + "Solvers being used: %s%n%n",
                 numberOfGraphs, vertexGrowthSize, printSolversUsed());
 
+        
         // run suite
         calc.setRunType("Run Suite");
         // repeat [run_suite_iterations] times
@@ -133,13 +134,13 @@ public class Driver
 
             // set up for next run suite iteration
             numVertices = initialNumVertices;
+        }
         
         calc.printRunResults();
         
         calc.closeWriter(); 
         results_log.close();
         run_log.close();
-        }
     }
 
     private static ArrayList<ConstraintSolver> instantiateSolvers() throws InstantiationException, IllegalAccessException
