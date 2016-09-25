@@ -22,9 +22,9 @@ public class Driver
      * do as many runs on as many solvers as desired.
      */
     // set constraint to 3 or 4 max colors allowed
-    private final static int maxColors = 3;
+    private final static int maxColors = 4;
     // number of iterations of n-graph runs to do for a run suite
-    private final static int runSuiteIterations = 50;
+    private final static int runSuiteIterations = 20;
     // number of graphs to use for each run suite iteration
     private final static int numberOfGraphs = 1;
     // initial amount of nodes to have for first graph generation
