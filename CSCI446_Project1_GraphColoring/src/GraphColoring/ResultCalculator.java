@@ -88,19 +88,26 @@ public class ResultCalculator
      */
     public void printRunResults()
     {
-        result_data.format("=== %s Results ===%n%n", runType);
+        result_data.format("%30s=== %s Results ===%n%n", "", runType);
         
         for (Map.Entry<Class<?>, int[]> entry : runValues.entrySet())
         {
             int[] dataArray = entry.getValue();
+            String formatHeaders = "%-20s%-20s%-20s%-20s%n";
+            String formatData = "%-20.2f%-20d%-20d%-20.2f%n%n";
             
-            result_data.format("= %s =%n", entry.getKey().getSimpleName());
-            result_data.format("Total Decisions Made: %d%n", dataArray[0]);
-            result_data.format("Total graphs interacted with: %d%n", dataArray[2]);
-            result_data.format("Average Decisions Made: %.2f%n", calculateAverage(dataArray, 0));
-            result_data.format("Max Decisions Made: %d%n", dataArray[3]);
-            result_data.format("Min Decisions Made: %d%n", dataArray[4]);
-            result_data.format("Successful Colorings: %d%n%n", dataArray[1]);
+            result_data.format("%30s= %s =%n", "", entry.getKey().getSimpleName());
+            result_data.format(formatHeaders, "Avg. Decisions", "Max Decisions", "Min Decisions", "Ratio of Successful Colorings");
+            result_data.format(formatData, calculateAverage(dataArray, 0), dataArray[3], dataArray[4], calculateAverage(dataArray, 1));
+            
+            
+//            result_data.format("= %s =%n", entry.getKey().getSimpleName());
+//            result_data.format("Total Decisions Made: %d%n", dataArray[0]);
+//            result_data.format("Total graphs interacted with: %d%n", dataArray[2]);
+//            result_data.format("Average Decisions Made: %.2f%n", calculateAverage(dataArray, 0));
+//            result_data.format("Max Decisions Made: %d%n", dataArray[3]);
+//            result_data.format("Min Decisions Made: %d%n", dataArray[4]);
+//            result_data.format("Successful Colorings: %d%n%n", dataArray[1]);
         }
     }
 
@@ -117,7 +124,7 @@ public class ResultCalculator
      */
     private double calculateAverage(int[] inputData, int indexOfInterest)
     {
-        double val = inputData[indexOfInterest] / inputData[2];
+        double val = (double)inputData[indexOfInterest] / (double)inputData[2];
         val = val*100;
         val = Math.round(val);
         val = val /100;
@@ -141,42 +148,7 @@ public class ResultCalculator
         this.runType = runType;
     }
     
-    /**
-     * prints out final details of the run results
-     */
-//    public void printRunResults(int numVertices)
-//    {
-//        int iterations = 0; 
-//        for (Map.Entry<Class<?>, ArrayList<int[]>> entry : runValues.entrySet())
-//        {
-//            float averageDecisions = 0; 
-//            float averageColorings = 0; 
-//            results.println("Solver: " + entry.getKey().getSimpleName() + " Graph size: " + numVertices);
-//            for (Iterator<int[]> iterator = entry.getValue().iterator(); iterator.hasNext();)
-//            {
-//                iterations++;
-//                int[] current = iterator.next();
-//                averageDecisions += current[1];
-//                averageColorings += current[2];
-//                results.format("%d,%d,%d%n", current[0], current[1], current[2]);
-//                iterator.remove();
-//            }
-//            results.format("Average decisions:%f, Average successful colorings:%f.%n%n", averageDecisions / iterations, averageColorings / iterations);
-//            //System.out.println("Solver: " + s.getClass().getSimpleName() + " Totals: ");
-//            //System.out.println(solverTotalsMap.get(s.getClass())[0] + "," + solverTotalsMap.get(s.getClass())[1]);
-//        }
-//    }
-//    
-//    public void printTotals(int iterations) 
-//    {
-//        System.out.println(iterations);
-//        for (Map.Entry<Class<?>, int[]> entry : runValues.entrySet())
-//        {
-//            results.println(entry.getKey().getSimpleName() + " average decisions: " + (float) entry.getValue()[0] / iterations);
-//            results.println(entry.getKey().getSimpleName() + " average successful colorings: " + (float) entry.getValue()[1] / iterations + "\n");
-//        }
-//    }
-   
+ 
     public void closeWriter() 
     {
         result_data.close(); 

@@ -24,13 +24,13 @@ public class Driver
     // number of times to run each graph size during an instance suite
     private final static int instanceSuiteIterations = 1;
     // number of iterations of n-graph runs to do for a run suite
-    private final static int runSuiteIterations = 6;
+    private final static int runSuiteIterations = 10;
     // number of graphs to use for each run suite iteration
-    private final static int numberOfGraphs = 3;
+    private final static int numberOfGraphs = 1;
     // initial amount of nodes to have for first graph generation
     private final static int initialNumVertices = 10;
     // how many more vertices to have for each iteration of the graph
-    private final static int vertexGrowthSize = 10;
+    private final static int vertexGrowthSize = 0;
     // put the solvers you want the program to run on in here
     public final static List<Class<?>> solverList = Arrays.asList(
             SimpleBacktrackingSolver.class,
