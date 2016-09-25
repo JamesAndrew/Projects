@@ -91,11 +91,12 @@ public class ResultCalculator
         // total successfull colorings +1 if satisfied
         if (satisfiedConstraint)
         {
-            runValues.get(solver.getClass())[1]++;
+            result_data.format("SUCCESSFUL COLORING%n");
+            runValues.get(solver.getClass())[1] += 1;
         }
         
         // total times data provided + 1
-        runValues.get(solver.getClass())[2]++;
+        runValues.get(solver.getClass())[2] += 1;
         
         // update max decisions if largest decision yet for successful coloring
         if (satisfiedConstraint)
@@ -133,7 +134,7 @@ public class ResultCalculator
         for (Map.Entry<Class<?>, int[]> entry : runValues.entrySet())
         {
             int[] dataArray = entry.getValue();            
-            result_data.format(formatData, entry.getKey().getSimpleName(), calculateAverage(dataArray, 0), dataArray[3], dataArray[4], calculateSuccessfulColorings(dataArray, 1));
+            result_data.format(formatData, entry.getKey().getSimpleName(), calculateAverage(dataArray, 0), dataArray[3], dataArray[4], calculateSuccessfulColorings(dataArray));
         }
     }
 
@@ -149,21 +150,37 @@ public class ResultCalculator
      * @return 
      */
     private double calculateAverage(int[] inputData, int indexOfInterest)
-    {        
-        double val = (double)inputData[indexOfInterest] / (double)inputData[1];
-        val = val*100;
-        val = Math.round(val);
-        val = val /100;
+    {
+        double val;
+        if (inputData[1] == 0)
+        {
+            val =  0.0;
+        }
+        else
+        {
+            val = (double)inputData[indexOfInterest] / (double)inputData[1];
+            val = val*100;
+            val = Math.round(val);
+            val = val /100;
+        }
         
         return val;
     }
     
-    private double calculateSuccessfulColorings(int[] inputData, int indexOfInterest)
-    {        
-        double val = (double)inputData[indexOfInterest] / (double)inputData[0];
-        val = val*100;
-        val = Math.round(val);
-        val = val /100;
+    private double calculateSuccessfulColorings(int[] inputData)
+    {
+        double val;
+        if (inputData[1] == 0)
+        {
+            val =  0.0;
+        }
+        else
+        {
+            val = (double)inputData[2] / (double)inputData[1];
+            val = val*100;
+            val = Math.round(val);
+            val = val /100;
+        }
         
         return val;
     }
