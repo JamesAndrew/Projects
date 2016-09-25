@@ -96,6 +96,7 @@ public class ResultCalculator
             
             result_data.format("= %s =%n", entry.getKey().getSimpleName());
             result_data.format("Total Decisions Made: %d%n", dataArray[0]);
+            result_data.format("Total graphs interacted with: %d%n", dataArray[2]);
             result_data.format("Average Decisions Made: %.2f%n", calculateAverage(dataArray, 0));
             result_data.format("Max Decisions Made: %d%n", dataArray[3]);
             result_data.format("Min Decisions Made: %d%n", dataArray[4]);
@@ -105,6 +106,11 @@ public class ResultCalculator
 
     /**
      * Calculates average rounded two decimal places
+     * Array index 0: Total decisions made (over entire run suite)
+     * Array index 1: Successful colorings (over entire run suite)
+     * Array index 2: Total times data was provided 
+     * Array index 3: Max decisions made
+     * Array index 4: Min decisions made
      * @param inputData : note that index 2 of inputData is the total samples
      * @param indexOfInterest 
      * @return 

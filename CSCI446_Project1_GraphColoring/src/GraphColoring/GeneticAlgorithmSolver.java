@@ -395,9 +395,9 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             for (Vertex neighbor : newIndividual.theGraph.values())
             {
                 int randColor = rand.nextInt(maxColors);
-                neighbor.color = randColor;                                     addDecision();
+                neighbor.color = randColor;                                     
             }
-            population.add(newIndividual);                                      addDecision();
+            population.add(newIndividual);                                      
         }
     }
     
@@ -454,10 +454,10 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             for (Vertex neighbor : newGraph.theGraph.values())
             {
                 int randColor = rand.nextInt(maxColors);
-                neighbor.color = randColor;                                     addDecision();
+                neighbor.color = randColor;                                     
             }
             
-            population.add(newGraph);                                           addDecision();
+            population.add(newGraph);                                           
         }
     }
     

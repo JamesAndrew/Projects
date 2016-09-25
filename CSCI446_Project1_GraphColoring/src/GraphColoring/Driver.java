@@ -24,9 +24,9 @@ public class Driver
     // number of times to run each graph size during an instance suite
     private final static int instanceSuiteIterations = 1;
     // number of iterations of n-graph runs to do for a run suite
-    private final static int runSuiteIterations = 1;
+    private final static int runSuiteIterations = 6;
     // number of graphs to use for each run suite iteration
-    private final static int numberOfGraphs = 5;
+    private final static int numberOfGraphs = 3;
     // initial amount of nodes to have for first graph generation
     private final static int initialNumVertices = 10;
     // how many more vertices to have for each iteration of the graph
