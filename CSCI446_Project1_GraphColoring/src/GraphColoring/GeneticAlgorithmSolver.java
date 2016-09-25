@@ -40,7 +40,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     }
     
     // used for displaying run data values
-    private final int loopIterationPrintMod = 10000;
+    private final int loopIterationPrintMod = 1000;
     
     @Override
     public void runSolver() 
@@ -56,7 +56,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
         // loop until constraint is meet
         boolean satisfied = false;
         int loopIteration = 0;
-        while (!satisfied && loopIteration < 500) // use 50,000 officially
+        while (!satisfied && loopIteration < 20000) // use a number in the range of 10^4 officially
         {
             if (loopIteration % loopIterationPrintMod == 0)
                 runs.format("%n== Current Generation: %d ==%n", loopIteration);
