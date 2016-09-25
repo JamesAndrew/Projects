@@ -10,7 +10,10 @@ import java.io.*;
 public class Driver
 {
     // Parameters used for running multiple runs 
-    private final static int numRuns = 4;
+    // this will produce [numRuns] files. e.g. if this is set to 10 and 
+    // [nextRunGraphSizeIncrease] is set to 10, this will produce 10 .txt files.
+    // The first file shows results for graph size 10, next .txt file for 20, ... etc.
+    private final static int numRuns = 10;
     private final static int nextRunGraphSizeIncrease = 10;
     private final static String fileOutputName = "Run_Results_GraphSize_";
 
