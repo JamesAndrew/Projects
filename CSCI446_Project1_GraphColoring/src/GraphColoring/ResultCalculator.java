@@ -37,7 +37,7 @@ public class ResultCalculator
     private String runType;
     ConstraintSolver solver;
 
-    public ResultCalculator(int colors, int suiteIterations, int numGraphs, int initNumVertices, int vertexGrowth)
+    public ResultCalculator(String fileName, int colors, int suiteIterations, int numGraphs, int initNumVertices, int vertexGrowth)
     {
         maxColors = colors;
         runSuiteIterations = suiteIterations;
@@ -47,7 +47,7 @@ public class ResultCalculator
         
         try
         {
-            result_data = new PrintWriter(new FileWriter("Run_Results.txt"));
+            result_data = new PrintWriter(new FileWriter(fileName));
         } catch (IOException ex)
         {
             Logger.getLogger(ResultCalculator.class.getName()).log(Level.SEVERE, null, ex);
