@@ -40,7 +40,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     }
     
     // used for displaying run data values
-    private final int loopIterationPrintMod = 500;
+    private final int loopIterationPrintMod = 10000;
     
     @Override
     public void runSolver() 

@@ -19,9 +19,7 @@ nb-configuration.xml
 # =========================
 # Auto-Generated Data files (not in deliverable folder)
 # =========================
-CSCI446_Project1_GraphColoring/*_runs.txt
-CSCI446_Project1_GraphColoring/*_results.txt
-CSCI446_Project1_GraphColoring/Run_Results.txt
+CSCI446_Project1_GraphColoring/Output_Files_Results_and_Logs/*.txt
 
 # =========================
 # UML program specific (SIMP) files to ignore
