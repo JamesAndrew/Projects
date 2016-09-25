@@ -36,7 +36,6 @@ public class ResultCalculator
     private static PrintWriter result_data;
     // the run is either an instance suite or run suite
     private String runType;
-    ConstraintSolver solver;
 
     public ResultCalculator(String fileName, int colors, int suiteIterations, int numGraphs, int initNumVertices, int vertexGrowth)
     {
@@ -81,10 +80,16 @@ public class ResultCalculator
      */
     public void calculateInstanceMetrics(ConstraintSolver solver)
     {
-        runValues.get(solver.getClass())[0] += solver.decisionsMade;
+        boolean satisfiedConstraint = solver.isSatisfiesConstraint();
+        
+        // only tally decisions made for the run if it satisfied the constraint
+        if (satisfiedConstraint)
+        {
+            runValues.get(solver.getClass())[0] += solver.getDecisionsMade();
+        }
         
         // total successfull colorings +1 if satisfied
-        if (solver.isSatisfiesConstraint())
+        if (satisfiedConstraint)
         {
             runValues.get(solver.getClass())[1]++;
         }
@@ -92,16 +97,22 @@ public class ResultCalculator
         // total times data provided + 1
         runValues.get(solver.getClass())[2]++;
         
-        // update max decisions if largest decision yet
-        if (solver.decisionsMade > runValues.get(solver.getClass())[3])
+        // update max decisions if largest decision yet for successful coloring
+        if (satisfiedConstraint)
         {
-            runValues.get(solver.getClass())[3] = solver.decisionsMade;
+            if (solver.getDecisionsMade() > runValues.get(solver.getClass())[3])
+            {
+                runValues.get(solver.getClass())[3] = solver.getDecisionsMade();
+            }
         }
         
-        // update min decisions if smallest decision yet
-        if (solver.decisionsMade < runValues.get(solver.getClass())[4])
+        // update min decisions if smallest decision yet for successful coloring
+        if (satisfiedConstraint)
         {
-            runValues.get(solver.getClass())[4] = solver.decisionsMade;
+            if (solver.getDecisionsMade() < runValues.get(solver.getClass())[4])
+            {
+                runValues.get(solver.getClass())[4] = solver.getDecisionsMade();
+            }
         }
     }
     
@@ -128,18 +139,18 @@ public class ResultCalculator
 
     /**
      * Calculates average rounded two decimal places
-     * Array index 0: Total decisions made (over entire run suite)
+     * Array index 0: Total successful decisions made (over entire run suite)
      * Array index 1: Successful colorings (over entire run suite)
      * Array index 2: Total times data was provided 
-     * Array index 3: Max decisions made
-     * Array index 4: Min decisions made
-     * @param inputData : note that index 2 of inputData is the total samples
+     * Array index 3: Max successful decisions made
+     * Array index 4: Min successful  decisions made
+     * @param inputData : note that index 2 of inputData is the total samples (including failures)
      * @param indexOfInterest 
      * @return 
      */
     private double calculateAverage(int[] inputData, int indexOfInterest)
     {        
-        double val = (double)inputData[indexOfInterest] / (double)inputData[2];
+        double val = (double)inputData[indexOfInterest] / (double)inputData[1];
         val = val*100;
         val = Math.round(val);
         val = val /100;
