@@ -13,7 +13,7 @@ public class Driver
     // this will produce [numRuns] files. e.g. if this is set to 10 and 
     // [nextRunGraphSizeIncrease] is set to 10, this will produce 10 .txt files.
     // The first file shows results for graph size 10, next .txt file for 20, ... etc.
-    private final static int numRuns = 1;
+    private final static int numRuns = 10;
     private final static int nextRunGraphSizeIncrease = 10;
     private final static String fileOutputName = "Run_Results_GraphSize_";
 
@@ -33,11 +33,11 @@ public class Driver
     private final static int vertexGrowthSize = 0;
     // put the solvers you want the program to run on in here
     public final static List<Class<?>> solverList = Arrays.asList(
-//            SimpleBacktrackingSolver.class,
-//            BacktrackingForwardCheckingSolver.class,
-//            BacktrackingPropagationSolver.class,
-//            MinConflictsSolver.class
-            GeneticAlgorithmSolver.class
+            SimpleBacktrackingSolver.class,
+            BacktrackingForwardCheckingSolver.class,
+            BacktrackingPropagationSolver.class,
+            MinConflictsSolver.class
+//            GeneticAlgorithmSolver.class
     );
 
     /**

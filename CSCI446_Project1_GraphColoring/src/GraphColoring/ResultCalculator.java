@@ -133,7 +133,7 @@ public class ResultCalculator
         for (Map.Entry<Class<?>, int[]> entry : runValues.entrySet())
         {
             int[] dataArray = entry.getValue();            
-            result_data.format(formatData, entry.getKey().getSimpleName(), calculateAverage(dataArray, 0), dataArray[3], dataArray[4], calculateAverage(dataArray, 1));
+            result_data.format(formatData, entry.getKey().getSimpleName(), calculateAverage(dataArray, 0), dataArray[3], dataArray[4], calculateSuccessfulColorings(dataArray, 1));
         }
     }
 
@@ -151,6 +151,16 @@ public class ResultCalculator
     private double calculateAverage(int[] inputData, int indexOfInterest)
     {        
         double val = (double)inputData[indexOfInterest] / (double)inputData[1];
+        val = val*100;
+        val = Math.round(val);
+        val = val /100;
+        
+        return val;
+    }
+    
+    private double calculateSuccessfulColorings(int[] inputData, int indexOfInterest)
+    {        
+        double val = (double)inputData[indexOfInterest] / (double)inputData[0];
         val = val*100;
         val = Math.round(val);
         val = val /100;
