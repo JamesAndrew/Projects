@@ -1,0 +1,8 @@
+===  Results ===
+
+Name of Algorithm                       Avg. Decisions      Max Decisions       Min Decisions       Ratio of Successful Colorings
+SimpleBacktrackingSolver                75.10               168                 60                  1.00                
+BacktrackingForwardCheckingSolver       249.00              444                 218                 1.00                
+GeneticAlgorithmSolver                  6334.10             10763               643                 1.00                
+MinConflictsSolver                      95.40               99                  91                  1.00                
+BacktrackingPropagationSolver           416.20              430                 380                 0.80                
