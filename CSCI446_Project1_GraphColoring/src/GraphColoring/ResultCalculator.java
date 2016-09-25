@@ -1,5 +1,6 @@
 package GraphColoring;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -47,7 +48,7 @@ public class ResultCalculator
         
         try
         {
-            result_data = new PrintWriter(new FileWriter(fileName));
+            result_data = new PrintWriter(new FileWriter(new File("Output_Files_Results_and_Logs", fileName)));
         } catch (IOException ex)
         {
             Logger.getLogger(ResultCalculator.class.getName()).log(Level.SEVERE, null, ex);

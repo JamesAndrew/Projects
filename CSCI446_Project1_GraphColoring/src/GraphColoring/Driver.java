@@ -67,8 +67,8 @@ public class Driver
             String filename = "instance_suite_testing";
             try
             {
-                results_log = new PrintWriter(new FileWriter(filename + "_results_log.txt"));
-                run_log = new PrintWriter(new FileWriter(filename + "_runs_log.txt"));
+                results_log = new PrintWriter(new FileWriter(new File("Output_Files_Results_and_Logs", filename + "_results_log.txt")));
+                run_log = new PrintWriter(new FileWriter(new File("Output_Files_Results_and_Logs", filename + "_runs_log.txt")));
             } catch (IOException e)
             {
                 System.err.println("Caught IOException: " + e.getMessage());
