@@ -24,7 +24,7 @@ public class Driver
     // set constraint to 3 or 4 max colors allowed
     private final static int maxColors = 4;
     // number of iterations of n-graph runs to do for a run suite
-    private final static int runSuiteIterations = 1;
+    private final static int runSuiteIterations = 5;
     // number of graphs to use for each run suite iteration
     private final static int numberOfGraphs = 1;
     // initial amount of nodes to have for first graph generation
@@ -126,6 +126,9 @@ public class Driver
                         results_log.format("Instance valid coloring: %b%n", solver.isSatisfiesConstraint());
 
                         calc.calculateInstanceMetrics(solver);
+                        
+                        // clear results values stored in the solver after each run
+                        solver.resetRunMetrics();
                     }
 
                     // increase class variables to set up for next graph
