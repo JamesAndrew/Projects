@@ -90,24 +90,19 @@ public class ResultCalculator
     {
         result_data.format("%30s=== %s Results ===%n%n", "", runType);
         
+        
+        
         for (Map.Entry<Class<?>, int[]> entry : runValues.entrySet())
         {
             int[] dataArray = entry.getValue();
             String formatHeaders = "%-20s%-20s%-20s%-20s%n";
             String formatData = "%-20.2f%-20d%-20d%-20.2f%n%n";
             
+            result_data.format("%n%nNumber of runs: %d%n%n", dataArray[2]);
+            
             result_data.format("%30s= %s =%n", "", entry.getKey().getSimpleName());
             result_data.format(formatHeaders, "Avg. Decisions", "Max Decisions", "Min Decisions", "Ratio of Successful Colorings");
             result_data.format(formatData, calculateAverage(dataArray, 0), dataArray[3], dataArray[4], calculateAverage(dataArray, 1));
-            
-            
-//            result_data.format("= %s =%n", entry.getKey().getSimpleName());
-//            result_data.format("Total Decisions Made: %d%n", dataArray[0]);
-//            result_data.format("Total graphs interacted with: %d%n", dataArray[2]);
-//            result_data.format("Average Decisions Made: %.2f%n", calculateAverage(dataArray, 0));
-//            result_data.format("Max Decisions Made: %d%n", dataArray[3]);
-//            result_data.format("Min Decisions Made: %d%n", dataArray[4]);
-//            result_data.format("Successful Colorings: %d%n%n", dataArray[1]);
         }
     }
 
@@ -123,7 +118,7 @@ public class ResultCalculator
      * @return 
      */
     private double calculateAverage(int[] inputData, int indexOfInterest)
-    {
+    {        
         double val = (double)inputData[indexOfInterest] / (double)inputData[2];
         val = val*100;
         val = Math.round(val);

@@ -18,7 +18,7 @@ public class Driver
     // set constraint to 3 or 4 max colors allowed
     private final static int maxColors = 4;
     // number of iterations of n-graph runs to do for a run suite
-    private final static int runSuiteIterations = 10;
+    private final static int runSuiteIterations = 100;
     // number of graphs to use for each run suite iteration
     private final static int numberOfGraphs = 1;
     // initial amount of nodes to have for first graph generation
@@ -27,10 +27,10 @@ public class Driver
     private final static int vertexGrowthSize = 0;
     // put the solvers you want the program to run on in here
     public final static List<Class<?>> solverList = Arrays.asList(
-            SimpleBacktrackingSolver.class,
-            BacktrackingForwardCheckingSolver.class,
-            BacktrackingPropagationSolver.class,
-            MinConflictsSolver.class,
+            //SimpleBacktrackingSolver.class,
+            //BacktrackingForwardCheckingSolver.class,
+            //BacktrackingPropagationSolver.class
+            //MinConflictsSolver.class,
             GeneticAlgorithmSolver.class
     );
 
@@ -56,7 +56,6 @@ public class Driver
         // <editor-fold defaultstate="collapsed" desc="Prerequisite setup before the run actually happens">
         ResultCalculator calc = new ResultCalculator();
         int numVertices = initialNumVertices;
-        int totalIterations = 0; 
         ArrayList<ConstraintSolver> solvers = instantiateSolvers();
 
         /**
@@ -134,7 +133,6 @@ public class Driver
 
             // set up for next run suite iteration
             numVertices = initialNumVertices;
-            totalIterations++; 
         
         calc.printRunResults();
         
