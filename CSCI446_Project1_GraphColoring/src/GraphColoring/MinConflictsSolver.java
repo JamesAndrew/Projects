@@ -1,5 +1,6 @@
 package GraphColoring;
 
+import static GraphColoring.ConstraintSolver.runs;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
@@ -11,7 +12,6 @@ import java.util.Scanner;
  */
 public class MinConflictsSolver extends ConstraintSolver
 {
-    private int maxColor = 4;
     private int steps = 10;
     
     public MinConflictsSolver()
@@ -44,25 +44,35 @@ public class MinConflictsSolver extends ConstraintSolver
         itr = graph.theGraph.keySet().iterator();
 
         /**
-         * Create a random complete assignment, not necessarily correct
+         * Create a complete assignment using a greedy local search
          */
-        // Color first vertex with a random color
+        // Color first vertex with first color
         int firstKey = (int)itr.next();
-        theGraph.get(firstKey).color = rand.nextInt(maxColor-1) + 1;
-        runs.format("Gave vertex %d color %d.%n", theGraph.get(firstKey).getVertexNum(), theGraph.get(firstKey).color);
+        theGraph.get(firstKey).color = 1;
+        System.out.format("Gave vertex %d color %d.%n", theGraph.get(firstKey).getVertexNum(), theGraph.get(firstKey).color);
         
-        decisionsMade++;
-        
-        // For all other vertices color the vertex a random color
+        // For all other vertices color the vertex the lowest available color 
+        //that is not used by any vertex it is connected to
         while (itr.hasNext())
         {
             int nextKey = (int)itr.next();
             Vertex currentVertex = theGraph.get(nextKey);
-            currentVertex.color = rand.nextInt(maxColor-1) + 1;
-
-            runs.format("Gave vertex %d color %d.%n", currentVertex.getVertexNum(), currentVertex.color);
-            decisionsMade++;
-        }    
+            currentVertex.color = 1;
+            
+            for (Iterator<Vertex> it = currentVertex.edges.values().iterator(); it.hasNext();) 
+            {
+                Vertex connectedVertex = it.next();
+                if (currentVertex.color == connectedVertex.color)
+                {
+                    currentVertex.color++;
+                    //System.out.format("Found adjacent node with same color. Increasing color to %d%n", currentVertex.color);
+                    // restart the iterator
+                    it = currentVertex.edges.values().iterator();
+                }
+            }
+            
+            System.out.format("Gave vertex %d color %d.%n", currentVertex.getVertexNum(), currentVertex.color);
+        }
         //graph.printGraph();
         
         /**
@@ -215,7 +225,7 @@ public class MinConflictsSolver extends ConstraintSolver
         int bestColor = 1;
         int leastConflicts = theGraph.size(); // assume it conflicts with every node, just to start with something
         // loop through the colors
-        for(int curColor = 1; curColor < maxColor + 1; curColor++)
+        for(int curColor = 1; curColor < maxColors + 1; curColor++)
         {
             runs.print("If Node " + curKey + " colored with color " + curColor);
             runs.println();
