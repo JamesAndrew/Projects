@@ -82,41 +82,28 @@ public class ResultCalculator
     public void calculateInstanceMetrics(ConstraintSolver solver)
     {
         boolean satisfiedConstraint = solver.isSatisfiesConstraint();
+        System.out.println("INSTANCE valid coloring: " + satisfiedConstraint);
         
         // only tally decisions made for the run if it satisfied the constraint
         if (satisfiedConstraint)
         {
+            // only tally decisions made for the run if it satisfied the constraint
             runValues.get(solver.getClass())[0] += solver.getDecisionsMade();
-        }
-        
-        // total successfull colorings +1 if satisfied
-        if (satisfiedConstraint)
-        {
+            // total successfull colorings +1 if satisfied
             runValues.get(solver.getClass())[1] += 1;
-        }
-        
-        // total times data provided + 1 if satisfied
-        if (satisfiedConstraint)
-        {
-            runValues.get(solver.getClass())[2] += 1;
-        }
-        // update max decisions if largest decision yet for successful coloring
-        if (satisfiedConstraint)
-        {
+            // update max decisions if largest decision yet for successful coloring
             if (solver.getDecisionsMade() > runValues.get(solver.getClass())[3])
             {
                 runValues.get(solver.getClass())[3] = solver.getDecisionsMade();
             }
-        }
-        
-        // update min decisions if smallest decision yet for successful coloring
-        if (satisfiedConstraint)
-        {
+            // update min decisions if smallest decision yet for successful coloring
             if (solver.getDecisionsMade() < runValues.get(solver.getClass())[4])
             {
                 runValues.get(solver.getClass())[4] = solver.getDecisionsMade();
             }
         }
+        // total times data provided + 1
+        runValues.get(solver.getClass())[2] += 1;
     }
     
     /**
@@ -188,6 +175,7 @@ public class ResultCalculator
             val = Math.round(val);
             val = val /100;
         }
+        result_data.println("Successful colorings: " + val);
         
         return val;
     }
