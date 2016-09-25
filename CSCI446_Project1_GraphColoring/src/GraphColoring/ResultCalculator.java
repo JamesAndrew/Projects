@@ -36,7 +36,7 @@ public class ResultCalculator
     private static PrintWriter result_data;
     // the run is either an instance suite or run suite
     private String runType;
-
+    
     public ResultCalculator(String fileName, int colors, int suiteIterations, int numGraphs, int initNumVertices, int vertexGrowth)
     {
         maxColors = colors;
@@ -44,6 +44,7 @@ public class ResultCalculator
         numberOfGraphs = numGraphs;
         initialNumVertices = initNumVertices;
         vertexGrowthSize = vertexGrowth;
+        
         
         try
         {
@@ -70,9 +71,9 @@ public class ResultCalculator
     /**
      * Updates information for the result of one graph being run on one
      * specific algorithm
-     * Array index 0: Total decisions made (over entire run suite)
+     * Array index 0: Total successful decisions made (over entire run suite)
      * Array index 1: Successful colorings (over entire run suite)
-     * Array index 2: Total times data was provided 
+     * Array index 2: Total times data was provided for satisfied graph
      * Array index 3: Max decisions made
      * Array index 4: Min decisions made
      *
@@ -91,13 +92,14 @@ public class ResultCalculator
         // total successfull colorings +1 if satisfied
         if (satisfiedConstraint)
         {
-            result_data.format("SUCCESSFUL COLORING%n");
             runValues.get(solver.getClass())[1] += 1;
         }
         
-        // total times data provided + 1
-        runValues.get(solver.getClass())[2] += 1;
-        
+        // total times data provided + 1 if satisfied
+        if (satisfiedConstraint)
+        {
+            runValues.get(solver.getClass())[2] += 1;
+        }
         // update max decisions if largest decision yet for successful coloring
         if (satisfiedConstraint)
         {
@@ -122,19 +124,24 @@ public class ResultCalculator
      */
     public void printRunResults()
     {
-        String formatHeaders = "%-40s%-20s%-20s%-20s%-20s%n";
-        String formatData = "%-40s%-20.2f%-20d%-20d%-20.2f%n";
+        String formatHeader = "%-40s%-20s%-20s%-20s%-20s%n";
+        String formatData = "%-5s%-35s%-20.2f%-20d%-20d%-20.6f%n";
         
         result_data.format("=== %s Results ===%n", "", runType);
         result_data.println("Run parameters: ");
-        result_data.format(" - Max Colors: %d%n - Suite Iterations: %d%n - Graphs per iteration: %d%n - Initial Num Vertices: %d%n - Vertex Growth Size: %d%n%n", 
+        result_data.format(" - Max Colors: %d%n - Graphs Interacted With per Algorithm: %d%n - Graphs per Iteration: %d%n - Initial Num Vertices: %d%n - Vertex Growth Size: %d%n%n", 
                 maxColors, runSuiteIterations, numberOfGraphs, initialNumVertices, vertexGrowthSize);
-        
-        result_data.format(formatHeaders, "Name of Algorithm", "Avg. Decisions", "Max Decisions", "Min Decisions", "Ratio of Successful Colorings");
+        result_data.format(formatHeader, "Name of Algorithm", "Avg. Decisions", "Max Decisions", "Min Decisions", "Ratio of Successful Colorings");
+        result_data.println("Successful Colorings: ");
         for (Map.Entry<Class<?>, int[]> entry : runValues.entrySet())
         {
             int[] dataArray = entry.getValue();            
-            result_data.format(formatData, entry.getKey().getSimpleName(), calculateAverage(dataArray, 0), dataArray[3], dataArray[4], calculateSuccessfulColorings(dataArray));
+            result_data.format(formatData, "",
+                    entry.getKey().getSimpleName(), 
+                    calculateAverageDecisions(dataArray), 
+                    calculateMaxDecisions(dataArray), 
+                    calculateMinDecisions(dataArray), 
+                    calculateSuccessfulColorings(dataArray));
         }
     }
 
@@ -145,20 +152,20 @@ public class ResultCalculator
      * Array index 2: Total times data was provided 
      * Array index 3: Max successful decisions made
      * Array index 4: Min successful  decisions made
-     * @param inputData : note that index 2 of inputData is the total samples (including failures)
+     * @param inputData : note that index 2 of inputData is the total samples (not including failures)
      * @param indexOfInterest 
      * @return 
      */
-    private double calculateAverage(int[] inputData, int indexOfInterest)
+    private double calculateAverageDecisions(int[] inputData)
     {
         double val;
         if (inputData[1] == 0)
         {
-            val =  0.0;
+            val =  -1;
         }
         else
         {
-            val = (double)inputData[indexOfInterest] / (double)inputData[1];
+            val = (double)inputData[0] / (double)inputData[2];
             val = val*100;
             val = Math.round(val);
             val = val /100;
@@ -176,13 +183,37 @@ public class ResultCalculator
         }
         else
         {
-            val = (double)inputData[2] / (double)inputData[1];
+            val = (double)inputData[1] / (double)inputData[2];
             val = val*100;
             val = Math.round(val);
             val = val /100;
         }
         
         return val;
+    }
+    
+    private int calculateMaxDecisions(int[] inputData)
+    {
+        if (inputData[3] == Integer.MIN_VALUE)
+        {
+            return -1;
+        }
+        else
+        {
+            return inputData[3];
+        }
+    }
+    
+    private int calculateMinDecisions(int[] inputData)
+    {
+        if (inputData[4] == Integer.MAX_VALUE)
+        {
+            return -1;
+        }
+        else
+        {
+            return inputData[4];
+        }
     }
     
     /**
