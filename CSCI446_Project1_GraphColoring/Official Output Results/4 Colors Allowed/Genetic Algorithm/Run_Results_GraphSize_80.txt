@@ -1,0 +1,11 @@
+===  Results ===
+Run parameters: 
+ - Max Colors: 4
+ - Graphs Interacted With per Algorithm: 20
+ - Graphs per Iteration: 1
+ - Initial Num Vertices: 80
+ - Vertex Growth Size: 0
+
+Name of Algorithm                       Avg. Decisions      Max Decisions       Min Decisions       Ratio of Successful Colorings
+Successful Colorings: 
+     GeneticAlgorithmSolver             4588425.55          16570024            844023              0.650000            
