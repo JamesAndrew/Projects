@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class GeneticAlgorithmSolver extends ConstraintSolver
 {
-
+    
     /**
      * Tunable parameters
      * In order to be dynamically set, some instantiations are found in the 
@@ -45,7 +45,6 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     @Override
     public void runSolver() 
     {
-        
         runs.println("Tunable parameter settings: ");
         runs.format(" - Population Size: %d%n - Parent Size: %d%n - Child Size: %d%n - Mutation Rate: %f%n - Penalty Size: %d%n - Tournament Size: %d%n", 
                 populationSize, parentSetSize, childSetSize, allMutationRate, penaltySize, tournamentSize);
@@ -131,12 +130,12 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
             satisfied = determineStatus();                                      addDecision();
             
             // <editor-fold defaultstate="collapsed" desc="Print best graph state for current generation">
-            if (loopIteration % loopIterationPrintMod == 0)
-            {
-                runs.format("Satisfied value: %b%n", satisfied);
-                runs.println("\nBest Graph Value: " + graph.getFitness() + " out of " + graph.getGraphSize());
-                //bestGraph.printGraph();
-            }
+//            if (loopIteration % loopIterationPrintMod == 0)
+//            {
+//                runs.format("Satisfied value: %b%n", satisfied);
+//                runs.println("\nBest Graph Value: " + graph.getFitness() + " out of " + graph.getGraphSize());
+//                //bestGraph.printGraph();
+//            }
             // </editor-fold>
             
             loopIteration++;

@@ -24,11 +24,11 @@ public class Driver
     // set constraint to 3 or 4 max colors allowed
     private final static int maxColors = 4;
     // number of iterations of n-graph runs to do for a run suite
-    private final static int runSuiteIterations = 20;
+    private final static int runSuiteIterations = 10;
     // number of graphs to use for each run suite iteration
     private final static int numberOfGraphs = 1;
     // initial amount of nodes to have for first graph generation
-    private static int initialNumVertices = 90;
+    private static int initialNumVertices = 10;
     // how many more vertices to have for each iteration of the graph
     private final static int vertexGrowthSize = 0;
     // put the solvers you want the program to run on in here
@@ -99,13 +99,13 @@ public class Driver
             results_log.println("Beginning Run Suite...");
             for (int iteration = 0; iteration < runSuiteIterations; iteration++)
             {
-                results_log.format("%n== Run suite iteration: %d ==%n", iteration);
+//                results_log.format("%n== Run suite iteration: %d ==%n", iteration);
                 System.out.println("\n= Run suite iteration: " + iteration + " =");
 
                 // while there are more graphs to generate
                 for (int i = 0; i < numberOfGraphs; i++)
                 {
-                    results_log.format("%n= Graph iteration: %d =%n", i);
+//                    results_log.format("%n= Graph iteration: %d =%n", i);
 
                     Graph currentGraph = new Graph_Generator(numVertices, run_log).generateGraph();
                     for (ConstraintSolver solver : solvers)
@@ -122,8 +122,8 @@ public class Driver
     //                currentGraph.printGraph();
                         // </editor-fold>
 
-                        results_log.format("Instance Decisions Made: %d%n", solver.getDecisionsMade());
-                        results_log.format("Instance valid coloring: %b%n", solver.isSatisfiesConstraint());
+//                        results_log.format("Instance Decisions Made: %d%n", solver.getDecisionsMade());
+//                        results_log.format("Instance valid coloring: %b%n", solver.isSatisfiesConstraint());
 
                         calc.calculateInstanceMetrics(solver);
                         
