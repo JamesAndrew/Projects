@@ -8,5 +8,4 @@ Run parameters:
 
 Name of Algorithm                       Avg. Decisions      Max Decisions       Min Decisions       Ratio of Successful Colorings
 Successful Colorings: 
-Successful colorings: 0.0
      GeneticAlgorithmSolver             -1.00               -1                  -1                  0.000000            

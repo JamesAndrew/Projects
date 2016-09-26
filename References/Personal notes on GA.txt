@@ -34,3 +34,8 @@ To try for tomorrow:
 		
 Run Results
 	- We can easily make a graph of x-axis: graph size, y-axis: average decisions made / coloring success / etc. Would look great!
+	
+Future Work:
+	- Better crossover from function
+	- Find way to have color size = 3 to actually works
+	- Use different strategies for different stages in the evolution

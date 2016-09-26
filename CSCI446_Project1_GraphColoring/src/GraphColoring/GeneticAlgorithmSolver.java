@@ -21,7 +21,7 @@ public class GeneticAlgorithmSolver extends ConstraintSolver
     // number of population to remove based on highest penalty values
     private final int penaltySize = 1;
     private final int tournamentSize = 2;
-    private final int populationSize = 40;
+    private final int populationSize = 20;
     private final int parentSetSize = populationSize / 2;
     private final int childSetSize = populationSize - parentSetSize;
     
