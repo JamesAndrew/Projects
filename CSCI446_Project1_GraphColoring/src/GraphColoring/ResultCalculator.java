@@ -175,7 +175,6 @@ public class ResultCalculator
             val = Math.round(val);
             val = val /100;
         }
-        result_data.println("Successful colorings: " + val);
         
         return val;
     }
