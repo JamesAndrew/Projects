@@ -1,0 +1,446 @@
+=== Starting Runs ===
+Number of graphs for each solver: 1
+Vertex growth size: 0
+Solvers being used: SimpleBacktrackingSolver, BacktrackingForwardCheckingSolver, BacktrackingPropagationSolver, 
+
+Beginning Run Suite...
+
+== Run suite iteration: 0 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 346
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 849
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 1415
+Instance valid coloring: false
+
+== Run suite iteration: 1 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 94
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 111
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 763
+Instance valid coloring: false
+
+== Run suite iteration: 2 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 94
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 111
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 765
+Instance valid coloring: false
+
+== Run suite iteration: 3 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 310
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 711
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 1531
+Instance valid coloring: false
+
+== Run suite iteration: 4 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 382
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 975
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 903
+Instance valid coloring: false
+
+== Run suite iteration: 5 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 274
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 513
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 1267
+Instance valid coloring: false
+
+== Run suite iteration: 6 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 490
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 1581
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 893
+Instance valid coloring: false
+
+== Run suite iteration: 7 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 166
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 231
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 1119
+Instance valid coloring: false
+
+== Run suite iteration: 8 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 382
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 975
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 648
+Instance valid coloring: false
+
+== Run suite iteration: 9 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 202
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 297
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 649
+Instance valid coloring: false
+
+== Run suite iteration: 10 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 310
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 507
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 1013
+Instance valid coloring: false
+
+== Run suite iteration: 11 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 310
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 687
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 783
+Instance valid coloring: false
+
+== Run suite iteration: 12 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 166
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 303
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 1016
+Instance valid coloring: false
+
+== Run suite iteration: 13 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 454
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 1227
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 2179
+Instance valid coloring: false
+
+== Run suite iteration: 14 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 166
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 255
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 898
+Instance valid coloring: false
+
+== Run suite iteration: 15 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 310
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 639
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 1147
+Instance valid coloring: false
+
+== Run suite iteration: 16 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 94
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 123
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 766
+Instance valid coloring: false
+
+== Run suite iteration: 17 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 238
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 423
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 777
+Instance valid coloring: false
+
+== Run suite iteration: 18 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 166
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 267
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 1122
+Instance valid coloring: false
+
+== Run suite iteration: 19 ==
+
+= Graph iteration: 0 =
+
+Running next solver 
+Current algorithm: SimpleBacktrackingSolver
+Graph size: 100
+Instance Decisions Made: 166
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingForwardCheckingSolver
+Graph size: 100
+Instance Decisions Made: 279
+Instance valid coloring: false
+
+Running next solver 
+Current algorithm: BacktrackingPropagationSolver
+Graph size: 100
+Instance Decisions Made: 1009
+Instance valid coloring: false
