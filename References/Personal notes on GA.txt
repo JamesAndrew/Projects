@@ -37,5 +37,12 @@ Run Results
 	
 Future Work:
 	- Better crossover from function
+		- Utilize local search in crossover to apply most fit colors to near by chromosomes
 	- Find way to have color size = 3 to actually works
 	- Use different strategies for different stages in the evolution
+	- Determine if a graph is 3-colorable
+	
+Don't forget in report:
+	- parameter tuning
+	- bar chart of successful fitnesses
+	- proofread

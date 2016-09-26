@@ -1,0 +1,13 @@
+===  Results ===
+Run parameters: 
+ - Max Colors: 4
+ - Graphs Interacted With per Algorithm: 20
+ - Graphs per Iteration: 1
+ - Initial Num Vertices: 80
+ - Vertex Growth Size: 10
+
+Name of Algorithm                       Avg. Decisions      Max Decisions       Min Decisions       Ratio of Successful Colorings
+Successful Colorings: 
+     BacktrackingForwardCheckingSolver  50391248.85         975570580           14324               0.950000            
+     BacktrackingPropagationSolver      -1.00               -1                  -1                  0.000000            
+     SimpleBacktrackingSolver           3137781.90          60705715            579                 0.950000            
