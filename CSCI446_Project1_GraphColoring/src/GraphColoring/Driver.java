@@ -28,11 +28,9 @@ public class Driver
     // number of graphs to use for each run suite iteration
     private final static int numberOfGraphs = 1;
     // initial amount of nodes to have for first graph generation
-<<<<<<< HEAD
+
     private static int initialNumVertices = 100;
-=======
-    private static int initialNumVertices = 10;
->>>>>>> 4249ce4635b323fb68bbced3f5f33ea31c32c4ff
+
     // how many more vertices to have for each iteration of the graph
     private final static int vertexGrowthSize = 0;
     // put the solvers you want the program to run on in here
