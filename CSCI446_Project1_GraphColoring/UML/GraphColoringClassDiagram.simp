@@ -39,7 +39,7 @@
       </counter>
       <counter>
         <item-type type-id="relationship" type="UmlAssociation" />
-        <value>40</value>
+        <value>44</value>
       </counter>
       <counter>
         <item-type type-id="comment" type="UmlComment" />
@@ -55,7 +55,7 @@
       </counter>
       <counter>
         <item-type type-id="" type="AbstractElementGroup" />
-        <value>32</value>
+        <value>51</value>
       </counter>
     </entity-ids>
     <diagrams>
@@ -67,11 +67,11 @@
     <fields>
       <counter>
         <type>SoftwareIdeasModeler.Core.DiagramItems.Fields.AttributeField</type>
-        <value>32</value>
+        <value>40</value>
       </counter>
       <counter>
         <type>SoftwareIdeasModeler.Core.DiagramItems.Fields.OperationField</type>
-        <value>33</value>
+        <value>39</value>
       </counter>
     </fields>
   </counters>
@@ -106,6 +106,8 @@
       <type id="double" tid="" name="double" description="" nullable="false" />
       <type id="Class:di961262738283290905" tid="" name="Vertex" description="" nullable="false" class-ref="di961262738283290905" />
       <type id="Map&lt;Integer, Integer&gt;" tid="" name="Map&lt;Integer, Integer&gt;" description="" nullable="false" />
+      <type id="PrintWriter" tid="" name="PrintWriter" description="" nullable="false" />
+      <type id="Map&lt;Class&lt;?&gt;, int" tid="" name="Map&lt;Class&lt;?&gt;, int" description="" nullable="false" />
     </custom-types>
   </types>
   <filters />
@@ -153,13 +155,84 @@
             <parameter id="pb253651b4d964b909f5b99b84938e29c" name="graph" type="Graph" type-id="Graph" />
           </parameters>
         </operation>
-        <operation id="o1da5ffff9dcf4ea98b29730733fef0e419" cid="ELEM005" name="FindClosestPoint" type="" type-id="" visibility="undefined">
+      </operations>
+    </item>
+    <item id="di102257169119606745" cid="C005" type="class" name="ConstraintSolver (A)" style-class="" is-abstract="true" visibility="package" change-tracking-state="added" creation-date="09/08/2016 21:26:11">
+      <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+        <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;12;BI" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+        <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+        <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+        <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+        <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+        <background type="forward-diagonal" color="#FFFFFFFF" color2="#FFEBEBEB" />
+        <border color="#FF000000" width="1" dash-style="Solid" />
+        <label-connector color="#80000000" width="1" dash-style="Dash" />
+        <alternate-styles>
+          <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="1,1" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+            <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;10;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+            <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+            <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+            <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+            <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+            <background type="vertical-linear" color="#FF1E90FF" color2="#FF87CEFA" />
+            <border color="#FF00008B" width="1" dash-style="Solid" />
+            <label-connector color="#FF000000" width="1" dash-style="Solid" />
+          </alternate-style>
+        </alternate-styles>
+      </style>
+      <attributes>
+        <attribute id="a4ba1dc61098b4edd8e6f0fad68a48f2c412" cid="ELEM019" name="decisionsMade" type="Integer" type-id="Uml.Integer" visibility="public">
+          <style class="default" />
+        </attribute>
+        <attribute id="af6f6336c3cf94219856572661e9f883e315" cid="ELEM031" name="maxColors" type="Integer" type-id="Uml.Integer" visibility="protected">
+          <style class="default" />
+        </attribute>
+      </attributes>
+      <operations>
+        <operation id="odaa8c9fa7b5d452a9fa6c4d7f2e030fa523" cid="ELEM032" name="graphSatisfiesConstraint" type="Boolean" type-id="Uml.Boolean" visibility="protected">
+          <style class="default" />
+        </operation>
+        <operation id="o0ee32b8195234b7e91413ce33f0e9b1a977" cid="ELEM025" name="updateGraph" type="" type-id="" visibility="public">
           <style class="default" />
           <parameters>
-            <parameter id="p5cb0cc57cb2e42348b64451091043a83" name="Graph" type="Graph" type-id="Graph" />
+            <parameter id="p9beaa48b45f845c3ad32f5cd043f1e1a" name="graph" type="Graph" type-id="Graph" />
           </parameters>
         </operation>
+        <operation id="o75aea76090464b72a198a50605846487280" cid="ELEM026" name="runSolver" type="" type-id="" visibility="public">
+          <style class="default" />
+        </operation>
       </operations>
+      <source-codes>
+        <source-code language="ActionScript" />
+      </source-codes>
+    </item>
+    <item id="di845769863561042354" cid="REL038" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="09/15/2016 18:33:48" from="di102257169119606745" to="di249063793781095931">
+      <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+        <text-style type="name" use-defaults="false" color="#FF000000" font="Segoe UI;12;" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+        <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+        <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+        <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+        <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+        <background type="forward-diagonal" color="#FFFFFFFF" color2="#FFEBEBEB" />
+        <border color="#FF000000" width="1" dash-style="Solid" />
+        <label-connector color="#80000000" width="1" dash-style="Dash" />
+        <alternate-styles>
+          <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="1,1" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+            <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;10;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+            <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+            <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+            <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+            <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+            <background type="vertical-linear" color="#FF1E90FF" color2="#FF87CEFA" />
+            <border color="#FF00008B" width="1" dash-style="Solid" />
+            <label-connector color="#FF000000" width="1" dash-style="Solid" />
+          </alternate-style>
+        </alternate-styles>
+      </style>
+      <relation from="di102257169119606745" to="di249063793781095931">
+        <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+        <end-role id="" name="" multiplicity="1.. *" navigability="yes" association-type="association" visibility="private" />
+      </relation>
     </item>
   </items>
   <models>
@@ -176,7 +249,7 @@
       </meta>
       <abstract-items />
       <sub-models />
-      <diagram type="uml-class" id="pc7766567480c40c7990d1d1044452a2a_674754566" name="ClassDiagram1" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="true" view-location="-166,0">
+      <diagram type="uml-class" id="pc7766567480c40c7990d1d1044452a2a_674754566" name="ClassDiagram1" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="true" view-location="-156,-16">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -188,35 +261,14 @@
           </authors>
           <description />
           <creation-date>09/08/2016 21:15:21</creation-date>
-          <change-date>09/15/2016 19:49:52</change-date>
+          <change-date>09/25/2016 19:00:32</change-date>
           <revision-count>0</revision-count>
           <version />
         </meta>
         <abstract-items>
-          <item id="di474806737883108976" cid="REL003" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creator="Pd6f06db3e2b842b9b67edc6c69f7ad29" creation-date="09/08/2016 21:40:03" from="di650473002969488407" to="di249063793781095931">
-            <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
-              <text-style type="name" use-defaults="false" color="#FF000000" font="Segoe UI;12;" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
-              <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <background type="forward-diagonal" color="#FFFFFFFF" color2="#FFEBEBEB" />
-              <border color="#FF000000" width="1" dash-style="Solid" />
-              <label-connector color="#80000000" width="1" dash-style="Dash" />
-              <alternate-styles>
-                <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="1,1" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
-                  <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;10;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
-                  <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <background type="vertical-linear" color="#FF1E90FF" color2="#FF87CEFA" />
-                  <border color="#FF00008B" width="1" dash-style="Solid" />
-                  <label-connector color="#FF000000" width="1" dash-style="Solid" />
-                </alternate-style>
-              </alternate-styles>
-            </style>
-            <relation from="di650473002969488407" to="di249063793781095931">
+          <item id="di458869156326665973" cid="REL043" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="09/25/2016 19:00:31" from="di249063793781095931" to="di961262738283290905">
+            <style class="default" />
+            <relation from="di249063793781095931" to="di961262738283290905">
               <start-role id="" name="" navigability="" association-type="association" visibility="private" />
               <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
             </relation>
@@ -342,72 +394,34 @@
                 </alternate-style>
               </alternate-styles>
             </style>
-            <operations>
-              <operation id="o40d74e9843614b039ca03de962d2b10a920" cid="ELEM021" name="calculateRunMetrics" type="double" type-id="double" visibility="undefined">
+            <attributes>
+              <attribute id="a54741d6d3a3a4f3d971cd2c62c68d3d612" cid="ELEM034" name="resultData" type="PrintWriter" type-id="PrintWriter" visibility="public">
                 <style class="default" />
-                <parameters>
-                  <parameter id="pcd7d53faeeb640d8a7b49a256c434035" name="decisionsMade" type="" type-id="" />
-                  <parameter id="p43e5b737d04948839fa1e89919a342e7" name="validColoring" type="" type-id="" />
-                  <parameter id="p5c9363b4af654d6f97c57f04e8d5b804" name="colorState" type="" type-id="" />
-                  <parameter id="pd43505a80a194872a36b929e658d048b" name="verticesVisited" type="" type-id="" />
-                </parameters>
+              </attribute>
+              <attribute id="ab5d1e644ca444ec49899c7fad5b320b2963" cid="ELEM039" name="runValus" type="Map&lt;Class&lt;?&gt;, int" type-id="Map&lt;Class&lt;?&gt;, int" visibility="private" default-value="4 &gt;" multiplicity="*">
+                <style class="default" />
+              </attribute>
+            </attributes>
+            <operations>
+              <operation id="od6fd5c44d9b44c4ab0eff5ca99c9e635406" cid="ELEM035" name="calculateAverageDecisions" type="Integer" type-id="Uml.Integer" visibility="private">
+                <style class="default" />
+              </operation>
+              <operation id="o429813cc34c74f44bf6984e624dcf5b2399" cid="ELEM036" name="calculateMaxDecisions" type="Integer" type-id="Uml.Integer" visibility="private">
+                <style class="default" />
+              </operation>
+              <operation id="o2340c6f24eec4db29294ef472e8e2b2b881" cid="ELEM037" name="calculateMinDecisions" type="Integer" type-id="Uml.Integer" visibility="private">
+                <style class="default" />
+              </operation>
+              <operation id="o4c08042a6c0b4b01873cc21231e21f2b891" cid="ELEM038" name="calculateSuccessfulColoringRatio" type="double" type-id="double" visibility="private">
+                <style class="default" />
               </operation>
             </operations>
           </item>
-          <item id="di585947204570927089" cid="REL039" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="09/15/2016 18:40:29" from="di199985818559434313" to="di102257169119606745">
-            <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
-              <text-style type="name" use-defaults="false" color="#FF000000" font="Segoe UI;12;" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
-              <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <background type="forward-diagonal" color="#FFFFFFFF" color2="#FFEBEBEB" />
-              <border color="#FF000000" width="1" dash-style="Solid" />
-              <label-connector color="#80000000" width="1" dash-style="Dash" />
-              <alternate-styles>
-                <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="1,1" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
-                  <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;10;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
-                  <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <background type="vertical-linear" color="#FF1E90FF" color2="#FF87CEFA" />
-                  <border color="#FF00008B" width="1" dash-style="Solid" />
-                  <label-connector color="#FF000000" width="1" dash-style="Solid" />
-                </alternate-style>
-              </alternate-styles>
-            </style>
+          <item id="di195547390476130334" cid="REL040" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="09/25/2016 18:38:33" from="di199985818559434313" to="di102257169119606745">
+            <style class="default" />
             <relation from="di199985818559434313" to="di102257169119606745">
               <start-role id="" name="" navigability="" association-type="association" visibility="private" />
               <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
-            </relation>
-          </item>
-          <item id="di845769863561042354" cid="REL038" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="09/15/2016 18:33:48" from="di102257169119606745" to="di249063793781095931">
-            <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
-              <text-style type="name" use-defaults="false" color="#FF000000" font="Segoe UI;12;" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
-              <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <background type="forward-diagonal" color="#FFFFFFFF" color2="#FFEBEBEB" />
-              <border color="#FF000000" width="1" dash-style="Solid" />
-              <label-connector color="#80000000" width="1" dash-style="Dash" />
-              <alternate-styles>
-                <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="1,1" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
-                  <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;10;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
-                  <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <background type="vertical-linear" color="#FF1E90FF" color2="#FF87CEFA" />
-                  <border color="#FF00008B" width="1" dash-style="Solid" />
-                  <label-connector color="#FF000000" width="1" dash-style="Solid" />
-                </alternate-style>
-              </alternate-styles>
-            </style>
-            <relation from="di102257169119606745" to="di249063793781095931">
-              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
-              <end-role id="" name="" multiplicity="1" navigability="yes" association-type="association" visibility="private" />
             </relation>
           </item>
           <item id="di335202065467631960" cid="CMT003" type="comment" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="09/15/2016 19:49:48">
@@ -434,76 +448,6 @@
               </alternate-styles>
             </style>
             <comment>Five concrete solvers (MinConflicts, SimpleBacktracking, BacktrackingForwardCheck, BacktrackingConstraintProp, GeneticAlgorithm) extend this. Each concrete class provides the strategy and action for coloring the graph</comment>
-          </item>
-          <item id="di102257169119606745" cid="C005" type="class" name="ConstraintSolver (A)" style-class="" is-abstract="true" visibility="package" change-tracking-state="added" creation-date="09/08/2016 21:26:11">
-            <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
-              <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;12;BI" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
-              <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <background type="forward-diagonal" color="#FFFFFFFF" color2="#FFEBEBEB" />
-              <border color="#FF000000" width="1" dash-style="Solid" />
-              <label-connector color="#80000000" width="1" dash-style="Dash" />
-              <alternate-styles>
-                <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="1,1" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
-                  <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;10;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
-                  <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <background type="vertical-linear" color="#FF1E90FF" color2="#FF87CEFA" />
-                  <border color="#FF00008B" width="1" dash-style="Solid" />
-                  <label-connector color="#FF000000" width="1" dash-style="Solid" />
-                </alternate-style>
-              </alternate-styles>
-            </style>
-            <attributes>
-              <attribute id="a4ba1dc61098b4edd8e6f0fad68a48f2c412" cid="ELEM019" name="decisionsMade" type="Integer" type-id="Uml.Integer" visibility="public">
-                <style class="default" />
-              </attribute>
-              <attribute id="a73b4afe45f024f56a171895b4ba91684397" cid="ELEM020" name="validColoring" type="Integer" type-id="Uml.Integer" visibility="public">
-                <style class="default" />
-              </attribute>
-              <attribute id="a64adfcf29bf0437383726d8e966efbef503" cid="ELEM022" name="verticesVisited" type="Map&lt;Integer, Integer&gt;" type-id="Map&lt;Integer, Integer&gt;" visibility="public">
-                <style class="default" />
-              </attribute>
-              <attribute id="a415732a64c724bc98fe3585c6efcc957126" cid="ELEM023" name="verticesRecolored" type="Map&lt;Integer, Integer&gt;" type-id="Map&lt;Integer, Integer&gt;" visibility="public">
-                <style class="default" />
-              </attribute>
-              <attribute id="aa90e3d3a1bc745abb81e1a6b8a1cdaaf266" cid="ELEM027" name="graph" type="Graph" type-id="Graph" visibility="protected">
-                <style class="default" />
-              </attribute>
-              <attribute id="a2c95879b28e441c2873ad4c51979e2cf416" cid="ELEM028" name="theGraph" type="Map&lt;Integer, Vertex&gt;" type-id="Map&lt;Integer, Vertex&gt;" visibility="protected">
-                <style class="default" />
-              </attribute>
-              <attribute id="af6f6336c3cf94219856572661e9f883e315" cid="ELEM031" name="maxColors" type="Integer" type-id="Uml.Integer" visibility="protected">
-                <style class="default" />
-              </attribute>
-            </attributes>
-            <operations>
-              <operation id="odaa8c9fa7b5d452a9fa6c4d7f2e030fa523" cid="ELEM032" name="graphSatisfiedConstraint" type="Boolean" type-id="Uml.Boolean" visibility="protected">
-                <style class="default" />
-              </operation>
-              <operation id="oa02680fdffe443888a6ea166660a2f57681" cid="ELEM009" name="pointSatisfiesConstraint" type="Boolean" type-id="Uml.Boolean" visibility="protected">
-                <style class="default" />
-                <parameters>
-                  <parameter id="p9307dd55ce674a3494479ff2d94e1dab" name="graph" type="Graph" type-id="Graph" />
-                </parameters>
-              </operation>
-              <operation id="o0ee32b8195234b7e91413ce33f0e9b1a977" cid="ELEM025" name="updateGraph" type="" type-id="" visibility="public">
-                <style class="default" />
-                <parameters>
-                  <parameter id="p9beaa48b45f845c3ad32f5cd043f1e1a" name="graph" type="Graph" type-id="Graph" />
-                </parameters>
-              </operation>
-              <operation id="o75aea76090464b72a198a50605846487280" cid="ELEM026" name="runSolver" type="" type-id="" visibility="public">
-                <style class="default" />
-              </operation>
-            </operations>
-            <source-codes>
-              <source-code language="ActionScript" />
-            </source-codes>
           </item>
           <item id="di961262738283290905" cid="C008" type="class" name="Vertex" style-class="" visibility="package" change-tracking-state="added" creation-date="09/15/2016 18:18:09">
             <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" wrap-other-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
@@ -544,9 +488,6 @@
               <attribute id="a97d0b9dd52a647ad91d027de85473e2e688" cid="ELEM017" name="edges" type="Map&lt;Integer, Vertex&gt;" type-id="Map&lt;Integer, Vertex&gt;" visibility="undefined">
                 <style class="default" />
               </attribute>
-              <attribute id="a0b76540665d744978037def2c367835e874" cid="ELEM029" name="fitness" type="double" type-id="double" visibility="undefined">
-                <style class="default" />
-              </attribute>
             </attributes>
             <operations>
               <operation id="o4d67b1c2122040eba1408f8154a9edf7949" cid="ELEM018" name="setEdge" type="" type-id="" visibility="undefined">
@@ -555,11 +496,8 @@
                   <parameter id="p600db72d345144d6bc2a1238db0b5d0a" name="destination" type="Vertex" type-id="Class:di961262738283290905" />
                 </parameters>
               </operation>
-              <operation id="oec914e9eea0d4234a81d5671e921a4744" cid="ELEM030" name="calculateFitness" type="double" type-id="double" visibility="public">
+              <operation id="oec914e9eea0d4234a81d5671e921a4744" cid="ELEM030" name="calculateFitness" type="Boolean" type-id="Uml.Boolean" visibility="public">
                 <style class="default" />
-                <parameters>
-                  <parameter id="p11f200719473477aa09033b1f1c1cedf" name="connections" type="Vertex" type-id="Class:di961262738283290905" multiplicity="*" />
-                </parameters>
               </operation>
             </operations>
           </item>
@@ -587,13 +525,18 @@
               </alternate-styles>
             </style>
             <attributes>
-              <attribute id="ac413eafc2fb24e51abd604c32a82611f65" cid="ELEM010" name="numVertices" type="Integer" type-id="Uml.Integer" visibility="undefined">
+              <attribute id="ac413eafc2fb24e51abd604c32a82611f65" cid="ELEM010" name="numVertices" type="Integer" type-id="Uml.Integer" visibility="public">
                 <style class="default" />
               </attribute>
               <attribute id="ab341747922cf4270ae52c04f3aeffb20384" cid="ELEM012" name="graphMap" type="Map&lt;Integer, Vertex&gt;" type-id="Map&lt;Integer, Vertex&gt;" visibility="undefined">
                 <style class="default" />
               </attribute>
             </attributes>
+            <operations>
+              <operation id="o092ed18752364bb891862dbe85520a17262" cid="ELEM033" name="getFitness" type="Integer" type-id="Uml.Integer" visibility="public">
+                <style class="default" />
+              </operation>
+            </operations>
             <source-codes>
               <source-code language="ActionScript" />
             </source-codes>
@@ -650,119 +593,94 @@
               <end-role id="" name="" multiplicity="0..*" navigability="yes" association-type="association" visibility="private" />
             </relation>
           </item>
-          <item id="di800483327443039152" cid="REL034" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="09/15/2016 18:22:10" from="di249063793781095931" to="di961262738283290905">
-            <style style-name="Custom Style" shadow-type="smooth" shadow-offset="1,1" shadow-visible="true" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
-              <text-style type="name" use-defaults="false" color="#FF000000" font="Segoe UI;12;" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
-              <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-              <background type="forward-diagonal" color="#FFFFFFFF" color2="#FFEBEBEB" />
-              <border color="#FF000000" width="1" dash-style="Solid" />
-              <label-connector color="#80000000" width="1" dash-style="Dash" />
-              <alternate-styles>
-                <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="1,1" shadow-color="#32000000" gloss-effect="true" wrap-name-text="true" padding="1" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
-                  <text-style type="name" use-defaults="false" color="#FF000000" font="Verdana;10;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <text-style type="text" use-defaults="false" color="#FF000000" font="Verdana;9;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
-                  <text-style type="tagged-value" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <text-style type="stereotype" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
-                  <background type="vertical-linear" color="#FF1E90FF" color2="#FF87CEFA" />
-                  <border color="#FF00008B" width="1" dash-style="Solid" />
-                  <label-connector color="#FF000000" width="1" dash-style="Solid" />
-                </alternate-style>
-              </alternate-styles>
-            </style>
-            <relation from="di249063793781095931" to="di961262738283290905">
+          <item id="di134937480692872257" cid="REL042" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="09/25/2016 19:00:26" from="di650473002969488407" to="di249063793781095931">
+            <style class="default" />
+            <relation from="di650473002969488407" to="di249063793781095931">
               <start-role id="" name="" navigability="" association-type="association" visibility="private" />
               <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
             </relation>
           </item>
         </abstract-items>
         <layer name="Default" visible="true" enabled="true" locked="false">
-          <item id="di474806737883108976" iid="4262f64da9e547dea92ce4596de33c5a" creation-date="09/08/2016 21:40:03" order-index="11" type="relation">
-            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="perpendicular" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="auto" x1="136" y1="136" x2="135" y2="210" start-border-pos="0.6328125" end-border-pos="0.10867200522417" name-position="0,0">
+          <item id="di650473002969488407" iid="ef2ed81338964627a7858ed28ea25680" creation-date="09/08/2016 21:15:52" order-index="1" type="entity">
+            <layout ax="30" ay="60" awidth="225" aheight="91" x="30" y="60" width="225" height="91" />
+            <class />
+          </item>
+          <item id="di195547390476130334" iid="7e9f934a2cfe421292ac522b83c0cd28" creation-date="09/25/2016 18:38:33" order-index="35" type="relation">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="450" y1="215" x2="450" y2="240" start-border-pos="0.636070415377617" end-border-pos="0.113636367022991" name-position="0,0">
               <points>
-                <point x="136" y="136" />
-                <point x="136" y="173" />
-                <point x="136" y="173" />
-                <point x="135" y="173" />
-                <point x="135" y="210" />
+                <point x="450" y="215" />
+                <point x="450" y="240" />
               </points>
             </layout>
-            <relation from="di650473002969488407" from-iid="ef2ed81338964627a7858ed28ea25680" to="di249063793781095931" to-iid="bb467d3157ef4b26905e1f41c8311bf4" />
+            <relation from="di199985818559434313" from-iid="c660fa3f353f4ac19248305594ffc57a" to="di102257169119606745" to-iid="3e1884f62de140fe8c83679c9c079474" />
           </item>
           <item id="di249063793781095931" iid="bb467d3157ef4b26905e1f41c8311bf4" creation-date="09/08/2016 21:17:14" order-index="2" type="entity">
-            <layout ax="37.00415" ay="210.4817" awidth="225.4395" aheight="89.51834" x="37.00415" y="210.4817" width="225.4395" height="89.51834" />
+            <layout ax="32.00415" ay="179.4817" awidth="225.4395" aheight="104" x="32.00415" y="179.4817" width="225.4395" height="104" />
             <class />
           </item>
           <item id="di961262738283290905" iid="8f99f1bc69c843d2be81c0992c5374df" creation-date="09/15/2016 18:18:09" order-index="22" type="entity">
-            <layout ax="-75" ay="360" awidth="338" aheight="189" x="-75" y="360" width="338" height="189" />
+            <layout ax="30" ay="315" awidth="225" aheight="165" x="30" y="315" width="225" height="165" />
             <class />
-          </item>
-          <item id="di650473002969488407" iid="ef2ed81338964627a7858ed28ea25680" creation-date="09/08/2016 21:15:52" order-index="1" type="entity">
-            <layout ax="30" ay="15" awidth="225.4395" aheight="121" x="30" y="15" width="225.4395" height="121" />
-            <class />
-          </item>
-          <item id="di800483327443039152" iid="48b0876c82da4323b14ed118de696a47" creation-date="09/15/2016 18:22:10" order-index="23" type="relation">
-            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="139" y1="300" x2="76" y2="360" start-border-pos="0.63702208574436" end-border-pos="0.111782126128674" name-position="0,0">
-              <points>
-                <point x="139" y="300" />
-                <point x="76" y="360" />
-              </points>
-            </layout>
-            <relation from="di249063793781095931" from-iid="bb467d3157ef4b26905e1f41c8311bf4" to="di961262738283290905" to-iid="8f99f1bc69c843d2be81c0992c5374df" />
           </item>
           <item id="di621894038885243649" iid="7a14aaa1ff674a5aa41538b36752be46" creation-date="09/15/2016 18:26:01" order-index="24" type="relation">
-            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="60,15" line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="-45" y1="360" x2="-75" y2="435" start-border-pos="0.0221893489360809" end-border-pos="0.900793671607971" name-position="0,0">
+            <layout start-role-position="25,15" end-role-position="14.56549,-15.42228" start-multiplicity-position="0,-30" end-multiplicity-position="60,15" line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="45" y1="315" x2="30" y2="375" start-border-pos="0.0166666675359011" end-border-pos="0.909090906381607" name-position="0,0">
               <points>
-                <point x="-45" y="360" />
-                <point x="-45" y="315" />
-                <point x="-105" y="315" />
-                <point x="-105" y="435" />
-                <point x="-75" y="435" />
+                <point x="45" y="315" />
+                <point x="45" y="300" />
+                <point x="-15" y="300" />
+                <point x="-15" y="375" />
+                <point x="30" y="375" />
               </points>
             </layout>
             <relation from="di961262738283290905" from-iid="8f99f1bc69c843d2be81c0992c5374df" to="di961262738283290905" to-iid="8f99f1bc69c843d2be81c0992c5374df" />
           </item>
           <item id="di199985818559434313" iid="c660fa3f353f4ac19248305594ffc57a" creation-date="09/15/2016 18:38:55" order-index="31" type="entity">
-            <layout ax="315" ay="45" awidth="330" aheight="75" x="315" y="45" width="330" height="75" />
+            <layout ax="300" ay="60" awidth="329.1507" aheight="155" x="300" y="60" width="329.1507" height="155" />
             <class />
           </item>
-          <item id="di335202065467631960" iid="ff192b8265d74d53834367e3982b8e53" creation-date="09/15/2016 19:49:48" order-index="33" type="entity">
-            <layout ax="315" ay="450" awidth="300" aheight="105" x="315" y="450" width="300" height="105" />
-          </item>
-          <item id="di585947204570927089" iid="cc5ecf34d73447898b4a29859f30f42b" creation-date="09/15/2016 18:40:29" order-index="32" type="relation">
-            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="466" y1="120" x2="464" y2="195" start-border-pos="0.635487973690033" end-border-pos="0.123985979904367" name-position="0,0">
-              <points>
-                <point x="466" y="120" />
-                <point x="465" y="120" />
-                <point x="464" y="195" />
-              </points>
-            </layout>
-            <relation from="di199985818559434313" from-iid="c660fa3f353f4ac19248305594ffc57a" />
-          </item>
           <item id="di520720354538319535" iid="816abb3229424be281eefad25b4cdbbd" creation-date="09/15/2016 19:49:50" order-index="34" type="comment-connector">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="470" y1="435" x2="469" y2="450" start-border-pos="0.632647788056434" end-border-pos="0.128475926717122" name-position="0,0">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="465" y1="375" x2="465" y2="390" start-border-pos="0.625" end-border-pos="0.125322536231145" name-position="0,0">
               <points>
-                <point x="470" y="435" />
-                <point x="469" y="450" />
+                <point x="465" y="375" />
+                <point x="465" y="390" />
               </points>
             </layout>
             <relation from="di102257169119606745" from-iid="3e1884f62de140fe8c83679c9c079474" to="di335202065467631960" to-iid="ff192b8265d74d53834367e3982b8e53" />
           </item>
           <item id="di845769863561042354" iid="73a3b509a682440191b625ad1d4594c3" creation-date="09/15/2016 18:33:48" order-index="25" type="relation">
-            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="30.0144,-9.956684" line-style="perpendicular" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="315" y1="302" x2="262" y2="255" start-border-pos="0.888586461544037" end-border-pos="0.374327301979065" name-position="0,0">
+            <layout start-role-position="25,15" end-role-position="8.133955,-76.59529" end-role-width="60" start-multiplicity-position="25,-15" end-multiplicity-position="0.9133571,-31.75163" line-style="perpendicular" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="300" y1="300" x2="257" y2="225" start-border-pos="0.888586461544037" end-border-pos="0.359418979057899" name-position="0,0">
               <points>
-                <point x="315" y="302" />
-                <point x="262" y="255" />
+                <point x="300" y="300" />
+                <point x="257" y="225" />
               </points>
             </layout>
             <relation from="di102257169119606745" from-iid="3e1884f62de140fe8c83679c9c079474" to="di249063793781095931" to-iid="bb467d3157ef4b26905e1f41c8311bf4" />
           </item>
+          <item id="di335202065467631960" iid="ff192b8265d74d53834367e3982b8e53" creation-date="09/15/2016 19:49:48" order-index="33" type="entity">
+            <layout ax="315" ay="390" awidth="299.2279" aheight="105" x="315" y="390" width="299.2279" height="105" />
+          </item>
           <item id="di102257169119606745" iid="3e1884f62de140fe8c83679c9c079474" creation-date="09/08/2016 21:26:11" order-index="4" type="entity">
-            <layout ax="315" ay="195" awidth="331" aheight="240" x="315" y="195" width="331" height="240" />
+            <layout ax="300" ay="240" awidth="330" aheight="135" x="300" y="240" width="330" height="135" />
             <class />
+          </item>
+          <item id="di134937480692872257" iid="1380fe43fed54a1bac9f9c0bbb8639cb" creation-date="09/25/2016 19:00:26" order-index="36" type="relation">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="143" y1="151" x2="144" y2="179" start-border-pos="0.62435555352105" end-border-pos="0.123922215334183" name-position="0,0">
+              <points>
+                <point x="143" y="151" />
+                <point x="144" y="179" />
+              </points>
+            </layout>
+            <relation from="di650473002969488407" from-iid="ef2ed81338964627a7858ed28ea25680" to="di249063793781095931" to-iid="bb467d3157ef4b26905e1f41c8311bf4" />
+          </item>
+          <item id="di458869156326665973" iid="aae07d7f36c249b8973dd17aa72fbb8a" creation-date="09/25/2016 19:00:31" order-index="37" type="relation">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="144" y1="283" x2="143" y2="315" start-border-pos="0.625729733377382" end-border-pos="0.12610112508138" name-position="0,0">
+              <points>
+                <point x="144" y="283" />
+                <point x="143" y="315" />
+              </points>
+            </layout>
+            <relation from="di249063793781095931" from-iid="bb467d3157ef4b26905e1f41c8311bf4" to="di961262738283290905" to-iid="8f99f1bc69c843d2be81c0992c5374df" />
           </item>
         </layer>
       </diagram>
