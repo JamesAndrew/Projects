@@ -28,16 +28,16 @@ public class Driver
     // number of graphs to use for each run suite iteration
     private final static int numberOfGraphs = 1;
     // initial amount of nodes to have for first graph generation
-    private static int initialNumVertices = 10;
+    private static int initialNumVertices = 90;
     
     // how many more vertices to have for each iteration of the graph
     private final static int vertexGrowthSize = 0;
     // put the solvers you want the program to run on in here
     public final static List<Class<?>> solverList = Arrays.asList(
-            SimpleBacktrackingSolver.class,
-            BacktrackingForwardCheckingSolver.class,
-            BacktrackingPropagationSolver.class,
-            MinConflictsSolver.class,
+//            SimpleBacktrackingSolver.class
+//            BacktrackingForwardCheckingSolver.class,
+//            BacktrackingPropagationSolver.class,
+//            MinConflictsSolver.class
             GeneticAlgorithmSolver.class
     );
 
