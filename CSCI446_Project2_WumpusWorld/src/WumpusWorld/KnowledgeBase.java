@@ -9,19 +9,6 @@ package WumpusWorld;
  *
  * @author James
  */
-public class Sentence {
-    
-    private final String sentence;
-    
-    
-    public Sentence(String s)
-    {
-        sentence = s;
-    }
-    
-    public void parseSentence()
-    {
-        
-    }
+public class KnowledgeBase {
     
 }
