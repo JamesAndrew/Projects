@@ -17,4 +17,18 @@ public class Cell
     {
         
     }
+    
+    public void randomCell()
+    {
+        hasPit = true;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public boolean hasPit()
+    {
+        return hasPit;
+    }
 }
