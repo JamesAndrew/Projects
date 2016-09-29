@@ -10,8 +10,10 @@ public class Cell
     private boolean isEmpty;
     private boolean hasObstacle;
     private boolean hasPit;
+    private boolean hasBreeze;
     private boolean hasGold;        // goal state if this is true
     private boolean hasWumpus;
+    private boolean hasStench;
     
     public Cell()
     {
@@ -20,7 +22,12 @@ public class Cell
     
     public void randomCell()
     {
-        hasPit = true;
+        isEmpty = true;
+    }
+    
+    public boolean isEmpty()
+    {
+        return isEmpty;
     }
     
     /**
@@ -30,5 +37,15 @@ public class Cell
     public boolean hasPit()
     {
         return hasPit;
+    }
+    
+    public boolean hasGold()
+    {
+        return hasGold;
+    }
+    
+    public boolean hasWumpus()
+    {
+        return hasWumpus;
     }
 }

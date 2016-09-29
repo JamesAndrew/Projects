@@ -13,19 +13,21 @@ public final class Agent
     private boolean feelBreeze;
     private boolean smellStench;
     private boolean seeGlitter;
-    private boolean alive;
+    private boolean alive; // flag for whether the agent program continues or not 
     
     /**
      * Resources
      */
     private int score;
     private int arrows;
+    private int actions; // how many actions taken so far
     
     Cell currentCell;
     
     public Agent(Cell start)
     {
         score = 0;
+        actions = 0;
         currentCell = start;
         alive = true;
         life();
@@ -34,15 +36,26 @@ public final class Agent
     public void life()
     {
         System.out.println("The agent has entered the cave.");
-        while(alive == true)
-        {
+//        while(alive == true)
+//        {
             agentStatus();
+            if(currentCell.isEmpty())
+            {
+                System.out.println("The agent is in an empty cell");
+            }
+            
             if(currentCell.hasPit() == true)
             {
                 System.out.println("The agent has fell down a pit.");
                 die();
             }
-        }
+            
+            if(currentCell.hasGold() == true)
+            {
+                System.out.println("The agent has found the gold");
+                takeGold();
+            }
+//        }
         agentStatus();
     }
     
@@ -66,6 +79,7 @@ public final class Agent
     
     public void fireArrow()
     {
+        countAction();
         arrows--;
         score -= 10;
         // if Wumpus hit
@@ -77,6 +91,14 @@ public final class Agent
     agent program terminates in success */
     public void takeGold()
     {
+        countAction();
         score += 1000;
+        alive = false;
+    }
+    
+    public void countAction()
+    {
+        score--;
+        actions++;
     }
 }
