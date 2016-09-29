@@ -15,6 +15,7 @@ public final class Agent
     private boolean heardScream;
     private boolean seeGlitter;
     private boolean alive; // flag for whether the agent program continues or not 
+    private int direction; // 0 - left, 1 - up, 2 - right, 3 - down 
     
     /**
      * Resources
@@ -58,6 +59,11 @@ public final class Agent
                 smellStench = true;
             }
             
+            if(currentCell.hasWumpus())
+            {
+                fightWumpus();
+            }
+            
             if(currentCell.hasPit() == true)
             {
                 fall();
@@ -67,6 +73,8 @@ public final class Agent
             {
                 takeGold();
             }
+            
+            moveForward();
 //        }
         agentStatus();
     }
@@ -78,6 +86,7 @@ public final class Agent
         System.out.println("hitObstacle: " + hitObstacle);
         System.out.println("feelBreeze: " + feelBreeze);
         System.out.println("smellStench: " + smellStench);
+        System.out.println("Direction: " + direction);
     }
     
     /**
@@ -95,13 +104,39 @@ public final class Agent
     
     public void fall()
     {
-        System.out.println("The agent has fell down a pit.");
+        System.out.println("The agent has fell down a bottomless pit.");
         die();
     }
     
     public void moveForward()
     {
+        System.out.println("The agent has moved forward.");
         
+        countAction();
+    }
+    
+    public void turnRight90()
+    {
+        System.out.println("The agent has turned right 90 degrees");
+        
+        countAction();
+        direction++;
+        if (direction == 4)
+        {
+            direction = 0;
+        }
+    }
+    
+    public void turnLeft90()
+    {
+        System.out.println("The agent has turned left 90 degrees");
+        
+        countAction();
+        direction--;
+        if (direction == -1)
+        {
+            direction = 3;
+        }
     }
     
     public void fireArrow()
@@ -125,6 +160,12 @@ public final class Agent
         countAction();
         score += 1000;
         alive = false;
+    }
+    
+    public void fightWumpus()
+    {
+        System.out.println("The agent found the wumpus, fought it, and...");
+        die();
     }
     
     public void killWumpus()

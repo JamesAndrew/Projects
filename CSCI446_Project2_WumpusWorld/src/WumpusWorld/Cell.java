@@ -22,7 +22,7 @@ public class Cell
     
     public void randomCell()
     {
-        hasStench = true;
+        
     }
     
     public boolean isEmpty()
