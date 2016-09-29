@@ -74,7 +74,7 @@ public final class ReactiveAgent
                 takeGold();
             }
             
-            moveForward();
+            Forward();
 //        }
         agentStatus();
     }
@@ -108,14 +108,14 @@ public final class ReactiveAgent
         die();
     }
     
-    public void moveForward()
+    public void Forward()
     {
         System.out.println("The agent has moved forward.");
         
         countAction();
     }
     
-    public void turnRight90()
+    public void turnRight()
     {
         System.out.println("The agent has turned right 90 degrees");
         
@@ -127,7 +127,7 @@ public final class ReactiveAgent
         }
     }
     
-    public void turnLeft90()
+    public void turnLeft()
     {
         System.out.println("The agent has turned left 90 degrees");
         
@@ -139,7 +139,7 @@ public final class ReactiveAgent
         }
     }
     
-    public void fireArrow()
+    public void shoot()
     {
         System.out.println("The agent has fired an arrow");
         
