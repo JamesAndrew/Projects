@@ -4,7 +4,7 @@ package WumpusWorld;
  *
  * @version 09/28/16
  */
-public final class Agent 
+public final class ReactiveAgent 
 {
     /**
      * Sensors
@@ -24,13 +24,13 @@ public final class Agent
     private int arrows;
     private int actions; // how many actions taken so far
     
-    Cell currentCell;
+    Room currentRoom;
     
-    public Agent(Cell start)
+    public ReactiveAgent(Room start)
     {
         score = 0;
         actions = 0;
-        currentCell = start;
+        currentRoom = start;
         heardScream = false;
         alive = true;
         life();
@@ -42,34 +42,34 @@ public final class Agent
 //        while(alive == true)
 //        {
             agentStatus();
-            if(currentCell.isEmpty())
+            if(currentRoom.isEmpty())
             {
                 System.out.println("The agent is in an empty cell");
             }
             
-            if(currentCell.hasBreeze())
+            if(currentRoom.hasBreeze())
             {
                 System.out.println("The agent feels a breeze");
                 feelBreeze = true;
             }
             
-            if(currentCell.hasStench())
+            if(currentRoom.hasStench())
             {
                 System.out.println("The agent smells a horrible stench");
                 smellStench = true;
             }
             
-            if(currentCell.hasWumpus())
+            if(currentRoom.hasWumpus())
             {
                 fightWumpus();
             }
             
-            if(currentCell.hasPit() == true)
+            if(currentRoom.hasPit() == true)
             {
                 fall();
             }
             
-            if(currentCell.hasGold() == true)
+            if(currentRoom.hasGold() == true)
             {
                 takeGold();
             }

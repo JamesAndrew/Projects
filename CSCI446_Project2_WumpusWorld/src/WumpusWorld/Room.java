@@ -5,22 +5,23 @@ package WumpusWorld;
  * Each cell property must be a boolean value
  * @version 09/27/16
  */
-public class Cell 
+public class Room 
 {
-    private boolean isEmpty;
-    private boolean hasObstacle;
-    private boolean hasPit;
-    private boolean hasBreeze;
-    private boolean hasGold;        // goal state if this is true
-    private boolean hasWumpus;
-    private boolean hasStench;
     
-    public Cell()
+    private boolean isBlocked;
+    private boolean isEmpty;
+    private boolean isPit;
+    private boolean isBreezy;
+    private boolean isShiny;        // goal state if this is true
+    private boolean isSmelly;
+    private boolean isWumpus;
+    
+    public Room()
     {
         
     }
     
-    public void randomCell()
+    public void randomRoom()
     {
         
     }
@@ -32,26 +33,26 @@ public class Cell
     
     public boolean hasBreeze()
     {
-        return hasBreeze;
+        return isBreezy;
     }
     
     public boolean hasPit()
     {
-        return hasPit;
+        return isPit;
     }
     
     public boolean hasGold()
     {
-        return hasGold;
+        return isShiny;
     }
     
     public boolean hasStench()
     {
-        return hasStench;
+        return isSmelly;
     }
     
     public boolean hasWumpus()
     {
-        return hasWumpus;
+        return isWumpus;
     }
 }

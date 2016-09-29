@@ -4,9 +4,10 @@ package WumpusWorld;
  * Represents the "dungeon" and contains a collection of cells (rooms)
  * @version 09/27/16
  */
-public class Grid 
+public class World 
 {
-    public Grid()
+    private Room theWorld[][];
+    public World(int size)
     {
         
     }
