@@ -22,7 +22,7 @@ public class Cell
     
     public void randomCell()
     {
-        isEmpty = true;
+        hasStench = true;
     }
     
     public boolean isEmpty()
@@ -30,10 +30,11 @@ public class Cell
         return isEmpty;
     }
     
-    /**
-     *
-     * @return
-     */
+    public boolean hasBreeze()
+    {
+        return hasBreeze;
+    }
+    
     public boolean hasPit()
     {
         return hasPit;
@@ -42,6 +43,11 @@ public class Cell
     public boolean hasGold()
     {
         return hasGold;
+    }
+    
+    public boolean hasStench()
+    {
+        return hasStench;
     }
     
     public boolean hasWumpus()

@@ -12,6 +12,7 @@ public final class Agent
     private boolean hitObstacle;
     private boolean feelBreeze;
     private boolean smellStench;
+    private boolean heardScream;
     private boolean seeGlitter;
     private boolean alive; // flag for whether the agent program continues or not 
     
@@ -29,6 +30,7 @@ public final class Agent
         score = 0;
         actions = 0;
         currentCell = start;
+        heardScream = false;
         alive = true;
         life();
     }
@@ -44,15 +46,25 @@ public final class Agent
                 System.out.println("The agent is in an empty cell");
             }
             
+            if(currentCell.hasBreeze())
+            {
+                System.out.println("The agent feels a breeze");
+                feelBreeze = true;
+            }
+            
+            if(currentCell.hasStench())
+            {
+                System.out.println("The agent smells a horrible stench");
+                smellStench = true;
+            }
+            
             if(currentCell.hasPit() == true)
             {
-                System.out.println("The agent has fell down a pit.");
-                die();
+                fall();
             }
             
             if(currentCell.hasGold() == true)
             {
-                System.out.println("The agent has found the gold");
                 takeGold();
             }
 //        }
@@ -63,6 +75,9 @@ public final class Agent
     {
         System.out.println("== Agent Status ==");
         System.out.println("Score: " + score);
+        System.out.println("hitObstacle: " + hitObstacle);
+        System.out.println("feelBreeze: " + feelBreeze);
+        System.out.println("smellStench: " + smellStench);
     }
     
     /**
@@ -72,13 +87,27 @@ public final class Agent
     agent program terminates in failure */
     public void die()
     {
+        System.out.println("The agent has died.");
+        
         score -= 1000;
         alive = false;
-        System.out.println("The agent has died.");
+    }
+    
+    public void fall()
+    {
+        System.out.println("The agent has fell down a pit.");
+        die();
+    }
+    
+    public void moveForward()
+    {
+        
     }
     
     public void fireArrow()
     {
+        System.out.println("The agent has fired an arrow");
+        
         countAction();
         arrows--;
         score -= 10;
@@ -91,9 +120,17 @@ public final class Agent
     agent program terminates in success */
     public void takeGold()
     {
+        System.out.println("The agent has found the gold");
+        
         countAction();
         score += 1000;
         alive = false;
+    }
+    
+    public void killWumpus()
+    {
+        countAction();
+        score += 10;
     }
     
     public void countAction()
