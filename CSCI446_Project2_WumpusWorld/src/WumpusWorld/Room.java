@@ -16,9 +16,13 @@ public class Room
     private boolean isSmelly;
     private boolean isWumpus;
     
-    public Room()
+    private final int roomRow;
+    private final int roomColumn;
+    
+    public Room(int row, int col)
     {
-        
+        roomRow = row;
+        roomColumn = col;
     }
     
     public void randomRoom()

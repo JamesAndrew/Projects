@@ -24,13 +24,20 @@ public final class ReactiveAgent
     private int arrows;
     private int actions; // how many actions taken so far
     
-    Room currentRoom;
+    private int currentRoom[];
+    private final World actualWorld;
+    private World perceivedWorld;
     
-    public ReactiveAgent(Room start)
+    public ReactiveAgent(int row, int col, World w)
     {
         score = 0;
         actions = 0;
-        currentRoom = start;
+        
+        actualWorld = w;
+        perceivedWorld = new World(actualWorld.getSize());
+        
+        currentRoom[0] = row;
+        currentRoom[1] = col;
         heardScream = false;
         alive = true;
         life();
@@ -39,43 +46,10 @@ public final class ReactiveAgent
     public void life()
     {
         System.out.println("The agent has entered the cave.");
-//        while(alive == true)
-//        {
-            agentStatus();
-            if(currentRoom.isEmpty())
-            {
-                System.out.println("The agent is in an empty cell");
-            }
-            
-            if(currentRoom.hasBreeze())
-            {
-                System.out.println("The agent feels a breeze");
-                feelBreeze = true;
-            }
-            
-            if(currentRoom.hasStench())
-            {
-                System.out.println("The agent smells a horrible stench");
-                smellStench = true;
-            }
-            
-            if(currentRoom.hasWumpus())
-            {
-                fightWumpus();
-            }
-            
-            if(currentRoom.hasPit() == true)
-            {
-                fall();
-            }
-            
-            if(currentRoom.hasGold() == true)
-            {
-                takeGold();
-            }
-            
-            Forward();
-//        }
+        
+        // update coordinates
+        
+        
         agentStatus();
     }
     

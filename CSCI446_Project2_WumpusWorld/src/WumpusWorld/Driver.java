@@ -13,11 +13,10 @@ public class Driver
      */
     public static void main(String[] args)
     {
-        Room test = new Room();
-        test.randomRoom();
+        World theWorld = new World(2);
         
         System.out.println("=== Wumpus World Simulation Initialized ===");
-        ReactiveAgent simple = new ReactiveAgent(test);
+        ReactiveAgent simple = new ReactiveAgent(0, 0, theWorld);
         System.out.println("=== Simulation Concluded ===");
     }
 }
