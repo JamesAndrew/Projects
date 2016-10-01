@@ -61,7 +61,7 @@ public class World
         Random rand = new Random();
         
         /**
-         * Add the 
+         * Add the pits and wumpi
          */
         for (int i = 0; i < size; i++)
         {
@@ -104,7 +104,9 @@ public class World
             }
         }
         
-        
+        /**
+         * Place the start room in a random empty 
+         */
     }
     
     public int getSize()
