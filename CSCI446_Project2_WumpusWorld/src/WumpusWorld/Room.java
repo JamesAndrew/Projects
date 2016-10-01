@@ -49,7 +49,7 @@ public class Room
     public void setIsBreezy(boolean b)
     {
         if(b == true)
-            setIsEmpty(false);
+            setIsEmpty(true);
         isBreezy = b;
     }
     
@@ -73,7 +73,7 @@ public class Room
     public void setIsShiny(boolean s)
     {
         if(s == true)
-            setIsEmpty(false);
+            setIsEmpty(true);
         isShiny = s;
     }
     
