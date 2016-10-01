@@ -28,14 +28,14 @@ public final class ReactiveAgent
     private final World actualWorld;
     private World perceivedWorld;
     
-    public ReactiveAgent(int row, int col, World w)
+    public ReactiveAgent(World w)
     {
         score = 0;
         actions = 0;
         
         actualWorld = w;
         perceivedWorld = new World(actualWorld.getSize());
-        currentRoom = actualWorld.getRoom(row, col);
+        currentRoom = actualWorld.getStart();
         
         heardScream = false;
         alive = true;
@@ -45,6 +45,7 @@ public final class ReactiveAgent
     public void life()
     {
         System.out.println("The agent has entered the cave.");
+        System.out.println("The agent is in room " + currentRoom.getRoomRow() + " " + currentRoom.getRoomColumn());
         
         if (currentRoom.isEmpty() == true)
             System.out.println("The room is empty");

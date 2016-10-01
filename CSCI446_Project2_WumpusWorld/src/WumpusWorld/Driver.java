@@ -17,7 +17,7 @@ public class Driver
         
         World theWorld = new World(2, 0.5f, 0.5f, 0.5f);
         
-        ReactiveAgent simple = new ReactiveAgent(0, 0, theWorld);
+        ReactiveAgent simple = new ReactiveAgent(theWorld);
         
         
         System.out.format("%n%n=== Simulation Concluded ===");

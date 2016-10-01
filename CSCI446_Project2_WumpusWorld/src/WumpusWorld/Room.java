@@ -26,9 +26,14 @@ public class Room
         isEmpty = true;
     }
     
-    public void randomRoom()
+    public int getRoomRow()
     {
-        
+        return roomRow;
+    }
+    
+    public int getRoomColumn()
+    {
+        return roomColumn;
     }
     
     public void setIsEmpty(boolean e)
@@ -73,7 +78,7 @@ public class Room
     public void setIsShiny(boolean s)
     {
         if(s == true)
-            setIsEmpty(true);
+            setIsEmpty(false);
         isShiny = s;
     }
     

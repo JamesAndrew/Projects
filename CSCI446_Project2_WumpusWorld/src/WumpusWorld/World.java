@@ -9,6 +9,7 @@ import java.util.Random;
 public class World 
 {
     private final Room [][] theWorld;
+    private Room start;
     private final int size;
     private final float pPit;
     private final float pObs;
@@ -107,6 +108,18 @@ public class World
         /**
          * Place the start room in a random empty 
          */
+        boolean startPlaced = false;
+        while (!startPlaced)
+        {
+            r = rand.nextInt(size);
+            c = rand.nextInt(size);
+            if (theWorld[r][c].isEmpty())
+            {
+                start = theWorld[r][c];
+                System.out.println("The agent is in room " + r + " " + c);
+                startPlaced = true;
+            }
+        }
     }
     
     public int getSize()
@@ -117,5 +130,10 @@ public class World
     public Room getRoom(int row, int col)
     {
         return theWorld[row][col];
+    }
+    
+    public Room getStart()
+    {
+        return start;
     }
 }
