@@ -24,7 +24,7 @@ public final class ReactiveAgent
     private int arrows;
     private int actions; // how many actions taken so far
     
-    private int currentRoom[];
+    private Room currentRoom;
     private final World actualWorld;
     private World perceivedWorld;
     
@@ -35,9 +35,8 @@ public final class ReactiveAgent
         
         actualWorld = w;
         perceivedWorld = new World(actualWorld.getSize());
+        currentRoom = actualWorld.getRoom(row, col);
         
-        currentRoom[0] = row;
-        currentRoom[1] = col;
         heardScream = false;
         alive = true;
         life();
@@ -47,8 +46,27 @@ public final class ReactiveAgent
     {
         System.out.println("The agent has entered the cave.");
         
-        // update coordinates
-        
+        if (currentRoom.isEmpty() == true)
+            System.out.println("The room is empty");
+        else
+        {
+            if (currentRoom.isPit() == true)
+            {
+                fall();
+            }
+            else if (currentRoom.isWumpus() == true)
+            {
+                fightWumpus();
+            }
+            if (currentRoom.isBreezy() == true)
+            {
+                System.out.println("The agent feels a slight breeze");
+            }
+            if (currentRoom.isShiny() == true)
+            {
+                takeGold();
+            }
+        }
         
         agentStatus();
     }

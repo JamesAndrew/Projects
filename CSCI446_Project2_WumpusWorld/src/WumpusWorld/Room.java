@@ -23,6 +23,7 @@ public class Room
     {
         roomRow = row;
         roomColumn = col;
+        isEmpty = true;
     }
     
     public void randomRoom()
@@ -30,22 +31,53 @@ public class Room
         
     }
     
+    public void setIsEmpty(boolean e)
+    {
+        if(e == true)
+        {
+            setIsPit(false);
+            setIsWumpus(false);
+        }
+        isEmpty = e;
+    }
+    
     public boolean isEmpty()
     {
         return isEmpty;
     }
     
-    public boolean hasBreeze()
+    public void setIsBreezy(boolean b)
+    {
+        if(b == true)
+            setIsEmpty(false);
+        isBreezy = b;
+    }
+    
+    public boolean isBreezy()
     {
         return isBreezy;
     }
     
-    public boolean hasPit()
+    public void setIsPit(boolean p)
+    {
+        if(p == true)
+            setIsEmpty(false);
+        isPit = p;
+    }
+    
+    public boolean isPit()
     {
         return isPit;
     }
     
-    public boolean hasGold()
+    public void setIsShiny(boolean s)
+    {
+        if(s == true)
+            setIsEmpty(false);
+        isShiny = s;
+    }
+    
+    public boolean isShiny()
     {
         return isShiny;
     }
@@ -55,7 +87,14 @@ public class Room
         return isSmelly;
     }
     
-    public boolean hasWumpus()
+    public void setIsWumpus(boolean w)
+    {
+        if(w == true)
+            setIsEmpty(false);
+        isWumpus = true;
+    }
+    
+    public boolean isWumpus()
     {
         return isWumpus;
     }

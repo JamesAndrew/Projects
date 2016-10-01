@@ -1,5 +1,7 @@
 package WumpusWorld;
 
+import java.util.Random;
+
 /**
  * Represents the "dungeon" and contains a collection of cells (rooms)
  * @version 09/27/16
@@ -15,6 +17,8 @@ public class World
     // constructor the agent will use for perceived world
     public World(int s)
     {
+        System.out.println("== Initializing the Perceived World ==");
+        
         pPit = 0;
         pObs = 0;
         pWumpus = 0;
@@ -33,6 +37,7 @@ public class World
     // constructor for the actual world
     public World(int s, float p, float o, float w)
     {
+        System.out.println("== Initializing the Actual World ==");
         pPit = p;
         pObs = o;
         pWumpus = w;
@@ -46,17 +51,65 @@ public class World
                 theWorld[i][j] = new Room(i, j);
             }
         }
+        
+        setUpWorld();
+    }
+    
+    private void setUpWorld()
+    {
+        System.out.println(" = Setting Up Map = ");
+        Random rand = new Random();
+        
+        /**
+         * Add the 
+         */
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                float p = rand.nextFloat();
+                if (p < pPit)
+                {
+                    theWorld[i][j].setIsPit(true);
+                }
+                
+                float w = rand.nextFloat();
+                if (w < pWumpus)
+                {
+                    theWorld[i][j].setIsWumpus(true);
+                }
+            }
+        }
+        
+        /**
+         * Make sure the world has at least one empty cell
+         */
+        int r = rand.nextInt(size);
+        int c = rand.nextInt(size);
+        theWorld[r][c].setIsEmpty(true);
+        
+        /**
+         * Place the gold in a random empty cell
+         */
+        boolean goldPlaced = false;
+        while (!goldPlaced)
+        {
+            r = rand.nextInt(size);
+            c = rand.nextInt(size);
+            if (theWorld[r][c].isEmpty())
+            {
+                theWorld[r][c].setIsShiny(true);
+                System.out.println("The gold is in room " + r + " " + c);
+                goldPlaced = true;
+            }
+        }
+        
+        
     }
     
     public int getSize()
     {
         return size;
-    }
-    
-    
-    public void setUpWorld()
-    {
-        
     }
     
     public Room getRoom(int row, int col)
