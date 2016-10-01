@@ -9,7 +9,7 @@ public class Room
 {
     
     private boolean isBlocked;
-    private boolean isEmpty;
+    private boolean isEmpty;    // empty includes breezes and stenches
     private boolean isPit;
     private boolean isBreezy;
     private boolean isShiny;        // goal state if this is true
