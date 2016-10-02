@@ -74,16 +74,62 @@ public class World
                     theWorld[i][j].setIsPit(true);
                     if(i == 0 && j == 0)
                     {
-                        theWorld[i+1][j].setIsBreezy(true);
                         theWorld[i][j+1].setIsBreezy(true);
-                        theWorld[i+1][j+1].setIsBreezy(true);
+                        theWorld[i+1][j].setIsBreezy(true);
+                    }
+                    
+                    else if(i == 0 && j < size-1)
+                    {
+                        theWorld[i][j-1].setIsBreezy(true);
+                        theWorld[i][j+1].setIsBreezy(true);
+                        theWorld[i+1][j].setIsBreezy(true);
+                    }
+                    
+                    else if(i == 0 && j == size-1)
+                    {
+                        theWorld[i][j-1].setIsBreezy(true);
+                        theWorld[i+1][j].setIsBreezy(true);
+                    }
+                    
+                    else if(i < size-1 && j == 0)
+                    {
+                        theWorld[i-1][j].setIsBreezy(true);
+                        theWorld[i][j+1].setIsBreezy(true);
+                        theWorld[i+1][j].setIsBreezy(true);
+                    }
+                    
+                    else if(i < size-1 && j == size-1)
+                    {
+                        theWorld[i-1][j].setIsBreezy(true);
+                        theWorld[i][j-1].setIsBreezy(true);
+                        theWorld[i+1][j].setIsBreezy(true);
+                    }
+                    
+                    else if(i == size-1 && j == 0)
+                    {
+                        theWorld[i-1][j].setIsBreezy(true);
+                        theWorld[i][j+1].setIsBreezy(true);
+                    }
+                    
+                    else if(i == size-1 && j < size-1)
+                    {
+                        theWorld[i][j-1].setIsBreezy(true);
+                        theWorld[i-1][j].setIsBreezy(true);
+                        theWorld[i][j+1].setIsBreezy(true);
                     }
                     
                     else if(i == size-1 && j == size-1)
                     {
-                        theWorld[i-1][j].setIsBreezy(true);
                         theWorld[i][j-1].setIsBreezy(true);
-                        theWorld[i-1][j-1].setIsBreezy(true);
+                        theWorld[i-1][j].setIsBreezy(true);
+                    }
+                    
+                    else
+                    {
+                        theWorld[i-1][j].setIsBreezy(true);
+                        theWorld[i][j+1].setIsBreezy(true);
+                        theWorld[i+1][j].setIsBreezy(true);
+                        theWorld[i][j-1].setIsBreezy(true);
                     }
                 }
                 
@@ -91,48 +137,85 @@ public class World
                 if (w < pWumpus)
                 {
                     theWorld[i][j].setIsWumpus(true);
+                    if(i == 0 && j == 0)
+                    {
+                        theWorld[i][j+1].setIsSmelly(true);
+                        theWorld[i+1][j].setIsSmelly(true);
+                    }
+                    
+                    else if(i == 0 && j < size-1)
+                    {
+                        theWorld[i][j-1].setIsSmelly(true);
+                        theWorld[i][j+1].setIsSmelly(true);
+                        theWorld[i+1][j].setIsSmelly(true);
+                    }
+                    
+                    else if(i == 0 && j == size-1)
+                    {
+                        theWorld[i][j-1].setIsSmelly(true);
+                        theWorld[i+1][j].setIsSmelly(true);
+                    }
+                    
+                    else if(i < size-1 && j == 0)
+                    {
+                        theWorld[i-1][j].setIsSmelly(true);
+                        theWorld[i][j+1].setIsSmelly(true);
+                        theWorld[i+1][j].setIsSmelly(true);
+                    }
+                    
+                    else if(i < size-1 && j == size-1)
+                    {
+                        theWorld[i-1][j].setIsSmelly(true);
+                        theWorld[i][j-1].setIsSmelly(true);
+                        theWorld[i+1][j].setIsSmelly(true);
+                    }
+                    
+                    else if(i == size-1 && j == 0)
+                    {
+                        theWorld[i-1][j].setIsSmelly(true);
+                        theWorld[i][j+1].setIsSmelly(true);
+                    }
+                    
+                    else if(i == size-1 && j < size-1)
+                    {
+                        theWorld[i][j-1].setIsSmelly(true);
+                        theWorld[i-1][j].setIsSmelly(true);
+                        theWorld[i][j+1].setIsSmelly(true);
+                    }
+                    
+                    else if(i == size-1 && j == size-1)
+                    {
+                        theWorld[i][j-1].setIsSmelly(true);
+                        theWorld[i-1][j].setIsSmelly(true);
+                    }
+                    
+                    else
+                    {
+                        theWorld[i-1][j].setIsSmelly(true);
+                        theWorld[i][j+1].setIsSmelly(true);
+                        theWorld[i+1][j].setIsSmelly(true);
+                        theWorld[i][j-1].setIsSmelly(true);
+                    }
                 }
             }
         }
         
         /**
-         * Make sure the world has at least one empty cell
+         * place the gold
          */
         int r = rand.nextInt(size);
         int c = rand.nextInt(size);
-        theWorld[r][c].setIsEmpty(true);
-        
-        /**
-         * Place the gold in a random empty cell
-         */
-        boolean goldPlaced = false;
-        while (!goldPlaced)
-        {
-            r = rand.nextInt(size);
-            c = rand.nextInt(size);
-            if (theWorld[r][c].isEmpty())
-            {
-                theWorld[r][c].setIsShiny(true);
-                System.out.println("The gold is in room " + r + " " + c);
-                goldPlaced = true;
-            }
-        }
+        theWorld[r][c].setIsShiny(true);
+        System.out.println("The gold is in room " + r + " " + c);
+            
         
         /**
          * Place the start room in a random empty 
          */
-        boolean startPlaced = false;
-        while (!startPlaced)
-        {
-            r = rand.nextInt(size);
-            c = rand.nextInt(size);
-            if (theWorld[r][c].isEmpty())
-            {
-                start = theWorld[r][c];
-                System.out.println("The agent is in room " + r + " " + c);
-                startPlaced = true;
-            }
-        }
+        r = rand.nextInt(size);
+        c = rand.nextInt(size);
+        start = theWorld[r][c];
+        System.out.println("The agent is in room " + r + " " + c);
     }
     
     public int getSize()
