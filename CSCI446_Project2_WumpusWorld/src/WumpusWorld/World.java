@@ -72,6 +72,19 @@ public class World
                 if (p < pPit)
                 {
                     theWorld[i][j].setIsPit(true);
+                    if(i == 0 && j == 0)
+                    {
+                        theWorld[i+1][j].setIsBreezy(true);
+                        theWorld[i][j+1].setIsBreezy(true);
+                        theWorld[i+1][j+1].setIsBreezy(true);
+                    }
+                    
+                    else if(i == size-1 && j == size-1)
+                    {
+                        theWorld[i-1][j].setIsBreezy(true);
+                        theWorld[i][j-1].setIsBreezy(true);
+                        theWorld[i-1][j-1].setIsBreezy(true);
+                    }
                 }
                 
                 float w = rand.nextFloat();
