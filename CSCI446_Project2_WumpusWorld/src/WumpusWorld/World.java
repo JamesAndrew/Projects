@@ -14,6 +14,7 @@ public class World
     private final float pPit;
     private final float pObs;
     private final float pWumpus;
+    private int wumpi;
     
     // constructor the agent will use for perceived world
     public World(int s)
@@ -196,6 +197,7 @@ public class World
                         if (w < pWumpus)
                         {
                             theWorld[i][j].setIsWumpus(true);
+                            wumpi++;
                             if(i == 0 && j == 0)
                             {
                                 theWorld[i][j+1].setIsSmelly(true);
@@ -275,5 +277,10 @@ public class World
     public Room getStart()
     {
         return start;
+    }
+    
+    public int getWumpi()
+    {
+        return wumpi;
     }
 }

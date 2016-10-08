@@ -1,5 +1,7 @@
 package WumpusWorld;
 
+import java.util.Random;
+
 /**
  *
  * @version 09/28/16
@@ -27,6 +29,9 @@ public final class ReactiveAgent
     private Room currentRoom;
     private final World actualWorld;
     private World perceivedWorld;
+    private int safe[][]; // array to keep track of danger, 0 - unknown, 1 - safe, 2 - dangerous
+    
+    Random rand = new Random(); // uniform random number generator
     
     public ReactiveAgent(World w)
     {
@@ -46,6 +51,11 @@ public final class ReactiveAgent
     {
         System.out.println("The agent has entered the cave.");
         System.out.println("The agent is in room " + currentRoom.getRoomRow() + " " + currentRoom.getRoomColumn());
+        System.out.println("There are " + actualWorld.getWumpi() + " wumpi");
+        
+        initArrows();
+        initDirection();
+        initSafe();
         
         updateSensors();
         agentStatus();
@@ -81,20 +91,21 @@ public final class ReactiveAgent
             if (smellStench == true)
             {
                 System.out.println("The agent smells a horrible stench");
+                reasonShootAction();
             }
             
             if (currentRoom.isEmpty() == true)
             {
                 System.out.println("The room is empty");
+                safe[currentRoom.getRoomRow()][currentRoom.getRoomColumn()] = 1;
             }
         }
-        agentStatus();
     }
     
     private void updateSensors()
     {
         feelBreeze = currentRoom.isBreezy();
-        smellStench = currentRoom.isBreezy();
+        smellStench = currentRoom.isSmelly();
         seeGlitter = currentRoom.isShiny();
     }
     
@@ -108,6 +119,7 @@ public final class ReactiveAgent
         System.out.println("heardScream: " + heardScream);
         System.out.println("seeGlitter: " + seeGlitter);
         System.out.println("Direction: " + direction);
+        System.out.println("arrows " + arrows);
     }
     
     /**
@@ -160,16 +172,102 @@ public final class ReactiveAgent
         }
     }
     
+    // determine whether the agent should shoot, where, and shoot if conditions met
+    public void reasonShootAction()
+    {
+        shoot();
+    }
+    
     public void shoot()
     {
-        System.out.println("The agent has fired an arrow");
-        
-        countAction();
-        arrows--;
-        score -= 10;
-        // if Wumpus hit
-        
-        // if missed
+        if (arrows > 0)
+        {
+            System.out.println("The agent has fired an arrow");
+
+            countAction();
+            arrows--;
+            score -= 10;
+            
+            int r = currentRoom.getRoomRow();
+            int c = currentRoom.getRoomColumn();
+            // if Wumpus hit
+            if (direction == 0)
+            {
+                for(int l = c; l > -1; l--)
+                {
+                    Room check = actualWorld.getRoom(r, l);
+                    if (check.isWumpus())
+                    {
+                        check.setIsWumpus(false);
+                    }
+                    else
+                        System.out.println("The agent missed");
+                }
+            }
+
+            else if (direction == 1)
+            {
+                for(int u = r; u > -1; u--)
+                {
+                    Room check = actualWorld.getRoom(u, c);
+                    if (check.isWumpus())
+                    {
+                        check.setIsWumpus(false);
+                    }
+                    else
+                        System.out.println("The agent missed");
+                }
+            }
+            
+            else if (direction == 2)
+            {
+                for(int l = c; l < actualWorld.getSize(); l++)
+                {
+                    Room check = actualWorld.getRoom(l, c);
+                    if (check.isWumpus())
+                    {
+                        check.setIsWumpus(false);
+                    }
+                    else
+                        System.out.println("The agent missed");
+                }
+            }
+            
+            else if (direction == 3)
+            {
+                for(int u = r; u < actualWorld.getSize(); u++)
+                {
+                    Room check = actualWorld.getRoom(u, c);
+                    if (check.isWumpus())
+                    {
+                        check.setIsWumpus(false);
+                    }
+                    else
+                        System.out.println("The agent missed");
+                }
+            }
+            
+            else
+                System.out.println("error, lost sense of direction");
+        }
+        else
+            System.out.println("The agent has no arrows");
+    }
+    
+    public void initArrows()
+    {
+        arrows = actualWorld.getWumpi();
+    }
+    
+    public void initDirection()
+    {
+        direction = rand.nextInt(4);
+    }
+    
+    public void initSafe()
+    {
+        int roomSize = actualWorld.getSize();
+        safe = new int [roomSize][roomSize];
     }
     
     /* if the explorer finds gold, the score is increased by a thousand and the
@@ -191,6 +289,8 @@ public final class ReactiveAgent
     
     public void killWumpus()
     {
+        System.out.println("You heard a monster scream as it died");
+        heardScream = true;                
         countAction();
         score += 10;
     }
