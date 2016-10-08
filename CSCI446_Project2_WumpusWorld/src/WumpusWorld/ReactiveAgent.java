@@ -50,56 +50,23 @@ public final class ReactiveAgent
     public void life()
     {
         System.out.println("The agent has entered the cave.");
-        System.out.println("The agent is in room " + currentRoom.getRoomRow() + " " + currentRoom.getRoomColumn());
-        System.out.println("There are " + actualWorld.getWumpi() + " wumpi");
         
         initArrows();
         initDirection();
         initSafe();
         
-        updateSensors();
+        int moves = 2;
+        while (moves > 0)
+        {
+            
+            updateState();
+            Action();
+            
+            moves--;
+            System.out.println("=== " + moves + " moves left");
+        }
+        
         agentStatus();
-        
-        /**
-         * Check for end states first
-         */
-        if (currentRoom.isPit() == true)
-        {
-            fall();
-        }
-        
-        else if (currentRoom.isWumpus() == true)
-        {
-            fightWumpus();
-        }
-        
-        else if (seeGlitter == true)
-        {
-            grab();
-        }
-        
-        /**
-         * else check out room
-         */
-        else
-        {
-            if (feelBreeze == true)
-            {
-                System.out.println("The agent feels a slight breeze");
-            }
-            
-            if (smellStench == true)
-            {
-                System.out.println("The agent smells a horrible stench");
-                reasonShootAction();
-            }
-            
-            if (currentRoom.isEmpty() == true)
-            {
-                System.out.println("The room is empty");
-                safe[currentRoom.getRoomRow()][currentRoom.getRoomColumn()] = 1;
-            }
-        }
     }
     
     private void updateSensors()
@@ -120,6 +87,9 @@ public final class ReactiveAgent
         System.out.println("seeGlitter: " + seeGlitter);
         System.out.println("Direction: " + direction);
         System.out.println("arrows " + arrows);
+        System.out.println("The agent is in room " + currentRoom.getRoomRow() + " " + currentRoom.getRoomColumn());
+        System.out.println("There are " + actualWorld.getWumpi() + " wumpi");
+        System.out.println();
     }
     
     /**
@@ -141,11 +111,100 @@ public final class ReactiveAgent
         die();
     }
     
+    public void reasonForward()
+    {
+        Forward();
+    }
+    
     public void Forward()
     {
-        System.out.println("The agent has moved forward.");
+        int r = currentRoom.getRoomRow();
+        int c = currentRoom.getRoomColumn();
+        Room checkRoom = actualWorld.getRoom(r, c);
         
-        countAction();
+        boolean canMove = true;
+        if (direction == 0)
+        {
+            if (c == 0)
+            {
+                System.out.println("the edge is there");
+                canMove = false;
+            }
+            else if (c > 0)
+            {
+                checkRoom = actualWorld.getRoom(r, c-1);
+                if (checkRoom.isBlocked())
+                {
+                    System.out.println("the agent felt a bump");
+                    checkRoom.setIsBlocked(true);
+                }
+                else
+                    currentRoom = checkRoom;
+            }
+        }
+        else if (direction == 1)
+        {
+            if (r == 0)
+            {
+                System.out.println("the edge is there");
+                canMove = false;
+            }
+            else if (r > 0)
+            {
+                checkRoom = actualWorld.getRoom(r-1, c);
+                if (checkRoom.isBlocked())
+                {
+                    System.out.println("the agent felt a bump");
+                    checkRoom.setIsBlocked(true);
+                }
+                else
+                    currentRoom = checkRoom;
+            }
+        }
+        else if (direction == 2)
+        {
+            if (c == actualWorld.getSize()-1)
+            {
+                System.out.println("the edge is there");
+                canMove = false;
+            }
+            else if (c < actualWorld.getSize()-1)
+            {
+                checkRoom = actualWorld.getRoom(r, c+1);
+                if (checkRoom.isBlocked())
+                {
+                    System.out.println("the agent felt a bump");
+                    checkRoom.setIsBlocked(true);
+                }
+                else
+                    currentRoom = checkRoom;
+            }
+        }
+        else if (direction == 3)
+        {
+            if (r == actualWorld.getSize()-1)
+            {
+                System.out.println("the edge is there");
+                canMove = false;
+            }
+            else if (r < actualWorld.getSize()-1)
+            {
+                checkRoom = actualWorld.getRoom(r+1, c);
+                if (checkRoom.isBlocked())
+                {
+                    System.out.println("the agent felt a bump");
+                    checkRoom.setIsBlocked(true);
+                }
+                else
+                    currentRoom = checkRoom;
+            }
+        }
+        
+        if (canMove == true)
+        {
+            System.out.println("The agent has moved forward.");
+            countAction();
+        }
     }
     
     public void turnRight()
@@ -299,5 +358,62 @@ public final class ReactiveAgent
     {
         score--;
         actions++;
+    }
+    
+    /**
+     * these are the model based functions from the model-based reflex agent
+     */
+    // update the perceivedWorld of the agent
+    public void updateState()
+    {
+        updateSensors();
+        agentStatus();
+    }
+    
+    // determine and perform the agents next move
+    public void Action()
+    {
+        /**
+         * Check for end states first
+         */
+        if (currentRoom.isPit() == true)
+        {
+            fall();
+        }
+
+        else if (currentRoom.isWumpus() == true)
+        {
+            fightWumpus();
+        }
+
+        else if (seeGlitter == true)
+        {
+            grab();
+        }
+
+        /**
+         * else check out room
+         */
+        else
+        {
+            if (feelBreeze == true)
+            {
+                System.out.println("The agent feels a slight breeze");
+            }
+
+            if (smellStench == true)
+            {
+                System.out.println("The agent smells a horrible stench");
+                reasonShootAction();
+            }
+
+            if (currentRoom.isEmpty() == true)
+            {
+                System.out.println("The room is empty");
+                safe[currentRoom.getRoomRow()][currentRoom.getRoomColumn()] = 1;
+            }
+        }
+
+        reasonForward();
     }
 }
