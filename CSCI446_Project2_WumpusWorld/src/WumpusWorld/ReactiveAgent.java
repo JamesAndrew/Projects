@@ -47,38 +47,66 @@ public final class ReactiveAgent
         System.out.println("The agent has entered the cave.");
         System.out.println("The agent is in room " + currentRoom.getRoomRow() + " " + currentRoom.getRoomColumn());
         
-        if (currentRoom.isEmpty() == true)
-            System.out.println("The room is empty");
+        updateSensors();
+        agentStatus();
+        
+        /**
+         * Check for end states first
+         */
+        if (currentRoom.isPit() == true)
+        {
+            fall();
+        }
+        
+        else if (currentRoom.isWumpus() == true)
+        {
+            fightWumpus();
+        }
+        
+        else if (seeGlitter == true)
+        {
+            grab();
+        }
+        
+        /**
+         * else check out room
+         */
         else
         {
-            if (currentRoom.isPit() == true)
-            {
-                fall();
-            }
-            else if (currentRoom.isWumpus() == true)
-            {
-                fightWumpus();
-            }
-            if (currentRoom.isBreezy() == true)
+            if (feelBreeze == true)
             {
                 System.out.println("The agent feels a slight breeze");
             }
-            if (currentRoom.isShiny() == true)
+            
+            if (smellStench == true)
             {
-                takeGold();
+                System.out.println("The agent smells a horrible stench");
+            }
+            
+            if (currentRoom.isEmpty() == true)
+            {
+                System.out.println("The room is empty");
             }
         }
-        
         agentStatus();
     }
     
-    public void agentStatus()
+    private void updateSensors()
+    {
+        feelBreeze = currentRoom.isBreezy();
+        smellStench = currentRoom.isBreezy();
+        seeGlitter = currentRoom.isShiny();
+    }
+    
+    private void agentStatus()
     {
         System.out.println("== Agent Status ==");
         System.out.println("Score: " + score);
         System.out.println("hitObstacle: " + hitObstacle);
         System.out.println("feelBreeze: " + feelBreeze);
         System.out.println("smellStench: " + smellStench);
+        System.out.println("heardScream: " + heardScream);
+        System.out.println("seeGlitter: " + seeGlitter);
         System.out.println("Direction: " + direction);
     }
     
@@ -146,7 +174,7 @@ public final class ReactiveAgent
     
     /* if the explorer finds gold, the score is increased by a thousand and the
     agent program terminates in success */
-    public void takeGold()
+    public void grab()
     {
         System.out.println("The agent has found the gold");
         
@@ -157,7 +185,7 @@ public final class ReactiveAgent
     
     public void fightWumpus()
     {
-        System.out.println("The agent found the wumpus, fought it, and...");
+        System.out.println("The agent found the wumpus and got eaten");
         die();
     }
     

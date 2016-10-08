@@ -9,7 +9,7 @@ public class Room
 {
     
     private boolean isBlocked;
-    private boolean isEmpty;    // empty includes breezes and stenches
+    private boolean isEmpty;    // empty include breezes and stenches
     private boolean isPit;
     private boolean isBreezy;
     private boolean isShiny;        // goal state if this is true
@@ -51,6 +51,18 @@ public class Room
         return isEmpty;
     }
     
+    public void setIsBlocked(boolean b)
+    {
+        if (b == true)
+            setIsEmpty(true);
+        isBlocked = b;
+    }
+    
+    public boolean isBlocked()
+    {
+        return isBlocked;
+    }
+    
     public void setIsBreezy(boolean b)
     {
         if(b == true)
@@ -87,7 +99,14 @@ public class Room
         return isShiny;
     }
     
-    public boolean hasStench()
+    public void setIsSmelly(boolean s)
+    {
+        if(s == true)
+            setIsEmpty(true);
+        isSmelly = s;
+    }
+    
+    public boolean isSmelly()
     {
         return isSmelly;
     }
@@ -96,7 +115,7 @@ public class Room
     {
         if(w == true)
             setIsEmpty(false);
-        isWumpus = true;
+        isWumpus = w;
     }
     
     public boolean isWumpus()
