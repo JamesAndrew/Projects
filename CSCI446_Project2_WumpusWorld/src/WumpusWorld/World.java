@@ -55,6 +55,7 @@ public class World
         }
         
         setUpWorld();
+        System.out.println();
     }
     
     private void setUpWorld()
@@ -100,12 +101,13 @@ public class World
         }
         
         /**
-         * Add the pits and wumpi
+         * Add the obstacles, pits and wumpi
          */
         for (int i = 0; i < size; i++)
         {
             for (int j = 0; j < size; j++)
             {
+                System.out.println("Initialize room " + i + " " + j);
                 if (theWorld[i][j].isShiny())
                 {
                     System.out.println("occupied by gold");
@@ -123,6 +125,7 @@ public class World
                     if (o < pObs)
                     {
                         theWorld[i][j].setIsBlocked(true);
+                        System.out.println("obstacle placed");
                     }
 
                     else
@@ -132,6 +135,7 @@ public class World
                         if (p < pPit)
                         {
                             theWorld[i][j].setIsPit(true);
+                            System.out.println("pit placed");
                             if(i == 0 && j == 0)
                             {
                                 theWorld[i][j+1].setIsBreezy(true);
@@ -197,6 +201,7 @@ public class World
                         if (w < pWumpus)
                         {
                             theWorld[i][j].setIsWumpus(true);
+                            System.out.println("wumpus placed");
                             wumpi++;
                             if(i == 0 && j == 0)
                             {

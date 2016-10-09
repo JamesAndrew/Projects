@@ -55,14 +55,18 @@ public final class ReactiveAgent
         initDirection();
         initSafe();
         
-        int moves = 2;
+        int moves = 3;
         while (moves > 0)
         {
+            if (alive == false)
+                moves = 0;
+            else
+            {
+                updateState();
+                Action();
+                moves--;
+            }
             
-            updateState();
-            Action();
-            
-            moves--;
             System.out.println("=== " + moves + " moves left");
         }
         
@@ -129,6 +133,10 @@ public final class ReactiveAgent
             {
                 System.out.println("the edge is there");
                 canMove = false;
+                if (r == 0)
+                    turnLeft();
+                else
+                    turnRight();
             }
             else if (c > 0)
             {
@@ -148,6 +156,10 @@ public final class ReactiveAgent
             {
                 System.out.println("the edge is there");
                 canMove = false;
+                if (c == 0)
+                    turnRight();
+                else
+                    turnLeft();
             }
             else if (r > 0)
             {
@@ -167,6 +179,10 @@ public final class ReactiveAgent
             {
                 System.out.println("the edge is there");
                 canMove = false;
+                if (r == 0)
+                    turnRight();
+                else
+                    turnLeft();
             }
             else if (c < actualWorld.getSize()-1)
             {
@@ -186,6 +202,10 @@ public final class ReactiveAgent
             {
                 System.out.println("the edge is there");
                 canMove = false;
+                if (c == 0)
+                    turnLeft();
+                else
+                    turnRight();
             }
             else if (r < actualWorld.getSize()-1)
             {
@@ -368,11 +388,7 @@ public final class ReactiveAgent
     {
         updateSensors();
         agentStatus();
-    }
-    
-    // determine and perform the agents next move
-    public void Action()
-    {
+        
         /**
          * Check for end states first
          */
@@ -413,7 +429,12 @@ public final class ReactiveAgent
                 safe[currentRoom.getRoomRow()][currentRoom.getRoomColumn()] = 1;
             }
         }
-
+    }
+    
+    // determine and perform the agents next move
+    public void Action()
+    {
+        
         reasonForward();
     }
 }

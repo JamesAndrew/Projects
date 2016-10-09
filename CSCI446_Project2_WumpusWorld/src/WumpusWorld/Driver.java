@@ -15,7 +15,7 @@ public class Driver
     { 
         System.out.format("=== Wumpus World Simulation Initialized ===%n%n");
         
-        World theWorld = new World(4, 0.1f, 0.1f, 0.1f);
+        World theWorld = new World(2, 0.1f, 0.1f, 0.1f);
         
         ReactiveAgent simple = new ReactiveAgent(theWorld);
         
