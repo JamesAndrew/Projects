@@ -428,6 +428,8 @@ public final class ReactiveAgent
                 System.out.println("The room is empty");
                 safe[currentRoom.getRoomRow()][currentRoom.getRoomColumn()] = 1;
             }
+            
+            reasonForward();
         }
     }
     
@@ -435,6 +437,5 @@ public final class ReactiveAgent
     public void Action()
     {
         
-        reasonForward();
     }
 }
