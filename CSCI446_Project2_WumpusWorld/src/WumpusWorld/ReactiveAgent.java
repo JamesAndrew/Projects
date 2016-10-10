@@ -18,6 +18,7 @@ public final class ReactiveAgent
     private boolean seeGlitter;
     private boolean alive; // flag for whether the agent program continues or not 
     private int direction; // 0 - left, 1 - up, 2 - right, 3 - down 
+    private int prevDirection;
     
     /**
      * Resources
@@ -25,6 +26,8 @@ public final class ReactiveAgent
     private int score;
     private int arrows;
     private int actions; // how many actions taken so far
+    private int moves = 0;  // number of allowed moves (for testing at this point)
+    private int turn = 0;  // which turn the agent is on
     
     private Room currentRoom;
     private final World actualWorld;
@@ -37,6 +40,7 @@ public final class ReactiveAgent
     {
         score = 0;
         actions = 0;
+        moves = 1000;
         
         actualWorld = w;
         perceivedWorld = new World(actualWorld.getSize());
@@ -55,11 +59,13 @@ public final class ReactiveAgent
         initDirection();
         initSafe();
         
-        int moves = 3;
+        
         while (moves > 0)
         {
             if (alive == false)
+            {
                 moves = 0;
+            }
             else
             {
                 updateState();
@@ -68,6 +74,8 @@ public final class ReactiveAgent
             }
             
             System.out.println("=== " + moves + " moves left");
+            System.out.println("=== turn " + turn);
+            turn++;
         }
         
         agentStatus();
@@ -78,12 +86,21 @@ public final class ReactiveAgent
         feelBreeze = currentRoom.isBreezy();
         smellStench = currentRoom.isSmelly();
         seeGlitter = currentRoom.isShiny();
+        
+        /**
+         * update the agents perception of how safe the environment is
+         */
+        if (!feelBreeze && !smellStench)
+        {
+            
+        }
     }
     
     private void agentStatus()
     {
         System.out.println("== Agent Status ==");
         System.out.println("Score: " + score);
+        System.out.println("Alive: " + alive);
         System.out.println("hitObstacle: " + hitObstacle);
         System.out.println("feelBreeze: " + feelBreeze);
         System.out.println("smellStench: " + smellStench);
@@ -94,6 +111,16 @@ public final class ReactiveAgent
         System.out.println("The agent is in room " + currentRoom.getRoomRow() + " " + currentRoom.getRoomColumn());
         System.out.println("There are " + actualWorld.getWumpi() + " wumpi");
         System.out.println();
+        
+        System.out.println("Agent Perceived Safety:");
+        for (int i = 0; i < safe.length; i++)
+        {
+            for (int j = 0; j < safe.length; j++)
+            {
+                System.out.print(safe[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
     
     /**
@@ -117,7 +144,39 @@ public final class ReactiveAgent
     
     public void reasonForward()
     {
-        Forward();
+        if (hitObstacle == true)
+        {
+            if (prevDirection == 0)
+            {
+                if (direction == 1)
+                    turnRight();
+                else
+                    turnLeft();
+            }
+            else if (prevDirection == 1)
+            {
+                if (direction == 2)
+                    turnRight();
+                else
+                    turnLeft();
+            }
+            else if (prevDirection == 2)
+            {
+                if (direction == 3)
+                    turnRight();
+                else
+                    turnLeft();
+            }
+            else if (prevDirection == 3)
+            {
+                if (direction == 0)
+                    turnRight();
+                else
+                    turnLeft();
+            }
+        }
+        else
+            Forward();
     }
     
     public void Forward()
@@ -141,10 +200,16 @@ public final class ReactiveAgent
             else if (c > 0)
             {
                 checkRoom = actualWorld.getRoom(r, c-1);
-                if (checkRoom.isBlocked())
+                if (perceivedWorld.getRoom(r, c-1).isBlocked())
+                {
+                    canMove = false;
+                }
+                else if (checkRoom.isBlocked())
                 {
                     System.out.println("the agent felt a bump");
-                    checkRoom.setIsBlocked(true);
+                    perceivedWorld.getRoom(r, c-1).setIsBlocked(true);
+                    canMove = false;
+                    hitObstacle = true;
                 }
                 else
                     currentRoom = checkRoom;
@@ -164,10 +229,16 @@ public final class ReactiveAgent
             else if (r > 0)
             {
                 checkRoom = actualWorld.getRoom(r-1, c);
-                if (checkRoom.isBlocked())
+                if (perceivedWorld.getRoom(r-1, c).isBlocked())
+                {
+                    canMove = false;
+                }
+                else if (checkRoom.isBlocked())
                 {
                     System.out.println("the agent felt a bump");
-                    checkRoom.setIsBlocked(true);
+                    perceivedWorld.getRoom(r-1, c).setIsBlocked(true);
+                    canMove = false;
+                    hitObstacle = true;
                 }
                 else
                     currentRoom = checkRoom;
@@ -187,10 +258,16 @@ public final class ReactiveAgent
             else if (c < actualWorld.getSize()-1)
             {
                 checkRoom = actualWorld.getRoom(r, c+1);
-                if (checkRoom.isBlocked())
+                if (perceivedWorld.getRoom(r, c+1).isBlocked())
+                {
+                    canMove = false;
+                }
+                else if (checkRoom.isBlocked())
                 {
                     System.out.println("the agent felt a bump");
-                    checkRoom.setIsBlocked(true);
+                    perceivedWorld.getRoom(r, c+1).setIsBlocked(true);
+                    canMove = false;
+                    hitObstacle = true;
                 }
                 else
                     currentRoom = checkRoom;
@@ -210,10 +287,16 @@ public final class ReactiveAgent
             else if (r < actualWorld.getSize()-1)
             {
                 checkRoom = actualWorld.getRoom(r+1, c);
-                if (checkRoom.isBlocked())
+                if (perceivedWorld.getRoom(r+1, c).isBlocked())
+                {
+                    canMove = false;
+                }
+                else if (checkRoom.isBlocked())
                 {
                     System.out.println("the agent felt a bump");
-                    checkRoom.setIsBlocked(true);
+                    perceivedWorld.getRoom(r+1, c).setIsBlocked(true);
+                    canMove = false;
+                    hitObstacle = true;
                 }
                 else
                     currentRoom = checkRoom;
@@ -222,6 +305,7 @@ public final class ReactiveAgent
         
         if (canMove == true)
         {
+            hitObstacle = false;
             System.out.println("The agent has moved forward.");
             countAction();
         }
@@ -232,11 +316,13 @@ public final class ReactiveAgent
         System.out.println("The agent has turned right 90 degrees");
         
         countAction();
+        prevDirection = direction;
         direction++;
         if (direction == 4)
         {
             direction = 0;
         }
+        hitObstacle = false;
     }
     
     public void turnLeft()
@@ -244,17 +330,57 @@ public final class ReactiveAgent
         System.out.println("The agent has turned left 90 degrees");
         
         countAction();
+        prevDirection = direction;
         direction--;
         if (direction == -1)
         {
             direction = 3;
         }
+        hitObstacle = false;
     }
     
     // determine whether the agent should shoot, where, and shoot if conditions met
     public void reasonShootAction()
     {
-        shoot();
+        int r = currentRoom.getRoomRow();
+        int c = currentRoom.getRoomColumn();
+        
+        if (turn == 0)
+            System.out.println("The agent thinks shooting now would be pointless");
+        else if (arrows <= 0)
+        {
+            System.out.println("The agent has no arrows");
+        }
+        else if (direction == 0)
+        {
+            if (c == 0)
+                System.out.println("The arrow would hit a wall");
+            else if (perceivedWorld.getRoom(r, c-1).isBlocked())
+                System.out.println("The arrow would hit an obstacle");
+        }
+        else if (direction == 1)
+        {
+            if (r == 0)
+                System.out.println("The arrow would hit a wall");
+            else if (perceivedWorld.getRoom(r-1, c).isBlocked())
+                System.out.println("The arrow would hit an obstacle");
+        }
+        else if (direction == 2)
+        {
+            if (c == actualWorld.getSize())
+                System.out.println("The arrow would hit a wall");
+            else if (perceivedWorld.getRoom(r, c+1).isBlocked())
+                System.out.println("The arrow would hit an obstacle");
+        }
+        else if (direction == 3)
+        {
+            if (r == actualWorld.getSize())
+                System.out.println("The arrow would hit a wall");
+            else if (perceivedWorld.getRoom(r+1, c).isBlocked())
+                System.out.println("The arrow would hit an obstacle");
+        }
+        else
+            shoot();
     }
     
     public void shoot()
@@ -277,7 +403,8 @@ public final class ReactiveAgent
                     Room check = actualWorld.getRoom(r, l);
                     if (check.isWumpus())
                     {
-                        check.setIsWumpus(false);
+                        perceivedWorld.getRoom(r, l).setIsWumpus(false);
+                        killWumpus();
                     }
                     else
                         System.out.println("The agent missed");
@@ -291,7 +418,8 @@ public final class ReactiveAgent
                     Room check = actualWorld.getRoom(u, c);
                     if (check.isWumpus())
                     {
-                        check.setIsWumpus(false);
+                        perceivedWorld.getRoom(u, c).setIsWumpus(false);
+                        killWumpus();
                     }
                     else
                         System.out.println("The agent missed");
@@ -305,7 +433,8 @@ public final class ReactiveAgent
                     Room check = actualWorld.getRoom(l, c);
                     if (check.isWumpus())
                     {
-                        check.setIsWumpus(false);
+                        perceivedWorld.getRoom(l, c).setIsWumpus(false);
+                        killWumpus();
                     }
                     else
                         System.out.println("The agent missed");
@@ -319,7 +448,8 @@ public final class ReactiveAgent
                     Room check = actualWorld.getRoom(u, c);
                     if (check.isWumpus())
                     {
-                        check.setIsWumpus(false);
+                        perceivedWorld.getRoom(u, c).setIsWumpus(false);
+                        killWumpus();
                     }
                     else
                         System.out.println("The agent missed");
@@ -347,6 +477,10 @@ public final class ReactiveAgent
     {
         int roomSize = actualWorld.getSize();
         safe = new int [roomSize][roomSize];
+        
+        int r = currentRoom.getRoomRow();
+        int c = currentRoom.getRoomColumn();
+        safe[r][c] = 1;
     }
     
     /* if the explorer finds gold, the score is increased by a thousand and the
@@ -369,8 +503,7 @@ public final class ReactiveAgent
     public void killWumpus()
     {
         System.out.println("You heard a monster scream as it died");
-        heardScream = true;                
-        countAction();
+        heardScream = true;
         score += 10;
     }
     
@@ -388,7 +521,11 @@ public final class ReactiveAgent
     {
         updateSensors();
         agentStatus();
-        
+    }
+    
+    // determine and perform the agents next move
+    public void Action()
+    {
         /**
          * Check for end states first
          */
@@ -431,11 +568,5 @@ public final class ReactiveAgent
             
             reasonForward();
         }
-    }
-    
-    // determine and perform the agents next move
-    public void Action()
-    {
-        
     }
 }
