@@ -11,31 +11,40 @@ public final class ReactiveAgent
     /**
      * Sensors
      */
-    private boolean hitObstacle;
-    private boolean feelBreeze;
-    private boolean smellStench;
-    private boolean heardScream;
-    private boolean seeGlitter;
-    private boolean alive; // flag for whether the agent program continues or not 
-    private int direction; // 0 - left, 1 - up, 2 - right, 3 - down 
-    private int prevDirection;
+    private boolean hitObstacle; // if the agent hit an obstacle 
+    private boolean feelBreeze;  // if the agent feels a breeze
+    private boolean smellStench; // if the agent smells a stench
+    private boolean heardScream; // if the agent heard a wumpus die
+    private boolean seeGlitter;  // if the agent found the gold
+    
+    private boolean alive;       // flag for whether the agent program continues or not 
+    private int direction;       // 0 - left, 1 - up, 2 - right, 3 - down 
+    private int prevDirection;   // what direction did the agent last face
+    private int safe[][];        // array to keep track of danger, 0 - unknown, 1 - safe, 2 - dangerous, 3 - never consider again
     
     /**
      * Resources
      */
-    private int score;
-    private int arrows;
-    private int actions; // how many actions taken so far
-    private int moves = 0;  // number of allowed moves (for testing at this point)
+    private int score;     // agent score
+    private int arrows;    // number of arrows
+    private int actions;   // how many actions taken so far
+    private int moves = 0; // number of allowed moves (for testing at this point)
     private int turn = 0;  // which turn the agent is on
     
-    private Room currentRoom;
-    private final World actualWorld;
-    private World perceivedWorld;
-    private int safe[][]; // array to keep track of danger, 0 - unknown, 1 - safe, 2 - dangerous
+    /**
+     * World and Room states
+     */
+    private Room currentRoom;        // the current room the agent is in
+    private final World actualWorld; // the actual World generated 
+    private World perceivedWorld;    // what the agent has learned about the world
+    
     
     Random rand = new Random(); // uniform random number generator
     
+    /**
+     * Constructor for ReactiveAgent
+     * @param w an actual world generated
+     */
     public ReactiveAgent(World w)
     {
         score = 0;
@@ -51,25 +60,31 @@ public final class ReactiveAgent
         life();
     }
     
+    /**
+     * life contains the main loop of the agent
+     */
     public void life()
     {
         System.out.println("The agent has entered the cave.");
         
+        // initialize additional "sensors"
         initArrows();
         initDirection();
         initSafe();
         
-        
+        // keep exploring while moves left
         while (moves > 0)
         {
+            // if the agent is dead, no more moves allowed
             if (alive == false)
             {
                 moves = 0;
             }
+            // if the agent is alive, keep exploring
             else
             {
-                updateState();
-                Action();
+                updateState(); // update agent's perception of World
+                Action();      // determine agent's action 
                 moves--;
             }
             
@@ -81,8 +96,15 @@ public final class ReactiveAgent
         agentStatus();
     }
     
+    /**
+     * update sensors and safety matrix
+     */
     private void updateSensors()
     {
+        int r = currentRoom.getRoomRow();
+        int c = currentRoom.getRoomColumn();
+        
+        // update sensors
         feelBreeze = currentRoom.isBreezy();
         smellStench = currentRoom.isSmelly();
         seeGlitter = currentRoom.isShiny();
@@ -92,10 +114,16 @@ public final class ReactiveAgent
          */
         if (!feelBreeze && !smellStench)
         {
-            
+            safe[r+1][c] = 1;
+            safe[r][c+1] = 1;
+            safe[r+1][c+2] = 1;
+            safe[r+2][c+1] = 1;
         }
     }
     
+    /**
+     * print the current status of agent, including the safety matrix
+     */
     private void agentStatus()
     {
         System.out.println("== Agent Status ==");
@@ -476,7 +504,7 @@ public final class ReactiveAgent
     public void initSafe()
     {
         int roomSize = actualWorld.getSize();
-        safe = new int [roomSize][roomSize];
+        safe = new int [roomSize+2][roomSize+2]; // add a border of blanks to simplify things
         
         int r = currentRoom.getRoomRow();
         int c = currentRoom.getRoomColumn();
