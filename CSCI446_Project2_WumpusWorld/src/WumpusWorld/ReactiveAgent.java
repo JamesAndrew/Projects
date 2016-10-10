@@ -236,6 +236,7 @@ public final class ReactiveAgent
                 {
                     System.out.println("the agent felt a bump");
                     perceivedWorld.getRoom(r, c-1).setIsBlocked(true);
+                    safe[r+1][c] = 3;
                     canMove = false;
                     hitObstacle = true;
                 }
@@ -265,6 +266,7 @@ public final class ReactiveAgent
                 {
                     System.out.println("the agent felt a bump");
                     perceivedWorld.getRoom(r-1, c).setIsBlocked(true);
+                    safe[r][c+1] = 3;
                     canMove = false;
                     hitObstacle = true;
                 }
@@ -294,6 +296,7 @@ public final class ReactiveAgent
                 {
                     System.out.println("the agent felt a bump");
                     perceivedWorld.getRoom(r, c+1).setIsBlocked(true);
+                    safe[r+1][c+2] = 3;
                     canMove = false;
                     hitObstacle = true;
                 }
@@ -323,6 +326,7 @@ public final class ReactiveAgent
                 {
                     System.out.println("the agent felt a bump");
                     perceivedWorld.getRoom(r+1, c).setIsBlocked(true);
+                    safe[r+1][c+1] = 3;
                     canMove = false;
                     hitObstacle = true;
                 }
@@ -508,7 +512,7 @@ public final class ReactiveAgent
         
         int r = currentRoom.getRoomRow();
         int c = currentRoom.getRoomColumn();
-        safe[r][c] = 1;
+        safe[r+1][c+1] = 1;
     }
     
     /* if the explorer finds gold, the score is increased by a thousand and the
