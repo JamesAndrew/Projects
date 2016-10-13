@@ -1,25 +1,13 @@
 package WumpusWorld;
 
-/**
- *
- * @version 09/27/16
- */
 public class Driver 
 {
-
-    /**
-     *
-     * @param args
-     */
     public static void main(String[] args)
     { 
-        System.out.format("=== Wumpus World Simulation Initialized ===%n%n");
-        
-        World theWorld = new World(2, 0.2f, 0.2f, 0.2f);
-        
-        ReactiveAgent simple = new ReactiveAgent(theWorld);
-        
-        
-        System.out.format("%n%n=== Simulation Concluded ===");
+        // any code put here while we're still testing and
+        // working on different parts of the project has potential to 
+        // be deleted and will cause merge errors.
+        // 
+        // Set your specific main() class to run instead.
     }
 }
