@@ -1,0 +1,3 @@
+- Lots of changes to the UML. Be sure to update after the fact
+- Requiring all provided sentences to KnowledgeBase.update() must be in first-order definite clause form
+	

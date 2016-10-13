@@ -8,7 +8,7 @@ import java.util.Random;
  */
 public class World 
 {
-    private final Room [][] theWorld;
+    private final Room [][] rooms;
     private Room start;
     private final int size;
     private final float pPit;
@@ -16,7 +16,10 @@ public class World
     private final float pWumpus;
     private int wumpi;
     
-    // constructor the agent will use for perceived world
+    /**
+     * constructor the agent will use for perceived world
+     * @param s : number of rows for the s*s sized world
+     */
     public World(int s)
     {
         System.out.println("== Initializing the Perceived World ==");
@@ -26,12 +29,12 @@ public class World
         pWumpus = 0;
         
         size = s;
-        theWorld = new Room[size][size];
+        rooms = new Room[size][size];
         for (int i = 0; i < size; i++)
         {
             for (int j = 0; j < size; j++)
             {
-                theWorld[i][j] = new Room(i, j);
+                rooms[i][j] = new Room(i, j);
             }
         }
     }
@@ -45,12 +48,12 @@ public class World
         pWumpus = w;
         
         size = s;
-        theWorld = new Room[size][size];
+        rooms = new Room[size][size];
         for (int i = 0; i < size; i++)
         {
             for (int j = 0; j < size; j++)
             {
-                theWorld[i][j] = new Room(i, j);
+                rooms[i][j] = new Room(i, j);
             }
         }
         
@@ -74,7 +77,7 @@ public class World
          */
         int r = rand.nextInt(size);
         int c = rand.nextInt(size);
-        theWorld[r][c].setIsShiny(true);
+        rooms[r][c].setIsShiny(true);
         System.out.println("The gold is in room " + r + " " + c);
             
         
@@ -87,7 +90,7 @@ public class World
             r = rand.nextInt(size);
             c = rand.nextInt(size);
             
-            if (theWorld[r][c].isShiny())
+            if (rooms[r][c].isShiny())
             {
                 startPlaced = false;
             }
@@ -95,7 +98,7 @@ public class World
             else
             {
                 startPlaced = true;
-                start = theWorld[r][c];
+                start = rooms[r][c];
                 System.out.println("The agent is in room " + r + " " + c);
             }
         }
@@ -108,7 +111,7 @@ public class World
             for (int j = 0; j < size; j++)
             {
                 System.out.println("Initialize room " + i + " " + j);
-                if (theWorld[i][j].isShiny())
+                if (rooms[i][j].isShiny())
                 {
                     System.out.println("occupied by gold");
                 }
@@ -124,7 +127,7 @@ public class World
                 
                     if (o < pObs)
                     {
-                        theWorld[i][j].setIsBlocked(true);
+                        rooms[i][j].setIsBlocked(true);
                         System.out.println("obstacle placed");
                     }
 
@@ -134,133 +137,133 @@ public class World
 
                         if (p < pPit)
                         {
-                            theWorld[i][j].setIsPit(true);
+                            rooms[i][j].setIsPit(true);
                             System.out.println("pit placed");
                             if(i == 0 && j == 0)
                             {
-                                theWorld[i][j+1].setIsBreezy(true);
-                                theWorld[i+1][j].setIsBreezy(true);
+                                rooms[i][j+1].setIsBreezy(true);
+                                rooms[i+1][j].setIsBreezy(true);
                             }
 
                             else if(i == 0 && j < size-1)
                             {
-                                theWorld[i][j-1].setIsBreezy(true);
-                                theWorld[i][j+1].setIsBreezy(true);
-                                theWorld[i+1][j].setIsBreezy(true);
+                                rooms[i][j-1].setIsBreezy(true);
+                                rooms[i][j+1].setIsBreezy(true);
+                                rooms[i+1][j].setIsBreezy(true);
                             }
 
                             else if(i == 0 && j == size-1)
                             {
-                                theWorld[i][j-1].setIsBreezy(true);
-                                theWorld[i+1][j].setIsBreezy(true);
+                                rooms[i][j-1].setIsBreezy(true);
+                                rooms[i+1][j].setIsBreezy(true);
                             }
 
                             else if(i < size-1 && j == 0)
                             {
-                                theWorld[i-1][j].setIsBreezy(true);
-                                theWorld[i][j+1].setIsBreezy(true);
-                                theWorld[i+1][j].setIsBreezy(true);
+                                rooms[i-1][j].setIsBreezy(true);
+                                rooms[i][j+1].setIsBreezy(true);
+                                rooms[i+1][j].setIsBreezy(true);
                             }
 
                             else if(i < size-1 && j == size-1)
                             {
-                                theWorld[i-1][j].setIsBreezy(true);
-                                theWorld[i][j-1].setIsBreezy(true);
-                                theWorld[i+1][j].setIsBreezy(true);
+                                rooms[i-1][j].setIsBreezy(true);
+                                rooms[i][j-1].setIsBreezy(true);
+                                rooms[i+1][j].setIsBreezy(true);
                             }
 
                             else if(i == size-1 && j == 0)
                             {
-                                theWorld[i-1][j].setIsBreezy(true);
-                                theWorld[i][j+1].setIsBreezy(true);
+                                rooms[i-1][j].setIsBreezy(true);
+                                rooms[i][j+1].setIsBreezy(true);
                             }
 
                             else if(i == size-1 && j < size-1)
                             {
-                                theWorld[i][j-1].setIsBreezy(true);
-                                theWorld[i-1][j].setIsBreezy(true);
-                                theWorld[i][j+1].setIsBreezy(true);
+                                rooms[i][j-1].setIsBreezy(true);
+                                rooms[i-1][j].setIsBreezy(true);
+                                rooms[i][j+1].setIsBreezy(true);
                             }
 
                             else if(i == size-1 && j == size-1)
                             {
-                                theWorld[i][j-1].setIsBreezy(true);
-                                theWorld[i-1][j].setIsBreezy(true);
+                                rooms[i][j-1].setIsBreezy(true);
+                                rooms[i-1][j].setIsBreezy(true);
                             }
 
                             else
                             {
-                                theWorld[i-1][j].setIsBreezy(true);
-                                theWorld[i][j+1].setIsBreezy(true);
-                                theWorld[i+1][j].setIsBreezy(true);
-                                theWorld[i][j-1].setIsBreezy(true);
+                                rooms[i-1][j].setIsBreezy(true);
+                                rooms[i][j+1].setIsBreezy(true);
+                                rooms[i+1][j].setIsBreezy(true);
+                                rooms[i][j-1].setIsBreezy(true);
                             }
                         }
 
                         float w = rand.nextFloat();
                         if (w < pWumpus)
                         {
-                            theWorld[i][j].setIsWumpus(true);
+                            rooms[i][j].setIsWumpus(true);
                             System.out.println("wumpus placed");
                             wumpi++;
                             if(i == 0 && j == 0)
                             {
-                                theWorld[i][j+1].setIsSmelly(true);
-                                theWorld[i+1][j].setIsSmelly(true);
+                                rooms[i][j+1].setIsSmelly(true);
+                                rooms[i+1][j].setIsSmelly(true);
                             }
 
                             else if(i == 0 && j < size-1)
                             {
-                                theWorld[i][j-1].setIsSmelly(true);
-                                theWorld[i][j+1].setIsSmelly(true);
-                                theWorld[i+1][j].setIsSmelly(true);
+                                rooms[i][j-1].setIsSmelly(true);
+                                rooms[i][j+1].setIsSmelly(true);
+                                rooms[i+1][j].setIsSmelly(true);
                             }
 
                             else if(i == 0 && j == size-1)
                             {
-                                theWorld[i][j-1].setIsSmelly(true);
-                                theWorld[i+1][j].setIsSmelly(true);
+                                rooms[i][j-1].setIsSmelly(true);
+                                rooms[i+1][j].setIsSmelly(true);
                             }
 
                             else if(i < size-1 && j == 0)
                             {
-                                theWorld[i-1][j].setIsSmelly(true);
-                                theWorld[i][j+1].setIsSmelly(true);
-                                theWorld[i+1][j].setIsSmelly(true);
+                                rooms[i-1][j].setIsSmelly(true);
+                                rooms[i][j+1].setIsSmelly(true);
+                                rooms[i+1][j].setIsSmelly(true);
                             }
 
                             else if(i < size-1 && j == size-1)
                             {
-                                theWorld[i-1][j].setIsSmelly(true);
-                                theWorld[i][j-1].setIsSmelly(true);
-                                theWorld[i+1][j].setIsSmelly(true);
+                                rooms[i-1][j].setIsSmelly(true);
+                                rooms[i][j-1].setIsSmelly(true);
+                                rooms[i+1][j].setIsSmelly(true);
                             }
 
                             else if(i == size-1 && j == 0)
                             {
-                                theWorld[i-1][j].setIsSmelly(true);
-                                theWorld[i][j+1].setIsSmelly(true);
+                                rooms[i-1][j].setIsSmelly(true);
+                                rooms[i][j+1].setIsSmelly(true);
                             }
 
                             else if(i == size-1 && j < size-1)
                             {
-                                theWorld[i][j-1].setIsSmelly(true);
-                                theWorld[i-1][j].setIsSmelly(true);
-                                theWorld[i][j+1].setIsSmelly(true);
+                                rooms[i][j-1].setIsSmelly(true);
+                                rooms[i-1][j].setIsSmelly(true);
+                                rooms[i][j+1].setIsSmelly(true);
                             }
 
                             else if(i == size-1 && j == size-1)
                             {
-                                theWorld[i][j-1].setIsSmelly(true);
-                                theWorld[i-1][j].setIsSmelly(true);
+                                rooms[i][j-1].setIsSmelly(true);
+                                rooms[i-1][j].setIsSmelly(true);
                             }
 
                             else
                             {
-                                theWorld[i-1][j].setIsSmelly(true);
-                                theWorld[i][j+1].setIsSmelly(true);
-                                theWorld[i+1][j].setIsSmelly(true);
-                                theWorld[i][j-1].setIsSmelly(true);
+                                rooms[i-1][j].setIsSmelly(true);
+                                rooms[i][j+1].setIsSmelly(true);
+                                rooms[i+1][j].setIsSmelly(true);
+                                rooms[i][j-1].setIsSmelly(true);
                             }
                         }
                     }
@@ -276,7 +279,7 @@ public class World
     
     public Room getRoom(int row, int col)
     {
-        return theWorld[row][col];
+        return rooms[row][col];
     }
     
     public Room getStart()

@@ -9,7 +9,7 @@ public class Room
 {
     
     private boolean isBlocked;
-    private boolean isEmpty;    // empty include breezes and stenches
+    private boolean isEmpty;        // empty include breezes and stenches
     private boolean isPit;
     private boolean isBreezy;
     private boolean isShiny;        // goal state if this is true
@@ -121,5 +121,20 @@ public class Room
     public boolean isWumpus()
     {
         return isWumpus;
+    }
+    
+    /**
+     * Temporary (probably?) method to easily set all states of the current room
+     */
+    public void setAllProperties(boolean blocked, boolean empty, boolean pit,
+        boolean breezy, boolean shiny, boolean smelly, boolean wumpus)
+    {
+        this.isBlocked = blocked;
+        this.isEmpty = empty;
+        this.isPit = pit;
+        this.isBreezy = breezy;
+        this.isShiny = shiny;
+        this.isSmelly = smelly;
+        this.isWumpus = wumpus;
     }
 }
