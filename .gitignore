@@ -9,6 +9,8 @@
 */nbdist/
 */nbactions.xml
 */nb-configuration.xml
+*/nbproject/private/private.properties
+
 
 # Class Files #
 *.class
