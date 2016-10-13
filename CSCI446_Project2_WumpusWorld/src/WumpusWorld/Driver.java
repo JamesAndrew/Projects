@@ -12,12 +12,14 @@ public class Driver
      * @param args
      */
     public static void main(String[] args)
-    {
-        Cell test = new Cell();
-        test.randomCell();
+    { 
+        System.out.format("=== Wumpus World Simulation Initialized ===%n%n");
         
-        System.out.println("=== Wumpus World Simulation Initialized ===");
-        Agent simple = new Agent(test);
-        System.out.println("=== Simulation Concluded ===");
+        World theWorld = new World(2, 0.2f, 0.2f, 0.2f);
+        
+        ReactiveAgent simple = new ReactiveAgent(theWorld);
+        
+        
+        System.out.format("%n%n=== Simulation Concluded ===");
     }
 }
