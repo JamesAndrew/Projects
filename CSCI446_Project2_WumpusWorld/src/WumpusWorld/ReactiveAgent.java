@@ -33,9 +33,8 @@ public final class ReactiveAgent
      * World and Room states
      */
     private Room currentRoom;        // the current room the agent is in
+    private Room prevRoom;           // the prev room the agent was in
     private final World actualWorld; // the actual World generated 
-    private World perceivedWorld;    // what the agent has learned about the world
-    
     
     Random rand = new Random(); // uniform random number generator
     
@@ -50,7 +49,6 @@ public final class ReactiveAgent
         moves = 1000;
         
         actualWorld = w;
-        perceivedWorld = new World(actualWorld.getSize());
         currentRoom = actualWorld.getStart();
         
         heardScream = false;
@@ -81,7 +79,7 @@ public final class ReactiveAgent
             else
             {
                 updateState(); // update agent's perception of World
-                Action();      // determine agent's action 
+                Action();      // determine agent's action based on previous move and model of next move
                 moves--;
             }
             
@@ -105,6 +103,8 @@ public final class ReactiveAgent
         feelBreeze = currentRoom.isBreezy();
         smellStench = currentRoom.isSmelly();
         seeGlitter = currentRoom.isShiny();
+        
+        //
         
     }
     
@@ -152,33 +152,33 @@ public final class ReactiveAgent
     {
         if (hitObstacle == true)
         {
-            if (prevDirection == 0)
-            {
-                if (direction == 1)
-                    turnRight();
-                else
-                    turnLeft();
-            }
-            else if (prevDirection == 1)
-            {
-                if (direction == 2)
-                    turnRight();
-                else
-                    turnLeft();
-            }
-            else if (prevDirection == 2)
-            {
-                if (direction == 3)
-                    turnRight();
-                else
-                    turnLeft();
-            }
-            else if (prevDirection == 3)
-            {
-                if (direction == 0)
-                    turnRight();
-                else
-                    turnLeft();
+            switch (prevDirection) {
+                case 0:
+                    if (direction == 1)
+                        turnRight();
+                    else
+                        turnLeft();
+                    break;
+                case 1:
+                    if (direction == 2)
+                        turnRight();
+                    else
+                        turnLeft();
+                    break;
+                case 2:
+                    if (direction == 3)
+                        turnRight();
+                    else
+                        turnLeft();
+                    break;
+                case 3:
+                    if (direction == 0)
+                        turnRight();
+                    else
+                        turnLeft();
+                    break;
+                default:
+                    break;
             }
         }
         else
@@ -192,121 +192,109 @@ public final class ReactiveAgent
         Room checkRoom = actualWorld.getRoom(r, c);
         
         boolean canMove = true;
-        if (direction == 0)
-        {
-            if (c == 0)
-            {
-                System.out.println("the edge is there");
-                canMove = false;
-                if (r == 0)
-                    turnLeft();
-                else
-                    turnRight();
-            }
-            else if (c > 0)
-            {
-                checkRoom = actualWorld.getRoom(r, c-1);
-                if (perceivedWorld.getRoom(r, c-1).isBlocked())
-                {
-                    canMove = false;
-                }
-                else if (checkRoom.isBlocked())
-                {
-                    System.out.println("the agent felt a bump");
-                    perceivedWorld.getRoom(r, c-1).setIsBlocked(true);
-                    canMove = false;
-                    hitObstacle = true;
-                }
-                else
-                    currentRoom = checkRoom;
-            }
-        }
-        else if (direction == 1)
-        {
-            if (r == 0)
-            {
-                System.out.println("the edge is there");
-                canMove = false;
+        switch (direction) {
+            case 0:
                 if (c == 0)
-                    turnRight();
-                else
-                    turnLeft();
-            }
-            else if (r > 0)
-            {
-                checkRoom = actualWorld.getRoom(r-1, c);
-                if (perceivedWorld.getRoom(r-1, c).isBlocked())
                 {
+                    System.out.println("the edge is there");
                     canMove = false;
+                    if (r == 0)
+                        turnLeft();
+                    else
+                        turnRight();
                 }
-                else if (checkRoom.isBlocked())
+                else if (c > 0)
                 {
-                    System.out.println("the agent felt a bump");
-                    perceivedWorld.getRoom(r-1, c).setIsBlocked(true);
-                    canMove = false;
-                    hitObstacle = true;
-                }
-                else
-                    currentRoom = checkRoom;
-            }
-        }
-        else if (direction == 2)
-        {
-            if (c == actualWorld.getSize()-1)
-            {
-                System.out.println("the edge is there");
-                canMove = false;
+                    checkRoom = actualWorld.getRoom(r, c-1);
+                    if (checkRoom.isBlocked())
+                    {
+                        System.out.println("the agent felt a bump");
+                        canMove = false;
+                        hitObstacle = true;
+                    }
+                    else
+                    {
+                        prevRoom = currentRoom;
+                        currentRoom = checkRoom;
+                    }
+                }   break;
+            case 1:
                 if (r == 0)
-                    turnRight();
-                else
-                    turnLeft();
-            }
-            else if (c < actualWorld.getSize()-1)
-            {
-                checkRoom = actualWorld.getRoom(r, c+1);
-                if (perceivedWorld.getRoom(r, c+1).isBlocked())
                 {
+                    System.out.println("the edge is there");
                     canMove = false;
+                    if (c == 0)
+                        turnRight();
+                    else
+                        turnLeft();
                 }
-                else if (checkRoom.isBlocked())
+                else if (r > 0)
                 {
-                    System.out.println("the agent felt a bump");
-                    perceivedWorld.getRoom(r, c+1).setIsBlocked(true);
-                    canMove = false;
-                    hitObstacle = true;
-                }
-                else
-                    currentRoom = checkRoom;
-            }
-        }
-        else if (direction == 3)
-        {
-            if (r == actualWorld.getSize()-1)
-            {
-                System.out.println("the edge is there");
-                canMove = false;
-                if (c == 0)
-                    turnLeft();
-                else
-                    turnRight();
-            }
-            else if (r < actualWorld.getSize()-1)
-            {
-                checkRoom = actualWorld.getRoom(r+1, c);
-                if (perceivedWorld.getRoom(r+1, c).isBlocked())
+                    checkRoom = actualWorld.getRoom(r-1, c);
+                    if (checkRoom.isBlocked())
+                    {
+                        System.out.println("the agent felt a bump");
+                        canMove = false;
+                        hitObstacle = true;
+                    }
+                    else
+                    {
+                        prevRoom = currentRoom;
+                        currentRoom = checkRoom;
+                    }
+                }   break;
+            case 2:
+                if (c == actualWorld.getSize()-1)
                 {
+                    System.out.println("the edge is there");
                     canMove = false;
+                    if (r == 0)
+                        turnRight();
+                    else
+                        turnLeft();
                 }
-                else if (checkRoom.isBlocked())
+                else if (c < actualWorld.getSize()-1)
                 {
-                    System.out.println("the agent felt a bump");
-                    perceivedWorld.getRoom(r+1, c).setIsBlocked(true);
+                    checkRoom = actualWorld.getRoom(r, c+1);
+                    if (checkRoom.isBlocked())
+                    {
+                        System.out.println("the agent felt a bump");
+                        canMove = false;
+                        hitObstacle = true;
+                    }
+                    else
+                    {
+                        prevRoom = currentRoom;
+                        currentRoom = checkRoom;
+                    }
+                }   break;
+            case 3:
+                if (r == actualWorld.getSize()-1)
+                {
+                    System.out.println("the edge is there");
                     canMove = false;
-                    hitObstacle = true;
+                    if (c == 0)
+                        turnLeft();
+                    else
+                        turnRight();
                 }
-                else
-                    currentRoom = checkRoom;
-            }
+                else if (r < actualWorld.getSize()-1)
+                {
+                    checkRoom = actualWorld.getRoom(r+1, c);
+                    if (checkRoom.isBlocked())
+                    {
+                        System.out.println("the agent felt a bump");
+                        canMove = false;
+                        hitObstacle = true;
+                    }
+                    else
+                    {
+                        prevRoom = currentRoom;
+                        currentRoom = checkRoom;
+                    }
+                }   break;
+            default:
+                break;
         }
         
         if (canMove == true)
@@ -361,29 +349,21 @@ public final class ReactiveAgent
         {
             if (c == 0)
                 System.out.println("The arrow would hit a wall");
-            else if (perceivedWorld.getRoom(r, c-1).isBlocked())
-                System.out.println("The arrow would hit an obstacle");
         }
         else if (direction == 1)
         {
             if (r == 0)
                 System.out.println("The arrow would hit a wall");
-            else if (perceivedWorld.getRoom(r-1, c).isBlocked())
-                System.out.println("The arrow would hit an obstacle");
         }
         else if (direction == 2)
         {
             if (c == actualWorld.getSize())
                 System.out.println("The arrow would hit a wall");
-            else if (perceivedWorld.getRoom(r, c+1).isBlocked())
-                System.out.println("The arrow would hit an obstacle");
         }
         else if (direction == 3)
         {
             if (r == actualWorld.getSize())
                 System.out.println("The arrow would hit a wall");
-            else if (perceivedWorld.getRoom(r+1, c).isBlocked())
-                System.out.println("The arrow would hit an obstacle");
         }
         else
             shoot();
@@ -402,68 +382,55 @@ public final class ReactiveAgent
             int r = currentRoom.getRoomRow();
             int c = currentRoom.getRoomColumn();
             // if Wumpus hit
-            if (direction == 0)
-            {
-                for(int l = c; l > -1; l--)
-                {
-                    Room check = actualWorld.getRoom(r, l);
-                    if (check.isWumpus())
+            switch (direction) {
+                case 0:
+                    for(int l = c; l > -1; l--)
                     {
-                        perceivedWorld.getRoom(r, l).setIsWumpus(false);
-                        killWumpus();
-                    }
-                    else
-                        System.out.println("The agent missed");
-                }
-            }
-
-            else if (direction == 1)
-            {
-                for(int u = r; u > -1; u--)
-                {
-                    Room check = actualWorld.getRoom(u, c);
-                    if (check.isWumpus())
+                        Room check = actualWorld.getRoom(r, l);
+                        if (check.isWumpus())
+                        {
+                            killWumpus();
+                        }
+                        else
+                            System.out.println("The agent missed");
+                    }   break;
+                case 1:
+                    for(int u = r; u > -1; u--)
                     {
-                        perceivedWorld.getRoom(u, c).setIsWumpus(false);
-                        killWumpus();
-                    }
-                    else
-                        System.out.println("The agent missed");
-                }
-            }
-            
-            else if (direction == 2)
-            {
-                for(int l = c; l < actualWorld.getSize(); l++)
-                {
-                    Room check = actualWorld.getRoom(l, c);
-                    if (check.isWumpus())
+                        Room check = actualWorld.getRoom(u, c);
+                        if (check.isWumpus())
+                        {
+                            killWumpus();
+                        }
+                        else
+                            System.out.println("The agent missed");
+                    }   break;
+                case 2:
+                    for(int l = c; l < actualWorld.getSize(); l++)
                     {
-                        perceivedWorld.getRoom(l, c).setIsWumpus(false);
-                        killWumpus();
-                    }
-                    else
-                        System.out.println("The agent missed");
-                }
-            }
-            
-            else if (direction == 3)
-            {
-                for(int u = r; u < actualWorld.getSize(); u++)
-                {
-                    Room check = actualWorld.getRoom(u, c);
-                    if (check.isWumpus())
+                        Room check = actualWorld.getRoom(l, c);
+                        if (check.isWumpus())
+                        {
+                            killWumpus();
+                        }
+                        else
+                            System.out.println("The agent missed");
+                    }   break;
+                case 3:
+                    for(int u = r; u < actualWorld.getSize(); u++)
                     {
-                        perceivedWorld.getRoom(u, c).setIsWumpus(false);
-                        killWumpus();
-                    }
-                    else
-                        System.out.println("The agent missed");
-                }
+                        Room check = actualWorld.getRoom(u, c);
+                        if (check.isWumpus())
+                        {
+                            killWumpus();
+                        }
+                        else
+                            System.out.println("The agent missed");
+                    }   break;
+                default:
+                    System.out.println("error, lost sense of direction");
+                    break;
             }
-            
-            else
-                System.out.println("error, lost sense of direction");
         }
         else
             System.out.println("The agent has no arrows");
