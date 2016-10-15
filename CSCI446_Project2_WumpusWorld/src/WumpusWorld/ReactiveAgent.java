@@ -20,6 +20,7 @@ public final class ReactiveAgent
     private boolean alive;       // flag for whether the agent program continues or not 
     private int direction;       // 0 - left, 1 - up, 2 - right, 3 - down 
     private int prevDirection;   // what direction did the agent last face
+    
     /**
      * Resources
      */
@@ -33,8 +34,9 @@ public final class ReactiveAgent
      * World and Room states
      */
     private Room currentRoom;        // the current room the agent is in
-    private Room prevRoom;           // the prev room the agent was in
+    private Room prevRoom;           // the prev room the agent was in to only determine last action
     private final World actualWorld; // the actual World generated 
+    private World state;             // the agents perception of the world based on last action and model
     
     Random rand = new Random(); // uniform random number generator
     
@@ -50,6 +52,8 @@ public final class ReactiveAgent
         
         actualWorld = w;
         currentRoom = actualWorld.getStart();
+        
+        state = new World(3);
         
         heardScream = false;
         alive = true;
@@ -70,19 +74,11 @@ public final class ReactiveAgent
         // keep exploring while moves left
         while (moves > 0)
         {
-            // if the agent is dead, no more moves allowed
-            if (alive == false)
-            {
-                moves = 0;
-            }
-            // if the agent is alive, keep exploring
-            else
-            {
-                updateState(); // update agent's perception of World
-                Action();      // determine agent's action based on previous move and model of next move
-                moves--;
-            }
             
+            updateState(); // update agent's perception of World
+            Action();      // determine agent's action based on previous move and model of next move
+            moves--;
+                        
             System.out.println("=== " + moves + " moves left");
             System.out.println("=== turn " + turn);
             turn++;
@@ -96,16 +92,69 @@ public final class ReactiveAgent
      */
     private void updateSensors()
     {
-        int r = currentRoom.getRoomRow();
-        int c = currentRoom.getRoomColumn();
+        // handle the rewind when agent dies
+        if (alive == false)
+        {
+            alive = true;
+            currentRoom = prevRoom;
+            switch (direction) {
+                case 0:
+                    if (actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn()-1)).isWumpus())
+                    {
+                        state.getRoom(1, 0).setIsWumpus(true);
+                    }
+                    if (actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn()-1)).isPit())
+                    {
+                        state.getRoom(1, 0).setIsPit(true);
+                    }
+                    prevRoom = actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn() + 1));
+                    break;
+                case 1:
+                    if (actualWorld.getRoom((currentRoom.getRoomRow()-1), currentRoom.getRoomColumn()).isWumpus())
+                    {
+                        state.getRoom(0, 1).setIsWumpus(true);
+                    }
+                    if (actualWorld.getRoom((currentRoom.getRoomRow()-1), currentRoom.getRoomColumn()).isPit())
+                    {
+                        state.getRoom(0, 1).setIsPit(true);
+                    }
+                    prevRoom = actualWorld.getRoom((currentRoom.getRoomRow() + 1), currentRoom.getRoomColumn());
+                    break;
+                case 2:
+                    prevRoom = actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn() + 1));
+                    break;
+                case 3:
+                    prevRoom = actualWorld.getRoom((currentRoom.getRoomRow() + 1), currentRoom.getRoomColumn());
+                    break;
+                default:
+                    break;
+            }
+        }
         
         // update sensors
         feelBreeze = currentRoom.isBreezy();
         smellStench = currentRoom.isSmelly();
         seeGlitter = currentRoom.isShiny();
         
-        //
-        
+        if (hitObstacle == true)
+        {
+            switch (direction) {
+                case 0:
+                    state.getRoom(1, 0).setIsBlocked(true);
+                    break;
+                case 1:
+                    state.getRoom(0, 1).setIsBlocked(true);
+                    break;
+                case 2:
+                    state.getRoom(1, 2).setIsBlocked(true);
+                    break;
+                case 3:
+                    state.getRoom(2, 1).setIsBlocked(true);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
     
     /**
@@ -133,7 +182,7 @@ public final class ReactiveAgent
      * Actuators
      */
     /* when the explorer dies, the score is decreased by a thousand and the 
-    agent program terminates in failure */
+    agent goes back to last safe square */
     public void die()
     {
         System.out.println("The agent has died.");
@@ -454,7 +503,7 @@ public final class ReactiveAgent
         
         countAction();
         score += 1000;
-        alive = false;
+        moves = 0;
     }
     
     public void fightWumpus()
@@ -490,7 +539,7 @@ public final class ReactiveAgent
     public void Action()
     {
         /**
-         * Check for end states first
+         * Check for "end" states first
          */
         if (currentRoom.isPit() == true)
         {
