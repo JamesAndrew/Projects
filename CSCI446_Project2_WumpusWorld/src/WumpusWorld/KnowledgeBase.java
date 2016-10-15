@@ -20,7 +20,11 @@ public class KnowledgeBase
     // The list of all sentences currently known
     private List<KBSentence> kbSentences = new ArrayList<>();
     
-    public KnowledgeBase() { }
+    public KnowledgeBase() 
+    { 
+        // All pre-known rules go here
+        
+    }
     
     /**
      * Uses backward-chaining to deduce if a certain sentence is true or not
@@ -43,7 +47,6 @@ public class KnowledgeBase
      */
     public void update(KBSentence input)
     {
-        
-        throw new PendingException();
+        kbSentences.add(input);
     }
 }

@@ -16,6 +16,8 @@ public class Room
     private boolean isSmelly;
     private boolean isWumpus;
     
+    private boolean hasGold;
+    
     private final int roomRow;
     private final int roomColumn;
     
@@ -123,6 +125,10 @@ public class Room
         return isWumpus;
     }
     
+    public boolean isHasGold() 
+    {
+        return hasGold;
+    }
     /**
      * Temporary (probably?) method to easily set all states of the current room
      */

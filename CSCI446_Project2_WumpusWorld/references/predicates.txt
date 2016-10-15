@@ -1,0 +1,13 @@
+### List of all predicates used in the Wumpus world
+### A predicate is part of an atomic sentence
+### and looks like SMELLY(...), WINDY(...), PIT(...), etc
+
+# room states
+ADJ					// adjacent
+BLOCKED
+HASGOLD
+PIT
+SHINY
+SMELLY
+WINDY
+WUMPUS
