@@ -20,8 +20,6 @@ public final class ReactiveAgent
     private boolean alive;       // flag for whether the agent program continues or not 
     private int direction;       // 0 - left, 1 - up, 2 - right, 3 - down 
     private int prevDirection;   // what direction did the agent last face
-    private int safe[][];        // array to keep track of danger, 0 - unknown, 1 - safe, 2 - dangerous, 3 - never consider again
-    
     /**
      * Resources
      */
@@ -70,7 +68,6 @@ public final class ReactiveAgent
         // initialize additional "sensors"
         initArrows();
         initDirection();
-        initSafe();
         
         // keep exploring while moves left
         while (moves > 0)
@@ -109,16 +106,6 @@ public final class ReactiveAgent
         smellStench = currentRoom.isSmelly();
         seeGlitter = currentRoom.isShiny();
         
-        /**
-         * update the agents perception of how safe the environment is
-         */
-        if (!feelBreeze && !smellStench)
-        {
-            safe[r+1][c] = 1;
-            safe[r][c+1] = 1;
-            safe[r+1][c+2] = 1;
-            safe[r+2][c+1] = 1;
-        }
     }
     
     /**
@@ -140,15 +127,6 @@ public final class ReactiveAgent
         System.out.println("There are " + actualWorld.getWumpi() + " wumpi");
         System.out.println();
         
-        System.out.println("Agent Perceived Safety:");
-        for (int i = 0; i < safe.length; i++)
-        {
-            for (int j = 0; j < safe.length; j++)
-            {
-                System.out.print(safe[i][j] + " ");
-            }
-            System.out.println();
-        }
     }
     
     /**
@@ -236,7 +214,6 @@ public final class ReactiveAgent
                 {
                     System.out.println("the agent felt a bump");
                     perceivedWorld.getRoom(r, c-1).setIsBlocked(true);
-                    safe[r+1][c] = 3;
                     canMove = false;
                     hitObstacle = true;
                 }
@@ -266,7 +243,6 @@ public final class ReactiveAgent
                 {
                     System.out.println("the agent felt a bump");
                     perceivedWorld.getRoom(r-1, c).setIsBlocked(true);
-                    safe[r][c+1] = 3;
                     canMove = false;
                     hitObstacle = true;
                 }
@@ -296,7 +272,6 @@ public final class ReactiveAgent
                 {
                     System.out.println("the agent felt a bump");
                     perceivedWorld.getRoom(r, c+1).setIsBlocked(true);
-                    safe[r+1][c+2] = 3;
                     canMove = false;
                     hitObstacle = true;
                 }
@@ -326,7 +301,6 @@ public final class ReactiveAgent
                 {
                     System.out.println("the agent felt a bump");
                     perceivedWorld.getRoom(r+1, c).setIsBlocked(true);
-                    safe[r+1][c+1] = 3;
                     canMove = false;
                     hitObstacle = true;
                 }
@@ -505,16 +479,6 @@ public final class ReactiveAgent
         direction = rand.nextInt(4);
     }
     
-    public void initSafe()
-    {
-        int roomSize = actualWorld.getSize();
-        safe = new int [roomSize+2][roomSize+2]; // add a border of blanks to simplify things
-        
-        int r = currentRoom.getRoomRow();
-        int c = currentRoom.getRoomColumn();
-        safe[r+1][c+1] = 1;
-    }
-    
     /* if the explorer finds gold, the score is increased by a thousand and the
     agent program terminates in success */
     public void grab()
@@ -595,7 +559,6 @@ public final class ReactiveAgent
             if (currentRoom.isEmpty() == true)
             {
                 System.out.println("The room is empty");
-                safe[currentRoom.getRoomRow()][currentRoom.getRoomColumn()] = 1;
             }
             
             reasonForward();
