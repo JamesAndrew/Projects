@@ -18,11 +18,12 @@ import java.util.*;
 public class KnowledgeBase 
 {
     // The list of all sentences currently known
-    private List<KBSentence> kbSentences = new ArrayList<>();
+    private List<KBImplication> kb_impl = new ArrayList<>();
     
     public KnowledgeBase() 
     { 
         // All pre-known rules go here
+        // smelly(C_xy) => Gold(C_xy)
         
     }
     
@@ -32,7 +33,7 @@ public class KnowledgeBase
      * be an atomic sentence. Example: isSafe(Cell31)
      * @return ture if the atomic sentence is inferred to be true
      */
-    public boolean query(KBAtomicSentence question)
+    public boolean query(KBAtomConstant question)
     {
         
         throw new PendingException();
@@ -45,8 +46,8 @@ public class KnowledgeBase
      * or cyclical techniques in the Knowledge Base
      * @post kbSentences is updated
      */
-    public void update(KBSentence input)
-    {
-        kbSentences.add(input);
-    }
+//    public void update(KBSentence input)
+//    {
+//        kbSentences.add(input);
+//    }
 }
