@@ -121,9 +121,25 @@ public final class ReactiveAgent
                     prevRoom = actualWorld.getRoom((currentRoom.getRoomRow() + 1), currentRoom.getRoomColumn());
                     break;
                 case 2:
-                    prevRoom = actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn() + 1));
+                    if (actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn()+1)).isWumpus())
+                    {
+                        state.getRoom(1, 2).setIsWumpus(true);
+                    }
+                    if (actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn()+11)).isPit())
+                    {
+                        state.getRoom(1, 2).setIsPit(true);
+                    }
+                    prevRoom = actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn() - 1));
                     break;
                 case 3:
+                    if (actualWorld.getRoom((currentRoom.getRoomRow()+1), currentRoom.getRoomColumn()).isWumpus())
+                    {
+                        state.getRoom(2, 1).setIsWumpus(true);
+                    }
+                    if (actualWorld.getRoom((currentRoom.getRoomRow()+1), currentRoom.getRoomColumn()).isPit())
+                    {
+                        state.getRoom(2, 1).setIsPit(true);
+                    }
                     prevRoom = actualWorld.getRoom((currentRoom.getRoomRow() + 1), currentRoom.getRoomColumn());
                     break;
                 default:
