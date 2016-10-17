@@ -44,11 +44,11 @@ public final class ReactiveAgent
      * Constructor for ReactiveAgent
      * @param w an actual world generated
      */
-    public ReactiveAgent(World w)
+    public ReactiveAgent(World w, int m)
     {
         score = 0;
         actions = 0;
-        moves = 1000;
+        moves = m;
         
         actualWorld = w;
         currentRoom = actualWorld.getStart();
@@ -97,7 +97,8 @@ public final class ReactiveAgent
         {
             alive = true;
             currentRoom = prevRoom;
-            switch (direction) {
+            switch (direction) 
+            {
                 case 0:
                     if (actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn()-1)).isWumpus())
                     {
@@ -107,7 +108,6 @@ public final class ReactiveAgent
                     {
                         state.getRoom(1, 0).setIsPit(true);
                     }
-                    prevRoom = actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn() + 1));
                     break;
                 case 1:
                     if (actualWorld.getRoom((currentRoom.getRoomRow()-1), currentRoom.getRoomColumn()).isWumpus())
@@ -118,18 +118,16 @@ public final class ReactiveAgent
                     {
                         state.getRoom(0, 1).setIsPit(true);
                     }
-                    prevRoom = actualWorld.getRoom((currentRoom.getRoomRow() + 1), currentRoom.getRoomColumn());
                     break;
                 case 2:
                     if (actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn()+1)).isWumpus())
                     {
                         state.getRoom(1, 2).setIsWumpus(true);
                     }
-                    if (actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn()+11)).isPit())
+                    if (actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn()+1)).isPit())
                     {
                         state.getRoom(1, 2).setIsPit(true);
                     }
-                    prevRoom = actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn() - 1));
                     break;
                 case 3:
                     if (actualWorld.getRoom((currentRoom.getRoomRow()+1), currentRoom.getRoomColumn()).isWumpus())
@@ -140,8 +138,23 @@ public final class ReactiveAgent
                     {
                         state.getRoom(2, 1).setIsPit(true);
                     }
-                    prevRoom = actualWorld.getRoom((currentRoom.getRoomRow() + 1), currentRoom.getRoomColumn());
                     break;
+                default:
+                    break;
+            }
+            switch(prevDirection)
+            {
+                case 0:
+                    prevRoom = actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn() + 1));
+                    break;
+                case 1:
+                    prevRoom = actualWorld.getRoom((currentRoom.getRoomRow()+1), currentRoom.getRoomColumn());
+                    break;
+                case 2:
+                    prevRoom = actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn() - 1));
+                    break;
+                case 3:
+                    prevRoom = actualWorld.getRoom((currentRoom.getRoomRow()-1), currentRoom.getRoomColumn());
                 default:
                     break;
             }
@@ -271,11 +284,21 @@ public final class ReactiveAgent
                 else if (c > 0)
                 {
                     checkRoom = actualWorld.getRoom(r, c-1);
-                    if (checkRoom.isBlocked())
+                    if (state.getRoom(1, 0).isBlocked() || state.getRoom(1,0).isPit() || state.getRoom(1,0).isWumpus())
+                    {
+                        System.out.println("obstacle, pit, or wumpus there");
+                        canMove = false;
+                        if (r == 0)
+                            turnLeft();
+                        else
+                            turnRight();
+                    }
+                    else if (checkRoom.isBlocked())
                     {
                         System.out.println("the agent felt a bump");
                         canMove = false;
                         hitObstacle = true;
+                        countAction();
                     }
                     else
                     {
@@ -296,11 +319,21 @@ public final class ReactiveAgent
                 else if (r > 0)
                 {
                     checkRoom = actualWorld.getRoom(r-1, c);
-                    if (checkRoom.isBlocked())
+                    if (state.getRoom(0, 1).isBlocked() || state.getRoom(0, 1).isPit() || state.getRoom(0, 1).isWumpus())
+                    {
+                        System.out.println("obstacle, pit, or wumpus there");
+                        canMove = false;
+                        if (c == 0)
+                            turnRight();
+                        else
+                            turnLeft();
+                    }
+                    else if (checkRoom.isBlocked())
                     {
                         System.out.println("the agent felt a bump");
                         canMove = false;
                         hitObstacle = true;
+                        countAction();
                     }
                     else
                     {
@@ -321,11 +354,21 @@ public final class ReactiveAgent
                 else if (c < actualWorld.getSize()-1)
                 {
                     checkRoom = actualWorld.getRoom(r, c+1);
-                    if (checkRoom.isBlocked())
+                    if (state.getRoom(1,2).isBlocked() || state.getRoom(1,2).isPit() || state.getRoom(1,2).isWumpus())
+                    {
+                        System.out.println("obstacle, pit, or wumpus there");
+                        canMove = false;
+                        if (r == 0)
+                            turnRight();
+                        else
+                            turnLeft();
+                    }
+                    else if (checkRoom.isBlocked())
                     {
                         System.out.println("the agent felt a bump");
                         canMove = false;
                         hitObstacle = true;
+                        countAction();
                     }
                     else
                     {
@@ -346,11 +389,21 @@ public final class ReactiveAgent
                 else if (r < actualWorld.getSize()-1)
                 {
                     checkRoom = actualWorld.getRoom(r+1, c);
-                    if (checkRoom.isBlocked())
+                    if (state.getRoom(2, 1).isBlocked() || state.getRoom(2,1).isPit() || state.getRoom(2,1).isWumpus())
+                    {
+                        System.out.println("obstacle, pit, or wumpus there");
+                        canMove = false;
+                        if (c == 0)
+                            turnLeft();
+                        else
+                            turnRight();
+                    }
+                    else if (checkRoom.isBlocked())
                     {
                         System.out.println("the agent felt a bump");
                         canMove = false;
                         hitObstacle = true;
+                        countAction();
                     }
                     else
                     {

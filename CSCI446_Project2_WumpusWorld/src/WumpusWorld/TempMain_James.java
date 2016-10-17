@@ -15,9 +15,9 @@ public class TempMain_James
     { 
         System.out.format("=== Wumpus World Simulation Initialized ===%n%n");
         
-        World theWorld = new World(2, 0.2f, 0.2f, 0.2f);
+        World theWorld = new World(5, 0.2f, 0.2f, 0.2f);
         
-        ReactiveAgent simple = new ReactiveAgent(theWorld);
+        ReactiveAgent simple = new ReactiveAgent(theWorld, 1000);
         
         
         System.out.format("%n%n=== Simulation Concluded ===");
