@@ -3,7 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/James/Documents/NetBeansProjects/Project1/Projects/Projects/CSCI446_Project1_GraphColoring/src/GraphColoring/Driver.java</file>
+            <file>file:/C:/Users/Amy/Documents/CSCI446/Project1/CSCI446_Project1_GraphColoring/src/GraphColoring/BacktrackingForwardCheckingSolver.java</file>
+            <file>file:/C:/Users/Amy/Documents/CSCI446/Project1/CSCI446_Project1_GraphColoring/src/GraphColoring/BacktrackingPropagationSolver.java</file>
+            <file>file:/C:/Users/Amy/Documents/CSCI446/Project1/CSCI446_Project1_GraphColoring/src/GraphColoring/SimpleBacktrackingSolver.java</file>
+            <file>file:/C:/Users/Amy/Documents/CSCI446/Project1/CSCI446_Project1_GraphColoring/src/GraphColoring/ConstraintSolver.java</file>
+            <file>file:/C:/Users/Amy/Documents/CSCI446/Project1/CSCI446_Project1_GraphColoring/src/GraphColoring/Driver.java</file>
+            <file>file:/C:/Users/Amy/Documents/CSCI446/Project1/CSCI446_Project1_GraphColoring/src/GraphColoring/MinConflictsSolver.java</file>
+            <file>file:/C:/Users/Amy/Documents/CSCI446/Project1/CSCI446_Project1_GraphColoring/src/GraphColoring/ResultCalculator.java</file>
+            <file>file:/C:/Users/Amy/Documents/CSCI446/Project1/CSCI446_Project1_GraphColoring/src/GraphColoring/GeneticAlgorithmSolver.java</file>
         </group>
     </open-files>
 </project-private>

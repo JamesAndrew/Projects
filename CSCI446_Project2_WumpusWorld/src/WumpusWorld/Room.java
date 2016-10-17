@@ -7,7 +7,7 @@ package WumpusWorld;
  */
 public class Room 
 {
-    
+    private boolean isSafe; 
     private boolean isBlocked;
     private boolean isEmpty;    // empty include breezes and stenches
     private boolean isPit;
@@ -24,6 +24,7 @@ public class Room
         roomRow = row;
         roomColumn = col;
         isEmpty = true;
+		isSafe = false; 
     }
     
     public int getRoomRow()
@@ -122,4 +123,14 @@ public class Room
     {
         return isWumpus;
     }
+	
+	public void setToSafe()
+	{
+		isSafe = true; 
+	}
+	
+	public boolean isSafe()
+	{
+		return isSafe; 
+	}
 }
