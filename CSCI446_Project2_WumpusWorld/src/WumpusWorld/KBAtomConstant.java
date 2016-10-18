@@ -7,18 +7,20 @@ package WumpusWorld;
  * @author David Rice
  * @version October 2016
  */
-public class KBAtomConstant 
+public class KBAtomConstant extends KBAtomVariable
 {
-    // evaluates to either true or false
-    boolean value;
-    // SHINY, WINDY, etc. Must match the predefined allowed predicates to work correctly
-    String predicate;
     // this will change. having all atom terms be rooms for now
-    Room term;
+    private Room term;
     
-    public KBAtomConstant(String predicate, Room term)
+    /**
+     * 
+     * @param negation : true if the atom is negated (e.g. !P(x))
+     * @param predicate : must match predicates list exactly
+     * @param term : the specific thing being referred to (e.g. some Room object)
+     */
+    public KBAtomConstant(boolean negation, String predicate, Room term)
     {
-        this.predicate = predicate;
+        super(negation, predicate);
         this.term = term;
     }
     
@@ -26,7 +28,7 @@ public class KBAtomConstant
      * returns the atomic truth value for the predicate assigned to this atom
      * @return 
      */
-    public boolean evaluateAtom()
+    public boolean evaluate()
     {
         boolean value = false;
         switch(predicate)
@@ -41,7 +43,13 @@ public class KBAtomConstant
                 throw new RuntimeException("The predicate of this atom"
                         + "does not have a defined value");
         }
+        if (negation) value = !value;
         
         return value;
+    }
+    
+    public void flipNegation()
+    {
+        this.negation = !this.negation;
     }
 }
