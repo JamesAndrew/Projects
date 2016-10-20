@@ -15,6 +15,7 @@ public class Room
     private boolean isShiny;        // goal state if this is true
     private boolean isSmelly;
     private boolean isWumpus;
+    private boolean isSafe;
     
     private boolean hasGold;
     private boolean hasObst;
@@ -27,6 +28,21 @@ public class Room
         roomRow = row;
         roomColumn = col;
         isEmpty = true;
+    }
+    
+    /**
+     * Temporary (probably?) method to easily set all states of the current room
+     */
+    public void setAllProperties(boolean blocked, boolean empty, boolean pit,
+        boolean breezy, boolean shiny, boolean smelly, boolean wumpus)
+    {
+        this.isBlocked = blocked;
+        this.isEmpty = empty;
+        this.isPit = pit;
+        this.isBreezy = breezy;
+        this.isShiny = shiny;
+        this.isSmelly = smelly;
+        this.isWumpus = wumpus;
     }
     
     public int getRoomRow()
@@ -130,23 +146,13 @@ public class Room
     {
         return hasGold;
     }
-    /**
-     * Temporary (probably?) method to easily set all states of the current room
-     */
-    public void setAllProperties(boolean blocked, boolean empty, boolean pit,
-        boolean breezy, boolean shiny, boolean smelly, boolean wumpus)
-    {
-        this.isBlocked = blocked;
-        this.isEmpty = empty;
-        this.isPit = pit;
-        this.isBreezy = breezy;
-        this.isShiny = shiny;
-        this.isSmelly = smelly;
-        this.isWumpus = wumpus;
-    }
+    
 
     public boolean isHasObst() 
     {
         return hasObst;
+    }
+    public boolean isIsSafe() {
+        return isSafe;
     }
 }

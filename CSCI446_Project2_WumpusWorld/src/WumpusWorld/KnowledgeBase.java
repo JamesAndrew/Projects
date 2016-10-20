@@ -48,7 +48,9 @@ public class KnowledgeBase
         
         // add the negation of the question to the temp kb
         question.flipNegation();
-        KBcnf query_as_cnf = new KBcnf(question);
+        ArrayList<KBAtom> negQuestionCNF = new ArrayList<>();
+        negQuestionCNF.add(question);
+        KBcnf query_as_cnf = new KBcnf(negQuestionCNF);
         tempKB.add(query_as_cnf);
         
         // temp test
@@ -70,17 +72,20 @@ public class KnowledgeBase
     }
     
     /**
-     * @param kb : the temp kb with the negation of the query added in to it
+     * @param kb : the temp kb with the negation of the query added in to it.
+     * The temp kb also split all conjunctions into individual atomic sentences
      * @param query : atomic sentence to determine true or false
      * @return : true if query is true, false otherwise
      */
     private boolean resolution_subroutine(List<KBcnf> kb)
     {
-        Set<KBcnf> localKb = new LinkedHashSet<>();
+        List<KBcnf> localKb = new ArrayList<>();
         localKb.addAll(kb);
+        localKb = splitConjunctions(localKb);
+        
         do
         {
-            Set<KBcnf> generatedSentences = new LinkedHashSet<>();
+            List<KBcnf> generatedSentences = new ArrayList<>();
             
             // pairwise comparison of each sentence in kb
             for (KBcnf cnfI : localKb)
@@ -91,15 +96,15 @@ public class KnowledgeBase
                     else
                     {
                         KBcnf resolventClause = gen_resolvent_clause(cnfI, cnfJ);
-//                        System.out.println("\ncnfI: " + cnfI.toString());
-//                        System.out.println("cnfJ: " + cnfJ.toString());
+                        System.out.println("\ncnfI: " + cnfI.toString());
+                        System.out.println("cnfJ: " + cnfJ.toString());
                         
                         // if a new resolvent sentence is made
                         if (!(resolventClause.equals(cnfI)))
                         {
-//                            System.out.println("resolventClause: " + resolventClause.toString());
+                            System.out.println("resolventClause: " + resolventClause.toString());
                             // return successful query if resolvent is empty sentence
-                            if (resolventClause.getAtoms().isEmpty()) return true;
+                            if (resolventClause.getDisjunctions().get(0).isEmpty()) return true;
                             // otherwise add new generated clause to the generate KBcnf list if it is unique
                             else 
                             {
@@ -147,6 +152,39 @@ public class KnowledgeBase
     }
     
     /**
+     * Remove sentences in the kb that have disjunctions and replace with new
+     * kb entries that are the individual sentences
+     * @param oldKb : the kb with conjunctions in it
+     * @return : an equivalent kb with no conjunctions 
+     */
+    private List<KBcnf> splitConjunctions(List<KBcnf> oldKb)
+    {
+        // KBcnfs with more than one entry have conjunctions
+        for (int i = 0; i < oldKb.size(); i++)
+        {
+            KBcnf currentCNF = oldKb.get(i);
+            // if the currentCNF has conjunctions
+            if (currentCNF.getDisjunctions().size() > 1)
+            {
+                // make collection of new cnf sentences
+                List<KBcnf> splitCNFs = new ArrayList<>();
+                // take each ArrayList entry and add it as a new entry to the kb in its cnf form
+                for (ArrayList<KBAtom> disjunction : currentCNF.getDisjunctions())
+                {
+                    KBcnf newCNF = new KBcnf(disjunction);
+                    splitCNFs.add(newCNF);
+                }
+                // remove the kb entry with conjunctions
+                oldKb.remove(i);
+                // add all the new equavalent split cns
+                oldKb.addAll(splitCNFs);
+            }
+        }
+        
+        return oldKb;
+    }
+    
+    /**
      * If two cnf's have a resolvent clause that can be produced, generate
      * the clause and return it, otherwise return one of the original clauses
      * @param i : cnf clause 1
@@ -155,14 +193,14 @@ public class KnowledgeBase
     public KBcnf gen_resolvent_clause(KBcnf i, KBcnf j)
     {
         ArrayList<KBAtom> ijAtoms = new ArrayList<>();
-        ijAtoms.addAll(i.getAtoms());
-        ijAtoms.addAll(j.getAtoms());
+        ijAtoms.addAll(i.generateAtomList());
+        ijAtoms.addAll(j.generateAtomList());
         
         // pairwise comparison of each atom in clause i to each atom in clase j
-        for (KBAtom iAtoms : i.getAtoms())
+        for (KBAtom iAtoms : i.generateAtomList())
         {
             KBAtomConstant atomI = (KBAtomConstant) iAtoms;
-            for (KBAtom jAtoms : j.getAtoms())
+            for (KBAtom jAtoms : j.generateAtomList())
             {
                 KBAtomConstant atomJ = (KBAtomConstant) jAtoms;
                 
@@ -204,14 +242,20 @@ public class KnowledgeBase
     {
         for (KBcnf sentence : in_kb)
         {
-            for (int i = 0; i < sentence.getAtoms().size(); i++)
+            // for each disjunctive sentence in the CNF
+            for (int i = 0; i < sentence.getDisjunctions().size(); i++)
             {
-                KBAtom atom = sentence.getAtoms().get(i);
-                if (atom instanceof KBAtomVariable)
+                ArrayList<KBAtom> disjSentence = sentence.getDisjunctions().get(i);
+                // for each atom in the disjunctive sentence
+                for (int j = 0; j < disjSentence.size(); j++)
                 {
-                    KBAtomVariable currentAtom = (KBAtomVariable) atom;
-                    KBAtomConstant replacement = currentAtom.convertToConstant(query);
-                    sentence.getAtoms().set(i, replacement);
+                    KBAtom atom = disjSentence.get(j);
+                    if (atom instanceof KBAtomVariable)
+                    {
+                        KBAtomVariable currentAtom = (KBAtomVariable) atom;
+                        KBAtomConstant replacement = currentAtom.convertToConstant(query);
+                        disjSentence.set(j, replacement);  
+                    }
                 }
             }
         }
@@ -225,19 +269,41 @@ public class KnowledgeBase
      */
     public void update(KBAtom input)
     {
-        KBcnf newData = new KBcnf(input);
+        ArrayList<KBAtom> inputAsCNF = new ArrayList<>(Arrays.asList(input));
+        KBcnf newData = new KBcnf(inputAsCNF);
         kb_cnf.add(newData);
     }
     
+    /**
+     * Add sequence of conjuncts of disjuncts to the kb
+     * @param conjunctsOfDisjuncts 
+     */
+    private void addToKBcnf(ArrayList<KBAtom>... conjunctsOfDisjuncts)
+    {
+        ArrayList<ArrayList<KBAtom>> conjunctions = new ArrayList<>();
+        for (ArrayList<KBAtom> disjunction : conjunctsOfDisjuncts)
+        {
+            conjunctions.add(disjunction);
+        }
+    }
+    
+    /**
+     * Add sequence of only disjunctive terms to the kb
+     * @param atoms 
+     */
     private void addToKBcnf(KBAtomVariable... atoms)
     {
-        KBcnf cnfSentence = new KBcnf(atoms);
+        ArrayList<KBAtom> onlyDisjuncts = new ArrayList<>(Arrays.asList(atoms));
+        KBcnf cnfSentence = new KBcnf(onlyDisjuncts);
         kb_cnf.add(cnfSentence);
     }
 
     public List<KBcnf> getKb_cnf() {
         return kb_cnf;
     }
+    /**
+     * used in tests to deal with an empty KB axiom list
+     */
     public void setKb_cnf(List<KBcnf> kb_cnf) {
         this.kb_cnf = kb_cnf;
     }

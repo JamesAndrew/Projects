@@ -6,7 +6,9 @@
 ADJ					// adjacent
 BLOCKED
 HASGOLD
+OBST 				// has obstacle 
 PIT
+SAFE				// known safe to move in to	
 SHINY
 SMELLY
 WINDY

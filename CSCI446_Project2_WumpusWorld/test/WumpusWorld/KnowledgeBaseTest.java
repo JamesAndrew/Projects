@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import sun.security.krb5.internal.ktab.KeyTabConstants;
 
 /**
  *
@@ -87,6 +86,10 @@ public class KnowledgeBaseTest {
         assertEquals(expectedOutput2, actualOutput2);
     }
     
+    /**
+     * test that running the gen_resolvent_clause method on two CNFs
+     * produces a new CNF with the resolved atom not in it
+     */
     @Test
     public void test_gen_resolvent_clause()
     {
@@ -112,5 +115,4 @@ public class KnowledgeBaseTest {
         System.out.println("actual result: " + actualResult.toString());
         assertEquals(expectedResult.toString(), actualResult.toString());
     }
-    
 }
