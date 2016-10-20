@@ -48,14 +48,28 @@ public class KBcnf
         return value;
     }
     
+    
     @Override
     public String toString()
     {
         return atoms.toString();
     }
-
-    public ArrayList<KBAtom> getAtoms() 
+    
+    @Override
+    public boolean equals(Object obj)
     {
+        if (!(obj instanceof KBcnf)) return false;
+        KBcnf other = (KBcnf)obj;
+        if (this.atoms.size() != other.getAtoms().size()) return false;
+        for (int i = 0; i < this.atoms.size(); i++)
+        {
+            if (!(this.atoms.get(i)).equals(other.getAtoms().get(i))) return false;
+        }
+        return true;
+        
+    }
+
+    public ArrayList<KBAtom> getAtoms() {
         return atoms;
     }
 }

@@ -69,38 +69,41 @@ public class KnowledgeBase
      */
     private boolean resolution_subroutine(List<KBcnf> kb)
     {
-        List<KBcnf> localKb = new ArrayList<>();
+        Set<KBcnf> localKb = new LinkedHashSet<>();
         localKb.addAll(kb);
         int itr = 0;
         do
         {
-            List<KBcnf> generatedSentences = new ArrayList<>();
+            Set<KBcnf> generatedSentences = new LinkedHashSet<>();
             
             // pairwise comparison of each sentence in kb
-            //for (KBcnf i : kb)
-            for (int i = 0; i < localKb.size(); i++)
+            for (KBcnf cnfI : localKb)
             {
-                KBcnf cnfI = localKb.get(i);
-                //for (KBcnf j : kb)
-                for (int j = i+1; j < localKb.size(); j++)
+                for (KBcnf cnfJ : kb)
                 {
-                    KBcnf cnfJ = localKb.get(j);
-                    if (cnfI.equals(cnfJ)) { System.out.println("i = j"); } // do nothing 
+                    if (cnfI.equals(cnfJ)) { } // do nothing 
                     else
                     {
                         KBcnf resolventClause = gen_resolvent_clause(cnfI, cnfJ);
                         System.out.println("\ncnfI: " + cnfI.toString());
                         System.out.println("cnfJ: " + cnfJ.toString());
-                        System.out.println("resolventClause: " + resolventClause.toString());
                         
                         // if a new resolvent sentence is made
-                        //if (resolventClause != i || resolventClause != j)
-                        if (!(resolventClause.equals(cnfI)) || !(resolventClause.equals(cnfJ)))
+                        if (!(resolventClause.equals(cnfI)))
                         {
+                            System.out.println("resolventClause: " + resolventClause.toString());
                             // return successful query if resolvent is empty sentence
                             if (resolventClause.getAtoms().isEmpty()) return true;
-                            // otherwise add new generated clause to the generate KBcnf list
-                            else generatedSentences.add(resolventClause);
+                            // otherwise add new generated clause to the generate KBcnf list if it is unique
+                            else 
+                            {
+                                boolean unique = true;
+                                for (KBcnf cnf : generatedSentences)
+                                {
+                                    if (cnf.equals(resolventClause)) unique = false;
+                                }
+                                if (unique) generatedSentences.add(resolventClause);
+                            }
                         }
                     }
                 }
@@ -110,8 +113,19 @@ public class KnowledgeBase
             // otherwise update the local knowledge base to include the new resolvent sentences
             else 
             {
-                System.out.println("i loop exited.");
-                localKb.addAll(generatedSentences);
+                System.out.println("generatedSentences: " + generatedSentences.toString());
+                System.out.println("localKb: " + localKb.toString());
+                // add generated cnf if unique to localKb
+                for (KBcnf genCNF : generatedSentences)
+                {
+                    boolean unique = true;
+                    for (KBcnf kbCNF : localKb)
+                    {
+                        if (genCNF.equals(kbCNF)) unique = false;
+                    }
+                    if (unique) localKb.add(genCNF);
+                }
+                
                 System.out.println("updated local kb: " + localKb.toString());
                 generatedSentences.clear();
                 itr++;
