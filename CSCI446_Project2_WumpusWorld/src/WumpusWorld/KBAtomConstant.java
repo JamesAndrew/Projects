@@ -52,4 +52,23 @@ public class KBAtomConstant extends KBAtomVariable
     {
         this.negation = !this.negation;
     }
+
+    public Room getTerm() 
+    {
+        return term;
+    }
+    
+    @Override
+    public String toString()
+    {
+        String output = "";
+        String negationStr = "";
+        
+        if (this.negation) negationStr = "!";
+        output = output + negationStr + this.predicate;
+        output = output + "(room(" +  this.term.getRoomRow() + ", " + this.term.getRoomColumn() + "))";
+        return output;
+    }
+    
+    
 }

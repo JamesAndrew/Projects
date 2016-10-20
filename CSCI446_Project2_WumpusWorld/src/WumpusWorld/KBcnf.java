@@ -41,4 +41,10 @@ public class KBcnf
         }
         return value;
     }
+    
+    @Override
+    public String toString()
+    {
+        return atoms.toString();
+    }
 }

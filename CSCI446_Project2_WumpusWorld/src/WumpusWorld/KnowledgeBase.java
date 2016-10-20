@@ -41,14 +41,19 @@ public class KnowledgeBase
         KBcnf query_as_cnf = new KBcnf(question);
         tempKB.add(query_as_cnf);
         
-        // (pick up here) run the resolution algorithm 
+        // temp test
+        System.out.println(tempKB.toString());
         
-        throw new PendingException();
+        // (pick up here) run the resolution algorithm 
+        return resolution(tempKB);
+    }
+    
+    private boolean resolution(List<KBcnf> kb)
+    {
+        return true;
     }
     
     /**
-     * All inputted sentences must be formed as first-order definite clauses
-     * e.g.: (P1(a) ^ P2(b) ^ P3(c)) => P4(a, b, c)
      * @param input : A first-order definite clause provided by either the agent
      * or cyclical techniques in the Knowledge Base
      * @post kbSentences is updated

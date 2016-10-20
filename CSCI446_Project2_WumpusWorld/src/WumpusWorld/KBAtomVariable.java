@@ -21,4 +21,16 @@ public class KBAtomVariable
     {
         return context.evaluate();
     }
+    
+    @Override
+    public String toString()
+    {
+        String output = "";
+        String negationStr = "";
+        
+        if (this.negation) negationStr = "!";
+        output = output + negationStr + this.predicate;
+        output = output + "(room(x,y))";
+        return output;
+    }
 }
