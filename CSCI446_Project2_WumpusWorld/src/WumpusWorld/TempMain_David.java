@@ -35,6 +35,5 @@ public class TempMain_David
         System.out.println("query: " + queryAtom.toString());
         boolean temp = kb.query(queryAtom);    // does room (2,2) have gold given the current KB?
         System.out.format("query result: %b%n", temp);
-        
     }
 }

@@ -109,7 +109,15 @@ public class KnowledgeBase
                 }
             }
             // reture false query if generated senteces is a subset of the actual kb
-            if (localKb.containsAll(generatedSentences)) return false;
+            boolean stillNewResolvents = true;
+            for (KBcnf genCNF : generatedSentences)
+            {
+                for (KBcnf kbCNF : localKb)
+                {
+                    if (genCNF.equals(kbCNF)) stillNewResolvents = false;
+                }
+            }
+            if (!stillNewResolvents) return false;
             // otherwise update the local knowledge base to include the new resolvent sentences
             else 
             {
