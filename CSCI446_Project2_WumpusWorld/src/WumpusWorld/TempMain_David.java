@@ -31,8 +31,10 @@ public class TempMain_David
         kb.update(shinyPercept);
         
         // do the query
-        boolean temp = kb.query(new KBAtomConstant(false, "HASGOLD", World.getRoom(2, 2)));    // does room (2,2) have gold given the current KB?
-        System.out.format("HASGOLD(room 2,2) query result: %b%n", temp);
+        KBAtomConstant queryAtom = new KBAtomConstant(false, "HASGOLD", World.getRoom(2, 2));
+        System.out.println("query: " + queryAtom.toString());
+        boolean temp = kb.query(queryAtom);    // does room (2,2) have gold given the current KB?
+        System.out.format("query result: %b%n", temp);
         
     }
 }

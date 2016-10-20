@@ -56,6 +56,68 @@ public class KnowledgeBase
     {
         // run unification on the current kb
         kb = unify(kb, query);
+        System.out.println("Unified KB: " + kb.toString());
+        
+        // run resolution algorithm
+        return resolution_subroutine(kb);
+    }
+    
+    /**
+     * @param kb : the temp kb with the negation of the query added in to it
+     * @param query : atomic sentence to determine true or false
+     * @return : true if query is true, false otherwise
+     */
+    private boolean resolution_subroutine(List<KBcnf> kb)
+    {
+        List<KBcnf> localKb = new ArrayList<>();
+        localKb.addAll(kb);
+        
+        do
+        {
+            List<KBcnf> generatedSentences = new ArrayList<>();
+            
+            // pairwise comparison of each sentence in kb
+            for (KBcnf i : kb)
+            {
+                for (KBcnf j : kb)
+                {
+                    if (i.equals(j)) { } // do nothing }
+                    else
+                    {
+                        KBcnf resolventClause = gen_resolvent_clause(i, j);
+                        
+                        // if a new resolvent sentence is made
+                        if (resolventClause != i || resolventClause != j)
+                        {
+                            // return successful query if resolvent is empty sentence
+                            if (resolventClause.getAtoms().isEmpty()) return true;
+                            // otherwise add new generated clause to the generate KBcnf list
+                            else generatedSentences.add(resolventClause);
+                        }
+                    }
+                }
+            }
+            // reture false query if generated senteces is a subset of the actual kb
+            if (localKb.containsAll(generatedSentences)) return false;
+            // otherwise update the local knowledge base to include the new resolvent sentences
+            else 
+            {
+                localKb.addAll(generatedSentences);
+                generatedSentences.clear();
+            }
+        } while (true);
+    }
+    
+    /**
+     * If two cnf's have a resolvent clause that can be produced, generate
+     * the clause and return it, otherwise return one of the original clauses
+     * @param i : cnf clause 1
+     * @param j : cnf clause 2
+     */
+    private KBcnf gen_resolvent_clause(KBcnf i, KBcnf j)
+    {
+        
+        
         throw new PendingException();
     }
     
@@ -81,8 +143,7 @@ public class KnowledgeBase
                 }
             }
         }
-        System.out.println("Unified KB: " + in_kb.toString());
-        throw new PendingException();
+        return in_kb;
     }
     
     /**

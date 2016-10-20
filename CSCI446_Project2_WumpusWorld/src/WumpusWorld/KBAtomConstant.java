@@ -70,4 +70,15 @@ public class KBAtomConstant extends KBAtom
         output = output + "(room(" +  this.term.getRoomRow() + ", " + this.term.getRoomColumn() + "))";
         return output;
     }
+    
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (!(obj instanceof KBAtomConstant)) return false;
+        
+        KBAtomConstant other = (KBAtomConstant)obj;
+        if ((this.negation == other.negation) && (this.predicate.equals(other.predicate)) && (this.term == other.term))
+            return true;
+        else return false;
+    }
 }
