@@ -22,7 +22,10 @@ public class KnowledgeBase
     
     public KnowledgeBase() 
     { 
-        addToKBcnf(new KBAtomVariable(true, "SHINY"), new KBAtomVariable(false, "HASGOLD"));
+        addToKBcnf(
+                new KBAtomVariable(true, "SHINY", new int[]{0,0}), 
+                new KBAtomVariable(false, "HASGOLD", new int[]{0,0})
+        );
     }
     
     /**
@@ -42,15 +45,34 @@ public class KnowledgeBase
         tempKB.add(query_as_cnf);
         
         // temp test
-        System.out.println(tempKB.toString());
+        System.out.println("actualKB: " + kb_cnf.toString());
+        System.out.println("tempKB: " + tempKB.toString());
         
         // (pick up here) run the resolution algorithm 
-        return resolution(tempKB);
+        return resolution(tempKB, question);
     }
     
-    private boolean resolution(List<KBcnf> kb)
+    private boolean resolution(List<KBcnf> kb, KBAtomConstant query)
     {
-        return true;
+        // run unification on the current kb
+        kb = unify(kb, query);
+        throw new PendingException();
+    }
+    
+    /**
+     * for all atoms in kb, if the atom is an instance of KBAtomVariable, transform
+     * it into a KBAtomConstant with offsets applied relevant to the current query item 
+     * @param in_kb : non-unified kb from the query function
+     * @param query : the current query item
+     * @return 
+     */
+    private List<KBcnf> unify(List<KBcnf> in_kb, KBAtomConstant query)
+    {
+//        for (KBcnf sentence : in_kb)
+//        {
+//            for (KBAtomVariable)
+//        }
+        throw new PendingException();
     }
     
     /**
@@ -58,7 +80,7 @@ public class KnowledgeBase
      * or cyclical techniques in the Knowledge Base
      * @post kbSentences is updated
      */
-    public void update(KBAtomVariable input)
+    public void update(KBAtom input)
     {
         KBcnf newData = new KBcnf(input);
         kb_cnf.add(newData);

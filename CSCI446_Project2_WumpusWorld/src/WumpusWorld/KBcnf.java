@@ -9,11 +9,11 @@ import java.util.ArrayList;
  */
 public class KBcnf 
 {
-    ArrayList<KBAtomVariable> atoms = new ArrayList<>();
+    ArrayList<KBAtom> atoms = new ArrayList<>();
     
-    public KBcnf(KBAtomVariable... atoms)
+    public KBcnf(KBAtom... atoms)
     {
-        for (KBAtomVariable atom : atoms)
+        for (KBAtom atom : atoms)
         this.atoms.add(atom);
     }
     
@@ -25,7 +25,7 @@ public class KBcnf
     public boolean evaluate(KBAtomConstant context)
     {
         boolean value = false;
-        for (KBAtomVariable atom : atoms)
+        for (KBAtom atom : atoms)
         {
             if (atom instanceof KBAtomConstant)
             {
@@ -34,7 +34,8 @@ public class KBcnf
             }
             else if (atom instanceof KBAtomVariable)
             {
-                value = atom.evaluate(context);
+                KBAtomVariable current = (KBAtomVariable) atom;
+                value = current.evaluate(context);
             }
             else throw new RuntimeException("The atoms in KBcnf.evaluate() "
                     + "didn't evaluate to the correct type.");

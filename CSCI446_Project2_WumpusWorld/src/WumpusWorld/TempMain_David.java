@@ -27,7 +27,7 @@ public class TempMain_David
 //        world.getRoom(2, 2).setAllProperties(false, true, false, false, false, false, false);
         
         // hard coding the relevant logical sentences
-        KBAtomConstant shinyPercept = new KBAtomConstant(false, "SHINY", world.getRoom(2, 2));
+        KBAtom shinyPercept = new KBAtomConstant(false, "SHINY", world.getRoom(2, 2));
         kb.update(shinyPercept);
         
         // do the query

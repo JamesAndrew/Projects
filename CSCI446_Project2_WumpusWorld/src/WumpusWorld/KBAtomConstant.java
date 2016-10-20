@@ -7,7 +7,7 @@ package WumpusWorld;
  * @author David Rice
  * @version October 2016
  */
-public class KBAtomConstant extends KBAtomVariable
+public class KBAtomConstant extends KBAtom
 {
     // this will change. having all atom terms be rooms for now
     private Room term;
@@ -20,7 +20,8 @@ public class KBAtomConstant extends KBAtomVariable
      */
     public KBAtomConstant(boolean negation, String predicate, Room term)
     {
-        super(negation, predicate);
+        this.negation = negation;
+        this.predicate = predicate;
         this.term = term;
     }
     
