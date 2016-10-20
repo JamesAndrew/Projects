@@ -29,91 +29,228 @@ public class KnowledgeBasedAgent
     private Room currentRoom;        // the current room the agent is in
     private World actualWorld; // the actual World generated 
     private World perceivedWorld;    // what the agent has learned about the world
+    private ArrayList<Room> safeRooms = new ArrayList<Room>();
 
-    public KnowledgeBasedAgent(World world)
+    public KnowledgeBasedAgent(World perceived, World actual)
     {
-        perceivedWorld = world;
+        perceivedWorld = perceived;
+        actualWorld = actual;
         currentRoom = perceivedWorld.getRoom(0, 0);
+        currentDirection = Direction.RIGHT;
     }
 
     /**
-     * Move through safe room path and subtract for each move 
-     * @param path List of path of rooms to take 
+     *
+     */
+    public void explore()
+    {
+        do
+        {
+            System.out.println(currentRoom.getRoomRow() + "'" + currentRoom.getRoomColumn());
+            updatePercepts();
+            takePath(getPath(currentRoom, getNextRoom()));
+        } while (goldNotFound());
+    }
+
+    /**
+     *
+     */
+    public void updatePercepts()
+    {
+        for (int i = currentRoom.getRoomRow() - 1; i <= currentRoom.getRoomRow() + 1; i++)
+        {
+            for (int j = currentRoom.getRoomColumn() - 1; j <= currentRoom.getRoomColumn() + 1; j++)
+            {
+                Room current = actualWorld.getRoom(i, j);
+                if (current != null && !current.isBreezy() && !current.isSmelly())
+                {
+                    currentRoom.setToSafe();
+                    safeRooms.add(current);
+                    setSurroundingExplorable(current);
+                }
+            }
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Room getNextRoom()
+    {
+        Room nextRoom = null;
+        int row = currentRoom.getRoomRow();
+        int column = currentRoom.getRoomColumn();
+        if (currentRoom.isSafe())
+        {
+            System.out.println("safe");
+            switch (currentDirection)
+            {
+                case RIGHT:
+                    nextRoom = perceivedWorld.getRoom(row, column + 1);
+                    break;
+                case LEFT:
+                    nextRoom = perceivedWorld.getRoom(row, column - 1);
+                    break;
+                case UP:
+                    nextRoom = perceivedWorld.getRoom(row + 1, column);
+                    break;
+                case DOWN:
+                    nextRoom = perceivedWorld.getRoom(row - 1, column);
+                    break;
+            }
+        }
+        if (nextRoom == null)
+        {
+            nextRoom = findLeastExplored();
+            for (int i = nextRoom.getRoomRow() - 1; i <= nextRoom.getRoomRow() + 1; i++)
+            {
+                for (int j = nextRoom.getRoomColumn() - 1; j <= nextRoom.getRoomColumn() + 1; j++)
+                {
+                    if (perceivedWorld.getRoom(i, j) != null && notDiagonal(nextRoom, i, j) && !perceivedWorld.getRoom(i, j).isSafe() && perceivedWorld.getRoom(i, j) != currentRoom)
+                    {
+                        nextRoom.setExplorable();
+                        System.out.println("Nullnext: " + nextRoom.getRoomRow() + "," + nextRoom.getRoomColumn());
+                        return nextRoom;
+                    }
+                }
+            }
+        } else
+        {
+            nextRoom.setExplorable();
+            System.out.println("next: " + nextRoom.getRoomRow() + "," + nextRoom.getRoomColumn());
+            return nextRoom;
+        }
+        return null;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Room findLeastExplored()
+    {
+        int mostExplorables = 0;
+        Room leastExplored = null;
+        for (Room r : safeRooms)
+        {
+            int surroundingUnexplored = 0;
+            for (int i = r.getRoomRow() - 1; i <= r.getRoomRow() + 1; i++)
+            {
+                for (int j = r.getRoomColumn() - 1; j <= r.getRoomColumn() + 1; j++)
+                {
+                    if (perceivedWorld.getRoom(i, j) != null && notDiagonal(r, i, j) && !perceivedWorld.getRoom(i, j).isSafe())
+                    {
+                        surroundingUnexplored++;
+                    }
+                }
+            }
+            if (surroundingUnexplored >= mostExplorables)
+            {
+                leastExplored = r;
+                mostExplorables = surroundingUnexplored;
+            }
+        }
+        return leastExplored;
+    }
+
+    public void setSurroundingExplorable(Room room)
+    {
+        for (int i = room.getRoomRow() - 1; i <= room.getRoomRow() + 1; i++)
+        {
+            for (int j = room.getRoomColumn() - 1; j <= room.getRoomColumn() + 1; j++)
+            {
+                if (perceivedWorld.getRoom(i, j) != null &&notDiagonal(room, i, j))
+                {
+                    perceivedWorld.getRoom(i, j).setExplorable();
+                }
+            }
+        }
+    }
+
+    /**
+     * Move through safe room path and subtract for each move
+     *
+     * @param path List of path of rooms to take
      */
     public void takePath(ArrayList<Room> path)
     {
-        for (Room room : path)
+        if (path != null)
         {
-            if (room != currentRoom)
+            for (Room room : path)
             {
-                //moving left
-                if (room.getRoomColumn() < currentRoom.getRoomColumn())
+                if (room != currentRoom)
                 {
-                    if (currentDirection == Direction.UP || currentDirection == Direction.DOWN)
+                    //moving left
+                    if (room.getRoomColumn() < currentRoom.getRoomColumn())
                     {
-                        score -= 2;
-                    } else if (currentDirection == Direction.RIGHT)
+                        if (currentDirection == Direction.UP || currentDirection == Direction.DOWN)
+                        {
+                            score -= 2;
+                        } else if (currentDirection == Direction.RIGHT)
+                        {
+                            score -= 3;
+                        } else
+                        {
+                            score -= 1;
+                        }
+                        currentDirection = Direction.LEFT;
+                        //moving right 
+                    } else if (room.getRoomColumn() > currentRoom.getRoomColumn())
                     {
-                        score -= 3;
-                    } else
+                        if (currentDirection == Direction.UP || currentDirection == Direction.DOWN)
+                        {
+                            score -= 2;
+                        } else if (currentDirection == Direction.LEFT)
+                        {
+                            score -= 3;
+                        } else
+                        {
+                            score -= 1;
+                        }
+                        currentDirection = Direction.RIGHT;
+                        //moving down
+                    } else if (room.getRoomRow() < currentRoom.getRoomRow())
                     {
-                        score -= 1;
+                        if (currentDirection == Direction.LEFT || currentDirection == Direction.RIGHT)
+                        {
+                            score -= 2;
+                        } else if (currentDirection == Direction.UP)
+                        {
+                            score -= 3;
+                        } else
+                        {
+                            score -= 1;
+                        }
+                        currentDirection = Direction.DOWN;
+                        //moving up
+                    } else if (room.getRoomRow() > currentRoom.getRoomRow())
+                    {
+                        if (currentDirection == Direction.LEFT || currentDirection == Direction.RIGHT)
+                        {
+                            score -= 2;
+                        } else if (currentDirection == Direction.DOWN)
+                        {
+                            score -= 3;
+                        } else
+                        {
+                            score -= 1;
+                        }
+                        currentDirection = Direction.UP;
                     }
-                    currentDirection = Direction.LEFT;
-                    //moving right 
-                } else if (room.getRoomColumn() > currentRoom.getRoomColumn())
-                {
-                    if (currentDirection == Direction.UP || currentDirection == Direction.DOWN)
-                    {
-                        score -= 2;
-                    } else if (currentDirection == Direction.LEFT)
-                    {
-                        score -= 3;
-                    } else
-                    {
-                        score -= 1;
-                    }
-                    currentDirection = Direction.RIGHT;
-                    //moving down
-                } else if (room.getRoomRow() < currentRoom.getRoomRow())
-                {
-                    if (currentDirection == Direction.LEFT || currentDirection == Direction.RIGHT)
-                    {
-                        score -= 2;
-                    } else if (currentDirection == Direction.UP)
-                    {
-                        score -= 3;
-                    } else
-                    {
-                        score -= 1;
-                    }
-                    currentDirection = Direction.DOWN;
-                    //moving up
-                } else if (room.getRoomRow() > currentRoom.getRoomRow())
-                {
-                    if (currentDirection == Direction.LEFT || currentDirection == Direction.RIGHT)
-                    {
-                        score -= 2;
-                    } else if (currentDirection == Direction.DOWN)
-                    {
-                        score -= 3;
-                    } else
-                    {
-                        score -= 1;
-                    }
-                    currentDirection = Direction.UP;
+                    currentRoom = room;
                 }
-                currentRoom = room;
             }
         }
-        System.out.println(score);
+        System.out.println(path);
     }
 
     /**
-     * Helper method for calling recursive 
-     * @param start Start room 
-     * @param finish Goal room 
-     * @return 
+     * Helper method for calling recursive
+     *
+     * @param start Start room
+     * @param finish Goal room
+     * @return
      */
     public ArrayList<Room> getPath(Room start, Room finish)
     {
@@ -123,21 +260,23 @@ public class KnowledgeBasedAgent
 
     /**
      * Find path from current room to goal room using only safe rooms
+     *
      * @param current
      * @param finish
-     * @param path List of safe rooms in path to goal 
-     * @return 
+     * @param path List of safe rooms in path to goal
+     * @return
      */
     private ArrayList<Room> getPath(Room current, Room finish, ArrayList<Room> path)
     {
         path.add(current);
-        if (current == finish)
+        System.out.println("adding: " + current.getRoomRow() + "," + current.getRoomColumn());
+        if (current.getRoomRow() == finish.getRoomRow() && current.getRoomColumn() == finish.getRoomColumn())
         {
             //path found
             return path;
         }
         //agent not already traveling in a particular direction 
-        if (path.size() == 1)
+        if (path.size() >= 0)
         {
             //iterate through adjacent rooms
             for (int i = current.getRoomRow() - 1; i <= current.getRoomRow() + 1; i++)
@@ -145,10 +284,10 @@ public class KnowledgeBasedAgent
                 for (int j = current.getRoomColumn() - 1; j <= current.getRoomColumn() + 1; j++)
                 {
                     //look at each room within the world size that is adjacent to current 
-                    if ((i >= 0 && i <= perceivedWorld.getSize()) && (j >= 0 && j <= perceivedWorld.getSize()) && notDiagonal(current, i, j) && !path.contains(perceivedWorld.getRoom(i, j)))
+                    if ((i >= 0 && i < perceivedWorld.getSize()) && (j >= 0 && j < perceivedWorld.getSize()) && notDiagonal(current, i, j) && !path.contains(perceivedWorld.getRoom(i, j)))
                     {
                         Room nextRoom = perceivedWorld.getRoom(i, j);
-                        if (nextRoom.isSafe())
+                        if (nextRoom.isSafe() || nextRoom.isExplorable())
                         {
                             ArrayList<Room> possiblePath = getPath(nextRoom, finish, path);
                             if (possiblePath != null)
@@ -174,10 +313,10 @@ public class KnowledgeBasedAgent
                 //moving up
                 if (previousRow < currentRow)
                 {
-                    if (currentRow + 1 <= perceivedWorld.getSize())
+                    if (currentRow + 1 < perceivedWorld.getSize())
                     {
                         nextRoom = perceivedWorld.getRoom(currentRow + 1, currentColumn);
-                        if (nextRoom.isSafe())
+                        if (nextRoom.isSafe() || nextRoom.isExplorable())
                         {
                             possiblePath = getPath(nextRoom, finish, path);
                         }
@@ -187,7 +326,7 @@ public class KnowledgeBasedAgent
                 {
                     {
                         nextRoom = perceivedWorld.getRoom(currentRow - 1, currentColumn);
-                        if (nextRoom.isSafe())
+                        if (nextRoom.isSafe() || nextRoom.isExplorable())
                         {
                             possiblePath = getPath(nextRoom, finish, path);
                         }
@@ -199,10 +338,10 @@ public class KnowledgeBasedAgent
                 //moving right
                 if (previousColumn < currentColumn)
                 {
-                    if (currentColumn + 1 <= perceivedWorld.getSize())
+                    if (currentColumn + 1 < perceivedWorld.getSize())
                     {
                         nextRoom = perceivedWorld.getRoom(currentRow, currentColumn + 1);
-                        if (nextRoom.isSafe())
+                        if (nextRoom.isSafe() || nextRoom.isExplorable())
                         {
                             possiblePath = getPath(nextRoom, finish, path);
                         }
@@ -211,7 +350,7 @@ public class KnowledgeBasedAgent
                 } else if (currentColumn - 1 >= 0)
                 {
                     nextRoom = perceivedWorld.getRoom(currentRow, currentColumn - 1);
-                    if (nextRoom.isSafe())
+                    if (nextRoom.isSafe() || nextRoom.isExplorable())
                     {
                         possiblePath = getPath(nextRoom, finish, path);
                     }
@@ -228,10 +367,10 @@ public class KnowledgeBasedAgent
                     for (int j = current.getRoomColumn() - 1; j <= current.getRoomColumn() + 1; j++)
                     {
                         //look at each room within the world size that is adjacent to current 
-                        if ((i >= 0 && i <= perceivedWorld.getSize()) && (j >= 0 && j <= perceivedWorld.getSize()) && notDiagonal(current, i, j) && !path.contains(perceivedWorld.getRoom(i, j)))
+                        if ((i >= 0 && i < perceivedWorld.getSize()) && (j >= 0 && j < perceivedWorld.getSize()) && notDiagonal(current, i, j) && !path.contains(perceivedWorld.getRoom(i, j)))
                         {
                             Room nextRoom = perceivedWorld.getRoom(i, j);
-                            if (nextRoom.isSafe())
+                            if (nextRoom.isSafe() || nextRoom.isExplorable())
                             {
                                 possiblePath = getPath(nextRoom, finish, path);
                                 if (possiblePath != null)
@@ -245,16 +384,18 @@ public class KnowledgeBasedAgent
             }
         }
         //path not found from this room 
+        System.out.println("removing: " + current.getRoomRow() + "," + current.getRoomColumn());
         path.remove(path.size() - 1);
         return null;
     }
 
     /**
-     * Check if room is at a diagonal to current room 
-     * @param current current room 
-     * @param i row to check 
-     * @param j column to check 
-     * @return 
+     * Check if room is at a diagonal to current room
+     *
+     * @param current current room
+     * @param i row to check
+     * @param j column to check
+     * @return
      */
     public boolean notDiagonal(Room current, int i, int j)
     {
@@ -268,4 +409,18 @@ public class KnowledgeBasedAgent
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
+    public boolean goldNotFound()
+    {
+        int row = currentRoom.getRoomRow();
+        int column = currentRoom.getRoomColumn();
+        if (actualWorld.getRoom(row, column).isShiny())
+        {
+            return false;
+        }
+        return true;
+    }
 }

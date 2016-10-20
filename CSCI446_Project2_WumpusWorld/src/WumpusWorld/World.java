@@ -276,7 +276,11 @@ public class World
     
     public Room getRoom(int row, int col)
     {
-        return theWorld[row][col];
+        if (row >= 0 && row < size && col >= 0 && col < size)
+        {
+            return theWorld[row][col];
+        }
+        return null; 
     }
     
     public Room getStart()
