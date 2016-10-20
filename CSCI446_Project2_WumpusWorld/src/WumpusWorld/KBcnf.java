@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class KBcnf 
 {
-    ArrayList<KBAtomVariable> atoms;
+    ArrayList<KBAtomVariable> atoms = new ArrayList<>();
     
     public KBcnf(KBAtomVariable... atoms)
     {
