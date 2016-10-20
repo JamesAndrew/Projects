@@ -5,8 +5,14 @@
  */
 package WumpusWorld;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  *
@@ -16,10 +22,18 @@ public class AgentStatistics
 {
     public static Map<Integer, Integer> KBAgentStats = new HashMap<>();
     public static Map<Integer, Integer> ReactiveAgentStats = new HashMap<>();
+    public static PrintWriter results;
     
     public AgentStatistics()
     {
         
+        try
+        {
+            results = new PrintWriter(new FileWriter(new File("Results")));
+        } catch (IOException ex)
+        {
+            
+        }
     }
     
     public void addKBStats(int s, int p)
@@ -34,6 +48,14 @@ public class AgentStatistics
     
     public void printResults()
     {
+        results.println("WorldSize     Score");
         
+        // iterate map using entryset in for loop
+        ReactiveAgentStats.entrySet().stream().forEach((entry) -> {
+            //print keys and values
+            results.println(entry.getKey() + "     " +entry.getValue());
+        });
+        
+        results.close();
     }
 }
