@@ -52,6 +52,7 @@ public final class ReactiveAgent
         
         actualWorld = w;
         currentRoom = actualWorld.getStart();
+        prevRoom = new Room(0,0);
         
         state = new World(3);
         
@@ -96,67 +97,74 @@ public final class ReactiveAgent
         if (alive == false)
         {
             alive = true;
-            currentRoom = prevRoom;
-            switch (direction) 
+            if (turn == 1)
             {
-                case 0:
-                    if (actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn()-1)).isWumpus())
-                    {
-                        state.getRoom(1, 0).setIsWumpus(true);
-                    }
-                    if (actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn()-1)).isPit())
-                    {
-                        state.getRoom(1, 0).setIsPit(true);
-                    }
-                    break;
-                case 1:
-                    if (actualWorld.getRoom((currentRoom.getRoomRow()-1), currentRoom.getRoomColumn()).isWumpus())
-                    {
-                        state.getRoom(0, 1).setIsWumpus(true);
-                    }
-                    if (actualWorld.getRoom((currentRoom.getRoomRow()-1), currentRoom.getRoomColumn()).isPit())
-                    {
-                        state.getRoom(0, 1).setIsPit(true);
-                    }
-                    break;
-                case 2:
-                    if (actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn()+1)).isWumpus())
-                    {
-                        state.getRoom(1, 2).setIsWumpus(true);
-                    }
-                    if (actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn()+1)).isPit())
-                    {
-                        state.getRoom(1, 2).setIsPit(true);
-                    }
-                    break;
-                case 3:
-                    if (actualWorld.getRoom((currentRoom.getRoomRow()+1), currentRoom.getRoomColumn()).isWumpus())
-                    {
-                        state.getRoom(2, 1).setIsWumpus(true);
-                    }
-                    if (actualWorld.getRoom((currentRoom.getRoomRow()+1), currentRoom.getRoomColumn()).isPit())
-                    {
-                        state.getRoom(2, 1).setIsPit(true);
-                    }
-                    break;
-                default:
-                    break;
+                currentRoom = actualWorld.getStart();
             }
-            switch(prevDirection)
+            else
             {
-                case 0:
-                    prevRoom = actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn() + 1));
-                    break;
-                case 1:
-                    prevRoom = actualWorld.getRoom((currentRoom.getRoomRow()+1), currentRoom.getRoomColumn());
-                    break;
-                case 2:
-                    prevRoom = actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn() - 1));
-                    break;
-                case 3:
-                    prevRoom = actualWorld.getRoom((currentRoom.getRoomRow()-1), currentRoom.getRoomColumn());
-                default:
-                    break;
+                currentRoom = prevRoom;
+                switch (direction) 
+                {
+                    case 0:
+                        if (actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn()-1)).isWumpus())
+                        {
+                            state.getRoom(1, 0).setIsWumpus(true);
+                        }
+                        if (actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn()-1)).isPit())
+                        {
+                            state.getRoom(1, 0).setIsPit(true);
+                        }
+                        break;
+                    case 1:
+                        if (actualWorld.getRoom((currentRoom.getRoomRow()-1), currentRoom.getRoomColumn()).isWumpus())
+                        {
+                            state.getRoom(0, 1).setIsWumpus(true);
+                        }
+                        if (actualWorld.getRoom((currentRoom.getRoomRow()-1), currentRoom.getRoomColumn()).isPit())
+                        {
+                            state.getRoom(0, 1).setIsPit(true);
+                        }
+                        break;
+                    case 2:
+                        if (actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn()+1)).isWumpus())
+                        {
+                            state.getRoom(1, 2).setIsWumpus(true);
+                        }
+                        if (actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn()+1)).isPit())
+                        {
+                            state.getRoom(1, 2).setIsPit(true);
+                        }
+                        break;
+                    case 3:
+                        if (actualWorld.getRoom((currentRoom.getRoomRow()+1), currentRoom.getRoomColumn()).isWumpus())
+                        {
+                            state.getRoom(2, 1).setIsWumpus(true);
+                        }
+                        if (actualWorld.getRoom((currentRoom.getRoomRow()+1), currentRoom.getRoomColumn()).isPit())
+                        {
+                            state.getRoom(2, 1).setIsPit(true);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                switch(prevDirection)
+                {
+                    case 0:
+                        prevRoom = actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn() + 1));
+                        break;
+                    case 1:
+                        prevRoom = actualWorld.getRoom((currentRoom.getRoomRow()+1), currentRoom.getRoomColumn());
+                        break;
+                    case 2:
+                        prevRoom = actualWorld.getRoom(currentRoom.getRoomRow(), (currentRoom.getRoomColumn() - 1));
+                        break;
+                    case 3:
+                        prevRoom = actualWorld.getRoom((currentRoom.getRoomRow()-1), currentRoom.getRoomColumn());
+                    default:
+                        break;
+                }
             }
         }
         
