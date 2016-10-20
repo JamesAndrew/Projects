@@ -40,6 +40,12 @@ public class KBAtomConstant extends KBAtom
             case ("HASGOLD"):
                 if (term.isHasGold()) value = true;
                 break;
+            case ("OBST"):
+                if (term.isHasObst()) value = true;
+                break;
+            case ("BLOCKED"):
+                if (term.isBlocked()) value = true;
+                break;
             default:
                 throw new RuntimeException("The predicate of this atom"
                         + "does not have a defined value");

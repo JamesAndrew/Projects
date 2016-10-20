@@ -17,6 +17,7 @@ public class Room
     private boolean isWumpus;
     
     private boolean hasGold;
+    private boolean hasObst;
     
     private final int roomRow;
     private final int roomColumn;
@@ -142,5 +143,10 @@ public class Room
         this.isShiny = shiny;
         this.isSmelly = smelly;
         this.isWumpus = wumpus;
+    }
+
+    public boolean isHasObst() 
+    {
+        return hasObst;
     }
 }

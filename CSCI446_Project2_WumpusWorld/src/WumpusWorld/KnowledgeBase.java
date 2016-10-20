@@ -22,10 +22,16 @@ public class KnowledgeBase
     
     public KnowledgeBase() 
     { 
-        // SHINY(C_xy) => HASGOLD(C_xy)
+        // SHINY(C_xy) => HASGOLD(C_xy): room has gold
         addToKBcnf(
             new KBAtomVariable(true, "SHINY", new int[]{0,0}), 
             new KBAtomVariable(false, "HASGOLD", new int[]{0,0})
+        );
+        
+        // OBST(C_xy) => BLOCKED(C_xy): room is blocked
+        addToKBcnf(
+            new KBAtomVariable(true, "OBST", new int[]{0,0}),
+            new KBAtomVariable(false, "BLOCKED", new int[]{0,0})
         );
     }
     
