@@ -9,6 +9,7 @@ package WumpusWorld;
 public class Room
 {
 
+    private boolean visited;
     private boolean explorable;
     private boolean isSafe;
     private boolean isBlocked;
@@ -148,8 +149,8 @@ public class Room
     {
         return isSafe;
     }
-    
-        public void setExplorable()
+
+    public void setExplorable()
     {
         explorable = true;
     }
@@ -157,5 +158,15 @@ public class Room
     public boolean isExplorable()
     {
         return explorable;
+    }
+
+    public void setVisited()
+    {
+        visited = true;
+    }
+
+    public boolean getVisited()
+    {
+        return visited;
     }
 }

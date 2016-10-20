@@ -30,6 +30,8 @@ public class KnowledgeBasedAgent
     private World actualWorld; // the actual World generated 
     private World perceivedWorld;    // what the agent has learned about the world
     private ArrayList<Room> safeRooms = new ArrayList<Room>();
+    private ArrayList<Room> pits = new ArrayList<Room>();
+    private ArrayList<Room> wumpi = new ArrayList<Room>();
 
     public KnowledgeBasedAgent(World perceived, World actual)
     {
@@ -46,10 +48,12 @@ public class KnowledgeBasedAgent
     {
         do
         {
+            currentRoom.setVisited();
             System.out.println(currentRoom.getRoomRow() + "'" + currentRoom.getRoomColumn());
             updatePercepts();
             takePath(getPath(currentRoom, getNextRoom()));
         } while (goldNotFound());
+        System.out.format("Gold found in room: %d, %d", currentRoom.getRoomRow(), currentRoom.getRoomColumn());
     }
 
     /**
@@ -57,19 +61,34 @@ public class KnowledgeBasedAgent
      */
     public void updatePercepts()
     {
-        for (int i = currentRoom.getRoomRow() - 1; i <= currentRoom.getRoomRow() + 1; i++)
+//        for (int i = currentRoom.getRoomRow() - 1; i <= currentRoom.getRoomRow() + 1; i++)
+//        {
+//            for (int j = currentRoom.getRoomColumn() - 1; j <= currentRoom.getRoomColumn() + 1; j++)
+//            {
+//                Room current = actualWorld.getRoom(i, j);
+//                if (current != null && !current.isBreezy() && !current.isSmelly())
+//                {
+//                    currentRoom.setToSafe();
+//                    safeRooms.add(current);
+//                    setSurroundingExplorable(current);
+//                }
+//            }
+//        }
+        int row = currentRoom.getRoomRow();
+        int column = currentRoom.getRoomColumn();
+        if (!actualWorld.getRoom(row, column).isBreezy() && !actualWorld.getRoom(row, column).isSmelly())
         {
-            for (int j = currentRoom.getRoomColumn() - 1; j <= currentRoom.getRoomColumn() + 1; j++)
-            {
-                Room current = actualWorld.getRoom(i, j);
-                if (current != null && !current.isBreezy() && !current.isSmelly())
-                {
-                    currentRoom.setToSafe();
-                    safeRooms.add(current);
-                    setSurroundingExplorable(current);
-                }
-            }
+            currentRoom.setToSafe();
+            safeRooms.add(currentRoom);
+            setSurroundingExplorable(currentRoom);
+        } else if (actualWorld.getRoom(row, column).isBreezy())
+        {
+            currentRoom.setIsBreezy(true);
+        } else if (actualWorld.getRoom(row, column).isSmelly())
+        {
+            currentRoom.setIsSmelly(true);
         }
+
     }
 
     /**
@@ -103,22 +122,32 @@ public class KnowledgeBasedAgent
         if (nextRoom == null)
         {
             nextRoom = findLeastExplored();
-            for (int i = nextRoom.getRoomRow() - 1; i <= nextRoom.getRoomRow() + 1; i++)
+            if (nextRoom != currentRoom)
             {
-                for (int j = nextRoom.getRoomColumn() - 1; j <= nextRoom.getRoomColumn() + 1; j++)
+                for (int i = nextRoom.getRoomRow() - 1; i <= nextRoom.getRoomRow() + 1; i++)
                 {
-                    if (perceivedWorld.getRoom(i, j) != null && notDiagonal(nextRoom, i, j) && !perceivedWorld.getRoom(i, j).isSafe() && perceivedWorld.getRoom(i, j) != currentRoom)
+                    for (int j = nextRoom.getRoomColumn() - 1; j <= nextRoom.getRoomColumn() + 1; j++)
                     {
-                        nextRoom.setExplorable();
-                        System.out.println("Nullnext: " + nextRoom.getRoomRow() + "," + nextRoom.getRoomColumn());
-                        return nextRoom;
+                        if (perceivedWorld.getRoom(i, j) != null && notDiagonal(nextRoom, i, j) && !perceivedWorld.getRoom(i, j).isSafe() && perceivedWorld.getRoom(i, j) != currentRoom)
+                        {
+                            nextRoom = perceivedWorld.getRoom(i, j);
+                            nextRoom.setExplorable();
+                            System.out.println("next:" + nextRoom.getRoomRow() + ", " + nextRoom.getRoomColumn());
+                            return nextRoom;
+                        }
                     }
                 }
+            } else
+            {
+                nextRoom = makeHardDecisions();
+                nextRoom.setExplorable();
+                System.out.println("next:" + nextRoom.getRoomRow() + ", " + nextRoom.getRoomColumn());
+                return nextRoom;
             }
         } else
         {
             nextRoom.setExplorable();
-            System.out.println("next: " + nextRoom.getRoomRow() + "," + nextRoom.getRoomColumn());
+            System.out.println("next:" + nextRoom.getRoomRow() + ", " + nextRoom.getRoomColumn());
             return nextRoom;
         }
         return null;
@@ -131,7 +160,7 @@ public class KnowledgeBasedAgent
     public Room findLeastExplored()
     {
         int mostExplorables = 0;
-        Room leastExplored = null;
+        Room leastExplored = currentRoom;
         for (Room r : safeRooms)
         {
             int surroundingUnexplored = 0;
@@ -139,13 +168,13 @@ public class KnowledgeBasedAgent
             {
                 for (int j = r.getRoomColumn() - 1; j <= r.getRoomColumn() + 1; j++)
                 {
-                    if (perceivedWorld.getRoom(i, j) != null && notDiagonal(r, i, j) && !perceivedWorld.getRoom(i, j).isSafe())
+                    if (perceivedWorld.getRoom(i, j) != null && notDiagonal(r, i, j) && !perceivedWorld.getRoom(i, j).isSafe() && !perceivedWorld.getRoom(i, j).getVisited())
                     {
                         surroundingUnexplored++;
                     }
                 }
             }
-            if (surroundingUnexplored >= mostExplorables)
+            if (surroundingUnexplored != 0 && surroundingUnexplored >= mostExplorables)
             {
                 leastExplored = r;
                 mostExplorables = surroundingUnexplored;
@@ -160,12 +189,49 @@ public class KnowledgeBasedAgent
         {
             for (int j = room.getRoomColumn() - 1; j <= room.getRoomColumn() + 1; j++)
             {
-                if (perceivedWorld.getRoom(i, j) != null &&notDiagonal(room, i, j))
+                if (perceivedWorld.getRoom(i, j) != null && notDiagonal(room, i, j))
                 {
                     perceivedWorld.getRoom(i, j).setExplorable();
                 }
             }
         }
+    }
+
+    public Room makeHardDecisions()
+    {
+        int numDangerous = 4;
+        Room nextRoom = null;
+        for (int i = currentRoom.getRoomRow() - 1; i <= currentRoom.getRoomRow() + 1; i++)
+        {
+            for (int j = currentRoom.getRoomColumn() - 1; j <= currentRoom.getRoomColumn() + 1; j++)
+            {
+                if (perceivedWorld.getRoom(i, j) != null && notDiagonal(currentRoom, i, j))
+                {
+                    if (!pits.contains(perceivedWorld.getRoom(i, j)) || !wumpi.contains(perceivedWorld.getRoom(i, j)))
+                    {
+                        Room checkRoom = perceivedWorld.getRoom(i, j);
+                        int danger = 0;
+                        for (int k = checkRoom.getRoomRow() - 1; k <= checkRoom.getRoomRow() + 1; k++)
+                        {
+                            for (int l = checkRoom.getRoomColumn() - 1; l <= checkRoom.getRoomColumn() + 1; l++)
+                            {
+                                if (perceivedWorld.getRoom(k, l) != null && (perceivedWorld.getRoom(k, l).isSmelly() || perceivedWorld.getRoom(k, l).isBreezy()))
+                                {
+                                    danger++;
+                                }
+
+                            }
+                        }
+                        if (danger <= numDangerous)
+                        {
+                            nextRoom = checkRoom;
+                            numDangerous = danger;
+                        }
+                    }
+                }
+            }
+        }
+        return nextRoom;
     }
 
     /**
@@ -269,7 +335,6 @@ public class KnowledgeBasedAgent
     private ArrayList<Room> getPath(Room current, Room finish, ArrayList<Room> path)
     {
         path.add(current);
-        System.out.println("adding: " + current.getRoomRow() + "," + current.getRoomColumn());
         if (current.getRoomRow() == finish.getRoomRow() && current.getRoomColumn() == finish.getRoomColumn())
         {
             //path found
@@ -384,7 +449,6 @@ public class KnowledgeBasedAgent
             }
         }
         //path not found from this room 
-        System.out.println("removing: " + current.getRoomRow() + "," + current.getRoomColumn());
         path.remove(path.size() - 1);
         return null;
     }
