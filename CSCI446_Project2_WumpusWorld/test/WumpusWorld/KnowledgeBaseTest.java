@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package WumpusWorld;
 
 import org.junit.After;
@@ -11,6 +6,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import sun.security.krb5.internal.ktab.KeyTabConstants;
 
 /**
  *
@@ -38,23 +34,29 @@ public class KnowledgeBaseTest {
     }
 
     @Test
-    public void testQuery() {
-        System.out.println("query");
-        KBAtomConstant question = null;
-        KnowledgeBase instance = new KnowledgeBase();
-        boolean expResult = false;
-        boolean result = instance.query(question);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testUpdate() {
-        System.out.println("update");
-        KBAtom input = null;
-        KnowledgeBase instance = new KnowledgeBase();
-        instance.update(input);
-        fail("The test case is a prototype.");
+    public void test_gen_resolvent_clause()
+    {
+        Room room22 = new Room(2,2);
+        
+        KBcnf cnf1 = new KBcnf(
+                new KBAtomConstant(true, "SHINY", room22),
+                new KBAtomConstant(false, "HASGOLD", room22)
+        );
+        KBcnf cnf2 = new KBcnf(
+                new KBAtomConstant(false, "SHINY", room22)
+        );
+        
+        KBcnf expectedResult = new KBcnf(
+                new KBAtomConstant(false, "HASGOLD", room22)
+        );
+        
+        KnowledgeBase kb = new KnowledgeBase();
+        kb.setKb_cnf(null);
+        
+        KBcnf actualResult = kb.gen_resolvent_clause(cnf1, cnf2);
+        System.out.println("expected result: " + expectedResult.toString());
+        System.out.println("actual result: " + actualResult.toString());
+        assertEquals(expectedResult.toString(), actualResult.toString());
     }
     
 }

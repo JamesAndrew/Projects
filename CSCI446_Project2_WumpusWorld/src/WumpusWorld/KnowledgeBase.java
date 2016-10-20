@@ -81,7 +81,7 @@ public class KnowledgeBase
             {
                 for (KBcnf j : kb)
                 {
-                    if (i.equals(j)) { } // do nothing }
+                    if (i.equals(j)) { } // do nothing 
                     else
                     {
                         KBcnf resolventClause = gen_resolvent_clause(i, j);
@@ -114,11 +114,45 @@ public class KnowledgeBase
      * @param i : cnf clause 1
      * @param j : cnf clause 2
      */
-    private KBcnf gen_resolvent_clause(KBcnf i, KBcnf j)
+    public KBcnf gen_resolvent_clause(KBcnf i, KBcnf j)
     {
+        ArrayList<KBAtom> ijAtoms = new ArrayList<>();
+        ijAtoms.addAll(i.getAtoms());
+        ijAtoms.addAll(j.getAtoms());
         
+        // pairwise comparison of each atom in clause i to each atom in clase j
+        for (KBAtom iAtoms : i.getAtoms())
+        {
+            KBAtomConstant atomI = (KBAtomConstant) iAtoms;
+            for (KBAtom jAtoms : j.getAtoms())
+            {
+                KBAtomConstant atomJ = (KBAtomConstant) jAtoms;
+                
+                // if one is the perfect negation of the other...
+                if(gen_resolvent_clause_subroutine(atomI, atomJ))
+                {
+                    // remove both atoms from the ijAtoms cnf statement
+                    ijAtoms.remove(atomI);
+                    ijAtoms.remove(atomJ);
+                    // generate the new CNF resolvent clause
+                    KBcnf resolventSentence = new KBcnf(ijAtoms);
+                    return resolventSentence;
+                }
+            }
+        }
         
-        throw new PendingException();
+        // if no perfect negations were found, return the original CNF
+        return i;
+    }
+    
+    private boolean gen_resolvent_clause_subroutine(KBAtomConstant atomA, KBAtomConstant atomB)
+    {
+        KBAtomConstant i = new KBAtomConstant(atomA.negation, atomA.predicate, atomA.getTerm());
+        i.flipNegation();
+        
+        KBAtomConstant j = new KBAtomConstant(atomB.negation, atomB.predicate, atomB.getTerm());
+        
+        return i.equals(j);
     }
     
     /**
@@ -161,5 +195,12 @@ public class KnowledgeBase
     {
         KBcnf cnfSentence = new KBcnf(atoms);
         kb_cnf.add(cnfSentence);
+    }
+
+    public List<KBcnf> getKb_cnf() {
+        return kb_cnf;
+    }
+    public void setKb_cnf(List<KBcnf> kb_cnf) {
+        this.kb_cnf = kb_cnf;
     }
 }

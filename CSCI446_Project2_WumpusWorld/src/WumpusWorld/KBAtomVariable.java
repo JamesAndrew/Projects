@@ -33,7 +33,7 @@ public class KBAtomVariable extends KBAtom
         ;
         
         KBAtomConstant newAtom = new KBAtomConstant(
-            this.negation,  
+                this.isNegation(),  
             this.predicate, 
             termValue)
         ;
@@ -47,7 +47,7 @@ public class KBAtomVariable extends KBAtom
         String output = "";
         String negationStr = "";
         
-        if (this.negation) negationStr = "!";
+        if (this.isNegation()) negationStr = "!";
         output = output + negationStr + this.predicate;
         output = output + "(room(x=" + termOffset[0] + ",y=" + termOffset[1] + "))";
         return output;

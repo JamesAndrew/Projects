@@ -10,4 +10,9 @@ public abstract class KBAtom
     
     @Override
     public abstract String toString();
+
+    public boolean isNegation() 
+    {
+        return negation;
+    }
 }

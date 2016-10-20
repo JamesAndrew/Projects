@@ -44,14 +44,14 @@ public class KBAtomConstant extends KBAtom
                 throw new RuntimeException("The predicate of this atom"
                         + "does not have a defined value");
         }
-        if (negation) value = !value;
+        if (isNegation()) value = !value;
         
         return value;
     }
     
     public void flipNegation()
     {
-        this.negation = !this.negation;
+        this.negation = !this.isNegation();
     }
 
     public Room getTerm() 
@@ -65,7 +65,7 @@ public class KBAtomConstant extends KBAtom
         String output = "";
         String negationStr = "";
         
-        if (this.negation) negationStr = "!";
+        if (this.isNegation()) negationStr = "!";
         output = output + negationStr + this.predicate;
         output = output + "(room(" +  this.term.getRoomRow() + ", " + this.term.getRoomColumn() + "))";
         return output;
@@ -77,7 +77,7 @@ public class KBAtomConstant extends KBAtom
         if (!(obj instanceof KBAtomConstant)) return false;
         
         KBAtomConstant other = (KBAtomConstant)obj;
-        if ((this.negation == other.negation) && (this.predicate.equals(other.predicate)) && (this.term == other.term))
+        if ((this.isNegation() == other.isNegation()) && (this.predicate.equals(other.predicate)) && (this.term == other.term))
             return true;
         else return false;
     }

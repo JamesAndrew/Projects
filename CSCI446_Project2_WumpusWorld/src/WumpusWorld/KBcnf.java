@@ -17,6 +17,11 @@ public class KBcnf
         this.atoms.add(atom);
     }
     
+    public KBcnf(ArrayList<KBAtom> atoms)
+    {
+        this.atoms.addAll(atoms);
+    }
+    
     /**
      * Assuming only disjunctions, if any atom value evaluates to true, the
      * CNF statement is true 
