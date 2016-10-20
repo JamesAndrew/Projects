@@ -71,23 +71,31 @@ public class KnowledgeBase
     {
         List<KBcnf> localKb = new ArrayList<>();
         localKb.addAll(kb);
-        
+        int itr = 0;
         do
         {
             List<KBcnf> generatedSentences = new ArrayList<>();
             
             // pairwise comparison of each sentence in kb
-            for (KBcnf i : kb)
+            //for (KBcnf i : kb)
+            for (int i = 0; i < localKb.size(); i++)
             {
-                for (KBcnf j : kb)
+                KBcnf cnfI = localKb.get(i);
+                //for (KBcnf j : kb)
+                for (int j = i+1; j < localKb.size(); j++)
                 {
-                    if (i.equals(j)) { } // do nothing 
+                    KBcnf cnfJ = localKb.get(j);
+                    if (cnfI.equals(cnfJ)) { System.out.println("i = j"); } // do nothing 
                     else
                     {
-                        KBcnf resolventClause = gen_resolvent_clause(i, j);
+                        KBcnf resolventClause = gen_resolvent_clause(cnfI, cnfJ);
+                        System.out.println("\ncnfI: " + cnfI.toString());
+                        System.out.println("cnfJ: " + cnfJ.toString());
+                        System.out.println("resolventClause: " + resolventClause.toString());
                         
                         // if a new resolvent sentence is made
-                        if (resolventClause != i || resolventClause != j)
+                        //if (resolventClause != i || resolventClause != j)
+                        if (!(resolventClause.equals(cnfI)) || !(resolventClause.equals(cnfJ)))
                         {
                             // return successful query if resolvent is empty sentence
                             if (resolventClause.getAtoms().isEmpty()) return true;
@@ -102,10 +110,14 @@ public class KnowledgeBase
             // otherwise update the local knowledge base to include the new resolvent sentences
             else 
             {
+                System.out.println("i loop exited.");
                 localKb.addAll(generatedSentences);
+                System.out.println("updated local kb: " + localKb.toString());
                 generatedSentences.clear();
+                itr++;
             }
-        } while (true);
+        } while (itr < 10);
+        return false;
     }
     
     /**
