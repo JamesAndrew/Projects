@@ -9,6 +9,11 @@ import java.util.Random;
 public final class ReactiveAgent 
 {
     /**
+     * AgentStatistics class to add stats to
+     */
+    AgentStatistics Stats;
+    
+    /**
      * Sensors
      */
     private boolean hitObstacle; // if the agent hit an obstacle 
@@ -46,6 +51,8 @@ public final class ReactiveAgent
      */
     public ReactiveAgent(World w, int m)
     {
+        Stats = new AgentStatistics();
+        
         score = 0;
         actions = 0;
         moves = m;
@@ -86,6 +93,7 @@ public final class ReactiveAgent
         }
         
         agentStatus();
+        Stats.addReactiveStats(actualWorld.getSize(), score);
     }
     
     /**
