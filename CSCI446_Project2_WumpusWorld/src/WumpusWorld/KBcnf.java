@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class KBcnf 
 {
-    ArrayList<KBAtom> atoms = new ArrayList<>();
+    private ArrayList<KBAtom> atoms = new ArrayList<>();
     
     public KBcnf(KBAtom... atoms)
     {
@@ -47,5 +47,10 @@ public class KBcnf
     public String toString()
     {
         return atoms.toString();
+    }
+
+    public ArrayList<KBAtom> getAtoms() 
+    {
+        return atoms;
     }
 }

@@ -68,10 +68,20 @@ public class KnowledgeBase
      */
     private List<KBcnf> unify(List<KBcnf> in_kb, KBAtomConstant query)
     {
-//        for (KBcnf sentence : in_kb)
-//        {
-//            for (KBAtomVariable)
-//        }
+        for (KBcnf sentence : in_kb)
+        {
+            for (int i = 0; i < sentence.getAtoms().size(); i++)
+            {
+                KBAtom atom = sentence.getAtoms().get(i);
+                if (atom instanceof KBAtomVariable)
+                {
+                    KBAtomVariable currentAtom = (KBAtomVariable) atom;
+                    KBAtomConstant replacement = currentAtom.convertToConstant(query);
+                    sentence.getAtoms().set(i, replacement);
+                }
+            }
+        }
+        System.out.println("Unified KB: " + in_kb.toString());
         throw new PendingException();
     }
     

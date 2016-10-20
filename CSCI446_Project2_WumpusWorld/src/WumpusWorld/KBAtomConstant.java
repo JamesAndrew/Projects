@@ -70,6 +70,4 @@ public class KBAtomConstant extends KBAtom
         output = output + "(room(" +  this.term.getRoomRow() + ", " + this.term.getRoomColumn() + "))";
         return output;
     }
-    
-    
 }
