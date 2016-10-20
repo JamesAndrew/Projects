@@ -56,6 +56,11 @@ public class AgentStatistics
             results.println(entry.getKey() + "     " +entry.getValue());
         });
         
+        KBAgentStats.entrySet().stream().forEach((entry) -> {
+            //print keys and values
+            results.println(entry.getKey() + "     " +entry.getValue());
+        });
+        
         results.close();
     }
 }
