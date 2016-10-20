@@ -22,9 +22,10 @@ public class KnowledgeBase
     
     public KnowledgeBase() 
     { 
+        // SHINY(C_xy) => HASGOLD(C_xy)
         addToKBcnf(
-                new KBAtomVariable(true, "SHINY", new int[]{0,0}), 
-                new KBAtomVariable(false, "HASGOLD", new int[]{0,0})
+            new KBAtomVariable(true, "SHINY", new int[]{0,0}), 
+            new KBAtomVariable(false, "HASGOLD", new int[]{0,0})
         );
     }
     
@@ -71,7 +72,6 @@ public class KnowledgeBase
     {
         Set<KBcnf> localKb = new LinkedHashSet<>();
         localKb.addAll(kb);
-        int itr = 0;
         do
         {
             Set<KBcnf> generatedSentences = new LinkedHashSet<>();
@@ -85,13 +85,13 @@ public class KnowledgeBase
                     else
                     {
                         KBcnf resolventClause = gen_resolvent_clause(cnfI, cnfJ);
-                        System.out.println("\ncnfI: " + cnfI.toString());
-                        System.out.println("cnfJ: " + cnfJ.toString());
+//                        System.out.println("\ncnfI: " + cnfI.toString());
+//                        System.out.println("cnfJ: " + cnfJ.toString());
                         
                         // if a new resolvent sentence is made
                         if (!(resolventClause.equals(cnfI)))
                         {
-                            System.out.println("resolventClause: " + resolventClause.toString());
+//                            System.out.println("resolventClause: " + resolventClause.toString());
                             // return successful query if resolvent is empty sentence
                             if (resolventClause.getAtoms().isEmpty()) return true;
                             // otherwise add new generated clause to the generate KBcnf list if it is unique
@@ -121,8 +121,8 @@ public class KnowledgeBase
             // otherwise update the local knowledge base to include the new resolvent sentences
             else 
             {
-                System.out.println("generatedSentences: " + generatedSentences.toString());
-                System.out.println("localKb: " + localKb.toString());
+//                System.out.println("generatedSentences: " + generatedSentences.toString());
+//                System.out.println("localKb: " + localKb.toString());
                 // add generated cnf if unique to localKb
                 for (KBcnf genCNF : generatedSentences)
                 {
@@ -134,12 +134,10 @@ public class KnowledgeBase
                     if (unique) localKb.add(genCNF);
                 }
                 
-                System.out.println("updated local kb: " + localKb.toString());
+//                System.out.println("updated local kb: " + localKb.toString());
                 generatedSentences.clear();
-                itr++;
             }
-        } while (itr < 10);
-        return false;
+        } while (true);
     }
     
     /**

@@ -26,14 +26,5 @@ public class TempMain_David
 //        world.getRoom(2, 1).setAllProperties(false, true, false, false, false, false, false);
 //        world.getRoom(2, 2).setAllProperties(false, true, false, false, false, false, false);
         
-        // hard coding the relevant logical sentences
-        KBAtom shinyPercept = new KBAtomConstant(false, "SHINY", World.getRoom(2, 2));
-        kb.update(shinyPercept);
-        
-        // do the query
-        KBAtomConstant queryAtom = new KBAtomConstant(false, "HASGOLD", World.getRoom(2, 2));
-        System.out.println("query: " + queryAtom.toString());
-        boolean temp = kb.query(queryAtom);    // does room (2,2) have gold given the current KB?
-        System.out.format("query result: %b%n", temp);
     }
 }
