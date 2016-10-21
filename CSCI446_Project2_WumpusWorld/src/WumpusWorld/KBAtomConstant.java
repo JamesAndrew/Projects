@@ -98,8 +98,9 @@ public class KBAtomConstant extends KBAtom
         if (!(obj instanceof KBAtomConstant)) return false;
         
         KBAtomConstant other = (KBAtomConstant)obj;
-        if ((this.isNegation() == other.isNegation()) && (this.predicate.equals(other.predicate)) && (this.term == other.term))
-            return true;
+        if (this.toString().equals(other.toString())) return true;
+//        if ((this.isNegation() == other.isNegation()) && (this.predicate.equals(other.predicate)) && (this.term == other.term))
+//            return true;
         else return false;
     }
 }

@@ -80,10 +80,10 @@ public class KnowledgeBaseTest {
         KnowledgeBase kb = new KnowledgeBase();
         
         KBAtom obstPercept1 = new KBAtomConstant(false, "OBST", World.getRoom(0, 0)); // has obstacle
-        KBAtom obstPercept2 = new KBAtomConstant(true, "OBST", World.getRoom(0, 1));  // does not have obstacle
+//        KBAtom obstPercept2 = new KBAtomConstant(true, "OBST", World.getRoom(0, 1));  // does not have obstacle
         
         kb.update(obstPercept1);
-        kb.update(obstPercept2);
+//        kb.update(obstPercept2);
         
         KBAtomConstant queryAtom1 = new KBAtomConstant(false, "BLOCKED", World.getRoom(0, 0)); // is room (x,y) blocked given the current KB?
         System.out.println("query: " + queryAtom1.toString());
@@ -92,12 +92,12 @@ public class KnowledgeBaseTest {
         System.out.format("query result: %b%n%n", actualOutput1);
         assertEquals(expectedOutput1, actualOutput1);
         
-//        KBAtomConstant queryAtom2 = new KBAtomConstant(false, "BLOCKED", World.getRoom(0, 1)); //  // is room (x,y) blocked given the current KB?
-//        System.out.println("query: " + queryAtom2.toString());
-//        boolean expectedOutput2 = false;
-//        boolean actualOutput2 = kb.query(queryAtom2);   
-//        System.out.format("query result: %b%n%n", actualOutput2);
-//        assertEquals(expectedOutput2, actualOutput2);
+        KBAtomConstant queryAtom2 = new KBAtomConstant(false, "BLOCKED", World.getRoom(0, 1)); //  // is room (x,y) blocked given the current KB?
+        System.out.println("query: " + queryAtom2.toString());
+        boolean expectedOutput2 = false;
+        boolean actualOutput2 = kb.query(queryAtom2);   
+        System.out.format("query result: %b%n%n", actualOutput2);
+        assertEquals(expectedOutput2, actualOutput2);
     }
     
     @Test

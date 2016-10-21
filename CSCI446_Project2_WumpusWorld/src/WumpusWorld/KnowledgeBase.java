@@ -23,10 +23,10 @@ public class KnowledgeBase
     public KnowledgeBase() 
     { 
         // SHINY(C_xy) => HASGOLD(C_xy): room has gold
-        addToKBcnf(
-            new KBAtomVariable(true, "SHINY", new int[]{0,0}), 
-            new KBAtomVariable(false, "HASGOLD", new int[]{0,0})
-        );
+//        addToKBcnf(
+//            new KBAtomVariable(true, "SHINY", new int[]{0,0}), 
+//            new KBAtomVariable(false, "HASGOLD", new int[]{0,0})
+//        );
         
         // OBST(C_xy) => BLOCKED(C_xy): room is blocked
         addToKBcnf(
@@ -35,17 +35,17 @@ public class KnowledgeBase
         );
         
         // (smelly || windy || shiny) || (!blocked && !pit && !wumpus) => safe: room is safe
-        ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SMELLY", new int[]{0,0})));
-        ArrayList<KBAtom> disj2 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "WINDY", new int[]{0,0})));
-        ArrayList<KBAtom> disj3 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SHINY", new int[]{0,0})));
-        ArrayList<KBAtom> disj4 = new ArrayList<>(Arrays.asList(
-            new KBAtomVariable(false, "OBST", new int[]{0,0}),
-            new KBAtomVariable(false, "PIT", new int[]{0,0}),
-            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
-        )
-        );
-        ArrayList<KBAtom> disj5 = new ArrayList<>(Arrays.asList(new KBAtomVariable(false, "SAFE", new int[]{0,0})));
-        addToKBcnf(disj1, disj2, disj3, disj4, disj5);
+//        ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SMELLY", new int[]{0,0})));
+//        ArrayList<KBAtom> disj2 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "WINDY", new int[]{0,0})));
+//        ArrayList<KBAtom> disj3 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SHINY", new int[]{0,0})));
+//        ArrayList<KBAtom> disj4 = new ArrayList<>(Arrays.asList(
+//            new KBAtomVariable(false, "OBST", new int[]{0,0}),
+//            new KBAtomVariable(false, "PIT", new int[]{0,0}),
+//            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+//        )
+//        );
+//        ArrayList<KBAtom> disj5 = new ArrayList<>(Arrays.asList(new KBAtomVariable(false, "SAFE", new int[]{0,0})));
+//        addToKBcnf(disj1, disj2, disj3, disj4, disj5);
     }
     
     /**
@@ -84,19 +84,16 @@ public class KnowledgeBase
     private boolean resolution(List<KBcnf> kb, KBAtomConstant query)
     {
         // run unification on the current kb
-        List<KBcnf> unifiedKB = new ArrayList<>();
         List<KBcnf> temp = unify(kb, query);
-        unifiedKB.addAll(temp);
-        
-        System.out.println("Unified KB: ");
-        for (int i = 1; i < unifiedKB.size(); i++)
+        System.out.println("Unified KB (temp): " + temp.toString());
+        for (int i = 0; i < temp.size(); i++)
         {
             System.out.format("%d: ", i);
-            System.out.println(unifiedKB.get(i).toString());
+            System.out.println(temp.get(i).toString());
         }
         
         // run resolution algorithm
-        return resolution_subroutine(unifiedKB);
+        return resolution_subroutine(temp);
     }
     
     /**
@@ -107,9 +104,9 @@ public class KnowledgeBase
      */
     private boolean resolution_subroutine(List<KBcnf> kb)
     {
-        List<KBcnf> localKb = new ArrayList<>();
-        localKb.addAll(kb);
+        List<KBcnf> localKb = kb;
         localKb = splitConjunctions(localKb);
+//        System.out.println("\nlocalKb for resolution subroutine" + localKb.toString());
         
         do
         {
@@ -228,9 +225,11 @@ public class KnowledgeBase
         for (KBAtom iAtoms : i.generateAtomList())
         {
             KBAtomConstant atomI = (KBAtomConstant) iAtoms;
+//            System.out.println("(gen_resolvent_clause) atomI: " + atomI.toString());
             for (KBAtom jAtoms : j.generateAtomList())
             {
                 KBAtomConstant atomJ = (KBAtomConstant) jAtoms;
+//                System.out.println("(gen_resolvent_clause) atomJ: " + atomJ.toString());
                 
                 // if one is the perfect negation of the other...
                 if(gen_resolvent_clause_subroutine(atomI, atomJ))
@@ -256,6 +255,9 @@ public class KnowledgeBase
         
         KBAtomConstant j = new KBAtomConstant(atomB.negation, atomB.predicate, atomB.getTerm());
         
+        
+//        System.out.println("(gen_resolvent_clause_subroutine) i and j: " + i.toString() + ", " + j.toString());
+//        System.out.println("(gen_resolvent_clause_subroutine) boolean result: " + i.equals(j));
         return i.equals(j);
     }
     
@@ -268,26 +270,38 @@ public class KnowledgeBase
      */
     private List<KBcnf> unify(List<KBcnf> in_kb, KBAtomConstant query)
     {
-        for (KBcnf sentence : in_kb)
+//        System.out.println("\nin_kb being unified: " + in_kb.toString());
+//        System.out.println("query for unify: " + query.toString() + "\n");
+        List<KBcnf> temp_in_kb = in_kb;
+        
+        // for each axiom
+        //for (KBcnf sentence : temp_in_kb)
+        for (int sentenceIndex = 0; sentenceIndex < temp_in_kb.size(); sentenceIndex++)
         {
+            KBcnf sentence = temp_in_kb.get(sentenceIndex);
+//            System.out.println("= current sentence: " + sentence.toString());
             // for each disjunctive sentence in the CNF
             for (int i = 0; i < sentence.getDisjunctions().size(); i++)
             {
                 ArrayList<KBAtom> disjSentence = sentence.getDisjunctions().get(i);
+//                System.out.println("current disjunctions: " + disjSentence.toString());
                 // for each atom in the disjunctive sentence
                 for (int j = 0; j < disjSentence.size(); j++)
                 {
                     KBAtom atom = disjSentence.get(j);
+//                    System.out.println("current atom: " + atom.toString());
                     if (atom instanceof KBAtomVariable)
                     {
                         KBAtomVariable currentAtom = (KBAtomVariable) atom;
                         KBAtomConstant replacement = currentAtom.convertToConstant(query);
-                        disjSentence.set(j, replacement);  
+//                        System.out.println("Atom replacement :" + replacement.toString());
+                        temp_in_kb.get(sentenceIndex).getDisjunctions().get(i).set(j, replacement);
                     }
                 }
             }
         }
-        return in_kb;
+//        System.out.println("temp_in_kb after: " + temp_in_kb.toString());
+        return temp_in_kb;
     }
     
     /**
