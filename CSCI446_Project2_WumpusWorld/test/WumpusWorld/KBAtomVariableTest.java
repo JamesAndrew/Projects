@@ -36,48 +36,4 @@ public class KBAtomVariableTest {
     @After
     public void tearDown() {
     }
-
-    @Test
-    public void testEvaluate() {
-        System.out.println("evaluate");
-        KBAtomConstant context = null;
-        KBAtomVariable instance = null;
-        boolean expResult = false;
-        boolean result = instance.evaluate(context);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testConvertToConstant() {
-        System.out.println("convertToConstant");
-        KBAtomConstant query = null;
-        KBAtomVariable instance = null;
-        KBAtomConstant expResult = null;
-        KBAtomConstant result = instance.convertToConstant(query);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testToString() {
-        System.out.println("toString");
-        KBAtomVariable instance = null;
-        String expResult = "";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testEquals() {
-        System.out.println("equals");
-        Object obj = null;
-        KBAtomVariable instance = null;
-        boolean expResult = false;
-        boolean result = instance.equals(obj);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-    
 }

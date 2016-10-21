@@ -417,10 +417,10 @@ public class KnowledgeBase
 
     private void axiom_RoomHasWumpus() 
     {
-        ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(
-            new KBAtomVariable(true, "RG0", new int[]{-1,0})
-        )
-        );
-        addToKBcnf(disj1);
+//        ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(
+//            new KBAtomVariable(true, "RG0", new int[]{-1,0})
+//        )
+//        );
+//        addToKBcnf(disj1);
     }
 }
