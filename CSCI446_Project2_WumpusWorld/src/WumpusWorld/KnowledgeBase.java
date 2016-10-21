@@ -19,10 +19,12 @@ import java.util.*;
 public class KnowledgeBase 
 {
     // the entire knowledge base. Querying this will take absurdly long
-    // to resolve
+    // to resolve. Use the contextual_kb instead
     private List<KBcnf> kb_cnf = new ArrayList<>();
     // mapping of relevant axioms to each query
     private Map<String, List<KBcnf>> contextual_kb = new HashMap<>();
+    // mapping of query requests to appropriate axiom contexts
+    private Map<String, String> contextMapping = new HashMap<>();
     // cloner for deep coppying from the knowledge base
     Cloner cloner = new Cloner();
     
@@ -30,15 +32,16 @@ public class KnowledgeBase
     { 
         // initialize the contextual_kb categories
         contextual_kb.put("BLOCKED", new ArrayList<>());
-        contextual_kb.put("EXISTS",  new ArrayList<>());
         contextual_kb.put("HASGOLD",  new ArrayList<>());
-        contextual_kb.put("OBST",  new ArrayList<>());
         contextual_kb.put("PIT",  new ArrayList<>());
         contextual_kb.put("SAFE",  new ArrayList<>());
-        contextual_kb.put("SHINY",  new ArrayList<>());
-        contextual_kb.put("SMELLY",  new ArrayList<>());
-        contextual_kb.put("WINDY",  new ArrayList<>());
         contextual_kb.put("WUMPUS",  new ArrayList<>());
+        
+        // initialize the contextMapping (this will probably need to have ArrayList<String> values)
+        contextMapping.put("SHINY", "HASGOLD");
+        contextMapping.put("OBSI", "BLOCKED");
+        contextMapping.put("SMELLY", "WUMPUS");
+        contextMapping.put("WINDY", "PIT");
         
         // all real rooms exist 
         axiom_RoomsExist();
@@ -66,7 +69,9 @@ public class KnowledgeBase
         // temporary knowledge base set up for the current context
         Cloner cloner = new Cloner();
         List<KBcnf> tempKB = new ArrayList<>();
-        for (KBcnf cnf : kb_cnf)
+        
+        System.out.format("Key: %s, Value: %s%n", question.predicate, contextual_kb.get(question.predicate).toString());
+        for (KBcnf cnf : contextual_kb.get(question.predicate))
         {
             KBcnf clonerCNF = cloner.deepClone(cnf);
             tempKB.add(clonerCNF);
@@ -90,12 +95,12 @@ public class KnowledgeBase
     {
         // run unification on the current kb
         List<KBcnf> temp = unify(kb, query);
-//        System.out.println("Unified KB (temp): ");
-//        for (int i = 0; i < temp.size(); i++)
-//        {
-//            System.out.format("%d: ", i);
-//            System.out.println(temp.get(i).toString());
-//        }
+        System.out.println("\nUnified KB: ");
+        for (int i = 0; i < temp.size(); i++)
+        {
+            System.out.format("%d: ", i);
+            System.out.println(temp.get(i).toString());
+        }
         
         // run resolution algorithm
         return resolution_subroutine(temp);
@@ -362,7 +367,10 @@ public class KnowledgeBase
     {
         ArrayList<KBAtom> inputAsCNF = new ArrayList<>(Arrays.asList(input));
         KBcnf newData = new KBcnf(inputAsCNF);
+        String category = contextMapping.get(input.predicate);
+        
         kb_cnf.add(newData);
+        contextual_kb.get(category).add(newData);
     }
     
     /**
