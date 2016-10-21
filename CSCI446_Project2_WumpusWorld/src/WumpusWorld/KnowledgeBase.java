@@ -142,12 +142,12 @@ public class KnowledgeBase
     {
         List<KBcnf> localKb = kb;
         localKb = splitConjunctions(localKb);
-//        System.out.println("\nlocalKb for resolution subroutine: ");
-//        for (int i = 0; i < localKb.size(); i++)
-//        {
-//            System.out.format("%d: ", i);
-//            System.out.println(localKb.get(i).toString());
-//        }
+        System.out.println("\nlocalKb for resolution subroutine after conjunctions split: ");
+        for (int i = 0; i < localKb.size(); i++)
+        {
+            System.out.format("%d: ", i);
+            System.out.println(localKb.get(i).toString());
+        }
         
         do
         {
