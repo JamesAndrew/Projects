@@ -35,7 +35,17 @@ public class KBAtomVariable extends KBAtom
             termValue = new Room(false);
         }
         else if (query.getTerm().getRoomColumn() + termOffset[0] < 0 || 
-            query.getTerm().getRoomColumn() + termOffset[0] >= World.getSize())
+                 query.getTerm().getRoomColumn() + termOffset[0] >= World.getSize())
+        {
+            termValue = new Room(false);
+        }
+        else if (query.getTerm().getRoomRow() + termOffset[1] < 0 || 
+                 query.getTerm().getRoomRow() + termOffset[1] >= World.getSize())
+        {
+            termValue = new Room(false);
+        }
+        else if (query.getTerm().getRoomColumn() + termOffset[1] < 0 || 
+                 query.getTerm().getRoomColumn() + termOffset[1] >= World.getSize())
         {
             termValue = new Room(false);
         }

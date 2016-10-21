@@ -166,21 +166,20 @@ public class KnowledgeBase
             
             
             ///
-            System.out.println("\ntempKB (before localKb is updated): ");
-            for (int i = 0; i < temp.size(); i++)
-            {
-                System.out.format("%d: ", i);
-                System.out.println(temp.get(i).toString());
-            }
-            
+//            System.out.println("\ntempKB (before localKb is updated): ");
+//            for (int i = 0; i < temp.size(); i++)
+//            {
+//                System.out.format("%d: ", i);
+//                System.out.println(temp.get(i).toString());
+//            }
             ///  
             ///
-            System.out.println("\nlocalKb after update: ");
-            for (int i = 0; i < localKb.size(); i++)
-            {
-                System.out.format("%d: ", i);
-                System.out.println(localKb.get(i).toString());
-            }
+//            System.out.println("\nlocalKb after update: ");
+//            for (int i = 0; i < localKb.size(); i++)
+//            {
+//                System.out.format("%d: ", i);
+//                System.out.println(localKb.get(i).toString());
+//            }
             ///
             
             
@@ -205,7 +204,7 @@ public class KnowledgeBase
             }
             if (!stillNewResolvents) return false;
             
-            System.out.println("updated local kb: " + localKb.toString());
+//            System.out.println("updated local kb: " + localKb.toString());
             generatedSentences.clear();
             
         } while (true);
