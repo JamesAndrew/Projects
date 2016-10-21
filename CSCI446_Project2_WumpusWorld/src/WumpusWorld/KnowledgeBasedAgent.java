@@ -39,6 +39,7 @@ public class KnowledgeBasedAgent
     {
         perceivedWorld = perceived;
         actualWorld = actual;
+        arrows = actualWorld.getWumpi();
         currentRoom = perceivedWorld.getRoom(0, 0);
         currentDirection = Direction.RIGHT;
     }
@@ -53,6 +54,7 @@ public class KnowledgeBasedAgent
             currentRoom.setVisited();
             Room lastRoom = currentRoom;
             System.out.println("Current Room: " + currentRoom.getRoomRow() + ", " + currentRoom.getRoomColumn());
+            System.out.println("Remaining arrows: " + arrows);
             updatePercepts();
             takePath(getPath(currentRoom, getNextRoom()));
             if (die() || obstacle())
@@ -532,6 +534,15 @@ public class KnowledgeBasedAgent
         return true;
     }
 
+    /**
+     * 
+     * @param target 
+     */
+    public void fireArrow(Room target)
+    {
+        
+    }
+    
     /**
      *
      * @return
