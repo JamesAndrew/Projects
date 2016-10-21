@@ -29,11 +29,11 @@ public class KBAtomVariable extends KBAtom
     {
         Room termValue = World.getRoom(
             query.getTerm().getRoomRow() + termOffset[0],
-            query.getTerm().getRoomColumn()+ termOffset[1])
+            query.getTerm().getRoomColumn() + termOffset[1])
         ;
         
         KBAtomConstant newAtom = new KBAtomConstant(
-                this.isNegation(),  
+            this.isNegation(),  
             this.predicate, 
             termValue)
         ;

@@ -5,9 +5,13 @@
 # room states
 ADJ					// adjacent
 BLOCKED
+CG0					// Column value is greater than 0
+CLM					// Column value is less than MAX
 HASGOLD
 OBST 				// has obstacle 
 PIT
+RG0					// Row value is greater than 0
+RLM					// Row value is less than MAX
 SAFE				// known safe to move in to	
 SHINY
 SMELLY

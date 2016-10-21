@@ -105,6 +105,14 @@ public class KnowledgeBaseTest {
         boolean actualOutput1 = kb.query(queryAtom1);   
         System.out.format("query result: %b%n%n", actualOutput1);
         assertEquals(expectedOutput1, actualOutput1);
+        
+        // test what happens when we don't know anything about a room
+        KBAtomConstant queryAtom2 = new KBAtomConstant(false, "SAFE", World.getRoom(2, 2));
+        System.out.println("query: " + queryAtom2.toString());
+        boolean expectedOutput2 = false;
+        boolean actualOutput2 = kb.query(queryAtom2);   
+        System.out.format("query result: %b%n%n", actualOutput2);
+        assertEquals(expectedOutput2, actualOutput2);
     }
     
     @Test

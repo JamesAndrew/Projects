@@ -23,30 +23,18 @@ public class KnowledgeBase
     
     public KnowledgeBase() 
     { 
-        // SHINY(C_xy) => HASGOLD(C_xy): room has gold
-        addToKBcnf(
-            new KBAtomVariable(true, "SHINY", new int[]{0,0}), 
-            new KBAtomVariable(false, "HASGOLD", new int[]{0,0})
-        );
         
+        // SHINY(C_xy) => HASGOLD(C_xy): room has gold
+        axiom_RoomHasGold();
+                
         // OBST(C_xy) => BLOCKED(C_xy): room is blocked
-        addToKBcnf(
-            new KBAtomVariable(true, "OBST", new int[]{0,0}),
-            new KBAtomVariable(false, "BLOCKED", new int[]{0,0})
-        );
+        axiom_RoomIsBlocked();
         
         // (smelly || windy || shiny) || (!blocked && !pit && !wumpus) => safe: room is safe
-        ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SMELLY", new int[]{0,0})));
-        ArrayList<KBAtom> disj2 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "WINDY", new int[]{0,0})));
-        ArrayList<KBAtom> disj3 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SHINY", new int[]{0,0})));
-        ArrayList<KBAtom> disj4 = new ArrayList<>(Arrays.asList(
-            new KBAtomVariable(false, "OBST", new int[]{0,0}),
-            new KBAtomVariable(false, "PIT", new int[]{0,0}),
-            new KBAtomVariable(false, "WUMPUS", new int[]{0,0}),
-            new KBAtomVariable(false, "SAFE", new int[]{0,0})
-        )
-        );
-        addToKBcnf(disj1, disj2, disj3, disj4);
+        axiom_RoomIsSafe();
+        
+        // (surrounding room exists and are all smelly) => WUMPUS(C_xy)
+        axiom_RoomHasWumpus();
     }
     
     /**
@@ -394,5 +382,45 @@ public class KnowledgeBase
      */
     public void setKb_cnf(List<KBcnf> kb_cnf) {
         this.kb_cnf = kb_cnf;
+    }
+
+    private void axiom_RoomHasGold() 
+    {
+        addToKBcnf(
+            new KBAtomVariable(true, "SHINY", new int[]{0,0}), 
+            new KBAtomVariable(false, "HASGOLD", new int[]{0,0})
+        );
+    }
+
+    private void axiom_RoomIsBlocked() 
+    {
+        addToKBcnf(
+            new KBAtomVariable(true, "OBST", new int[]{0,0}),
+            new KBAtomVariable(false, "BLOCKED", new int[]{0,0})
+        );
+    }
+
+    private void axiom_RoomIsSafe() 
+    {
+        ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SMELLY", new int[]{0,0})));
+        ArrayList<KBAtom> disj2 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "WINDY", new int[]{0,0})));
+        ArrayList<KBAtom> disj3 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SHINY", new int[]{0,0})));
+        ArrayList<KBAtom> disj4 = new ArrayList<>(Arrays.asList(
+            new KBAtomVariable(false, "OBST", new int[]{0,0}),
+            new KBAtomVariable(false, "PIT", new int[]{0,0}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0}),
+            new KBAtomVariable(false, "SAFE", new int[]{0,0})
+        )
+        );
+        addToKBcnf(disj1, disj2, disj3, disj4);
+    }
+
+    private void axiom_RoomHasWumpus() 
+    {
+        ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(
+            new KBAtomVariable(true, "RG0", new int[]{-1,0})
+        )
+        );
+        addToKBcnf(disj1);
     }
 }
