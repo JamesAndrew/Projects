@@ -513,7 +513,7 @@ public class KnowledgeBase
             new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
         )
         );
-        addToKBcnf(disj1);
+        addToKBcnf(disj1, disj2, disj3, disj4, disj5, disj6, disj7, disj8, disj9);
     }
 
     /**

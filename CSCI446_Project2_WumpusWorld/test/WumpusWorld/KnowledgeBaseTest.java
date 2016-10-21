@@ -162,7 +162,7 @@ public class KnowledgeBaseTest {
     }
     
     @Test
-    public void test_KB_axioms_resolveWumpus()
+    public void test_KB_axioms_resolveWumpus_centered()
     {
         World world = new World(3);
         KnowledgeBase kb = new KnowledgeBase();
@@ -178,6 +178,28 @@ public class KnowledgeBaseTest {
         kb.update(smellyPercept4);
         
         KBAtomConstant queryAtom1 = new KBAtomConstant(false, "WUMPUS", World.getRoom(1, 1)); // is there a wumpus in room (1,1)?
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = true;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+    }
+    
+    @Test
+    public void test_KB_axioms_resolveWumpus_leftWall()
+    {
+        World world = new World(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom smellyPercept1 = new KBAtomConstant(false, "SMELLY", World.getRoom(0, 0)); 
+        KBAtom smellyPercept2 = new KBAtomConstant(false, "SMELLY", World.getRoom(1, 1)); 
+        KBAtom smellyPercept3 = new KBAtomConstant(false, "SMELLY", World.getRoom(0, 2)); 
+        
+        kb.update(smellyPercept1);
+        kb.update(smellyPercept2);
+        kb.update(smellyPercept3);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "WUMPUS", World.getRoom(0, 1)); // is there a wumpus in room (0, 1)?
         System.out.println("query: " + queryAtom1.toString());
         boolean expectedOutput1 = true;
         boolean actualOutput1 = kb.query(queryAtom1);   
