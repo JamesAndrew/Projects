@@ -668,10 +668,10 @@ public class KnowledgeBase
      */
     private ArrayList<KBcnf> adjRoomsExistAtoms(int row, int column) 
     {
-        KBAtomConstant existsAtom1 = null;
-        KBAtomConstant existsAtom2 = null;
-        KBAtomConstant existsAtom3 = null;
-        KBAtomConstant existsAtom4 = null;
+        KBAtomConstant existsAtom1 = new KBAtomConstant(true, "EXISTS", new Room(false));
+        KBAtomConstant existsAtom2 = new KBAtomConstant(true, "EXISTS", new Room(false));
+        KBAtomConstant existsAtom3 = new KBAtomConstant(true, "EXISTS", new Room(false));
+        KBAtomConstant existsAtom4 = new KBAtomConstant(true, "EXISTS", new Room(false));
         
         // query cell not on wall
         if ((row - 1 >= 0) && (row + 1 < World.getSize()) && (column - 1 >= 0) && (column + 1 < World.getSize()))
