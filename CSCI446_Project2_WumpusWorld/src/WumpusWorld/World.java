@@ -6,7 +6,7 @@ package WumpusWorld;
 public class World 
 {
     private static Room [][] rooms;
-    private final int size;
+    private static int size;
     
     /**
      * constructor the agent will use for perceived world
@@ -34,5 +34,10 @@ public class World
     public static Room[][] getRooms() 
     {
         return rooms;
+    }
+    
+    public static int getSize()
+    {
+        return size;
     }
 }

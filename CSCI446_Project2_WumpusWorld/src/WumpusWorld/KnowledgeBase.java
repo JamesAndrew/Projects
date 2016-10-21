@@ -23,6 +23,8 @@ public class KnowledgeBase
     
     public KnowledgeBase() 
     { 
+        // all real rooms exist 
+        axiom_RoomsExist();
         
         // SHINY(C_xy) => HASGOLD(C_xy): room has gold
         axiom_RoomHasGold();
@@ -71,7 +73,7 @@ public class KnowledgeBase
     {
         // run unification on the current kb
         List<KBcnf> temp = unify(kb, query);
-        System.out.println("Unified KB (temp): ");
+//        System.out.println("Unified KB (temp): ");
         for (int i = 0; i < temp.size(); i++)
         {
             System.out.format("%d: ", i);
@@ -92,7 +94,7 @@ public class KnowledgeBase
     {
         List<KBcnf> localKb = kb;
         localKb = splitConjunctions(localKb);
-        System.out.println("\nlocalKb for resolution subroutine: ");
+//        System.out.println("\nlocalKb for resolution subroutine: ");
         for (int i = 0; i < localKb.size(); i++)
         {
             System.out.format("%d: ", i);
@@ -101,12 +103,12 @@ public class KnowledgeBase
         
         do
         {
-            System.out.println("\nlocalKb: ");
-            for (int i = 0; i < localKb.size(); i++)
-            {
-                System.out.format("%d: ", i);
-                System.out.println(localKb.get(i).toString());
-            }
+//            System.out.println("\nlocalKb: ");
+//            for (int i = 0; i < localKb.size(); i++)
+//            {
+//                System.out.format("%d: ", i);
+//                System.out.println(localKb.get(i).toString());
+//            }
             List<KBcnf> generatedSentences = new ArrayList<>();
             
             // pairwise comparison of each sentence in kb
@@ -367,7 +369,7 @@ public class KnowledgeBase
      * Add sequence of only disjunctive terms to the kb
      * @param atoms 
      */
-    private void addToKBcnf(KBAtomVariable... atoms)
+    private void addToKBcnf(KBAtom... atoms)
     {
         ArrayList<KBAtom> onlyDisjuncts = new ArrayList<>(Arrays.asList(atoms));
         KBcnf cnfSentence = new KBcnf(onlyDisjuncts);
@@ -417,10 +419,27 @@ public class KnowledgeBase
 
     private void axiom_RoomHasWumpus() 
     {
-//        ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(
-//            new KBAtomVariable(true, "RG0", new int[]{-1,0})
-//        )
-//        );
-//        addToKBcnf(disj1);
+        ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(
+            new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        addToKBcnf(disj1);
+    }
+
+    /**
+     * for each cell in the world, make a statement that says that cell exists
+     */
+    private void axiom_RoomsExist() 
+    {
+        for (int i = 0; i < World.getSize(); i++)
+        {
+            for (int j = 0; j < World.getSize(); j++)
+            {
+                KBAtomConstant existsAtom = new KBAtomConstant(false, "EXISTS", World.getRoom(i, j));
+                addToKBcnf(existsAtom);
+            }
+        }
     }
 }

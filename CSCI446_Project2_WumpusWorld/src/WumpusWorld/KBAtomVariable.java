@@ -27,10 +27,25 @@ public class KBAtomVariable extends KBAtom
     
     public KBAtomConstant convertToConstant(KBAtomConstant query)
     {
-        Room termValue = World.getRoom(
-            query.getTerm().getRoomRow() + termOffset[0],
-            query.getTerm().getRoomColumn() + termOffset[1])
-        ;
+        Room termValue;
+        // if we're trying to access an out of bounds room (room doesn't exist)...
+        if (query.getTerm().getRoomRow() + termOffset[0] < 0 || 
+            query.getTerm().getRoomRow() + termOffset[0] >= World.getSize())
+        {
+            termValue = new Room(false);
+        }
+        else if (query.getTerm().getRoomColumn() + termOffset[0] < 0 || 
+            query.getTerm().getRoomColumn() + termOffset[0] >= World.getSize())
+        {
+            termValue = new Room(false);
+        }
+        else
+        {
+            termValue = World.getRoom(
+                query.getTerm().getRoomRow() + termOffset[0],
+                query.getTerm().getRoomColumn() + termOffset[1])
+            ;
+        }
         
         KBAtomConstant newAtom = new KBAtomConstant(
             this.isNegation(),  

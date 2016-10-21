@@ -105,14 +105,6 @@ public class KnowledgeBaseTest {
         boolean actualOutput1 = kb.query(queryAtom1);   
         System.out.format("query result: %b%n%n", actualOutput1);
         assertEquals(expectedOutput1, actualOutput1);
-        
-        // test what happens when we don't know anything about a room
-        KBAtomConstant queryAtom2 = new KBAtomConstant(false, "SAFE", World.getRoom(2, 2));
-        System.out.println("query: " + queryAtom2.toString());
-        boolean expectedOutput2 = false;
-        boolean actualOutput2 = kb.query(queryAtom2);   
-        System.out.format("query result: %b%n%n", actualOutput2);
-        assertEquals(expectedOutput2, actualOutput2);
     }
     
     @Test
@@ -161,17 +153,35 @@ public class KnowledgeBaseTest {
         System.out.format("query result: %b%n%n", actualOutput1);
         assertEquals(expectedOutput1, actualOutput1);
         
-//        KBAtomConstant queryAtom2 = new KBAtomConstant(false, "HASGOLD", World.getRoom(0, 1)); // does room (x,y) have gold given the current KB?
-//        System.out.println("query: " + queryAtom2.toString());
-//        boolean expectedOutput2 = false;
-//        boolean actualOutput2 = kb.query(queryAtom2);   
-//        System.out.format("query result: %b%n%n", actualOutput2);
-//        assertEquals(expectedOutput2, actualOutput2);
+        KBAtomConstant queryAtom2 = new KBAtomConstant(false, "HASGOLD", World.getRoom(0, 1)); // does room (x,y) have gold given the current KB?
+        System.out.println("query: " + queryAtom2.toString());
+        boolean expectedOutput2 = false;
+        boolean actualOutput2 = kb.query(queryAtom2);   
+        System.out.format("query result: %b%n%n", actualOutput2);
+        assertEquals(expectedOutput2, actualOutput2);
+    }
+    
+    @Test
+    public void test_KB_axioms_resolveWumpus()
+    {
+        World world = new World(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom smellyPercept1 = new KBAtomConstant(false, "SMELLY", World.getRoom(0, 1)); // is shiny
+        
+        kb.update(smellyPercept1);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "WUMPUS", World.getRoom(1, 1)); // is there a wumpus in room (1,1)?
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = true;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
     }
     
     /**
      * test that running the gen_resolvent_clause method on two CNFs
- produces a new CNF with the resolved atom not in it
+     * produces a new CNF with the resolved atom not in it
      */
     @Test
     public void test_gen_resolvent_clause()

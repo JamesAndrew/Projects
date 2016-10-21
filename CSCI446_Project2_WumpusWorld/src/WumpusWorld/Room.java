@@ -7,6 +7,7 @@ package WumpusWorld;
  */
 public class Room 
 {
+    private boolean exists;
     
     private boolean isBlocked;
     private boolean isEmpty;        // empty include breezes and stenches
@@ -29,7 +30,17 @@ public class Room
         roomColumn = col;
         isEmpty = true;
     }
-    
+    /**
+     * used to create a fake room that doesn't exist when the logic goes out of
+     * bounds
+     * @param existsValue 
+     */
+    public Room(boolean existsValue)
+    {
+        exists = existsValue;
+        roomRow = -1;
+        roomColumn = -1;
+    }
     /**
      * Temporary (probably?) method to easily set all states of the current room
      */
@@ -155,5 +166,14 @@ public class Room
     
     public boolean isIsSafe() {
         return isSafe;
+    }
+
+    public boolean isExists() 
+    {
+        return exists;
+    }
+    public void setExists(boolean exists) 
+    {
+        this.exists = exists;
     }
 }

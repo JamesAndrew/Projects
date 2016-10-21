@@ -2,5 +2,4 @@
 - KnowledgeBase.resolution_subroutine() is very unoptimized at the moment. Talk about better ways 
   to pairwise compare and not generate already generated resolvents (this is fixed)
 - Axioms must already be in CNF form (maybe don't need to talk about this)
-
-	
+- Asserted existence of every cell upon KB creation to work with edge cases such as with seeing is there is a wumpus or pit
