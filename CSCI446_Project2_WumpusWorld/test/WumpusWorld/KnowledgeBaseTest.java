@@ -157,7 +157,7 @@ public class KnowledgeBaseTest {
     }
     
     /**
-     * test that running the gen_resolvent_clause_atom method on two CNFs
+     * test that running the gen_resolvent_clause method on two CNFs
  produces a new CNF with the resolved atom not in it
      */
     @Test
@@ -180,7 +180,7 @@ public class KnowledgeBaseTest {
         KnowledgeBase kb = new KnowledgeBase();
         kb.setKb_cnf(null);
         
-        KBcnf actualResult = kb.gen_resolvent_clause_atom(cnf1, cnf2);
+        KBcnf actualResult = kb.gen_resolvent_clause(cnf1, cnf2);
         System.out.println("expected result: " + expectedResult.toString());
         System.out.println("actual result: " + actualResult.toString());
         assertEquals(expectedResult.toString(), actualResult.toString());
