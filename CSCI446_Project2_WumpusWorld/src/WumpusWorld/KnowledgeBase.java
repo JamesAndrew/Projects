@@ -23,16 +23,16 @@ public class KnowledgeBase
     public KnowledgeBase() 
     { 
         // SHINY(C_xy) => HASGOLD(C_xy): room has gold
-        addToKBcnf(
-            new KBAtomVariable(true, "SHINY", new int[]{0,0}), 
-            new KBAtomVariable(false, "HASGOLD", new int[]{0,0})
-        );
+//        addToKBcnf(
+//            new KBAtomVariable(true, "SHINY", new int[]{0,0}), 
+//            new KBAtomVariable(false, "HASGOLD", new int[]{0,0})
+//        );
         
         // OBST(C_xy) => BLOCKED(C_xy): room is blocked
-        addToKBcnf(
-            new KBAtomVariable(true, "OBST", new int[]{0,0}),
-            new KBAtomVariable(false, "BLOCKED", new int[]{0,0})
-        );
+//        addToKBcnf(
+//            new KBAtomVariable(true, "OBST", new int[]{0,0}),
+//            new KBAtomVariable(false, "BLOCKED", new int[]{0,0})
+//        );
         
         // (smelly || windy || shiny) || (!blocked && !pit && !wumpus) => safe: room is safe
         ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SMELLY", new int[]{0,0})));
@@ -85,7 +85,7 @@ public class KnowledgeBase
     {
         // run unification on the current kb
         List<KBcnf> temp = unify(kb, query);
-        System.out.println("Unified KB (temp): " + temp.toString());
+        System.out.println("Unified KB (temp): ");
         for (int i = 0; i < temp.size(); i++)
         {
             System.out.format("%d: ", i);
@@ -106,39 +106,45 @@ public class KnowledgeBase
     {
         List<KBcnf> localKb = kb;
         localKb = splitConjunctions(localKb);
-//        System.out.println("\nlocalKb for resolution subroutine" + localKb.toString());
+        System.out.println("\nlocalKb for resolution subroutine" + localKb.toString());
         
         do
         {
             List<KBcnf> generatedSentences = new ArrayList<>();
             
             // pairwise comparison of each sentence in kb
-            for (KBcnf cnfI : localKb)
+            //for (KBcnf cnfI : localKb)
+            for (int cnfI_Index = 0; cnfI_Index < localKb.size(); cnfI_Index++)
             {
-                for (KBcnf cnfJ : localKb)
+                KBcnf cnfI = localKb.get(cnfI_Index);
+                //for (KBcnf cnfJ : localKb)
+                for (int cnfJ_index = 0; cnfJ_index < localKb.size(); cnfJ_index++)
                 {
+                    KBcnf cnfJ = localKb.get(cnfJ_index);
                     if (cnfI.equals(cnfJ)) { } // do nothing 
                     else
                     {
-                        KBcnf resolventClause = gen_resolvent_clause(cnfI, cnfJ);
-//                        System.out.println("\ncnfI: " + cnfI.toString());
-//                        System.out.println("cnfJ: " + cnfJ.toString());
+                        KBcnf resolventClauseAtom = gen_resolvent_clause_atom(cnfI, cnfJ);
+                        System.out.println("\ncnfI: " + cnfI.toString());
+                        System.out.println("cnfJ: " + cnfJ.toString());
                         
                         // if a new resolvent sentence is made
-                        if (!(resolventClause.equals(cnfI)))
+                        if (!(resolventClauseAtom.equals(cnfI)))
                         {
-                            System.out.println("resolventClause: " + resolventClause.toString());
+                            System.out.println("resolventClause atom: " + resolventClauseAtom.toString());
+                            // generate new cnf which is (cnfI - resolventClauseAtom) U (cnfJ - resolventClauseAtom)
+                            KBcnf resolventClause = gen_resolvent_clause(cnfI, cnfJ, resolventClauseAtom);
                             // return successful query if resolvent is empty sentence
-                            if (resolventClause.getDisjunctions().get(0).isEmpty()) return true;
+                            if (resolventClauseAtom.getDisjunctions().get(0).isEmpty()) return true;
                             // otherwise add new generated clause to the generate KBcnf list if it is unique
                             else 
                             {
                                 boolean unique = true;
                                 for (KBcnf cnf : generatedSentences)
                                 {
-                                    if (cnf.equals(resolventClause)) unique = false;
+                                    if (cnf.equals(resolventClauseAtom)) unique = false;
                                 }
-                                if (unique) generatedSentences.add(resolventClause);
+                                if (unique) generatedSentences.add(resolventClauseAtom);
                             }
                         }
                     }
@@ -157,8 +163,8 @@ public class KnowledgeBase
             // otherwise update the local knowledge base to include the new resolvent sentences
             else 
             {
-//                System.out.println("generatedSentences: " + generatedSentences.toString());
-//                System.out.println("localKb: " + localKb.toString());
+                System.out.println("generatedSentences: " + generatedSentences.toString());
+                System.out.println("localKb: " + localKb.toString());
                 // add generated cnf if unique to localKb
                 for (KBcnf genCNF : generatedSentences)
                 {
@@ -170,10 +176,15 @@ public class KnowledgeBase
                     if (unique) localKb.add(genCNF);
                 }
                 
-//                System.out.println("updated local kb: " + localKb.toString());
+                System.out.println("updated local kb: " + localKb.toString());
                 generatedSentences.clear();
             }
         } while (true);
+    }
+    
+    private KBcnf gen_resolvent_clause(KBcnf cnfI, KBcnf cnfJ, KBcnf resolventClauseAtom)
+    {
+        throw new PendingException();
     }
     
     /**
@@ -215,7 +226,7 @@ public class KnowledgeBase
      * @param i : cnf clause 1
      * @param j : cnf clause 2
      */
-    public KBcnf gen_resolvent_clause(KBcnf i, KBcnf j)
+    public KBcnf gen_resolvent_clause_atom(KBcnf i, KBcnf j)
     {
         ArrayList<KBAtom> ijAtoms = new ArrayList<>();
         ijAtoms.addAll(i.generateAtomList());
@@ -225,11 +236,11 @@ public class KnowledgeBase
         for (KBAtom iAtoms : i.generateAtomList())
         {
             KBAtomConstant atomI = (KBAtomConstant) iAtoms;
-//            System.out.println("(gen_resolvent_clause) atomI: " + atomI.toString());
+//            System.out.println("(gen_resolvent_clause_atom) atomI: " + atomI.toString());
             for (KBAtom jAtoms : j.generateAtomList())
             {
                 KBAtomConstant atomJ = (KBAtomConstant) jAtoms;
-//                System.out.println("(gen_resolvent_clause) atomJ: " + atomJ.toString());
+//                System.out.println("(gen_resolvent_clause_atom) atomJ: " + atomJ.toString());
                 
                 // if one is the perfect negation of the other...
                 if(gen_resolvent_clause_subroutine(atomI, atomJ))

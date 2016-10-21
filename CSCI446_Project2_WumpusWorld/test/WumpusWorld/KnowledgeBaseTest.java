@@ -81,6 +81,28 @@ public class KnowledgeBaseTest {
     }
     
     @Test
+    public void test_KB_axioms_not_safe()
+    {
+        World world = new World(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom obstPercept1 = new KBAtomConstant(false, "WUMPUS", World.getRoom(0, 0)); 
+        KBAtom obstPercept2 = new KBAtomConstant(false, "PIT", World.getRoom(0, 1));  
+        KBAtom obstPercept3 = new KBAtomConstant(false, "OBST", World.getRoom(0, 2)); 
+        
+        kb.update(obstPercept1);
+//        kb.update(obstPercept2);
+//        kb.update(obstPercept3);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", World.getRoom(0, 0)); // is room (0,0) safe given the current KB?
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = false;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+    }
+    
+    @Test
     public void test_KB_axioms_obst()
     {
         World world = new World(3);
@@ -135,8 +157,8 @@ public class KnowledgeBaseTest {
     }
     
     /**
-     * test that running the gen_resolvent_clause method on two CNFs
-     * produces a new CNF with the resolved atom not in it
+     * test that running the gen_resolvent_clause_atom method on two CNFs
+ produces a new CNF with the resolved atom not in it
      */
     @Test
     public void test_gen_resolvent_clause()
@@ -158,7 +180,7 @@ public class KnowledgeBaseTest {
         KnowledgeBase kb = new KnowledgeBase();
         kb.setKb_cnf(null);
         
-        KBcnf actualResult = kb.gen_resolvent_clause(cnf1, cnf2);
+        KBcnf actualResult = kb.gen_resolvent_clause_atom(cnf1, cnf2);
         System.out.println("expected result: " + expectedResult.toString());
         System.out.println("actual result: " + actualResult.toString());
         assertEquals(expectedResult.toString(), actualResult.toString());
