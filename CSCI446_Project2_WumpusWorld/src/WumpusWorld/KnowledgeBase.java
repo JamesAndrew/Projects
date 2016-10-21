@@ -24,7 +24,7 @@ public class KnowledgeBase
     // mapping of relevant axioms to each query
     private Map<String, List<KBcnf>> contextual_kb = new HashMap<>();
     // mapping of query requests to appropriate axiom contexts
-    private Map<String, String> contextMapping = new HashMap<>();
+    private Map<String, List<String>> contextMapping = new HashMap<>();
     // cloner for deep coppying from the knowledge base
     Cloner cloner = new Cloner();
     
@@ -37,14 +37,17 @@ public class KnowledgeBase
         contextual_kb.put("SAFE",  new ArrayList<>());
         contextual_kb.put("WUMPUS",  new ArrayList<>());
         
-        // initialize the contextMapping (this will probably need to have ArrayList<String> values)
-        contextMapping.put("SHINY", "HASGOLD");
-        contextMapping.put("OBSI", "BLOCKED");
-        contextMapping.put("SMELLY", "WUMPUS");
-        contextMapping.put("WINDY", "PIT");
-        
-        // all real rooms exist 
-        axiom_RoomsExist();
+        // initialize the contextMapping 
+        contextMapping.put("BLOCKED", new ArrayList<>(Arrays.asList("BLOCKED", "SAFE")));
+        contextMapping.put("EXISTS", new ArrayList<>(Arrays.asList("WUMPUS", "PIT")));
+        contextMapping.put("HASGOLD", new ArrayList<>(Arrays.asList("HASGOLD")));
+        contextMapping.put("OBST", new ArrayList<>(Arrays.asList("SAFE", "BLOCKED")));
+        contextMapping.put("PIT", new ArrayList<>(Arrays.asList("PIT", "SAFE")));
+        contextMapping.put("SAFE", new ArrayList<>(Arrays.asList("SAFE")));
+        contextMapping.put("SHINY", new ArrayList<>(Arrays.asList("HASGOLD")));
+        contextMapping.put("SMELLY", new ArrayList<>(Arrays.asList("SAFE", "WUMPUS")));
+        contextMapping.put("WINDY", new ArrayList<>(Arrays.asList("SAFE", "PIT")));
+        contextMapping.put("WUMPUS", new ArrayList<>(Arrays.asList("WUMPUS", "SAFE")));
         
         // SHINY(C_xy) => HASGOLD(C_xy): room has gold
         axiom_RoomHasGold();
@@ -67,14 +70,32 @@ public class KnowledgeBase
     public boolean query(KBAtomConstant question)
     {
         // temporary knowledge base set up for the current context
-        Cloner cloner = new Cloner();
+        Cloner cloner1 = new Cloner();
         List<KBcnf> tempKB = new ArrayList<>();
+        String key = question.predicate;
         
         System.out.format("Key: %s, Value: %s%n", question.predicate, contextual_kb.get(question.predicate).toString());
-        for (KBcnf cnf : contextual_kb.get(question.predicate))
+        // only add relevant adjacent Room axioms when dealing with wumpus or pit
+        if (key.equals("WUMPUS"))
         {
-            KBcnf clonerCNF = cloner.deepClone(cnf);
-            tempKB.add(clonerCNF);
+            contextual_kb.get("WUMPUS").clear();
+            refill_variable_wumpus_axioms();
+            // also add axiom constants for the adjacent rooms
+            ArrayList<KBcnf> adjRooms = 
+                    adjRoomsExistAtoms(question.getTerm().getRoomRow(), question.getTerm().getRoomColumn());
+            contextual_kb.get("WUMPUS").addAll(adjRooms);
+        }
+        else if (key.equals("PIT"))
+        {
+            throw new PendingException();
+        }
+        else 
+        {
+            for (KBcnf cnf : contextual_kb.get(key))
+            {
+                KBcnf clonerCNF = cloner1.deepClone(cnf);
+                tempKB.add(clonerCNF);
+            }
         }
         // add the negation of the question to the temp kb
         question.flipNegation();
@@ -193,8 +214,6 @@ public class KnowledgeBase
 //                System.out.format("%d: ", i);
 //                System.out.println(temp.get(i).toString());
 //            }
-            ///  
-            ///
 //            System.out.println("\nlocalKb after update: ");
 //            for (int i = 0; i < localKb.size(); i++)
 //            {
@@ -367,10 +386,12 @@ public class KnowledgeBase
     {
         ArrayList<KBAtom> inputAsCNF = new ArrayList<>(Arrays.asList(input));
         KBcnf newData = new KBcnf(inputAsCNF);
-        String category = contextMapping.get(input.predicate);
         
         kb_cnf.add(newData);
-        contextual_kb.get(category).add(newData);
+        for (String category : contextMapping.get(input.predicate))
+        {
+            contextual_kb.get(category).add(newData);
+        }
     }
     
     /**
@@ -409,6 +430,119 @@ public class KnowledgeBase
         
     }
 
+    /**
+     * Hard coded (for sake of time) to deal with only getting adjacent
+     * cell axioms when querying on a wumpus or pit
+     */
+    private void refill_variable_wumpus_axioms()
+    {
+        ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(                // existing rooms on every side
+            new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
+            new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<KBAtom> disj2 = new ArrayList<>(Arrays.asList(                // no rooms to the left (along y=0 column)
+            new KBAtomVariable(false, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
+            new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<KBAtom> disj3 = new ArrayList<>(Arrays.asList(                // no rooms to the left or above (top left corner)
+            new KBAtomVariable(false, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(false, "EXISTS", new int[]{0,1}),
+            new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<KBAtom> disj4 = new ArrayList<>(Arrays.asList(                // no rooms above (along x=max row)
+            new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(false, "EXISTS", new int[]{0,1}),
+            new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<KBAtom> disj5 = new ArrayList<>(Arrays.asList(                // no rooms to right or above (top right corner)
+            new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(false, "EXISTS", new int[]{0,1}),
+            new KBAtomVariable(false, "EXISTS", new int[]{1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<KBAtom> disj6 = new ArrayList<>(Arrays.asList(                // no rooms to right (right column)
+            new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
+            new KBAtomVariable(false, "EXISTS", new int[]{1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<KBAtom> disj7 = new ArrayList<>(Arrays.asList(                // no rooms to right or below (bottom left corner)
+            new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
+            new KBAtomVariable(false, "EXISTS", new int[]{1,0}),
+            new KBAtomVariable(false, "EXISTS", new int[]{0,-1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<KBAtom> disj8 = new ArrayList<>(Arrays.asList(                // no rooms below (bottom row)
+            new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
+            new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
+            new KBAtomVariable(false, "EXISTS", new int[]{0,-1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<KBAtom> disj9 = new ArrayList<>(Arrays.asList(                // no rooms to left or below (bottom left corner)
+            new KBAtomVariable(false, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
+            new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
+            new KBAtomVariable(false, "EXISTS", new int[]{0,-1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<ArrayList<KBAtom>> disjunctions = 
+            new ArrayList<>(Arrays.asList(disj1, disj2, disj3, disj4, disj5, disj6, disj7, disj8, disj9));
+        ArrayList<ArrayList<KBAtom>> conjunctions = new ArrayList<>();
+        for (ArrayList<KBAtom> disjunction : disjunctions)
+        {
+            conjunctions.add(disjunction);
+        }
+        KBcnf newCNF = new KBcnf(conjunctions);
+        contextual_kb.get("WUMPUS").add(newCNF);
+    }
+    
     public List<KBcnf> getKb_cnf() {
         return kb_cnf;
     }
@@ -554,17 +688,82 @@ public class KnowledgeBase
     }
 
     /**
-     * for each cell in the world, make a statement that says that cell exists
+     * for each cell adjacent to the query cell, assert they exist
      */
-    private void axiom_RoomsExist() 
+    private ArrayList<KBcnf> adjRoomsExistAtoms(int row, int column) 
     {
-        for (int i = 0; i < World.getSize(); i++)
+        KBAtomConstant existsAtom1 = null;
+        KBAtomConstant existsAtom2 = null;
+        KBAtomConstant existsAtom3 = null;
+        KBAtomConstant existsAtom4 = null;
+        
+        // query cell not on wall
+        if ((row - 1 >= 0) && (row + 1 < World.getSize()) && (column - 1 >= 0) && (column + 1 < World.getSize()))
         {
-            for (int j = 0; j < World.getSize(); j++)
-            {
-                KBAtomConstant existsAtom = new KBAtomConstant(false, "EXISTS", World.getRoom(i, j));
-                addToKBcnf(new ArrayList<>(Arrays.asList("WUMPUS")), existsAtom);
-            }
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", World.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column+1));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", World.getRoom(row+1, column));
+            existsAtom4 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column-1));
         }
+        // query cell left column
+        else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < World.getSize()))
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column+1));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row+1, column));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column-1));
+        }
+        // query cell top left corner
+        else if (((row - 1 < 0) && (column + 1 >= World.getSize())))
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", World.getRoom(row+1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column-1));
+        }
+        // query cell top row
+        else if ((column + 1 >= World.getSize()) && (row - 1 >= 0) && (row + 1 < World.getSize()))
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", World.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row+1, column));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column-1));
+        }
+        // query cell top right corner
+        else if ((row + 1 >= World.getSize()) && column + 1 >= World.getSize())
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", World.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column-1));
+        }
+        // query cell right column
+        else if ((row + 1 >= World.getSize()) && (column - 1 >= 0) && (column + 1 < World.getSize()))
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", World.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column+1));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column-1));
+        }
+        // query cell bottom right corner
+        else if ((row + 1 >= World.getSize()) && column - 1 < 0)
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", World.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column+1));
+        }
+        // query cell bottom row
+        else if ((column - 1 < 0) && (row - 1 < 0) && (column - 1 >= 0))
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", World.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column+1));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", World.getRoom(row+1, column));
+        }
+        // query cell bottom left corner
+        else if((row - 1 < 0) && column - 1 < 0)
+        {
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column+1));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", World.getRoom(row+1, column));
+        }
+        
+        KBcnf cnfTerm1 = new KBcnf(existsAtom1);
+        KBcnf cnfTerm2 = new KBcnf(existsAtom2);
+        KBcnf cnfTerm3 = new KBcnf(existsAtom3);
+        KBcnf cnfTerm4 = new KBcnf(existsAtom4);
+        
+        ArrayList<KBcnf> adjRoomCNFs = new ArrayList<>(Arrays.asList(cnfTerm1, cnfTerm2, cnfTerm3, cnfTerm4));
+        return adjRoomCNFs;
     }
 }
