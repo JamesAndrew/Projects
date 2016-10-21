@@ -62,8 +62,8 @@ public class KnowledgeBase
         tempKB.add(query_as_cnf);
         
         // temp test
-        System.out.println("actualKB: " + kb_cnf.toString());
-        System.out.println("tempKB: " + tempKB.toString());
+//        System.out.println("actualKB: " + kb_cnf.toString());
+//        System.out.println("tempKB: " + tempKB.toString());
         
         // run the resolution algorithm 
         return resolution(tempKB, question);
@@ -74,11 +74,11 @@ public class KnowledgeBase
         // run unification on the current kb
         List<KBcnf> temp = unify(kb, query);
 //        System.out.println("Unified KB (temp): ");
-        for (int i = 0; i < temp.size(); i++)
-        {
-            System.out.format("%d: ", i);
-            System.out.println(temp.get(i).toString());
-        }
+//        for (int i = 0; i < temp.size(); i++)
+//        {
+//            System.out.format("%d: ", i);
+//            System.out.println(temp.get(i).toString());
+//        }
         
         // run resolution algorithm
         return resolution_subroutine(temp);
@@ -95,11 +95,11 @@ public class KnowledgeBase
         List<KBcnf> localKb = kb;
         localKb = splitConjunctions(localKb);
 //        System.out.println("\nlocalKb for resolution subroutine: ");
-        for (int i = 0; i < localKb.size(); i++)
-        {
-            System.out.format("%d: ", i);
-            System.out.println(localKb.get(i).toString());
-        }
+//        for (int i = 0; i < localKb.size(); i++)
+//        {
+//            System.out.format("%d: ", i);
+//            System.out.println(localKb.get(i).toString());
+//        }
         
         do
         {
@@ -164,7 +164,6 @@ public class KnowledgeBase
                 if (unique) localKb.add(genCNF);
             }
             
-            
             ///
 //            System.out.println("\ntempKB (before localKb is updated): ");
 //            for (int i = 0; i < temp.size(); i++)
@@ -181,7 +180,6 @@ public class KnowledgeBase
 //                System.out.println(localKb.get(i).toString());
 //            }
             ///
-            
             
             // reture false query if the localKb had nothing new added to it
             boolean stillNewResolvents = false;
@@ -206,7 +204,8 @@ public class KnowledgeBase
             
 //            System.out.println("updated local kb: " + localKb.toString());
             generatedSentences.clear();
-            
+            System.out.println("local resolution kb size: " + localKb.size());
+                    
         } while (true);
     }
     
@@ -418,7 +417,7 @@ public class KnowledgeBase
 
     private void axiom_RoomHasWumpus() 
     {
-        ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(
+        ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(                // existing rooms on every side
             new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
             new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
             new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
@@ -427,6 +426,90 @@ public class KnowledgeBase
             new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
             new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
             new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<KBAtom> disj2 = new ArrayList<>(Arrays.asList(                // no rooms to the left (along y=0 column)
+            new KBAtomVariable(false, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
+            new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<KBAtom> disj3 = new ArrayList<>(Arrays.asList(                // no rooms to the left or above (top left corner)
+            new KBAtomVariable(false, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(false, "EXISTS", new int[]{0,1}),
+            new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<KBAtom> disj4 = new ArrayList<>(Arrays.asList(                // no rooms above (along x=max row)
+            new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(false, "EXISTS", new int[]{0,1}),
+            new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<KBAtom> disj5 = new ArrayList<>(Arrays.asList(                // no rooms to right or above (top right corner)
+            new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(false, "EXISTS", new int[]{0,1}),
+            new KBAtomVariable(false, "EXISTS", new int[]{1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<KBAtom> disj6 = new ArrayList<>(Arrays.asList(                // no rooms to right (right column)
+            new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
+            new KBAtomVariable(false, "EXISTS", new int[]{1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<KBAtom> disj7 = new ArrayList<>(Arrays.asList(                // no rooms to right or below (bottom left corner)
+            new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
+            new KBAtomVariable(false, "EXISTS", new int[]{1,0}),
+            new KBAtomVariable(false, "EXISTS", new int[]{0,-1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<KBAtom> disj8 = new ArrayList<>(Arrays.asList(                // no rooms below (bottom row)
+            new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
+            new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
+            new KBAtomVariable(false, "EXISTS", new int[]{0,-1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<KBAtom> disj9 = new ArrayList<>(Arrays.asList(                // no rooms to left or below (bottom left corner)
+            new KBAtomVariable(false, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
+            new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
+            new KBAtomVariable(false, "EXISTS", new int[]{0,-1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
             new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
         )
         );
