@@ -1,6 +1,7 @@
 package WumpusWorld;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -32,6 +33,7 @@ public class KnowledgeBasedAgent
     private ArrayList<Room> safeRooms = new ArrayList<Room>();
     private ArrayList<Room> pits = new ArrayList<Room>();
     private ArrayList<Room> wumpi = new ArrayList<Room>();
+    private ArrayList<Room> obstacles = new ArrayList<Room>(); 
 
     public KnowledgeBasedAgent(World perceived, World actual)
     {
@@ -49,11 +51,18 @@ public class KnowledgeBasedAgent
         do
         {
             currentRoom.setVisited();
-            System.out.println(currentRoom.getRoomRow() + "'" + currentRoom.getRoomColumn());
+            Room lastRoom = currentRoom;
+            System.out.println("Current Room: " + currentRoom.getRoomRow() + ", " + currentRoom.getRoomColumn());
             updatePercepts();
             takePath(getPath(currentRoom, getNextRoom()));
+            if (die() || obstacle())
+            {
+                currentRoom = lastRoom;
+            }
+            System.out.println("Score: " + score + "\n");
         } while (goldNotFound());
-        System.out.format("Gold found in room: %d, %d", currentRoom.getRoomRow(), currentRoom.getRoomColumn());
+        System.out.format("Gold found in room: %d, %d%n%n", currentRoom.getRoomRow(), currentRoom.getRoomColumn());
+        System.out.println("Score: " + score);
     }
 
     /**
@@ -79,14 +88,19 @@ public class KnowledgeBasedAgent
         if (!actualWorld.getRoom(row, column).isBreezy() && !actualWorld.getRoom(row, column).isSmelly())
         {
             currentRoom.setToSafe();
-            safeRooms.add(currentRoom);
+            if (!safeRooms.contains(currentRoom))
+            {
+                safeRooms.add(currentRoom);
+            }
             setSurroundingExplorable(currentRoom);
         } else if (actualWorld.getRoom(row, column).isBreezy())
         {
             currentRoom.setIsBreezy(true);
+            System.out.println("Adding breeze(" + row + "," + column + ") to knowledge base");
         } else if (actualWorld.getRoom(row, column).isSmelly())
         {
             currentRoom.setIsSmelly(true);
+            System.out.println("Adding smelly(" + row + "," + column + ") to knowledge base");
         }
 
     }
@@ -128,11 +142,11 @@ public class KnowledgeBasedAgent
                 {
                     for (int j = nextRoom.getRoomColumn() - 1; j <= nextRoom.getRoomColumn() + 1; j++)
                     {
-                        if (perceivedWorld.getRoom(i, j) != null && notDiagonal(nextRoom, i, j) && !perceivedWorld.getRoom(i, j).isSafe() && perceivedWorld.getRoom(i, j) != currentRoom)
+                        if (perceivedWorld.getRoom(i, j) != null && notDiagonal(nextRoom, i, j) && !perceivedWorld.getRoom(i, j).isSafe() && perceivedWorld.getRoom(i, j) != currentRoom && !perceivedWorld.getRoom(i, j).isBlocked())
                         {
                             nextRoom = perceivedWorld.getRoom(i, j);
                             nextRoom.setExplorable();
-                            System.out.println("next:" + nextRoom.getRoomRow() + ", " + nextRoom.getRoomColumn());
+                            System.out.println("Action: move(" + nextRoom.getRoomRow() + "," + nextRoom.getRoomColumn() + ")");
                             return nextRoom;
                         }
                     }
@@ -140,14 +154,20 @@ public class KnowledgeBasedAgent
             } else
             {
                 nextRoom = makeHardDecisions();
-                nextRoom.setExplorable();
-                System.out.println("next:" + nextRoom.getRoomRow() + ", " + nextRoom.getRoomColumn());
-                return nextRoom;
+                if (nextRoom == currentRoom)
+                {
+                    nextRoom = crossFingers();
+                } else
+                {
+                    nextRoom.setExplorable();
+                    System.out.println("Action: move(" + nextRoom.getRoomRow() + "," + nextRoom.getRoomColumn() + ")");
+                    return nextRoom;
+                }
             }
         } else
         {
             nextRoom.setExplorable();
-            System.out.println("next:" + nextRoom.getRoomRow() + ", " + nextRoom.getRoomColumn());
+            System.out.println("Action: move(" + nextRoom.getRoomRow() + "," + nextRoom.getRoomColumn() + ")");
             return nextRoom;
         }
         return null;
@@ -183,6 +203,10 @@ public class KnowledgeBasedAgent
         return leastExplored;
     }
 
+    /**
+     * 
+     * @param room 
+     */
     public void setSurroundingExplorable(Room room)
     {
         for (int i = room.getRoomRow() - 1; i <= room.getRoomRow() + 1; i++)
@@ -197,6 +221,42 @@ public class KnowledgeBasedAgent
         }
     }
 
+    /**
+     * 
+     * @return 
+     */
+    public Room crossFingers()
+    {
+        ArrayList<Room> possible = new ArrayList<Room>(); 
+        int row = currentRoom.getRoomRow();
+        int column = currentRoom.getRoomColumn();
+        for (int i = row - 1; i <= row + 1; i++)
+        {
+            for (int j = column - 1; j <= column + 1; j++)
+            {
+                Room gamble = perceivedWorld.getRoom(i, j);
+                if (gamble != null && !(row == i && column == j))
+                {
+                    if (!pits.contains(gamble) && !wumpi.contains(gamble))
+                    {
+                        possible.add(gamble);
+                    }
+                }
+            }
+        }
+        Random r = new Random(); 
+        int index = r.nextInt(possible.size()); 
+        return possible.get(index);
+        
+    }
+    
+    
+
+    
+    /**
+     * 
+     * @return 
+     */
     public Room makeHardDecisions()
     {
         int numDangerous = 4;
@@ -207,7 +267,7 @@ public class KnowledgeBasedAgent
             {
                 if (perceivedWorld.getRoom(i, j) != null && notDiagonal(currentRoom, i, j))
                 {
-                    if (!pits.contains(perceivedWorld.getRoom(i, j)) || !wumpi.contains(perceivedWorld.getRoom(i, j)))
+                    if (!pits.contains(perceivedWorld.getRoom(i, j)) && !wumpi.contains(perceivedWorld.getRoom(i, j)) && !obstacles.contains(perceivedWorld.getRoom(i, j)))
                     {
                         Room checkRoom = perceivedWorld.getRoom(i, j);
                         int danger = 0;
@@ -308,7 +368,6 @@ public class KnowledgeBasedAgent
                 }
             }
         }
-        System.out.println(path);
     }
 
     /**
@@ -483,8 +542,52 @@ public class KnowledgeBasedAgent
         int column = currentRoom.getRoomColumn();
         if (actualWorld.getRoom(row, column).isShiny())
         {
+            score += 1000;
             return false;
         }
         return true;
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    public boolean die()
+    {
+        int row = currentRoom.getRoomRow();
+        int column = currentRoom.getRoomColumn();
+        if (actualWorld.getRoom(row, column).isPit())
+        {
+            pits.add(perceivedWorld.getRoom(row, column));
+            System.out.println("Death by Pit in room " + currentRoom.getRoomRow() + "," + currentRoom.getRoomColumn());
+            System.out.println("Adding pit(" + row + "," + column + ") to knowledge base");
+            score -= 1000;
+            return true;
+        } else if (actualWorld.getRoom(row, column).isWumpus())
+        {
+            wumpi.add(perceivedWorld.getRoom(row, column));
+            System.out.println("Death by Wumpus in room " + currentRoom.getRoomRow() + "," + currentRoom.getRoomColumn());
+            System.out.println("Adding wumpus(" + row + "," + column + ") to knowledge base");
+            score -= 1000;
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public boolean obstacle() 
+    {
+        int row = currentRoom.getRoomRow();
+        int column = currentRoom.getRoomColumn();
+        if (actualWorld.getRoom(row, column).isBlocked()) 
+        {
+            obstacles.add(perceivedWorld.getRoom(row, column));
+            System.out.println("Adding blocked(" + row + "," + column + ") to knowledge base");
+            return true; 
+        }
+        return false; 
     }
 }

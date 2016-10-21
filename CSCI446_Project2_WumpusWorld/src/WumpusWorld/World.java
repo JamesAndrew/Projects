@@ -40,11 +40,17 @@ public class World
     public World(int s, float p, float o, float w)
     {
         System.out.println("== Initializing the Actual World ==");
+        
         pPit = p;
         pObs = o;
         pWumpus = w;
-        
         size = s;
+        System.out.println("Probability of Pit: " + pPit);
+        System.out.println("Probability of Obstacle: " + pObs);
+        System.out.println("Probability of Wumpus: " + pWumpus);
+        System.out.println("Map size: " + size + "x" + size + "\n");
+        
+        
         theWorld = new Room[size][size];
         for (int i = 0; i < size; i++)
         {
@@ -95,8 +101,8 @@ public class World
             else
             {
                 startPlaced = true;
-                start = theWorld[r][c];
-                System.out.println("The agent is in room " + r + " " + c);
+                start = theWorld[0][0];
+                System.out.println("The agent is in room 0 0");
             }
         }
         
