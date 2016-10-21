@@ -117,23 +117,19 @@ public class KBcnf
         if (!(obj instanceof KBcnf)) return false;
         KBcnf other = (KBcnf)obj;
         
+        List<KBAtom> thisAtomList = this.generateAtomList();
+        List<KBAtom> otherAtomList = other.generateAtomList();
+        if (thisAtomList.size() != otherAtomList.size()) return false;
         
-        if (this.disjunctions.size() != other.getDisjunctions().size()) return false;
-        for (int i = 0; i < this.disjunctions.size(); i++)
+        boolean idential = true;
+        for (int i = 0; i < thisAtomList.size(); i++)
         {
-            ArrayList<KBAtom> currentDisj = this.disjunctions.get(i);
-            ArrayList<KBAtom> otherDisj = other.getDisjunctions().get(i);
-            if (currentDisj.size() != otherDisj.size()) return false;
-            
-            // for each atom in the current disjunctive sentence
-            for (int j = 0; j < this.disjunctions.get(i).size(); j++)
-            {
-                KBAtom currentAtom = currentDisj.get(j);
-                KBAtom otherAtom = otherDisj.get(j);
-                if (!(currentAtom.equals(otherAtom))) return false;
-            }
+            KBAtom currentAtom = thisAtomList.get(i);
+            KBAtom otherAtom = otherAtomList.get(i);
+            if (!(currentAtom.toString().equals(otherAtom.toString()))) idential = false;
         }
-        return true;
+        
+        return idential;
     }
 
     public ArrayList<ArrayList<KBAtom>> getDisjunctions() {

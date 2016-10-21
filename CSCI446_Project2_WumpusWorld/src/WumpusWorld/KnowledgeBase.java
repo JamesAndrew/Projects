@@ -115,6 +115,12 @@ public class KnowledgeBase
         
         do
         {
+            System.out.println("\nlocalKb: ");
+            for (int i = 0; i < localKb.size(); i++)
+            {
+                System.out.format("%d: ", i);
+                System.out.println(localKb.get(i).toString());
+            }
             List<KBcnf> generatedSentences = new ArrayList<>();
             
             // pairwise comparison of each sentence in kb
@@ -131,37 +137,37 @@ public class KnowledgeBase
                         // generate new cnf which is (cnfI - resolventClauseAtom) U (cnfJ - resolventClauseAtom)
                         KBcnf first = new KBcnf(cnfI);
                         KBcnf second = new KBcnf(cnfJ);
+//                        System.out.println("\ncnfI: " + cnfI.toString());
+//                        System.out.println("cnfJ: " + cnfJ.toString());
                         KBcnf resolventCNF = gen_resolvent_clause(first, second);
-                        System.out.println("\ncnfI: " + cnfI.toString());
-                        System.out.println("cnfJ: " + cnfJ.toString());
                         
                         // if a new resolvent sentence is made
                         if (!(resolventCNF.equals(first)))
                         {
-                            System.out.println("resolventCNF: " + resolventCNF.toString());
+                            System.out.println("resolventCNF: " + resolventCNF.toString() + "\n");
                             // return successful query if resolvent is empty sentence
                             if (resolventCNF.getDisjunctions().get(0).isEmpty()) return true;
                             // otherwise add new generated clause to the generate KBcnf list if it is unique
-                            else 
-                            {
-                                boolean unique = true;
-                                for (KBcnf cnf : generatedSentences)
-                                {
-                                    if (cnf.equals(resolventCNF)) unique = false;
-                                }
-                                if (unique) generatedSentences.add(resolventCNF);
-                            }
+                            else generatedSentences.add(resolventCNF);
+//                            {
+//                                boolean unique = true;
+//                                for (KBcnf cnf : generatedSentences)
+//                                {
+//                                    if (cnf.equals(resolventCNF)) unique = false;
+//                                }
+//                                if (unique) generatedSentences.add(resolventCNF);
+//                            }
                         }
                     }
                 }
             }
-            // reture false query if generated senteces is a subset of the actual kb
-            boolean stillNewResolvents = true;
+            // reture false query if generated sentences is a subset of the actual kb
+            boolean stillNewResolvents = false;
             for (KBcnf genCNF : generatedSentences)
             {
                 for (KBcnf kbCNF : localKb)
                 {
-                    if (genCNF.equals(kbCNF)) stillNewResolvents = false;
+                    if (!(genCNF.equals(kbCNF))) stillNewResolvents = true;
                 }
             }
             if (!stillNewResolvents) return false;
@@ -251,7 +257,7 @@ public class KnowledgeBase
                     ijAtoms.remove(atomJ);
                     // generate the new CNF resolvent clause
                     KBcnf resolventSentence = new KBcnf(ijAtoms);
-                    System.out.println("resolvent CNF: " + resolventSentence);
+                    
                     return resolventSentence;
                 }
             }
@@ -265,12 +271,9 @@ public class KnowledgeBase
     {
         KBAtomConstant i = new KBAtomConstant(atomA.negation, atomA.predicate, atomA.getTerm());
         i.flipNegation();
-        
         KBAtomConstant j = new KBAtomConstant(atomB.negation, atomB.predicate, atomB.getTerm());
+        if (i.equals(j)) System.out.println("(gen_resolvent_clause_subroutine) i and j: " + i.toString() + ", " + j.toString());
         
-        
-//        System.out.println("(gen_resolvent_clause_subroutine) i and j: " + i.toString() + ", " + j.toString());
-//        System.out.println("(gen_resolvent_clause_subroutine) boolean result: " + i.equals(j));
         return i.equals(j);
     }
     
