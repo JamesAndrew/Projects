@@ -43,7 +43,7 @@ public class WorldTest {
         int row = 0;
         int col = 0;
         Room expResult = null;
-        Room result = World.getRoom(row, col);
+        Room result = ActualWorld.getRoom(row, col);
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
@@ -52,7 +52,7 @@ public class WorldTest {
     public void testGetRooms() {
         System.out.println("getRooms");
         Room[][] expResult = null;
-        Room[][] result = World.getRooms();
+        Room[][] result = ActualWorld.getRooms();
         assertArrayEquals(expResult, result);
         fail("The test case is a prototype.");
     }

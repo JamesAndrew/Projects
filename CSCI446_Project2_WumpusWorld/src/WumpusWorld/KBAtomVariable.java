@@ -30,18 +30,18 @@ public class KBAtomVariable extends KBAtom
         Room termValue;
         // if we're trying to access an out of bounds room (room doesn't exist)...
         if (query.getTerm().getRoomRow() + termOffset[0] < 0 || 
-            query.getTerm().getRoomRow() + termOffset[0] >= World.getSize())
+            query.getTerm().getRoomRow() + termOffset[0] >= ActualWorld.getSize())
         {
             termValue = new Room(false);
         }
         else if (query.getTerm().getRoomColumn() + termOffset[1] < 0 || 
-                 query.getTerm().getRoomColumn() + termOffset[1] >= World.getSize())
+                 query.getTerm().getRoomColumn() + termOffset[1] >= ActualWorld.getSize())
         {
             termValue = new Room(false);
         }
         else
         {
-            termValue = World.getRoom(
+            termValue = ActualWorld.getRoom(
                 query.getTerm().getRoomRow() + termOffset[0],
                 query.getTerm().getRoomColumn() + termOffset[1])
             ;

@@ -445,7 +445,7 @@ public class KnowledgeBase
         int column = term.getRoomColumn();
         
         // query cell not on wall (existing rooms on every side)
-        if ((row - 1 >= 0) && (row + 1 < World.getSize()) && (column - 1 >= 0) && (column + 1 < World.getSize()))
+        if ((row - 1 >= 0) && (row + 1 < ActualWorld.getSize()) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
         {
             disj.addAll(Arrays.asList(                
                 new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
@@ -461,7 +461,7 @@ public class KnowledgeBase
             );
         }
         // query cell left column : no rooms to the left (along y=0 column)
-        else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < World.getSize()))
+        else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
         {
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(false, "EXISTS", new int[]{-1,0}),
@@ -476,7 +476,7 @@ public class KnowledgeBase
             );     
         }
         // query cell top left corner
-        else if (((row - 1 < 0) && (column + 1 >= World.getSize())))  
+        else if (((row - 1 < 0) && (column + 1 >= ActualWorld.getSize())))  
         {
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(false, "EXISTS", new int[]{-1,0}),
@@ -490,7 +490,7 @@ public class KnowledgeBase
             );     
         }  
         // query cell top row
-        else if ((column + 1 >= World.getSize()) && (row - 1 >= 0) && (row + 1 < World.getSize()))
+        else if ((column + 1 >= ActualWorld.getSize()) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
         {
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
@@ -505,7 +505,7 @@ public class KnowledgeBase
             );     
         }  
         // query cell top right corner
-        else if ((row + 1 >= World.getSize()) && column + 1 >= World.getSize()) 
+        else if ((row + 1 >= ActualWorld.getSize()) && column + 1 >= ActualWorld.getSize()) 
         {
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
@@ -519,7 +519,7 @@ public class KnowledgeBase
             );     
         }     
         // query cell right column
-        else if ((row + 1 >= World.getSize()) && (column - 1 >= 0) && (column + 1 < World.getSize()))
+        else if ((row + 1 >= ActualWorld.getSize()) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
         {
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
@@ -534,7 +534,7 @@ public class KnowledgeBase
             );     
         }  
         // query cell bottom right corner
-        else if ((row + 1 >= World.getSize()) && column - 1 < 0)
+        else if ((row + 1 >= ActualWorld.getSize()) && column - 1 < 0)
         {
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
@@ -548,7 +548,7 @@ public class KnowledgeBase
             );     
         }  
         // query cell bottom row
-        else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < World.getSize()))
+        else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
         {
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
@@ -674,64 +674,64 @@ public class KnowledgeBase
         KBAtomConstant existsAtom4 = new KBAtomConstant(true, "EXISTS", new Room(false));
         
         // query cell not on wall
-        if ((row - 1 >= 0) && (row + 1 < World.getSize()) && (column - 1 >= 0) && (column + 1 < World.getSize()))
+        if ((row - 1 >= 0) && (row + 1 < ActualWorld.getSize()) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
         {
-            existsAtom1 = new KBAtomConstant(false, "EXISTS", World.getRoom(row-1, column));
-            existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column+1));
-            existsAtom3 = new KBAtomConstant(false, "EXISTS", World.getRoom(row+1, column));
-            existsAtom4 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column-1));
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
+            existsAtom4 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
         }
         // query cell left column
-        else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < World.getSize()))
+        else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
         {
-            existsAtom1 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column+1));
-            existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row+1, column));
-            existsAtom3 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column-1));
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
         }
         // query cell top left corner
-        else if (((row - 1 < 0) && (column + 1 >= World.getSize())))
+        else if (((row - 1 < 0) && (column + 1 >= ActualWorld.getSize())))
         {
-            existsAtom1 = new KBAtomConstant(false, "EXISTS", World.getRoom(row+1, column));
-            existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column-1));
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
         }
         // query cell top row
-        else if ((column + 1 >= World.getSize()) && (row - 1 >= 0) && (row + 1 < World.getSize()))
+        else if ((column + 1 >= ActualWorld.getSize()) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
         {
-            existsAtom1 = new KBAtomConstant(false, "EXISTS", World.getRoom(row-1, column));
-            existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row+1, column));
-            existsAtom3 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column-1));
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
         }
         // query cell top right corner
-        else if ((row + 1 >= World.getSize()) && column + 1 >= World.getSize())
+        else if ((row + 1 >= ActualWorld.getSize()) && column + 1 >= ActualWorld.getSize())
         {
-            existsAtom1 = new KBAtomConstant(false, "EXISTS", World.getRoom(row-1, column));
-            existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column-1));
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
         }
         // query cell right column
-        else if ((row + 1 >= World.getSize()) && (column - 1 >= 0) && (column + 1 < World.getSize()))
+        else if ((row + 1 >= ActualWorld.getSize()) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
         {
-            existsAtom1 = new KBAtomConstant(false, "EXISTS", World.getRoom(row-1, column));
-            existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column+1));
-            existsAtom3 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column-1));
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
         }
         // query cell bottom right corner
-        else if ((row + 1 >= World.getSize()) && column - 1 < 0)
+        else if ((row + 1 >= ActualWorld.getSize()) && column - 1 < 0)
         {
-            existsAtom1 = new KBAtomConstant(false, "EXISTS", World.getRoom(row-1, column));
-            existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column+1));
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
         }
         // query cell bottom row
-        else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < World.getSize()))
+        else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
         {
-            existsAtom1 = new KBAtomConstant(false, "EXISTS", World.getRoom(row-1, column));
-            existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column+1));
-            existsAtom3 = new KBAtomConstant(false, "EXISTS", World.getRoom(row+1, column));
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
         }
         // query cell bottom left corner
         else if((row - 1 < 0) && column - 1 < 0)
         {
-            existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column+1));
-            existsAtom3 = new KBAtomConstant(false, "EXISTS", World.getRoom(row+1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
         }
         
         KBcnf cnfTerm1 = new KBcnf(existsAtom1);

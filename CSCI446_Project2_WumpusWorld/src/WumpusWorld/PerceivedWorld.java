@@ -3,18 +3,17 @@ package WumpusWorld;
  * Represents the "dungeon" and contains a collection of cells (rooms)
  * @version 09/27/16
  */
-public class World 
+public class PerceivedWorld 
 {
-    private static Room [][] rooms;
-    private static int size;
+    private Room [][] rooms;
+    private final int size;
     
     /**
      * constructor the agent will use for perceived world
      * @param s : number of rows for the s*s sized world
      */
-    public World(int s)
+    public PerceivedWorld(int s)
     {
-        System.out.println("== Initializing the Actual World ==");
         size = s;
         rooms = new Room[size][size];
         for (int i = 0; i < size; i++)
@@ -26,17 +25,12 @@ public class World
         }
     }
     
-    public static Room getRoom(int row, int col)
+    public Room getRoom(int row, int col)
     {
         return rooms[row][col];
     }
     
-    public static Room[][] getRooms() 
-    {
-        return rooms;
-    }
-    
-    public static int getSize()
+    public int getSize()
     {
         return size;
     }

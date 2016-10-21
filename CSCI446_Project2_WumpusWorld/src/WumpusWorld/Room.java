@@ -10,7 +10,6 @@ public class Room
     private boolean exists;
     
     private boolean isBlocked;
-    private boolean isEmpty;        // empty include breezes and stenches
     private boolean isPit;
     private boolean isBreezy;
     private boolean isShiny;        // goal state if this is true
@@ -28,7 +27,6 @@ public class Room
     {
         roomRow = row;
         roomColumn = col;
-        isEmpty = true;
     }
     /**
      * used to create a fake room that doesn't exist when the logic goes out of
@@ -42,13 +40,12 @@ public class Room
         roomColumn = -1;
     }
     /**
-     * Temporary (probably?) method to easily set all states of the current room
+     * Easily set all states of the current room
      */
-    public void setAllProperties(boolean blocked, boolean empty, boolean pit,
+    public void setAllProperties(boolean blocked, boolean pit,
         boolean breezy, boolean shiny, boolean smelly, boolean wumpus)
     {
         this.isBlocked = blocked;
-        this.isEmpty = empty;
         this.isPit = pit;
         this.isBreezy = breezy;
         this.isShiny = shiny;
@@ -66,25 +63,8 @@ public class Room
         return roomColumn;
     }
     
-    public void setIsEmpty(boolean e)
-    {
-        if(e == true)
-        {
-            setIsPit(false);
-            setIsWumpus(false);
-        }
-        isEmpty = e;
-    }
-    
-    public boolean isEmpty()
-    {
-        return isEmpty;
-    }
-    
     public void setIsBlocked(boolean b)
     {
-        if (b == true)
-            setIsEmpty(true);
         isBlocked = b;
     }
     
@@ -95,8 +75,6 @@ public class Room
     
     public void setIsBreezy(boolean b)
     {
-        if(b == true)
-            setIsEmpty(true);
         isBreezy = b;
     }
     
@@ -107,8 +85,6 @@ public class Room
     
     public void setIsPit(boolean p)
     {
-        if(p == true)
-            setIsEmpty(false);
         isPit = p;
     }
     
@@ -119,8 +95,6 @@ public class Room
     
     public void setIsShiny(boolean s)
     {
-        if(s == true)
-            setIsEmpty(false);
         isShiny = s;
     }
     
@@ -131,8 +105,6 @@ public class Room
     
     public void setIsSmelly(boolean s)
     {
-        if(s == true)
-            setIsEmpty(true);
         isSmelly = s;
     }
     
@@ -143,8 +115,6 @@ public class Room
     
     public void setIsWumpus(boolean w)
     {
-        if(w == true)
-            setIsEmpty(false);
         isWumpus = w;
     }
     
@@ -175,5 +145,9 @@ public class Room
     public void setExists(boolean exists) 
     {
         this.exists = exists;
+    }
+    public void setHasGold(boolean hasGold) 
+    {
+        this.hasGold = hasGold;
     }
 }
