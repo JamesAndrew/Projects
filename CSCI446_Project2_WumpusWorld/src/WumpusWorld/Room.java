@@ -152,6 +152,7 @@ public class Room
     {
         return hasObst;
     }
+    
     public boolean isIsSafe() {
         return isSafe;
     }

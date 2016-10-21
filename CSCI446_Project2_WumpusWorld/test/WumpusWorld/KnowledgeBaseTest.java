@@ -33,30 +33,44 @@ public class KnowledgeBaseTest {
     }
 
     @Test
-    public void test_KB_axioms_shiny()
+    public void test_KB_axioms_safe()
     {
         World world = new World(3);
         KnowledgeBase kb = new KnowledgeBase();
         
-        KBAtom shinyPercept1 = new KBAtomConstant(false, "SHINY", World.getRoom(0, 0)); // is shiny
-        KBAtom shinyPercept2 = new KBAtomConstant(true, "SHINY", World.getRoom(0, 1));  // is not shiny
+        KBAtom obstPercept1 = new KBAtomConstant(true, "OBST", World.getRoom(0, 0)); 
+        KBAtom obstPercept2 = new KBAtomConstant(true, "PIT", World.getRoom(0, 0));  
+        KBAtom obstPercept3 = new KBAtomConstant(true, "WUMPUS", World.getRoom(0, 0)); 
         
-        kb.update(shinyPercept1);
-        kb.update(shinyPercept2);
+        KBAtom obstPercept4 = new KBAtomConstant(false, "SMELLY", World.getRoom(0, 1)); 
+        KBAtom obstPercept5 = new KBAtomConstant(false, "WINDY", World.getRoom(0, 2)); 
         
-        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "HASGOLD", World.getRoom(0, 0)); // does room (x,y) have gold given the current KB?
+        kb.update(obstPercept1);
+        kb.update(obstPercept2);
+        kb.update(obstPercept3);
+        kb.update(obstPercept4);
+        kb.update(obstPercept5);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", World.getRoom(0, 0)); // is room (0,0) safe given the current KB?
         System.out.println("query: " + queryAtom1.toString());
         boolean expectedOutput1 = true;
         boolean actualOutput1 = kb.query(queryAtom1);   
         System.out.format("query result: %b%n%n", actualOutput1);
         assertEquals(expectedOutput1, actualOutput1);
         
-        KBAtomConstant queryAtom2 = new KBAtomConstant(false, "HASGOLD", World.getRoom(0, 1)); // does room (x,y) have gold given the current KB?
+        KBAtomConstant queryAtom2 = new KBAtomConstant(true, "SAFE", World.getRoom(0, 0)); // is room (0,0) not safe given the current KB?
         System.out.println("query: " + queryAtom2.toString());
         boolean expectedOutput2 = false;
         boolean actualOutput2 = kb.query(queryAtom2);   
         System.out.format("query result: %b%n%n", actualOutput2);
         assertEquals(expectedOutput2, actualOutput2);
+        
+        KBAtomConstant queryAtom3 = new KBAtomConstant(false, "SAFE", World.getRoom(0, 1)); // is room (0,1) safe given the current KB?
+        System.out.println("query: " + queryAtom3.toString());
+        boolean expectedOutput3 = true;
+        boolean actualOutput3 = kb.query(queryAtom3);   
+        System.out.format("query result: %b%n%n", actualOutput3);
+        assertEquals(expectedOutput3, actualOutput3);
     }
     
     @Test
@@ -79,6 +93,33 @@ public class KnowledgeBaseTest {
         assertEquals(expectedOutput1, actualOutput1);
         
         KBAtomConstant queryAtom2 = new KBAtomConstant(false, "BLOCKED", World.getRoom(0, 1)); //  // is room (x,y) blocked given the current KB?
+        System.out.println("query: " + queryAtom2.toString());
+        boolean expectedOutput2 = false;
+        boolean actualOutput2 = kb.query(queryAtom2);   
+        System.out.format("query result: %b%n%n", actualOutput2);
+        assertEquals(expectedOutput2, actualOutput2);
+    }
+    
+    @Test
+    public void test_KB_axioms_shiny()
+    {
+        World world = new World(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom shinyPercept1 = new KBAtomConstant(false, "SHINY", World.getRoom(0, 0)); // is shiny
+        KBAtom shinyPercept2 = new KBAtomConstant(true, "SHINY", World.getRoom(0, 1));  // is not shiny
+        
+        kb.update(shinyPercept1);
+        kb.update(shinyPercept2);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "HASGOLD", World.getRoom(0, 0)); // does room (x,y) have gold given the current KB?
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = true;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+        
+        KBAtomConstant queryAtom2 = new KBAtomConstant(false, "HASGOLD", World.getRoom(0, 1)); // does room (x,y) have gold given the current KB?
         System.out.println("query: " + queryAtom2.toString());
         boolean expectedOutput2 = false;
         boolean actualOutput2 = kb.query(queryAtom2);   

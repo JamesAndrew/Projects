@@ -34,18 +34,33 @@ public class KBAtomConstant extends KBAtom
         boolean value = false;
         switch(predicate)
         {
-            case ("SHINY"):
-                if (term.isShiny()) value = true;
-                break;
-            case ("HASGOLD"):
-                if (term.isHasGold()) value = true;
-                break;
-            case ("OBST"):
-                if (term.isHasObst()) value = true;
-                break;
             case ("BLOCKED"):
                 if (term.isBlocked()) value = true;
                 break;
+            case ("HASGOLD"):
+                if (term.isHasGold()) value = true;    
+                break;
+            case ("OBST"):
+                if (term.isHasObst()) value = true;
+                break;    
+            case ("PIT"):
+                if (term.isPit()) value = true;
+                break; 
+            case ("SAFE"):
+                if (term.isIsSafe()) value = true;
+                break; 
+            case ("SHINY"):
+                if (term.isShiny()) value = true;
+                break;
+            case ("SMELLY"):
+                if (term.isWumpus()) value = true;
+                break;
+            case ("WINDY"):
+                if (term.isBreezy()) value = true;
+                break; 
+            case ("WUMPUS"):
+                if (term.isWumpus()) value = true;
+                break; 
             default:
                 throw new RuntimeException("The predicate of this atom"
                         + "does not have a defined value");

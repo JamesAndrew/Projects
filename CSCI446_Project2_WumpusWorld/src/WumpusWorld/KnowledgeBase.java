@@ -17,8 +17,8 @@ import java.util.*;
  */
 public class KnowledgeBase 
 {
-    private List<KBImplication> kb_impl = new ArrayList<>();
     private List<KBcnf> kb_cnf = new ArrayList<>();
+    private List<KBcnf> cnf;
     
     public KnowledgeBase() 
     { 
@@ -33,6 +33,21 @@ public class KnowledgeBase
             new KBAtomVariable(true, "OBST", new int[]{0,0}),
             new KBAtomVariable(false, "BLOCKED", new int[]{0,0})
         );
+        
+        // (smelly || windy || shiny) || (!blocked && !pit && !wumpus) => safe: room is safe
+        ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SMELLY", new int[]{0,0})));
+        ArrayList<KBAtom> disj2 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "WINDY", new int[]{0,0})));
+        ArrayList<KBAtom> disj3 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SHINY", new int[]{0,0})));
+        ArrayList<KBAtom> disj4 = new ArrayList<>(Arrays.asList(
+            new KBAtomVariable(false, "OBST", new int[]{0,0}),
+            new KBAtomVariable(false, "PIT", new int[]{0,0}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<KBAtom> disj5 = new ArrayList<>(Arrays.asList(new KBAtomVariable(false, "SAFE", new int[]{0,0})));
+        addToKBcnf(disj1, disj2, disj3, disj4, disj5);
+        
+        this.cnf = Collections.unmodifiableList(this.kb_cnf);
     }
     
     /**
@@ -57,18 +72,26 @@ public class KnowledgeBase
         System.out.println("actualKB: " + kb_cnf.toString());
         System.out.println("tempKB: " + tempKB.toString());
         
-        // (pick up here) run the resolution algorithm 
+        // run the resolution algorithm 
         return resolution(tempKB, question);
     }
     
     private boolean resolution(List<KBcnf> kb, KBAtomConstant query)
     {
         // run unification on the current kb
-        kb = unify(kb, query);
-        System.out.println("Unified KB: " + kb.toString());
+        List<KBcnf> unifiedKB = new ArrayList<>();
+        List<KBcnf> temp = unify(kb, query);
+        unifiedKB.addAll(temp);
+        
+        System.out.println("Unified KB: ");
+        for (int i = 1; i < unifiedKB.size(); i++)
+        {
+            System.out.format("%d: ", i);
+            System.out.println(unifiedKB.get(i).toString());
+        }
         
         // run resolution algorithm
-        return resolution_subroutine(kb);
+        return resolution_subroutine(unifiedKB);
     }
     
     /**
@@ -96,8 +119,8 @@ public class KnowledgeBase
                     else
                     {
                         KBcnf resolventClause = gen_resolvent_clause(cnfI, cnfJ);
-                        System.out.println("\ncnfI: " + cnfI.toString());
-                        System.out.println("cnfJ: " + cnfJ.toString());
+//                        System.out.println("\ncnfI: " + cnfI.toString());
+//                        System.out.println("cnfJ: " + cnfJ.toString());
                         
                         // if a new resolvent sentence is made
                         if (!(resolventClause.equals(cnfI)))
@@ -285,6 +308,8 @@ public class KnowledgeBase
         {
             conjunctions.add(disjunction);
         }
+        KBcnf newCNF = new KBcnf(conjunctions);
+        kb_cnf.add(newCNF);
     }
     
     /**
