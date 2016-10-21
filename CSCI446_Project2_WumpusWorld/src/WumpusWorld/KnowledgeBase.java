@@ -421,7 +421,13 @@ public class KnowledgeBase
     {
         ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(
             new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
+            new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
+            new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
             new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
+            new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
+            new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
             new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
         )
         );

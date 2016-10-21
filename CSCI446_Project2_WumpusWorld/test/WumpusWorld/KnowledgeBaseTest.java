@@ -167,9 +167,15 @@ public class KnowledgeBaseTest {
         World world = new World(3);
         KnowledgeBase kb = new KnowledgeBase();
         
-        KBAtom smellyPercept1 = new KBAtomConstant(false, "SMELLY", World.getRoom(0, 1)); // is shiny
+        KBAtom smellyPercept1 = new KBAtomConstant(false, "SMELLY", World.getRoom(0, 1)); 
+        KBAtom smellyPercept2 = new KBAtomConstant(false, "SMELLY", World.getRoom(1, 2)); 
+        KBAtom smellyPercept3 = new KBAtomConstant(false, "SMELLY", World.getRoom(2, 1)); 
+        KBAtom smellyPercept4 = new KBAtomConstant(false, "SMELLY", World.getRoom(1, 0)); 
         
         kb.update(smellyPercept1);
+        kb.update(smellyPercept2);
+        kb.update(smellyPercept3);
+        kb.update(smellyPercept4);
         
         KBAtomConstant queryAtom1 = new KBAtomConstant(false, "WUMPUS", World.getRoom(1, 1)); // is there a wumpus in room (1,1)?
         System.out.println("query: " + queryAtom1.toString());
