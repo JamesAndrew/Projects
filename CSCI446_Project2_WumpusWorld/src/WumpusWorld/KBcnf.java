@@ -1,5 +1,6 @@
 package WumpusWorld;
 
+import com.rits.cloning.Cloner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -103,7 +104,7 @@ public class KBcnf
         
         return atomList;
     }
-    
+   
     @Override
     public String toString()
     {

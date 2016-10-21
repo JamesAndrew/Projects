@@ -1,6 +1,7 @@
 package WumpusWorld;
 
 import Exceptions.PendingException;
+import com.rits.cloning.Cloner;
 import java.util.*;
 
 /**
@@ -55,8 +56,15 @@ public class KnowledgeBase
     public boolean query(KBAtomConstant question)
     {
         // temporary knowledge base set up for the current context
+//        List<KBcnf> tempKB = KBcnf.cloneCNFList(kb_cnf);
+        Cloner cloner = new Cloner();
         List<KBcnf> tempKB = new ArrayList<>();
-        tempKB.addAll(kb_cnf);
+        for (KBcnf cnf : kb_cnf)
+        {
+            KBcnf clonerCNF = cloner.deepClone(cnf);
+            tempKB.add(clonerCNF);
+        }
+//        tempKB.addAll(kb_cnf);
         
         // add the negation of the question to the temp kb
         question.flipNegation();
@@ -110,7 +118,7 @@ public class KnowledgeBase
             // pairwise comparison of each sentence in kb
             for (KBcnf cnfI : localKb)
             {
-                for (KBcnf cnfJ : kb)
+                for (KBcnf cnfJ : localKb)
                 {
                     if (cnfI.equals(cnfJ)) { } // do nothing 
                     else

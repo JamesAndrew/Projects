@@ -92,12 +92,12 @@ public class KnowledgeBaseTest {
         System.out.format("query result: %b%n%n", actualOutput1);
         assertEquals(expectedOutput1, actualOutput1);
         
-        KBAtomConstant queryAtom2 = new KBAtomConstant(false, "BLOCKED", World.getRoom(0, 1)); //  // is room (x,y) blocked given the current KB?
-        System.out.println("query: " + queryAtom2.toString());
-        boolean expectedOutput2 = false;
-        boolean actualOutput2 = kb.query(queryAtom2);   
-        System.out.format("query result: %b%n%n", actualOutput2);
-        assertEquals(expectedOutput2, actualOutput2);
+//        KBAtomConstant queryAtom2 = new KBAtomConstant(false, "BLOCKED", World.getRoom(0, 1)); //  // is room (x,y) blocked given the current KB?
+//        System.out.println("query: " + queryAtom2.toString());
+//        boolean expectedOutput2 = false;
+//        boolean actualOutput2 = kb.query(queryAtom2);   
+//        System.out.format("query result: %b%n%n", actualOutput2);
+//        assertEquals(expectedOutput2, actualOutput2);
     }
     
     @Test
@@ -119,12 +119,12 @@ public class KnowledgeBaseTest {
         System.out.format("query result: %b%n%n", actualOutput1);
         assertEquals(expectedOutput1, actualOutput1);
         
-        KBAtomConstant queryAtom2 = new KBAtomConstant(false, "HASGOLD", World.getRoom(0, 1)); // does room (x,y) have gold given the current KB?
-        System.out.println("query: " + queryAtom2.toString());
-        boolean expectedOutput2 = false;
-        boolean actualOutput2 = kb.query(queryAtom2);   
-        System.out.format("query result: %b%n%n", actualOutput2);
-        assertEquals(expectedOutput2, actualOutput2);
+//        KBAtomConstant queryAtom2 = new KBAtomConstant(false, "HASGOLD", World.getRoom(0, 1)); // does room (x,y) have gold given the current KB?
+//        System.out.println("query: " + queryAtom2.toString());
+//        boolean expectedOutput2 = false;
+//        boolean actualOutput2 = kb.query(queryAtom2);   
+//        System.out.format("query result: %b%n%n", actualOutput2);
+//        assertEquals(expectedOutput2, actualOutput2);
     }
     
     /**
