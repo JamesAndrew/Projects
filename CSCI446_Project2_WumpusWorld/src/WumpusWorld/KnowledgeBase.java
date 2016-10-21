@@ -23,10 +23,10 @@ public class KnowledgeBase
     public KnowledgeBase() 
     { 
         // SHINY(C_xy) => HASGOLD(C_xy): room has gold
-//        addToKBcnf(
-//            new KBAtomVariable(true, "SHINY", new int[]{0,0}), 
-//            new KBAtomVariable(false, "HASGOLD", new int[]{0,0})
-//        );
+        addToKBcnf(
+            new KBAtomVariable(true, "SHINY", new int[]{0,0}), 
+            new KBAtomVariable(false, "HASGOLD", new int[]{0,0})
+        );
         
         // OBST(C_xy) => BLOCKED(C_xy): room is blocked
         addToKBcnf(
@@ -35,17 +35,17 @@ public class KnowledgeBase
         );
         
         // (smelly || windy || shiny) || (!blocked && !pit && !wumpus) => safe: room is safe
-//        ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SMELLY", new int[]{0,0})));
-//        ArrayList<KBAtom> disj2 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "WINDY", new int[]{0,0})));
-//        ArrayList<KBAtom> disj3 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SHINY", new int[]{0,0})));
-//        ArrayList<KBAtom> disj4 = new ArrayList<>(Arrays.asList(
-//            new KBAtomVariable(false, "OBST", new int[]{0,0}),
-//            new KBAtomVariable(false, "PIT", new int[]{0,0}),
-//            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
-//        )
-//        );
-//        ArrayList<KBAtom> disj5 = new ArrayList<>(Arrays.asList(new KBAtomVariable(false, "SAFE", new int[]{0,0})));
-//        addToKBcnf(disj1, disj2, disj3, disj4, disj5);
+        ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SMELLY", new int[]{0,0})));
+        ArrayList<KBAtom> disj2 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "WINDY", new int[]{0,0})));
+        ArrayList<KBAtom> disj3 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SHINY", new int[]{0,0})));
+        ArrayList<KBAtom> disj4 = new ArrayList<>(Arrays.asList(
+            new KBAtomVariable(false, "OBST", new int[]{0,0}),
+            new KBAtomVariable(false, "PIT", new int[]{0,0}),
+            new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
+        )
+        );
+        ArrayList<KBAtom> disj5 = new ArrayList<>(Arrays.asList(new KBAtomVariable(false, "SAFE", new int[]{0,0})));
+        addToKBcnf(disj1, disj2, disj3, disj4, disj5);
     }
     
     /**

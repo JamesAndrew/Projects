@@ -71,6 +71,13 @@ public class KnowledgeBaseTest {
         boolean actualOutput3 = kb.query(queryAtom3);   
         System.out.format("query result: %b%n%n", actualOutput3);
         assertEquals(expectedOutput3, actualOutput3);
+        
+        KBAtomConstant queryAtom4 = new KBAtomConstant(false, "SAFE", World.getRoom(0, 2)); // is room (0,2) safe given the current KB?
+        System.out.println("query: " + queryAtom4.toString());
+        boolean expectedOutput4 = true;
+        boolean actualOutput4 = kb.query(queryAtom4);   
+        System.out.format("query result: %b%n%n", actualOutput4);
+        assertEquals(expectedOutput4, actualOutput4);
     }
     
     @Test
