@@ -18,7 +18,6 @@ import java.util.*;
 public class KnowledgeBase 
 {
     private List<KBcnf> kb_cnf = new ArrayList<>();
-    private List<KBcnf> cnf;
     
     public KnowledgeBase() 
     { 
@@ -46,8 +45,6 @@ public class KnowledgeBase
         );
         ArrayList<KBAtom> disj5 = new ArrayList<>(Arrays.asList(new KBAtomVariable(false, "SAFE", new int[]{0,0})));
         addToKBcnf(disj1, disj2, disj3, disj4, disj5);
-        
-        this.cnf = Collections.unmodifiableList(this.kb_cnf);
     }
     
     /**
