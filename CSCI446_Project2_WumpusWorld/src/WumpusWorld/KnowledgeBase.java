@@ -19,20 +19,21 @@ import java.util.*;
 public class KnowledgeBase 
 {
     private List<KBcnf> kb_cnf = new ArrayList<>();
+    Cloner cloner = new Cloner();
     
     public KnowledgeBase() 
     { 
         // SHINY(C_xy) => HASGOLD(C_xy): room has gold
-//        addToKBcnf(
-//            new KBAtomVariable(true, "SHINY", new int[]{0,0}), 
-//            new KBAtomVariable(false, "HASGOLD", new int[]{0,0})
-//        );
+        addToKBcnf(
+            new KBAtomVariable(true, "SHINY", new int[]{0,0}), 
+            new KBAtomVariable(false, "HASGOLD", new int[]{0,0})
+        );
         
         // OBST(C_xy) => BLOCKED(C_xy): room is blocked
-//        addToKBcnf(
-//            new KBAtomVariable(true, "OBST", new int[]{0,0}),
-//            new KBAtomVariable(false, "BLOCKED", new int[]{0,0})
-//        );
+        addToKBcnf(
+            new KBAtomVariable(true, "OBST", new int[]{0,0}),
+            new KBAtomVariable(false, "BLOCKED", new int[]{0,0})
+        );
         
         // (smelly || windy || shiny) || (!blocked && !pit && !wumpus) => safe: room is safe
         ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SMELLY", new int[]{0,0})));
@@ -56,7 +57,6 @@ public class KnowledgeBase
     public boolean query(KBAtomConstant question)
     {
         // temporary knowledge base set up for the current context
-//        List<KBcnf> tempKB = KBcnf.cloneCNFList(kb_cnf);
         Cloner cloner = new Cloner();
         List<KBcnf> tempKB = new ArrayList<>();
         for (KBcnf cnf : kb_cnf)
@@ -64,8 +64,6 @@ public class KnowledgeBase
             KBcnf clonerCNF = cloner.deepClone(cnf);
             tempKB.add(clonerCNF);
         }
-//        tempKB.addAll(kb_cnf);
-        
         // add the negation of the question to the temp kb
         question.flipNegation();
         ArrayList<KBAtom> negQuestionCNF = new ArrayList<>();
@@ -144,52 +142,82 @@ public class KnowledgeBase
                         // if a new resolvent sentence is made
                         if (!(resolventCNF.equals(first)))
                         {
-                            System.out.println("resolventCNF: " + resolventCNF.toString() + "\n");
+//                            System.out.println("resolventCNF: " + resolventCNF.toString() + "\n");
                             // return successful query if resolvent is empty sentence
                             if (resolventCNF.getDisjunctions().get(0).isEmpty()) return true;
                             // otherwise add new generated clause to the generate KBcnf list if it is unique
-                            else generatedSentences.add(resolventCNF);
-//                            {
-//                                boolean unique = true;
-//                                for (KBcnf cnf : generatedSentences)
-//                                {
-//                                    if (cnf.equals(resolventCNF)) unique = false;
-//                                }
-//                                if (unique) generatedSentences.add(resolventCNF);
-//                            }
+                            else 
+                            {
+                                boolean unique = true;
+                                for (KBcnf cnf : generatedSentences)
+                                {
+                                    if (cnf.equals(resolventCNF)) unique = false;
+                                }
+                                if (unique) generatedSentences.add(resolventCNF);
+                            }
                         }
                     }
                 }
             }
-            // reture false query if generated sentences is a subset of the actual kb
-            boolean stillNewResolvents = false;
+            //update the local knowledge base to include the new resolvent sentences
+//                System.out.println("generatedSentences: " + generatedSentences.toString());
+//                System.out.println("localKb: " + localKb.toString());
+            // add generated cnf if unique to localKb
+            List<KBcnf> temp = cloner.deepClone(localKb);
             for (KBcnf genCNF : generatedSentences)
             {
+                boolean unique = true;
                 for (KBcnf kbCNF : localKb)
                 {
-                    if (!(genCNF.equals(kbCNF))) stillNewResolvents = true;
+                    if (genCNF.equals(kbCNF)) unique = false;
+                }
+                if (unique) localKb.add(genCNF);
+            }
+            
+            
+            ///
+            System.out.println("\ntempKB (before localKb is updated): ");
+            for (int i = 0; i < temp.size(); i++)
+            {
+                System.out.format("%d: ", i);
+                System.out.println(temp.get(i).toString());
+            }
+            
+            ///  
+            ///
+            System.out.println("\nlocalKb after update: ");
+            for (int i = 0; i < localKb.size(); i++)
+            {
+                System.out.format("%d: ", i);
+                System.out.println(localKb.get(i).toString());
+            }
+            ///
+            
+            
+            // reture false query if the localKb had nothing new added to it
+            boolean stillNewResolvents = false;
+            if (temp.size() != localKb.size()) 
+            {
+                stillNewResolvents = true;
+            }
+            else
+            {
+                for (int i = 0; i < temp.size(); i++)
+                {
+                    KBcnf oldLocalKbCNF = temp.get(i);
+                    KBcnf newLocalKbCNF = localKb.get(i);
+                    if (!(oldLocalKbCNF.equals(newLocalKbCNF)))
+                    {
+                        stillNewResolvents = true;
+                        break;
+                    }
                 }
             }
             if (!stillNewResolvents) return false;
-            // otherwise update the local knowledge base to include the new resolvent sentences
-            else 
-            {
-                System.out.println("generatedSentences: " + generatedSentences.toString());
-                System.out.println("localKb: " + localKb.toString());
-                // add generated cnf if unique to localKb
-                for (KBcnf genCNF : generatedSentences)
-                {
-                    boolean unique = true;
-                    for (KBcnf kbCNF : localKb)
-                    {
-                        if (genCNF.equals(kbCNF)) unique = false;
-                    }
-                    if (unique) localKb.add(genCNF);
-                }
-                
-                System.out.println("updated local kb: " + localKb.toString());
-                generatedSentences.clear();
-            }
+            
+            System.out.println("updated local kb: " + localKb.toString());
+            generatedSentences.clear();
+            
         } while (true);
     }
     
@@ -272,7 +300,7 @@ public class KnowledgeBase
         KBAtomConstant i = new KBAtomConstant(atomA.negation, atomA.predicate, atomA.getTerm());
         i.flipNegation();
         KBAtomConstant j = new KBAtomConstant(atomB.negation, atomB.predicate, atomB.getTerm());
-        if (i.equals(j)) System.out.println("(gen_resolvent_clause_subroutine) i and j: " + i.toString() + ", " + j.toString());
+//        if (i.equals(j)) System.out.println("(gen_resolvent_clause_subroutine) i and j: " + i.toString() + ", " + j.toString());
         
         return i.equals(j);
     }
