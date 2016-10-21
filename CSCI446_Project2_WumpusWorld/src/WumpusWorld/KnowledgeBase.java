@@ -142,12 +142,12 @@ public class KnowledgeBase
     {
         List<KBcnf> localKb = kb;
         localKb = splitConjunctions(localKb);
-        System.out.println("\nlocalKb for resolution subroutine after conjunctions split: ");
-        for (int i = 0; i < localKb.size(); i++)
-        {
-            System.out.format("%d: ", i);
-            System.out.println(localKb.get(i).toString());
-        }
+//        System.out.println("\nlocalKb for resolution subroutine after conjunctions split: ");
+//        for (int i = 0; i < localKb.size(); i++)
+//        {
+//            System.out.format("%d: ", i);
+//            System.out.println(localKb.get(i).toString());
+//        }
         
         do
         {
@@ -548,7 +548,7 @@ public class KnowledgeBase
             );     
         }  
         // query cell bottom row
-        else if ((column - 1 < 0) && (row - 1 < 0) && (column - 1 >= 0))
+        else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < World.getSize()))
         {
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
@@ -721,7 +721,7 @@ public class KnowledgeBase
             existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column+1));
         }
         // query cell bottom row
-        else if ((column - 1 < 0) && (row - 1 < 0) && (column - 1 >= 0))
+        else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < World.getSize()))
         {
             existsAtom1 = new KBAtomConstant(false, "EXISTS", World.getRoom(row-1, column));
             existsAtom2 = new KBAtomConstant(false, "EXISTS", World.getRoom(row, column+1));

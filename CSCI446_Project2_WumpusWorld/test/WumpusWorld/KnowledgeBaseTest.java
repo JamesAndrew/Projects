@@ -207,6 +207,152 @@ public class KnowledgeBaseTest {
         assertEquals(expectedOutput1, actualOutput1);
     }
     
+    @Test
+    public void test_KB_axioms_resolveWumpus_topLeftCorner()
+    {
+        World world = new World(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom smellyPercept1 = new KBAtomConstant(false, "SMELLY", World.getRoom(0, 1)); 
+        KBAtom smellyPercept2 = new KBAtomConstant(false, "SMELLY", World.getRoom(1, 2)); 
+        
+        kb.update(smellyPercept1);
+        kb.update(smellyPercept2);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "WUMPUS", World.getRoom(0, 2)); 
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = true;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+    }
+    
+    @Test
+    public void test_KB_axioms_resolveWumpus_topWall()
+    {
+        World world = new World(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom smellyPercept1 = new KBAtomConstant(false, "SMELLY", World.getRoom(0, 2)); 
+        KBAtom smellyPercept2 = new KBAtomConstant(false, "SMELLY", World.getRoom(1, 1)); 
+        KBAtom smellyPercept3 = new KBAtomConstant(false, "SMELLY", World.getRoom(2, 2)); 
+        
+        kb.update(smellyPercept1);
+        kb.update(smellyPercept2);
+        kb.update(smellyPercept3);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "WUMPUS", World.getRoom(1, 2)); 
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = true;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+    }
+    
+    @Test
+    public void test_KB_axioms_resolveWumpus_topRightCorner()
+    {
+        World world = new World(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom smellyPercept1 = new KBAtomConstant(false, "SMELLY", World.getRoom(1, 2)); 
+        KBAtom smellyPercept2 = new KBAtomConstant(false, "SMELLY", World.getRoom(2, 1)); 
+        
+        kb.update(smellyPercept1);
+        kb.update(smellyPercept2);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "WUMPUS", World.getRoom(2, 2)); 
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = true;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+    }
+    
+    @Test
+    public void test_KB_axioms_resolveWumpus_rightWall()
+    {
+        World world = new World(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom smellyPercept1 = new KBAtomConstant(false, "SMELLY", World.getRoom(2, 2)); 
+        KBAtom smellyPercept2 = new KBAtomConstant(false, "SMELLY", World.getRoom(1, 1)); 
+        KBAtom smellyPercept3 = new KBAtomConstant(false, "SMELLY", World.getRoom(2, 0)); 
+        
+        kb.update(smellyPercept1);
+        kb.update(smellyPercept2);
+        kb.update(smellyPercept3);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "WUMPUS", World.getRoom(2, 1)); 
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = true;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+    }
+    
+    @Test
+    public void test_KB_axioms_resolveWumpus_bottomRightCorner()
+    {
+        World world = new World(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom smellyPercept1 = new KBAtomConstant(false, "SMELLY", World.getRoom(2, 1)); 
+        KBAtom smellyPercept2 = new KBAtomConstant(false, "SMELLY", World.getRoom(1, 0)); 
+        
+        kb.update(smellyPercept1);
+        kb.update(smellyPercept2);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "WUMPUS", World.getRoom(2, 0)); 
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = true;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+    }
+    
+    @Test
+    public void test_KB_axioms_resolveWumpus_bottomWall()
+    {
+        World world = new World(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom smellyPercept1 = new KBAtomConstant(false, "SMELLY", World.getRoom(0, 0)); 
+        KBAtom smellyPercept2 = new KBAtomConstant(false, "SMELLY", World.getRoom(1, 1)); 
+        KBAtom smellyPercept3 = new KBAtomConstant(false, "SMELLY", World.getRoom(2, 0)); 
+        
+        kb.update(smellyPercept1);
+        kb.update(smellyPercept2);
+        kb.update(smellyPercept3);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "WUMPUS", World.getRoom(1, 0)); 
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = true;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+    }
+    
+    @Test
+    public void test_KB_axioms_resolveWumpus_bottomLeftCorner()
+    {
+        World world = new World(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom smellyPercept1 = new KBAtomConstant(false, "SMELLY", World.getRoom(0, 1)); 
+        KBAtom smellyPercept2 = new KBAtomConstant(false, "SMELLY", World.getRoom(1, 0)); 
+        
+        kb.update(smellyPercept1);
+        kb.update(smellyPercept2);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "WUMPUS", World.getRoom(0, 0)); 
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = true;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+    }
+    
     /**
      * test that running the gen_resolvent_clause method on two CNFs
      * produces a new CNF with the resolved atom not in it
