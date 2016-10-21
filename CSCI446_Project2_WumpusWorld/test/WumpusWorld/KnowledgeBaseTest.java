@@ -114,10 +114,10 @@ public class KnowledgeBaseTest {
         KnowledgeBase kb = new KnowledgeBase();
         
         KBAtom obstPercept1 = new KBAtomConstant(false, "OBST", World.getRoom(0, 0)); // has obstacle
-//        KBAtom obstPercept2 = new KBAtomConstant(true, "OBST", World.getRoom(0, 1));  // does not have obstacle
+        KBAtom obstPercept2 = new KBAtomConstant(true, "OBST", World.getRoom(0, 1));  // does not have obstacle
         
         kb.update(obstPercept1);
-//        kb.update(obstPercept2);
+        kb.update(obstPercept2);
         
         KBAtomConstant queryAtom1 = new KBAtomConstant(false, "BLOCKED", World.getRoom(0, 0)); // is room (x,y) blocked given the current KB?
         System.out.println("query: " + queryAtom1.toString());
