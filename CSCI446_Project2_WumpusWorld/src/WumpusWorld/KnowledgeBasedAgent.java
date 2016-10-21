@@ -33,7 +33,7 @@ public class KnowledgeBasedAgent
     private ArrayList<Room> safeRooms = new ArrayList<Room>();
     private ArrayList<Room> pits = new ArrayList<Room>();
     private ArrayList<Room> wumpi = new ArrayList<Room>();
-    private ArrayList<Room> obstacles = new ArrayList<Room>(); 
+    private ArrayList<Room> obstacles = new ArrayList<Room>();
 
     public KnowledgeBasedAgent(World perceived, World actual)
     {
@@ -45,7 +45,7 @@ public class KnowledgeBasedAgent
     }
 
     /**
-     *
+     * Keep track of terminate conditions
      */
     public void explore()
     {
@@ -68,25 +68,13 @@ public class KnowledgeBasedAgent
     }
 
     /**
-     *
+     * update perceived world with what the agent is currently perceiving
      */
     public void updatePercepts()
     {
-//        for (int i = currentRoom.getRoomRow() - 1; i <= currentRoom.getRoomRow() + 1; i++)
-//        {
-//            for (int j = currentRoom.getRoomColumn() - 1; j <= currentRoom.getRoomColumn() + 1; j++)
-//            {
-//                Room current = actualWorld.getRoom(i, j);
-//                if (current != null && !current.isBreezy() && !current.isSmelly())
-//                {
-//                    currentRoom.setToSafe();
-//                    safeRooms.add(current);
-//                    setSurroundingExplorable(current);
-//                }
-//            }
-//        }
         int row = currentRoom.getRoomRow();
         int column = currentRoom.getRoomColumn();
+        //set room to safe if not breezy or smelly 
         if (!actualWorld.getRoom(row, column).isBreezy() && !actualWorld.getRoom(row, column).isSmelly())
         {
             currentRoom.setToSafe();
@@ -108,14 +96,16 @@ public class KnowledgeBasedAgent
     }
 
     /**
+     * determine next room to move to
      *
-     * @return
+     * @return next room
      */
     public Room getNextRoom()
     {
         Room nextRoom = null;
         int row = currentRoom.getRoomRow();
         int column = currentRoom.getRoomColumn();
+        //keep moving in same direction to minimize cost
         if (currentRoom.isSafe())
         {
             System.out.println("safe");
@@ -140,10 +130,12 @@ public class KnowledgeBasedAgent
             nextRoom = findLeastExplored();
             if (nextRoom != currentRoom)
             {
+                //find best adjacent to explore
                 for (int i = nextRoom.getRoomRow() - 1; i <= nextRoom.getRoomRow() + 1; i++)
                 {
                     for (int j = nextRoom.getRoomColumn() - 1; j <= nextRoom.getRoomColumn() + 1; j++)
                     {
+                        //only explore unexplored
                         if (perceivedWorld.getRoom(i, j) != null && notDiagonal(nextRoom, i, j) && !perceivedWorld.getRoom(i, j).isSafe() && perceivedWorld.getRoom(i, j) != currentRoom && !perceivedWorld.getRoom(i, j).isBlocked())
                         {
                             nextRoom = perceivedWorld.getRoom(i, j);
@@ -155,6 +147,7 @@ public class KnowledgeBasedAgent
                 }
             } else
             {
+                //clear best not found
                 nextRoom = makeHardDecisions();
                 if (nextRoom == currentRoom)
                 {
@@ -176,6 +169,7 @@ public class KnowledgeBasedAgent
     }
 
     /**
+     * find safe room surrounded by most unexplored
      *
      * @return
      */
@@ -206,8 +200,9 @@ public class KnowledgeBasedAgent
     }
 
     /**
-     * 
-     * @param room 
+     * If in safe room, set surrounding rooms to explorable
+     *
+     * @param room
      */
     public void setSurroundingExplorable(Room room)
     {
@@ -224,12 +219,13 @@ public class KnowledgeBasedAgent
     }
 
     /**
-     * 
-     * @return 
+     * Determine best next from unclear choices
+     *
+     * @return
      */
     public Room crossFingers()
     {
-        ArrayList<Room> possible = new ArrayList<Room>(); 
+        ArrayList<Room> possible = new ArrayList<Room>();
         int row = currentRoom.getRoomRow();
         int column = currentRoom.getRoomColumn();
         for (int i = row - 1; i <= row + 1; i++)
@@ -246,18 +242,16 @@ public class KnowledgeBasedAgent
                 }
             }
         }
-        Random r = new Random(); 
-        int index = r.nextInt(possible.size()); 
+        Random r = new Random();
+        int index = r.nextInt(possible.size());
         return possible.get(index);
-        
-    }
-    
-    
 
-    
+    }
+
     /**
-     * 
-     * @return 
+     * Find room with fewest known dangers surrounding it
+     *
+     * @return
      */
     public Room makeHardDecisions()
     {
@@ -273,6 +267,7 @@ public class KnowledgeBasedAgent
                     {
                         Room checkRoom = perceivedWorld.getRoom(i, j);
                         int danger = 0;
+                        //explore surrounding
                         for (int k = checkRoom.getRoomRow() - 1; k <= checkRoom.getRoomRow() + 1; k++)
                         {
                             for (int l = checkRoom.getRoomColumn() - 1; l <= checkRoom.getRoomColumn() + 1; l++)
@@ -284,6 +279,7 @@ public class KnowledgeBasedAgent
 
                             }
                         }
+                        //new least dangerous
                         if (danger <= numDangerous)
                         {
                             nextRoom = checkRoom;
@@ -535,15 +531,87 @@ public class KnowledgeBasedAgent
     }
 
     /**
-     * 
-     * @param target 
+     * Fire arrow at target room
+     *
+     * @param target
      */
-    public void fireArrow(Room target)
+    public boolean fireArrow(Room target)
     {
-        
+        if (arrows > 0)
+        {
+            int row = currentRoom.getRoomRow();
+            int column = currentRoom.getRoomColumn();
+            int targetRow = target.getRoomRow();
+            int targetColumn = target.getRoomColumn();
+            boolean noGood = false;
+            if (row == targetRow)
+            {
+                if (column < targetColumn)
+                {
+                    for (int i = column; i < perceivedWorld.getSize(); i++)
+                    {
+                        if (actualWorld.getRoom(row, i).isBlocked())
+                        {
+                            noGood = true;
+                        } else if (!noGood && actualWorld.getRoom(row, i).isWumpus())
+                        {
+                            actualWorld.getRoom(row, i).setIsWumpus(false);
+                            return true;
+                        }
+                    }
+                } else
+                {
+                    for (int i = column; i >= 0; i--)
+                    {
+                        if (actualWorld.getRoom(row, i).isBlocked())
+                        {
+                            noGood = true;
+                        } else if (!noGood && actualWorld.getRoom(row, i).isWumpus())
+                        {
+                            actualWorld.getRoom(row, i).setIsWumpus(false);
+                            return true;
+                        }
+                    }
+                }
+            } else if (column == targetColumn)
+            {
+                if (row < targetRow)
+                {
+                    for (int i = row; i < perceivedWorld.getSize(); i++)
+                    {
+                        if (actualWorld.getRoom(i, column).isBlocked())
+                        {
+                            noGood = true;
+                        } else if (!noGood && actualWorld.getRoom(row, i).isWumpus())
+                        {
+                            actualWorld.getRoom(i, column).setIsWumpus(false);
+                            return true;
+                        }
+                    }
+                } else
+                {
+                    for (int i = row; i >= 0; i--)
+                    {
+                        if (actualWorld.getRoom(i, column).isBlocked())
+                        {
+                            noGood = true;
+                        } else if (!noGood && actualWorld.getRoom(row, i).isWumpus())
+                        {
+                            actualWorld.getRoom(i, column).setIsWumpus(false);
+                            return true;
+                        }
+                    }
+                }
+            } else
+            {
+                System.out.println("Cannot fire diagonal");
+            }
+        }
+        return false; 
     }
-    
+
     /**
+     * Check if gold has been found
      *
      * @return
      */
@@ -560,13 +628,15 @@ public class KnowledgeBasedAgent
     }
 
     /**
-     * 
-     * @return 
+     * Check if current room is wumpus or pit. update percepts
+     *
+     * @return
      */
     public boolean die()
     {
         int row = currentRoom.getRoomRow();
         int column = currentRoom.getRoomColumn();
+        //current is pit
         if (actualWorld.getRoom(row, column).isPit())
         {
             pits.add(perceivedWorld.getRoom(row, column));
@@ -574,6 +644,7 @@ public class KnowledgeBasedAgent
             System.out.println("Adding pit(" + row + "," + column + ") to knowledge base");
             score -= 1000;
             return true;
+            //current is wumpus
         } else if (actualWorld.getRoom(row, column).isWumpus())
         {
             wumpi.add(perceivedWorld.getRoom(row, column));
@@ -584,21 +655,22 @@ public class KnowledgeBasedAgent
         }
         return false;
     }
-    
+
     /**
-     * 
-     * @return 
+     * Check if current room contains obstacle
+     *
+     * @return
      */
-    public boolean obstacle() 
+    public boolean obstacle()
     {
         int row = currentRoom.getRoomRow();
         int column = currentRoom.getRoomColumn();
-        if (actualWorld.getRoom(row, column).isBlocked()) 
+        if (actualWorld.getRoom(row, column).isBlocked())
         {
             obstacles.add(perceivedWorld.getRoom(row, column));
             System.out.println("Adding blocked(" + row + "," + column + ") to knowledge base");
-            return true; 
+            return true;
         }
-        return false; 
+        return false;
     }
 }
