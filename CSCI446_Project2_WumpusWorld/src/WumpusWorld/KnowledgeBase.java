@@ -18,11 +18,28 @@ import java.util.*;
  */
 public class KnowledgeBase 
 {
+    // the entire knowledge base. Querying this will take absurdly long
+    // to resolve
     private List<KBcnf> kb_cnf = new ArrayList<>();
+    // mapping of relevant axioms to each query
+    private Map<String, List<KBcnf>> contextual_kb = new HashMap<>();
+    // cloner for deep coppying from the knowledge base
     Cloner cloner = new Cloner();
     
     public KnowledgeBase() 
     { 
+        // initialize the contextual_kb categories
+        contextual_kb.put("BLOCKED", new ArrayList<>());
+        contextual_kb.put("EXISTS",  new ArrayList<>());
+        contextual_kb.put("HASGOLD",  new ArrayList<>());
+        contextual_kb.put("OBST",  new ArrayList<>());
+        contextual_kb.put("PIT",  new ArrayList<>());
+        contextual_kb.put("SAFE",  new ArrayList<>());
+        contextual_kb.put("SHINY",  new ArrayList<>());
+        contextual_kb.put("SMELLY",  new ArrayList<>());
+        contextual_kb.put("WINDY",  new ArrayList<>());
+        contextual_kb.put("WUMPUS",  new ArrayList<>());
+        
         // all real rooms exist 
         axiom_RoomsExist();
         
@@ -352,7 +369,7 @@ public class KnowledgeBase
      * Add sequence of conjuncts of disjuncts to the kb
      * @param conjunctsOfDisjuncts 
      */
-    private void addToKBcnf(ArrayList<KBAtom>... conjunctsOfDisjuncts)
+    private void addToKBcnf(List<String> context, ArrayList<KBAtom>... conjunctsOfDisjuncts)
     {
         ArrayList<ArrayList<KBAtom>> conjunctions = new ArrayList<>();
         for (ArrayList<KBAtom> disjunction : conjunctsOfDisjuncts)
@@ -361,17 +378,27 @@ public class KnowledgeBase
         }
         KBcnf newCNF = new KBcnf(conjunctions);
         kb_cnf.add(newCNF);
+        for (String category : context)
+        {
+            contextual_kb.get(category).add(newCNF);
+        }
     }
     
     /**
      * Add sequence of only disjunctive terms to the kb
+     * @param context : which contextual KB mappings the axiom belongs to
      * @param atoms 
      */
-    private void addToKBcnf(KBAtom... atoms)
+    private void addToKBcnf(List<String> context, KBAtom... atoms)
     {
         ArrayList<KBAtom> onlyDisjuncts = new ArrayList<>(Arrays.asList(atoms));
         KBcnf cnfSentence = new KBcnf(onlyDisjuncts);
         kb_cnf.add(cnfSentence);
+        for (String category : context)
+        {
+            contextual_kb.get(category).add(cnfSentence);
+        }
+        
     }
 
     public List<KBcnf> getKb_cnf() {
@@ -387,6 +414,7 @@ public class KnowledgeBase
     private void axiom_RoomHasGold() 
     {
         addToKBcnf(
+            new ArrayList<>(Arrays.asList("HASGOLD")),
             new KBAtomVariable(true, "SHINY", new int[]{0,0}), 
             new KBAtomVariable(false, "HASGOLD", new int[]{0,0})
         );
@@ -395,6 +423,7 @@ public class KnowledgeBase
     private void axiom_RoomIsBlocked() 
     {
         addToKBcnf(
+            new ArrayList<>(Arrays.asList("BLOCKED")),
             new KBAtomVariable(true, "OBST", new int[]{0,0}),
             new KBAtomVariable(false, "BLOCKED", new int[]{0,0})
         );
@@ -412,7 +441,7 @@ public class KnowledgeBase
             new KBAtomVariable(false, "SAFE", new int[]{0,0})
         )
         );
-        addToKBcnf(disj1, disj2, disj3, disj4);
+        addToKBcnf(new ArrayList<>(Arrays.asList("SAFE")), disj1, disj2, disj3, disj4);
     }
 
     private void axiom_RoomHasWumpus() 
@@ -513,7 +542,7 @@ public class KnowledgeBase
             new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
         )
         );
-        addToKBcnf(disj1, disj2, disj3, disj4, disj5, disj6, disj7, disj8, disj9);
+        addToKBcnf(new ArrayList<>(Arrays.asList("WUMPUS")), disj1, disj2, disj3, disj4, disj5, disj6, disj7, disj8, disj9);
     }
 
     /**
@@ -526,7 +555,7 @@ public class KnowledgeBase
             for (int j = 0; j < World.getSize(); j++)
             {
                 KBAtomConstant existsAtom = new KBAtomConstant(false, "EXISTS", World.getRoom(i, j));
-                addToKBcnf(existsAtom);
+                addToKBcnf(new ArrayList<>(Arrays.asList("WUMPUS")), existsAtom);
             }
         }
     }
