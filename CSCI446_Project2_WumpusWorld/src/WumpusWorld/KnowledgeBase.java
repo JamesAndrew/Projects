@@ -553,11 +553,7 @@ public class KnowledgeBase
         // query cell not on wall (existing rooms on every side)
         if ((row - 1 >= 0) && (row + 1 < ActualWorld.getSize()) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
         {
-            disj.addAll(Arrays.asList(                
-                new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
-                new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
-                new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
-                new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
+            disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
@@ -569,10 +565,6 @@ public class KnowledgeBase
         else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
         {
             disj.addAll(Arrays.asList( 
-                new KBAtomVariable(false, "EXISTS", new int[]{-1,0}),
-                new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
-                new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
-                new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
@@ -583,10 +575,6 @@ public class KnowledgeBase
         else if (((row - 1 < 0) && (column + 1 >= ActualWorld.getSize())))  
         {
             disj.addAll(Arrays.asList( 
-                new KBAtomVariable(false, "EXISTS", new int[]{-1,0}),
-                new KBAtomVariable(false, "EXISTS", new int[]{0,1}),
-                new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
-                new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
                 new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
@@ -597,10 +585,6 @@ public class KnowledgeBase
         else if ((column + 1 >= ActualWorld.getSize()) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
         {
             disj.addAll(Arrays.asList( 
-                new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
-                new KBAtomVariable(false, "EXISTS", new int[]{0,1}),
-                new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
-                new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
@@ -612,10 +596,6 @@ public class KnowledgeBase
         else if ((row + 1 >= ActualWorld.getSize()) && column + 1 >= ActualWorld.getSize()) 
         {
             disj.addAll(Arrays.asList( 
-                new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
-                new KBAtomVariable(false, "EXISTS", new int[]{0,1}),
-                new KBAtomVariable(false, "EXISTS", new int[]{1,0}),
-                new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
                 new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
@@ -626,10 +606,6 @@ public class KnowledgeBase
         else if ((row + 1 >= ActualWorld.getSize()) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
         {
             disj.addAll(Arrays.asList( 
-                new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
-                new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
-                new KBAtomVariable(false, "EXISTS", new int[]{1,0}),
-                new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
@@ -641,10 +617,6 @@ public class KnowledgeBase
         else if ((row + 1 >= ActualWorld.getSize()) && column - 1 < 0)
         {
             disj.addAll(Arrays.asList( 
-                new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
-                new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
-                new KBAtomVariable(false, "EXISTS", new int[]{1,0}),
-                new KBAtomVariable(false, "EXISTS", new int[]{0,-1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
                 new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
@@ -655,10 +627,6 @@ public class KnowledgeBase
         else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
         {
             disj.addAll(Arrays.asList( 
-                new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
-                new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
-                new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
-                new KBAtomVariable(false, "EXISTS", new int[]{0,-1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
@@ -670,10 +638,6 @@ public class KnowledgeBase
         else if ((column - 1 < 0) && (row - 1 < 0) && (column - 1 >= 0))
         {
             disj.addAll(Arrays.asList( 
-                new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
-                new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
-                new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
-                new KBAtomVariable(false, "EXISTS", new int[]{0,-1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
@@ -685,10 +649,6 @@ public class KnowledgeBase
         else if((row - 1 < 0) && column - 1 < 0)
         {
             disj.addAll(Arrays.asList( 
-                new KBAtomVariable(false, "EXISTS", new int[]{-1,0}),
-                new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
-                new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
-                new KBAtomVariable(false, "EXISTS", new int[]{0,-1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
                 new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
