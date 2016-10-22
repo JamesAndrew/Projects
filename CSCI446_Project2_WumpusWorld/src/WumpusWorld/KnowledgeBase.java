@@ -508,6 +508,21 @@ public class KnowledgeBase
                 new KBAtomVariable(false, "SAFE", new int[]{0,0})
             ));
         }
+        // query cell left column : no rooms to the left (along y=0 column)
+        else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
+        {
+            disj.addAll(Arrays.asList(                
+                new KBAtomVariable(false, "EXISTS", new int[]{-1,0}),
+                new KBAtomVariable(true, "EXISTS", new int[]{0,1}),
+                new KBAtomVariable(true, "EXISTS", new int[]{1,0}),
+                new KBAtomVariable(true, "EXISTS", new int[]{0,-1}),
+                new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
+                new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
+                new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+                new KBAtomVariable(false, "WUMPUS", new int[]{0,0}) 
+            ));
+        }
+        
         else
         {
             throw new RuntimeException("None of the room positions calculated correctly"
@@ -966,11 +981,11 @@ public class KnowledgeBase
         
         ArrayList<KBAtom> disjunctions = new ArrayList<>(Arrays.asList(existsAtom1, smellsAtom1, windyAtom1, obstAtom1));
         KBcnf cnfTerm1 = new KBcnf(disjunctions);
-//        KBcnf cnfTerm2 = new KBcnf(existsAtom2);
-//        KBcnf cnfTerm3 = new KBcnf(existsAtom3);
-//        KBcnf cnfTerm4 = new KBcnf(existsAtom4);
+        KBcnf cnfTerm2 = new KBcnf(existsAtom2);
+        KBcnf cnfTerm3 = new KBcnf(existsAtom3);
+        KBcnf cnfTerm4 = new KBcnf(existsAtom4);
         
-        ArrayList<KBcnf> adjRoomCNFs = new ArrayList<>(Arrays.asList(cnfTerm1));
+        ArrayList<KBcnf> adjRoomCNFs = new ArrayList<>(Arrays.asList(cnfTerm1, cnfTerm2, cnfTerm3, cnfTerm4));
         return adjRoomCNFs;
     }
     

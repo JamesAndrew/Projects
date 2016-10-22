@@ -12,7 +12,29 @@ public class KnowledgeBaseTest {
     public KnowledgeBaseTest() { }
     
     @Test
-    public void test_KB_axioms_safe()
+    public void test_KB_axioms_safe_centered()
+    {
+        ActualWorld world = new ActualWorld(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom safePercept1 = new KBAtomConstant(true, "SMELLY", ActualWorld.getRoom(0, 1)); 
+        KBAtom safePercept2 = new KBAtomConstant(true, "WINDY", ActualWorld.getRoom(0, 1)); 
+        KBAtom safePercept3 = new KBAtomConstant(true, "OBST", ActualWorld.getRoom(0, 1)); 
+        
+        kb.update(safePercept1);
+        kb.update(safePercept2);
+        kb.update(safePercept3);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(1, 1)); // is room (1,1) safe given it isn't smelly, windy, or obstructed?
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = true;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+    }
+    
+    @Test
+    public void test_KB_axioms_safe_leftWall()
     {
         ActualWorld world = new ActualWorld(3);
         KnowledgeBase kb = new KnowledgeBase();
