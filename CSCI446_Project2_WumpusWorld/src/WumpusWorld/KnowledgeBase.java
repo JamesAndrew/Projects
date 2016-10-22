@@ -30,32 +30,23 @@ public class KnowledgeBase
     public KnowledgeBase() 
     { 
         // initialize the contextual_kb categories
-        contextual_kb.put("BLOCKED", new ArrayList<>());
-        contextual_kb.put("HASGOLD",  new ArrayList<>());
-        contextual_kb.put("PIT",  new ArrayList<>());
-        contextual_kb.put("SAFE",  new ArrayList<>());
-        contextual_kb.put("WUMPUS",  new ArrayList<>());
+        contextual_kb.put("BLOCKED",    new ArrayList<>());
+        contextual_kb.put("HASGOLD",    new ArrayList<>());
+        contextual_kb.put("PIT",        new ArrayList<>());
+        contextual_kb.put("SAFE",       new ArrayList<>());
+        contextual_kb.put("WUMPUS",     new ArrayList<>());
         
         // initialize the contextMapping 
-        contextMapping.put("BLOCKED", new ArrayList<>(Arrays.asList("BLOCKED", "SAFE")));
-        contextMapping.put("EXISTS", new ArrayList<>(Arrays.asList("WUMPUS", "PIT")));
-        contextMapping.put("HASGOLD", new ArrayList<>(Arrays.asList("HASGOLD")));
-        contextMapping.put("OBST", new ArrayList<>(Arrays.asList("SAFE", "BLOCKED")));
-        contextMapping.put("PIT", new ArrayList<>(Arrays.asList("PIT", "SAFE")));
-        contextMapping.put("SAFE", new ArrayList<>(Arrays.asList("SAFE")));
-        contextMapping.put("SHINY", new ArrayList<>(Arrays.asList("HASGOLD")));
-        contextMapping.put("SMELLY", new ArrayList<>(Arrays.asList("SAFE", "WUMPUS")));
-        contextMapping.put("WINDY", new ArrayList<>(Arrays.asList("SAFE", "PIT")));
-        contextMapping.put("WUMPUS", new ArrayList<>(Arrays.asList("WUMPUS", "SAFE")));
-        
-//         SHINY(C_xy) => HASGOLD(C_xy): room has gold
-//        axiom_RoomHasGold();
-                
-        // OBST(C_xy) => BLOCKED(C_xy): room is blocked
-//        axiom_RoomIsBlocked();
-        
-        // (smelly || windy || shiny) || (!blocked && !pit && !wumpus) => safe: room is safe
-//        axiom_RoomIsSafe();
+        contextMapping.put("BLOCKED",   new ArrayList<>(Arrays.asList("BLOCKED", "SAFE")));
+        contextMapping.put("EXISTS",    new ArrayList<>(Arrays.asList("WUMPUS", "PIT")));
+        contextMapping.put("HASGOLD",   new ArrayList<>(Arrays.asList("HASGOLD")));
+        contextMapping.put("OBST",      new ArrayList<>(Arrays.asList("SAFE", "BLOCKED")));
+        contextMapping.put("PIT",       new ArrayList<>(Arrays.asList("PIT", "SAFE")));
+        contextMapping.put("SAFE",      new ArrayList<>(Arrays.asList("SAFE")));
+        contextMapping.put("SHINY",     new ArrayList<>(Arrays.asList("HASGOLD")));
+        contextMapping.put("SMELLY",    new ArrayList<>(Arrays.asList("SAFE", "WUMPUS")));
+        contextMapping.put("WINDY",     new ArrayList<>(Arrays.asList("SAFE", "PIT")));
+        contextMapping.put("WUMPUS",    new ArrayList<>(Arrays.asList("WUMPUS", "SAFE")));
     }
     
     /**
@@ -78,8 +69,15 @@ public class KnowledgeBase
                 contextual_kb.get(key).addAll(isBlockedAxioms);
                 break;
             case "SAFE":
-                throw new PendingException();
-//                break;
+                // add the room-contextualized 'safe' axioms
+                ArrayList<KBcnf> isSafeAxioms = axiom_dynamic_RoomIsSafe(question.getTerm());
+                contextual_kb.get(key).addAll(isSafeAxioms);
+                
+                // add the room-contextualized adj room exists axioms
+                ArrayList<KBcnf> adjExistsSmellWindBlockedAxioms =
+                        axiom_dynamic_AdjacentRoomExistsSmellyWindyAndBlocked(question.getTerm().getRoomRow(), question.getTerm().getRoomColumn());
+                contextual_kb.get(key).addAll(adjExistsSmellWindBlockedAxioms);
+                break;
             case "HASGOLD":
                 ArrayList<KBcnf> isShinyAxioms = axiom_RoomHasGold();
                 contextual_kb.get(key).addAll(isShinyAxioms);
@@ -493,101 +491,41 @@ public class KnowledgeBase
         return returnedKB;
     }
 
-    private void axiom_RoomIsSafe() 
+    private ArrayList<KBcnf> axiom_dynamic_RoomIsSafe(Room term) 
     {
-        ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SMELLY", new int[]{0,0})));
-        ArrayList<KBAtom> disj2 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "WINDY", new int[]{0,0})));
-        ArrayList<KBAtom> disj3 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SHINY", new int[]{0,0})));
-        ArrayList<KBAtom> disj4 = new ArrayList<>(Arrays.asList(
-            new KBAtomVariable(false, "OBST", new int[]{0,0}),
-            new KBAtomVariable(false, "PIT", new int[]{0,0}),
-            new KBAtomVariable(false, "WUMPUS", new int[]{0,0}),
-            new KBAtomVariable(false, "SAFE", new int[]{0,0})
-        )
-        );
-        addToKBcnf(new ArrayList<>(Arrays.asList("SAFE")), disj1, disj2, disj3, disj4);
-    }
-
-    /**
-     * for each cell adjacent to the query cell, assert they exist
-     */
-    private ArrayList<KBcnf> axiom_dynamic_AdjacentRoomExists(int row, int column) 
-    {
-        KBAtomConstant existsAtom1 = new KBAtomConstant(true, "EXISTS", new Room(false));
-        KBAtomConstant existsAtom2 = new KBAtomConstant(true, "EXISTS", new Room(false));
-        KBAtomConstant existsAtom3 = new KBAtomConstant(true, "EXISTS", new Room(false));
-        KBAtomConstant existsAtom4 = new KBAtomConstant(true, "EXISTS", new Room(false));
+        ArrayList<KBAtom> disj = new ArrayList<>();
+        int row = term.getRoomRow();
+        int column = term.getRoomColumn();
         
-        // query cell not on wall
+        // query cell not on wall (existing rooms on every side)
         if ((row - 1 >= 0) && (row + 1 < ActualWorld.getSize()) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
         {
-            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
-            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
-            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
-            existsAtom4 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
+            disj.addAll(Arrays.asList(                
+                new KBAtomVariable(true, "EXISTS", new int[]{-1,0}),
+                new KBAtomVariable(false, "SMELLY", new int[]{-1,0}),
+                new KBAtomVariable(false, "WINDY", new int[]{-1,0}),
+                new KBAtomVariable(false, "OBST", new int[]{-1,0}),
+                new KBAtomVariable(false, "SAFE", new int[]{0,0})
+            ));
         }
-        // query cell left column
-        else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
+        else
         {
-            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
-            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
-            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
+            throw new RuntimeException("None of the room positions calculated correctly"
+                    + " during refill_variable_wumpus_axioms");
         }
-        // query cell top left corner
-        else if (((row - 1 < 0) && (column + 1 >= ActualWorld.getSize())))
-        {
-            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
-            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
-        }
-        // query cell top row
-        else if ((column + 1 >= ActualWorld.getSize()) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
-        {
-            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
-            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
-            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
-        }
-        // query cell top right corner
-        else if ((row + 1 >= ActualWorld.getSize()) && column + 1 >= ActualWorld.getSize())
-        {
-            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
-            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
-        }
-        // query cell right column
-        else if ((row + 1 >= ActualWorld.getSize()) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
-        {
-            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
-            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
-            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
-        }
-        // query cell bottom right corner
-        else if ((row + 1 >= ActualWorld.getSize()) && column - 1 < 0)
-        {
-            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
-            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
-        }
-        // query cell bottom row
-        else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
-        {
-            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
-            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
-            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
-        }
-        // query cell bottom left corner
-        else if((row - 1 < 0) && column - 1 < 0)
-        {
-            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
-            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
-        }
+        ArrayList<ArrayList<KBAtom>> disjunctions =  new ArrayList<>(Arrays.asList(disj));
+        KBcnf newCNF = new KBcnf(disjunctions);
         
-        KBcnf cnfTerm1 = new KBcnf(existsAtom1);
-        KBcnf cnfTerm2 = new KBcnf(existsAtom2);
-        KBcnf cnfTerm3 = new KBcnf(existsAtom3);
-        KBcnf cnfTerm4 = new KBcnf(existsAtom4);
+        ArrayList<KBcnf> returnedKB = new ArrayList<>();
+        // add the variable axioms
+        returnedKB.add(newCNF);
+        // also add all smelly, windy, and obst percepts attained thus far
+        ArrayList<KBcnf> contextualPercepts = addContextualPercepts("SMELLY", "WINDY", "OBST");
+        returnedKB.addAll(contextualPercepts);
         
-        ArrayList<KBcnf> adjRoomCNFs = new ArrayList<>(Arrays.asList(cnfTerm1, cnfTerm2, cnfTerm3, cnfTerm4));
-        return adjRoomCNFs;
+        return returnedKB;
     }
-    
+
     /**
      * getting only relevant adjacent cell axioms when querying on a wumpus (or pit)
      */
@@ -610,8 +548,7 @@ public class KnowledgeBase
                 new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
                 new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
-            )
-            );
+            ));
         }
         // query cell left column : no rooms to the left (along y=0 column)
         else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
@@ -625,8 +562,7 @@ public class KnowledgeBase
                 new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
                 new KBAtomVariable(false, "WUMPUS", new int[]{0,0}) 
-            )
-            );     
+            ));     
         }
         // query cell top left corner
         else if (((row - 1 < 0) && (column + 1 >= ActualWorld.getSize())))  
@@ -760,6 +696,282 @@ public class KnowledgeBase
         returnedKB.addAll(smellyPercepts);
         
         return returnedKB;
+    }
+        
+    /**
+     * for each cell adjacent to the query cell, assert they exist
+     */
+    private ArrayList<KBcnf> axiom_dynamic_AdjacentRoomExists(int row, int column) 
+    {
+        KBAtomConstant existsAtom1 = new KBAtomConstant(true, "EXISTS", new Room(false));
+        KBAtomConstant existsAtom2 = new KBAtomConstant(true, "EXISTS", new Room(false));
+        KBAtomConstant existsAtom3 = new KBAtomConstant(true, "EXISTS", new Room(false));
+        KBAtomConstant existsAtom4 = new KBAtomConstant(true, "EXISTS", new Room(false));
+        
+        // query cell not on wall
+        if ((row - 1 >= 0) && (row + 1 < ActualWorld.getSize()) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
+            existsAtom4 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
+        }
+        // query cell left column
+        else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
+        }
+        // query cell top left corner
+        else if (((row - 1 < 0) && (column + 1 >= ActualWorld.getSize())))
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
+        }
+        // query cell top row
+        else if ((column + 1 >= ActualWorld.getSize()) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
+        }
+        // query cell top right corner
+        else if ((row + 1 >= ActualWorld.getSize()) && column + 1 >= ActualWorld.getSize())
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
+        }
+        // query cell right column
+        else if ((row + 1 >= ActualWorld.getSize()) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
+        }
+        // query cell bottom right corner
+        else if ((row + 1 >= ActualWorld.getSize()) && column - 1 < 0)
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
+        }
+        // query cell bottom row
+        else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
+        }
+        // query cell bottom left corner
+        else if((row - 1 < 0) && column - 1 < 0)
+        {
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
+        }
+        
+        KBcnf cnfTerm1 = new KBcnf(existsAtom1);
+        KBcnf cnfTerm2 = new KBcnf(existsAtom2);
+        KBcnf cnfTerm3 = new KBcnf(existsAtom3);
+        KBcnf cnfTerm4 = new KBcnf(existsAtom4);
+        
+        ArrayList<KBcnf> adjRoomCNFs = new ArrayList<>(Arrays.asList(cnfTerm1, cnfTerm2, cnfTerm3, cnfTerm4));
+        return adjRoomCNFs;
+    }
+    
+    /**
+     * For all adjacent cells to the query, assert they need to exist, not be smelly, not be windy, and are not obstructed (this implies it is safe)
+     * fulfills the following CNF snippet: (!EXISTS(C_xy) || SMELLY(C_xy) || WINDY(C_xy) || OBST(C_xy))
+     */
+    private ArrayList<KBcnf> axiom_dynamic_AdjacentRoomExistsSmellyWindyAndBlocked(int row, int column) 
+    {
+        KBAtomConstant existsAtom1 = new KBAtomConstant(false, "EXISTS", new Room(false));
+        KBAtomConstant existsAtom2 = new KBAtomConstant(false, "EXISTS", new Room(false));
+        KBAtomConstant existsAtom3 = new KBAtomConstant(false, "EXISTS", new Room(false));
+        KBAtomConstant existsAtom4 = new KBAtomConstant(false, "EXISTS", new Room(false));
+        
+        KBAtomConstant smellsAtom1 = new KBAtomConstant(false, "SMELLY", new Room(false));
+        KBAtomConstant smellsAtom2 = new KBAtomConstant(false, "SMELLY", new Room(false));
+        KBAtomConstant smellsAtom3 = new KBAtomConstant(false, "SMELLY", new Room(false));
+        KBAtomConstant smellsAtom4 = new KBAtomConstant(false, "SMELLY", new Room(false));
+        
+        KBAtomConstant windyAtom1 = new KBAtomConstant(false, "WINDY", new Room(false));
+        KBAtomConstant windyAtom2 = new KBAtomConstant(false, "WINDY", new Room(false));
+        KBAtomConstant windyAtom3 = new KBAtomConstant(false, "WINDY", new Room(false));
+        KBAtomConstant windyAtom4 = new KBAtomConstant(false, "WINDY", new Room(false));
+        
+        KBAtomConstant obstAtom1 = new KBAtomConstant(false, "OBST", new Room(false));
+        KBAtomConstant obstAtom2 = new KBAtomConstant(false, "OBST", new Room(false));
+        KBAtomConstant obstAtom3 = new KBAtomConstant(false, "OBST", new Room(false));
+        KBAtomConstant obstAtom4 = new KBAtomConstant(false, "OBST", new Room(false));
+        
+        // query cell not on wall
+        if ((row - 1 >= 0) && (row + 1 < ActualWorld.getSize()) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
+            existsAtom4 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
+            
+            smellsAtom1 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row-1, column));
+            smellsAtom2 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row, column+1));
+            smellsAtom3 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row+1, column));
+            smellsAtom4 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row, column-1));
+
+            windyAtom1 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row-1, column));
+            windyAtom2 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row, column+1));
+            windyAtom3 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row+1, column));
+            windyAtom4 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row, column-1));
+
+            obstAtom1 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row-1, column));
+            obstAtom2 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row, column+1));
+            obstAtom3 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row+1, column));
+            obstAtom4 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row, column-1));
+        }
+        // query cell left column
+        else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS",  ActualWorld.getRoom(row, column+1));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
+            
+            smellsAtom1 = new KBAtomConstant(false, "SMELLY",  ActualWorld.getRoom(row, column+1));
+            smellsAtom2 = new KBAtomConstant(false, "SMELLY",  ActualWorld.getRoom(row+1, column));
+            smellsAtom3 = new KBAtomConstant(false, "SMELLY",  ActualWorld.getRoom(row, column-1));
+
+            windyAtom1 = new KBAtomConstant(false, "WINDY",  ActualWorld.getRoom(row, column+1));
+            windyAtom2 = new KBAtomConstant(false, "WINDY",  ActualWorld.getRoom(row+1, column));
+            windyAtom3 = new KBAtomConstant(false, "WINDY",  ActualWorld.getRoom(row, column-1));
+
+            obstAtom1 = new KBAtomConstant(false, "OBST",  ActualWorld.getRoom(row, column+1));
+            obstAtom2 = new KBAtomConstant(false, "OBST",  ActualWorld.getRoom(row+1, column));
+            obstAtom3 = new KBAtomConstant(false, "OBST",  ActualWorld.getRoom(row, column-1));
+        }
+        // query cell top left corner
+        else if (((row - 1 < 0) && (column + 1 >= ActualWorld.getSize())))
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
+            
+            smellsAtom1 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row+1, column));
+            smellsAtom2 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row, column-1));
+
+            windyAtom1 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row+1, column));
+            windyAtom2 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row, column-1));
+
+            obstAtom1 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row+1, column));
+            obstAtom2 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row, column-1));
+        }
+        // query cell top row
+        else if ((column + 1 >= ActualWorld.getSize()) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
+            
+            smellsAtom1 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row-1, column));
+            smellsAtom2 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row+1, column));
+            smellsAtom3 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row, column-1));
+
+            windyAtom1 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row-1, column));
+            windyAtom2 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row+1, column));
+            windyAtom3 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row, column-1));
+
+            obstAtom1 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row-1, column));
+            obstAtom2 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row+1, column));
+            obstAtom3 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row, column-1));
+        }
+        // query cell top right corner
+        else if ((row + 1 >= ActualWorld.getSize()) && column + 1 >= ActualWorld.getSize())
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
+            
+            smellsAtom1 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row-1, column));
+            smellsAtom2 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row, column-1));
+
+            windyAtom1 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row-1, column));
+            windyAtom2 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row, column-1));
+
+            obstAtom1 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row-1, column));
+            obstAtom2 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row, column-1));
+        }
+        // query cell right column
+        else if ((row + 1 >= ActualWorld.getSize()) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column-1));
+            
+            smellsAtom1 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row-1, column));
+            smellsAtom2 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row, column+1));
+            smellsAtom3 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row, column-1));
+
+            windyAtom1 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row-1, column));
+            windyAtom2 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row, column+1));
+            windyAtom3 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row, column-1));
+
+            obstAtom1 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row-1, column));
+            obstAtom2 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row, column+1));
+            obstAtom3 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row, column-1));
+        }
+        // query cell bottom right corner
+        else if ((row + 1 >= ActualWorld.getSize()) && column - 1 < 0)
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
+            
+            smellsAtom1 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row-1, column));
+            smellsAtom2 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row, column+1));
+
+            windyAtom1 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row-1, column));
+            windyAtom2 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row, column+1));
+
+            obstAtom1 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row-1, column));
+            obstAtom2 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row, column+1));
+        }
+        // query cell bottom row
+        else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
+        {
+            existsAtom1 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row-1, column));
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
+            
+            smellsAtom1 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row-1, column));
+            smellsAtom2 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row, column+1));
+            smellsAtom3 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row+1, column));
+
+            windyAtom1 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row-1, column));
+            windyAtom2 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row, column+1));
+            windyAtom3 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row+1, column));
+
+            obstAtom1 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row-1, column));
+            obstAtom2 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row, column+1));
+            obstAtom3 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row+1, column));
+        }
+        // query cell bottom left corner
+        else if((row - 1 < 0) && column - 1 < 0)
+        {
+            existsAtom2 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row, column+1));
+            existsAtom3 = new KBAtomConstant(false, "EXISTS", ActualWorld.getRoom(row+1, column));
+            
+            smellsAtom1 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row, column+1));
+            smellsAtom2 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(row+1, column));
+
+            windyAtom1 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row, column+1));
+            windyAtom2 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(row+1, column));
+
+            obstAtom1 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row, column+1));
+            obstAtom2 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(row+1, column));
+        }
+        
+        ArrayList<KBAtom> disjunctions = new ArrayList<>(Arrays.asList(existsAtom1, smellsAtom1, windyAtom1, obstAtom1));
+        KBcnf cnfTerm1 = new KBcnf(disjunctions);
+//        KBcnf cnfTerm2 = new KBcnf(existsAtom2);
+//        KBcnf cnfTerm3 = new KBcnf(existsAtom3);
+//        KBcnf cnfTerm4 = new KBcnf(existsAtom4);
+        
+        ArrayList<KBcnf> adjRoomCNFs = new ArrayList<>(Arrays.asList(cnfTerm1));
+        return adjRoomCNFs;
     }
     
     /**

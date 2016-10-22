@@ -9,10 +9,7 @@ import static org.junit.Assert.*;
  */
 public class KnowledgeBaseTest {
     
-    public KnowledgeBaseTest() 
-    {
-        
-    }
+    public KnowledgeBaseTest() { }
     
     @Test
     public void test_KB_axioms_safe()
@@ -20,73 +17,26 @@ public class KnowledgeBaseTest {
         ActualWorld world = new ActualWorld(3);
         KnowledgeBase kb = new KnowledgeBase();
         
-        KBAtom obstPercept1 = new KBAtomConstant(true, "OBST", ActualWorld.getRoom(0, 0)); 
-        KBAtom obstPercept2 = new KBAtomConstant(true, "PIT", ActualWorld.getRoom(0, 0));  
-        KBAtom obstPercept3 = new KBAtomConstant(true, "WUMPUS", ActualWorld.getRoom(0, 0)); 
-        KBAtom obstPercept4 = new KBAtomConstant(true, "BLOCKED", ActualWorld.getRoom(0, 0)); 
+        KBAtom safePercept1 = new KBAtomConstant(true, "SMELLY", ActualWorld.getRoom(0, 1)); 
+        KBAtom safePercept2 = new KBAtomConstant(true, "WINDY", ActualWorld.getRoom(0, 1)); 
+        KBAtom safePercept3 = new KBAtomConstant(true, "OBST", ActualWorld.getRoom(0, 1)); 
         
-        KBAtom obstPercept5 = new KBAtomConstant(false, "SMELLY", ActualWorld.getRoom(0, 1)); 
-        KBAtom obstPercept6 = new KBAtomConstant(false, "WINDY", ActualWorld.getRoom(0, 2)); 
+        kb.update(safePercept1);
+        kb.update(safePercept2);
+        kb.update(safePercept3);
         
-        KBAtom obstPercept7 = new KBAtomConstant(false, "WUMPUS", ActualWorld.getRoom(1, 0));  
-        
-        kb.update(obstPercept1);
-        kb.update(obstPercept2);
-        kb.update(obstPercept3);
-        kb.update(obstPercept4);
-        kb.update(obstPercept5);
-        kb.update(obstPercept6);
-        kb.update(obstPercept7);
-        
-        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(0, 0)); // is room (0,0) safe given the current KB?
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(1, 1)); // is room (1,1) safe given it isn't smelly, windy, or obstructed?
         System.out.println("query: " + queryAtom1.toString());
         boolean expectedOutput1 = true;
         boolean actualOutput1 = kb.query(queryAtom1);   
         System.out.format("query result: %b%n%n", actualOutput1);
         assertEquals(expectedOutput1, actualOutput1);
-        
-        KBAtomConstant queryAtom3 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(0, 1)); // is room (0,1) safe given the current KB?
-        System.out.println("query: " + queryAtom3.toString());
-        boolean expectedOutput3 = true;
-        boolean actualOutput3 = kb.query(queryAtom3);   
-        System.out.format("query result: %b%n%n", actualOutput3);
-        assertEquals(expectedOutput3, actualOutput3);
-        
-        KBAtomConstant queryAtom4 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(0, 2)); // is room (0,2) safe given the current KB?
-        System.out.println("query: " + queryAtom4.toString());
-        boolean expectedOutput4 = true;
-        boolean actualOutput4 = kb.query(queryAtom4);   
-        System.out.format("query result: %b%n%n", actualOutput4);
-        assertEquals(expectedOutput4, actualOutput4);
-        
-        KBAtomConstant queryAtom5 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(1, 0)); // is room (1,0) safe given the current KB? (room 1,0 has a wumpus)
-        System.out.println("query: " + queryAtom5.toString());
-        boolean expectedOutput5 = false;
-        boolean actualOutput5 = kb.query(queryAtom5);   
-        System.out.format("query result: %b%n%n", actualOutput5);
-        assertEquals(expectedOutput5, actualOutput5);
     }
     
     @Test
     public void test_KB_axioms_not_safe()
     {
-        ActualWorld world = new ActualWorld(3);
-        KnowledgeBase kb = new KnowledgeBase();
         
-        KBAtom obstPercept1 = new KBAtomConstant(false, "WUMPUS", ActualWorld.getRoom(0, 0)); 
-        KBAtom obstPercept2 = new KBAtomConstant(false, "PIT", ActualWorld.getRoom(0, 1));  
-        KBAtom obstPercept3 = new KBAtomConstant(false, "OBST", ActualWorld.getRoom(0, 2)); 
-        
-        kb.update(obstPercept1);
-        kb.update(obstPercept2);
-        kb.update(obstPercept3);
-        
-        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(0, 0)); // is room (0,0) safe given the current KB?
-        System.out.println("query: " + queryAtom1.toString());
-        boolean expectedOutput1 = false;
-        boolean actualOutput1 = kb.query(queryAtom1);   
-        System.out.format("query result: %b%n%n", actualOutput1);
-        assertEquals(expectedOutput1, actualOutput1);
     }
     
     @Test
