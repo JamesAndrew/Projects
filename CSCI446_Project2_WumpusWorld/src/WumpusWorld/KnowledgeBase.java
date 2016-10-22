@@ -18,10 +18,9 @@ import java.util.*;
  */
 public class KnowledgeBase 
 {
-    // the entire knowledge base. Querying this will take absurdly long
-    // to resolve. Use the contextual_kb instead
-    private List<KBcnf> kb_cnf = new ArrayList<>();
-    // mapping of relevant axioms to each query
+    // kb as a result of exploration. Holds only KBAtomConstants
+    private List<KBcnf> percept_kb = new ArrayList<>();
+    // mapping of relevant axioms to each query. These are KBAtomVariables
     private Map<String, List<KBcnf>> contextual_kb = new HashMap<>();
     // mapping of query requests to appropriate axiom contexts
     private Map<String, List<String>> contextMapping = new HashMap<>();
@@ -57,9 +56,6 @@ public class KnowledgeBase
         
         // (smelly || windy || shiny) || (!blocked && !pit && !wumpus) => safe: room is safe
         axiom_RoomIsSafe();
-        
-//        // (surrounding room exists and are all smelly) => WUMPUS(C_xy)
-//        axiom_RoomHasWumpus();
     }
     
     /**
@@ -74,19 +70,29 @@ public class KnowledgeBase
         List<KBcnf> tempKB = new ArrayList<>();
         String key = question.predicate;
         
-        // only add relevant adjacent Room axioms when dealing with wumpus or pit
-        if (key.equals("WUMPUS"))
-        {
-            contextual_kb.get("WUMPUS").clear();
-            refill_variable_wumpus_axioms(question.getTerm());
-            // also add axiom constants for the adjacent rooms
-            ArrayList<KBcnf> adjRooms = 
-                    adjRoomsExistAtoms(question.getTerm().getRoomRow(), question.getTerm().getRoomColumn());
-            contextual_kb.get("WUMPUS").addAll(adjRooms);
-        }
-        else if (key.equals("PIT"))
-        {
-            throw new PendingException();
+        // specialized axiomatic contexts dependent on queries
+        contextual_kb.get(key).clear();
+        switch (key) {
+            case "BLOCKED":
+                
+                break;
+            case "SAFE":
+                throw new PendingException();
+//                break;
+            case "PIT":
+                throw new PendingException();
+//                break;
+            case "WUMPUS":
+                // add the room-contextualized wumpus axioms
+                ArrayList<KBcnf> hasWumpusAxioms = axiom_dynamic_RoomHasWumpus(question.getTerm());
+                contextual_kb.get(key).addAll(hasWumpusAxioms);
+                // add the room-contextualized adj room exists axioms
+                ArrayList<KBcnf> adjRoomsAxioms =
+                        axiom_dynamic_AdjacentRoomExists(question.getTerm().getRoomRow(), question.getTerm().getRoomColumn());
+                contextual_kb.get(key).addAll(adjRoomsAxioms);
+                break;
+            default:
+                throw new RuntimeException("A query on a nonsupported predicate was asked.");
         }
         
         for (KBcnf cnf : contextual_kb.get(key))
@@ -110,7 +116,7 @@ public class KnowledgeBase
         tempKB.add(query_as_cnf);
         
         // temp test
-//        System.out.println("actualKB: " + kb_cnf.toString());
+//        System.out.println("actualKB: " + percept_kb.toString());
 //        System.out.println("tempKB: " + tempKB.toString());
         
         // run the resolution algorithm 
@@ -385,18 +391,13 @@ public class KnowledgeBase
     /**
      * @param input : A first-order definite clause provided by either the agent
      * or cyclical techniques in the Knowledge Base
-     * @post kbSentences is updated
+     * @post percept_kb is updated
      */
     public void update(KBAtom input)
     {
         ArrayList<KBAtom> inputAsCNF = new ArrayList<>(Arrays.asList(input));
         KBcnf newData = new KBcnf(inputAsCNF);
-        
-        kb_cnf.add(newData);
-        for (String category : contextMapping.get(input.predicate))
-        {
-            contextual_kb.get(category).add(newData);
-        }
+        percept_kb.add(newData);
     }
     
     /**
@@ -411,7 +412,6 @@ public class KnowledgeBase
             conjunctions.add(disjunction);
         }
         KBcnf newCNF = new KBcnf(conjunctions);
-        kb_cnf.add(newCNF);
         for (String category : context)
         {
             contextual_kb.get(category).add(newCNF);
@@ -427,22 +427,23 @@ public class KnowledgeBase
     {
         ArrayList<KBAtom> onlyDisjuncts = new ArrayList<>(Arrays.asList(atoms));
         KBcnf cnfSentence = new KBcnf(onlyDisjuncts);
-        kb_cnf.add(cnfSentence);
         for (String category : context)
         {
             contextual_kb.get(category).add(cnfSentence);
         }
-        
     }
     
-    public List<KBcnf> getKb_cnf() {
-        return kb_cnf;
+    public List<KBcnf> getKb_cnf() 
+    {
+        return percept_kb;
     }
     /**
      * used in tests to deal with an empty KB axiom list
+     * @param percept_kb
      */
-    public void setKb_cnf(List<KBcnf> kb_cnf) {
-        this.kb_cnf = kb_cnf;
+    public void setKb_cnf(List<KBcnf> percept_kb) 
+    {
+        this.percept_kb = percept_kb;
     }
 
     private void axiom_RoomHasGold() 
@@ -465,6 +466,10 @@ public class KnowledgeBase
 
     private void axiom_RoomIsSafe() 
     {
+        
+        
+        
+        /*
         ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SMELLY", new int[]{0,0})));
         ArrayList<KBAtom> disj2 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "WINDY", new int[]{0,0})));
         ArrayList<KBAtom> disj3 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SHINY", new int[]{0,0})));
@@ -476,12 +481,13 @@ public class KnowledgeBase
         )
         );
         addToKBcnf(new ArrayList<>(Arrays.asList("SAFE")), disj1, disj2, disj3, disj4);
+        */
     }
 
     /**
      * for each cell adjacent to the query cell, assert they exist
      */
-    private ArrayList<KBcnf> adjRoomsExistAtoms(int row, int column) 
+    private ArrayList<KBcnf> axiom_dynamic_AdjacentRoomExists(int row, int column) 
     {
         KBAtomConstant existsAtom1 = new KBAtomConstant(true, "EXISTS", new Room(false));
         KBAtomConstant existsAtom2 = new KBAtomConstant(true, "EXISTS", new Room(false));
@@ -561,7 +567,7 @@ public class KnowledgeBase
     /**
      * getting only relevant adjacent cell axioms when querying on a wumpus (or pit)
      */
-    private void refill_variable_wumpus_axioms(Room term)
+    private ArrayList<KBcnf> axiom_dynamic_RoomHasWumpus(Room term)
     {
         ArrayList<KBAtom> disj = new ArrayList<>();
         int row = term.getRoomRow();
@@ -722,10 +728,27 @@ public class KnowledgeBase
         ArrayList<ArrayList<KBAtom>> disjunctions =  new ArrayList<>(Arrays.asList(disj));
         KBcnf newCNF = new KBcnf(disjunctions);
         
+        ArrayList<KBcnf> returnedKB = new ArrayList<>();
         // add the variable axioms
-        contextual_kb.get("WUMPUS").add(newCNF);
+        returnedKB.add(newCNF);
         // also add all smelly percepts attained thus far
-        for (KBcnf cnf : kb_cnf)
+        ArrayList<KBcnf> smellyPercepts = addContextualPercepts("SMELLY");
+        returnedKB.addAll(smellyPercepts);
+        
+        return returnedKB;
+    }
+    
+    /**
+     * Used when filling up a contextual_kb. Fills up that mapping with 
+     * only the relevant percept (KBAtomConstant) values it will need to know about
+     * @param context
+     * @return 
+     */
+    private ArrayList<KBcnf> addContextualPercepts(String... context)
+    {
+        ArrayList<KBcnf> returnedPercepts = new ArrayList<>();
+        
+        for (KBcnf cnf : percept_kb)
         {
             List<KBAtom> currentAtoms = cnf.generateAtomList();
             for (KBAtom atom : currentAtoms)
@@ -733,13 +756,18 @@ public class KnowledgeBase
                 // atom constants are results of agent perceptions
                 if (atom instanceof KBAtomConstant)
                 {
-                    if (atom.predicate.equals("SMELLY"))
+                    for (String predicate : context)
                     {
-                        KBcnf smellyCNF = new KBcnf(atom);
-                        contextual_kb.get("WUMPUS").add(smellyCNF);
+                        if (atom.predicate.equals(predicate))
+                        {
+                            KBcnf perceptCNF = new KBcnf(atom);
+                            returnedPercepts.add(perceptCNF);
+                        }
                     }
                 }
             }
         }
+        
+        return returnedPercepts;
     }
 }
