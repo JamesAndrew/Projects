@@ -273,10 +273,37 @@ public class KnowledgeBaseTest {
         assertEquals(expectedOutput1, actualOutput1);
     }
     
+    /**
+     * If we can't ensure that an adjacent room is not smelly or windy, room is not safe
+     */
     @Test
     public void test_KB_axioms_not_safe()
     {
+        ActualWorld world = new ActualWorld(3);
+        KnowledgeBase kb = new KnowledgeBase();
         
+        // smell from adjacent cell
+        KBAtom safePercept0 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(1, 0)); 
+        KBAtom safePercept1 = new KBAtomConstant(true,  "SMELLY",   ActualWorld.getRoom(1, 0)); 
+        KBAtom safePercept2 = new KBAtomConstant(false, "WINDY",    ActualWorld.getRoom(1, 0)); 
+        
+        kb.update(safePercept0);
+        kb.update(safePercept1);
+        kb.update(safePercept2);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(1, 1)); // is room safe?
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = false;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+        
+         KBAtomConstant queryAtom2 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(2, 2)); // is room safe?
+        System.out.println("query: " + queryAtom2.toString());
+        boolean expectedOutput2 = false;
+        boolean actualOutput2 = kb.query(queryAtom2);   
+        System.out.format("query result: %b%n%n", actualOutput2);
+        assertEquals(expectedOutput2, actualOutput2);
     }
     
     @Test
