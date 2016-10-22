@@ -80,6 +80,10 @@ public class KnowledgeBase
             case "SAFE":
                 throw new PendingException();
 //                break;
+            case "HASGOLD":
+                ArrayList<KBcnf> isShinyAxioms = axiom_RoomHasGold();
+                contextual_kb.get(key).addAll(isShinyAxioms);
+                break;
             case "PIT":
                 throw new PendingException();
 //                break;
@@ -448,13 +452,25 @@ public class KnowledgeBase
         this.percept_kb = percept_kb;
     }
 
-    private void axiom_RoomHasGold() 
+    private ArrayList<KBcnf> axiom_RoomHasGold() 
     {
-        addToKBcnf(
-            new ArrayList<>(Arrays.asList("HASGOLD")),
+        ArrayList<KBAtom> disj = new ArrayList<>();
+        disj.addAll(Arrays.asList(
             new KBAtomVariable(true, "SHINY", new int[]{0,0}), 
             new KBAtomVariable(false, "HASGOLD", new int[]{0,0})
-        );
+        ));
+        
+        ArrayList<ArrayList<KBAtom>> disjunctions =  new ArrayList<>(Arrays.asList(disj));
+        KBcnf newCNF = new KBcnf(disjunctions);
+        ArrayList<KBcnf> returnedKB = new ArrayList<>();
+        returnedKB.add(newCNF);
+        
+        // also add all relevent percepts attained thus far
+        ArrayList<KBcnf> shinyPercepts = addContextualPercepts("SHINY");
+        returnedKB.addAll(shinyPercepts);
+        
+        return returnedKB;
+        
     }
 
     private ArrayList<KBcnf> axiom_RoomIsBlocked() 
