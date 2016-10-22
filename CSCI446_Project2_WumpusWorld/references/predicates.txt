@@ -4,8 +4,9 @@
 
 # room states
 ADJ					// adjacent
-EXISTS				// room exists
+!!EXISTS!!			// room exists (can delete this; replaced with EXPLORED)
 BLOCKED
+EXPLORED
 HASGOLD
 OBST 				// has obstacle 
 PIT

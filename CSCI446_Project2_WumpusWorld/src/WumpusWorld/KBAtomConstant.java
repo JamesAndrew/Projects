@@ -40,6 +40,9 @@ public class KBAtomConstant extends KBAtom
             case ("EXISTS"):
                 if (term.isExists()) value = true;
                 break;
+            case ("EXPLORED"):
+                if (term.isIsExplored()) value = true;
+                break;
             case ("HASGOLD"):
                 if (term.isHasGold()) value = true;    
                 break;
@@ -56,7 +59,7 @@ public class KBAtomConstant extends KBAtom
                 if (term.isShiny()) value = true;
                 break;
             case ("SMELLY"):
-                if (term.isWumpus()) value = true;
+                if (term.isSmelly()) value = true;
                 break;
             case ("WINDY"):
                 if (term.isBreezy()) value = true;
@@ -102,8 +105,6 @@ public class KBAtomConstant extends KBAtom
         
         KBAtomConstant other = (KBAtomConstant)obj;
         if (this.toString().equals(other.toString())) return true;
-//        if ((this.isNegation() == other.isNegation()) && (this.predicate.equals(other.predicate)) && (this.term == other.term))
-//            return true;
         else return false;
     }
 }

@@ -6,3 +6,4 @@
 - Code would be heavily optimized if there was a way to only use the axioms relevant to what is being queried
 	- put good work in to this, be sure to talk about it
 - Blocked room also needs to get perceptions such as if it is smelly or windy in order for 'safe' axiom to work
+- Need 'has been explored' option for assertion of is an adjacent sell if safe to move to

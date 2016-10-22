@@ -16,6 +16,7 @@ public class Room
     private boolean isSmelly;
     private boolean isWumpus;
     private boolean isSafe;
+    private boolean isExplored;     // initialized to false
     
     private boolean hasGold;
     private boolean hasObst;
@@ -27,6 +28,7 @@ public class Room
     {
         roomRow = row;
         roomColumn = col;
+//        this.isExplored = false;
     }
     /**
      * used to create a fake room that doesn't exist when the logic goes out of
@@ -149,5 +151,13 @@ public class Room
     public void setHasGold(boolean hasGold) 
     {
         this.hasGold = hasGold;
+    }
+    public boolean isIsExplored() 
+    {
+        return isExplored;
+    }
+    public void setIsExplored(boolean isExplored) 
+    {
+        this.isExplored = isExplored;
     }
 }

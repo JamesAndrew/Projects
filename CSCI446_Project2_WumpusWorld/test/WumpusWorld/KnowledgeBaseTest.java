@@ -17,15 +17,15 @@ public class KnowledgeBaseTest {
         ActualWorld world = new ActualWorld(3);
         KnowledgeBase kb = new KnowledgeBase();
         
+        KBAtom safePercept0 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(0, 1)); 
         KBAtom safePercept1 = new KBAtomConstant(true, "SMELLY", ActualWorld.getRoom(0, 1)); 
         KBAtom safePercept2 = new KBAtomConstant(true, "WINDY", ActualWorld.getRoom(0, 1)); 
-        KBAtom safePercept3 = new KBAtomConstant(true, "OBST", ActualWorld.getRoom(0, 1)); 
         
+        kb.update(safePercept0);
         kb.update(safePercept1);
         kb.update(safePercept2);
-        kb.update(safePercept3);
         
-        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(1, 1)); // is room (1,1) safe given it isn't smelly, windy, or obstructed?
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(1, 1)); // is room (1,1) safe
         System.out.println("query: " + queryAtom1.toString());
         boolean expectedOutput1 = true;
         boolean actualOutput1 = kb.query(queryAtom1);   
@@ -305,6 +305,33 @@ public class KnowledgeBaseTest {
         boolean actualOutput1 = kb.query(queryAtom1);   
         System.out.format("query result: %b%n%n", actualOutput1);
         assertEquals(expectedOutput1, actualOutput1);
+    }
+    
+    @Test
+    public void test_KB_axioms_resolveWumpus_noWumpus()
+    {
+        ActualWorld world = new ActualWorld(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom smellyPercept1 = new KBAtomConstant(true, "SMELLY", ActualWorld.getRoom(0, 1)); 
+        
+        kb.update(smellyPercept1);
+        
+        // wumpus in (1,1) if we know (0,1) isn't smelly?
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "WUMPUS", ActualWorld.getRoom(1, 1)); 
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = false;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+        
+        // wumpus in (2,2) if we don't know anything about adj squares? This should return no wumpus (need to check for safety instead)
+        KBAtomConstant queryAtom2 = new KBAtomConstant(false, "WUMPUS", ActualWorld.getRoom(2, 2)); 
+        System.out.println("query: " + queryAtom2.toString());
+        boolean expectedOutput2 = false;
+        boolean actualOutput2 = kb.query(queryAtom2);   
+        System.out.format("query result: %b%n%n", actualOutput2);
+        assertEquals(expectedOutput2, actualOutput2);
     }
     
     /**
