@@ -48,14 +48,14 @@ public class KnowledgeBase
         contextMapping.put("WINDY", new ArrayList<>(Arrays.asList("SAFE", "PIT")));
         contextMapping.put("WUMPUS", new ArrayList<>(Arrays.asList("WUMPUS", "SAFE")));
         
-        // SHINY(C_xy) => HASGOLD(C_xy): room has gold
-        axiom_RoomHasGold();
+//         SHINY(C_xy) => HASGOLD(C_xy): room has gold
+//        axiom_RoomHasGold();
                 
         // OBST(C_xy) => BLOCKED(C_xy): room is blocked
-        axiom_RoomIsBlocked();
+//        axiom_RoomIsBlocked();
         
         // (smelly || windy || shiny) || (!blocked && !pit && !wumpus) => safe: room is safe
-        axiom_RoomIsSafe();
+//        axiom_RoomIsSafe();
     }
     
     /**
@@ -74,7 +74,8 @@ public class KnowledgeBase
         contextual_kb.get(key).clear();
         switch (key) {
             case "BLOCKED":
-                
+                ArrayList<KBcnf> isBlockedAxioms = axiom_RoomIsBlocked();
+                contextual_kb.get(key).addAll(isBlockedAxioms);
                 break;
             case "SAFE":
                 throw new PendingException();
@@ -86,6 +87,7 @@ public class KnowledgeBase
                 // add the room-contextualized wumpus axioms
                 ArrayList<KBcnf> hasWumpusAxioms = axiom_dynamic_RoomHasWumpus(question.getTerm());
                 contextual_kb.get(key).addAll(hasWumpusAxioms);
+                
                 // add the room-contextualized adj room exists axioms
                 ArrayList<KBcnf> adjRoomsAxioms =
                         axiom_dynamic_AdjacentRoomExists(question.getTerm().getRoomRow(), question.getTerm().getRoomColumn());
@@ -455,21 +457,28 @@ public class KnowledgeBase
         );
     }
 
-    private void axiom_RoomIsBlocked() 
+    private ArrayList<KBcnf> axiom_RoomIsBlocked() 
     {
-        addToKBcnf(
-            new ArrayList<>(Arrays.asList("BLOCKED")),
+        ArrayList<KBAtom> disj = new ArrayList<>();
+        disj.addAll(Arrays.asList(
             new KBAtomVariable(true, "OBST", new int[]{0,0}),
             new KBAtomVariable(false, "BLOCKED", new int[]{0,0})
-        );
+        ));
+        
+        ArrayList<ArrayList<KBAtom>> disjunctions =  new ArrayList<>(Arrays.asList(disj));
+        KBcnf newCNF = new KBcnf(disjunctions);
+        ArrayList<KBcnf> returnedKB = new ArrayList<>();
+        returnedKB.add(newCNF);
+        
+        // also add all relevent percepts attained thus far
+        ArrayList<KBcnf> smellyPercepts = addContextualPercepts("OBST");
+        returnedKB.addAll(smellyPercepts);
+        
+        return returnedKB;
     }
 
     private void axiom_RoomIsSafe() 
     {
-        
-        
-        
-        /*
         ArrayList<KBAtom> disj1 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SMELLY", new int[]{0,0})));
         ArrayList<KBAtom> disj2 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "WINDY", new int[]{0,0})));
         ArrayList<KBAtom> disj3 = new ArrayList<>(Arrays.asList(new KBAtomVariable(true, "SHINY", new int[]{0,0})));
@@ -481,7 +490,6 @@ public class KnowledgeBase
         )
         );
         addToKBcnf(new ArrayList<>(Arrays.asList("SAFE")), disj1, disj2, disj3, disj4);
-        */
     }
 
     /**
