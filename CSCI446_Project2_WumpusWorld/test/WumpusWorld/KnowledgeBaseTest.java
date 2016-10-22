@@ -17,15 +17,23 @@ public class KnowledgeBaseTest {
         ActualWorld world = new ActualWorld(3);
         KnowledgeBase kb = new KnowledgeBase();
         
+        // no smell or wind from left cell
         KBAtom safePercept0 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(0, 1)); 
-        KBAtom safePercept1 = new KBAtomConstant(true, "SMELLY", ActualWorld.getRoom(0, 1)); 
-        KBAtom safePercept2 = new KBAtomConstant(true, "WINDY", ActualWorld.getRoom(0, 1)); 
+        KBAtom safePercept1 = new KBAtomConstant(true, "SMELLY",    ActualWorld.getRoom(0, 1)); 
+        KBAtom safePercept2 = new KBAtomConstant(true, "WINDY",     ActualWorld.getRoom(0, 1)); 
+        // is smell from right cell
+        KBAtom safePercept3 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(1, 0)); 
+        KBAtom safePercept4 = new KBAtomConstant(true,  "SMELLY",   ActualWorld.getRoom(1, 0)); 
+        KBAtom safePercept5 = new KBAtomConstant(false, "WINDY",    ActualWorld.getRoom(1, 0)); 
         
         kb.update(safePercept0);
         kb.update(safePercept1);
         kb.update(safePercept2);
+        kb.update(safePercept3);
+        kb.update(safePercept4);
+        kb.update(safePercept5);
         
-        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(1, 1)); // is room (1,1) safe
+        KBAtomConstant queryAtom1 = new KBAtomConstant(true, "SAFE", ActualWorld.getRoom(1, 1)); // is room (1,1) safe
         System.out.println("query: " + queryAtom1.toString());
         boolean expectedOutput1 = true;
         boolean actualOutput1 = kb.query(queryAtom1);   
@@ -39,15 +47,225 @@ public class KnowledgeBaseTest {
         ActualWorld world = new ActualWorld(3);
         KnowledgeBase kb = new KnowledgeBase();
         
-        KBAtom safePercept1 = new KBAtomConstant(true, "SMELLY", ActualWorld.getRoom(0, 1)); 
-        KBAtom safePercept2 = new KBAtomConstant(true, "WINDY", ActualWorld.getRoom(0, 1)); 
-        KBAtom safePercept3 = new KBAtomConstant(true, "OBST", ActualWorld.getRoom(0, 1)); 
+        KBAtom safePercept0 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(0, 2)); 
+        KBAtom safePercept1 = new KBAtomConstant(true,  "SMELLY",   ActualWorld.getRoom(0, 2)); 
+        KBAtom safePercept2 = new KBAtomConstant(true,  "WINDY",    ActualWorld.getRoom(0, 2)); 
+        // is smell from other adjacent cell
+        KBAtom safePercept3 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(1, 1)); 
+        KBAtom safePercept4 = new KBAtomConstant(true,  "SMELLY",   ActualWorld.getRoom(1, 1)); 
+        KBAtom safePercept5 = new KBAtomConstant(false, "WINDY",    ActualWorld.getRoom(1, 1)); 
         
+        kb.update(safePercept0);
         kb.update(safePercept1);
         kb.update(safePercept2);
         kb.update(safePercept3);
+        kb.update(safePercept4);
+        kb.update(safePercept5);
         
-        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(1, 1)); // is room (1,1) safe given it isn't smelly, windy, or obstructed?
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(0, 1)); // is room (0,1) safe
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = true;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+    }
+    
+    @Test
+    public void test_KB_axioms_safe_topLeftCorner()
+    {
+        ActualWorld world = new ActualWorld(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom safePercept0 = new KBAtomConstant(false, "EXPLORED",  ActualWorld.getRoom(0, 1)); 
+        KBAtom safePercept1 = new KBAtomConstant(true,  "SMELLY",    ActualWorld.getRoom(0, 1)); 
+        KBAtom safePercept2 = new KBAtomConstant(true,  "WINDY",     ActualWorld.getRoom(0, 1)); 
+        // is smell from other adjacent cell
+        KBAtom safePercept3 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(1, 2)); 
+        KBAtom safePercept4 = new KBAtomConstant(true,  "SMELLY",   ActualWorld.getRoom(1, 2)); 
+        KBAtom safePercept5 = new KBAtomConstant(false, "WINDY",    ActualWorld.getRoom(1, 2)); 
+        
+        kb.update(safePercept0);
+        kb.update(safePercept1);
+        kb.update(safePercept2);
+        kb.update(safePercept3);
+        kb.update(safePercept4);
+        kb.update(safePercept5);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(0, 2)); // is room (0,1) safe
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = true;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+    }
+    
+    @Test
+    public void test_KB_axioms_safe_topWall()
+    {
+        ActualWorld world = new ActualWorld(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom safePercept0 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(1, 1)); 
+        KBAtom safePercept1 = new KBAtomConstant(true,  "SMELLY",   ActualWorld.getRoom(1, 1)); 
+        KBAtom safePercept2 = new KBAtomConstant(true,  "WINDY",    ActualWorld.getRoom(1, 1)); 
+        // is smell from other adjacent cell
+        KBAtom safePercept3 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(0, 2)); 
+        KBAtom safePercept4 = new KBAtomConstant(true,  "SMELLY",   ActualWorld.getRoom(0, 2)); 
+        KBAtom safePercept5 = new KBAtomConstant(false, "WINDY",    ActualWorld.getRoom(0, 2)); 
+        
+        kb.update(safePercept0);
+        kb.update(safePercept1);
+        kb.update(safePercept2);
+        kb.update(safePercept3);
+        kb.update(safePercept4);
+        kb.update(safePercept5);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(1, 2)); // is room safe?
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = true;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+    }
+    
+    @Test
+    public void test_KB_axioms_safe_topRightCorner()
+    {
+        ActualWorld world = new ActualWorld(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom safePercept0 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(1, 2)); 
+        KBAtom safePercept1 = new KBAtomConstant(true,  "SMELLY",   ActualWorld.getRoom(1, 2)); 
+        KBAtom safePercept2 = new KBAtomConstant(true,  "WINDY",    ActualWorld.getRoom(1, 2)); 
+        // is smell from other adjacent cell
+        KBAtom safePercept3 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(2, 1)); 
+        KBAtom safePercept4 = new KBAtomConstant(true,  "SMELLY",   ActualWorld.getRoom(2, 1)); 
+        KBAtom safePercept5 = new KBAtomConstant(false, "WINDY",    ActualWorld.getRoom(2, 1)); 
+        
+        kb.update(safePercept0);
+        kb.update(safePercept1);
+        kb.update(safePercept2);
+        kb.update(safePercept3);
+        kb.update(safePercept4);
+        kb.update(safePercept5);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(2, 2)); // is room safe?
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = true;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+    }
+    
+    @Test
+    public void test_KB_axioms_safe_rightWall()
+    {
+        ActualWorld world = new ActualWorld(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom safePercept0 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(1, 1)); 
+        KBAtom safePercept1 = new KBAtomConstant(true,  "SMELLY",   ActualWorld.getRoom(1, 1)); 
+        KBAtom safePercept2 = new KBAtomConstant(true,  "WINDY",    ActualWorld.getRoom(1, 1)); 
+        // is smell from other adjacent cell
+        KBAtom safePercept3 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(2, 0)); 
+        KBAtom safePercept4 = new KBAtomConstant(true,  "SMELLY",   ActualWorld.getRoom(2, 0)); 
+        KBAtom safePercept5 = new KBAtomConstant(false, "WINDY",    ActualWorld.getRoom(2, 0)); 
+        
+        kb.update(safePercept0);
+        kb.update(safePercept1);
+        kb.update(safePercept2);
+        kb.update(safePercept3);
+        kb.update(safePercept4);
+        kb.update(safePercept5);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(2, 1)); // is room safe?
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = true;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+    }
+    
+    @Test
+    public void test_KB_axioms_safe_bottomRightCorner()
+    {
+        ActualWorld world = new ActualWorld(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom safePercept0 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(1, 1)); 
+        KBAtom safePercept1 = new KBAtomConstant(true,  "SMELLY",   ActualWorld.getRoom(1, 1)); 
+        KBAtom safePercept2 = new KBAtomConstant(true,  "WINDY",    ActualWorld.getRoom(1, 1)); 
+        // is smell from other adjacent cell
+        KBAtom safePercept3 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(2, 0)); 
+        KBAtom safePercept4 = new KBAtomConstant(true,  "SMELLY",   ActualWorld.getRoom(2, 0)); 
+        KBAtom safePercept5 = new KBAtomConstant(false, "WINDY",    ActualWorld.getRoom(2, 0)); 
+        
+        kb.update(safePercept0);
+        kb.update(safePercept1);
+        kb.update(safePercept2);
+        kb.update(safePercept3);
+        kb.update(safePercept4);
+        kb.update(safePercept5);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(2, 1)); // is room safe?
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = true;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+    }
+    
+    @Test
+    public void test_KB_axioms_safe_bottomWall()
+    {
+        ActualWorld world = new ActualWorld(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom safePercept0 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(0, 0)); 
+        KBAtom safePercept1 = new KBAtomConstant(true,  "SMELLY",   ActualWorld.getRoom(0, 0)); 
+        KBAtom safePercept2 = new KBAtomConstant(true,  "WINDY",    ActualWorld.getRoom(0, 0)); 
+        // is smell from other adjacent cell
+        KBAtom safePercept3 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(1, 1)); 
+        KBAtom safePercept4 = new KBAtomConstant(true,  "SMELLY",   ActualWorld.getRoom(1, 1)); 
+        KBAtom safePercept5 = new KBAtomConstant(false, "WINDY",    ActualWorld.getRoom(1, 1)); 
+        
+        kb.update(safePercept0);
+        kb.update(safePercept1);
+        kb.update(safePercept2);
+        kb.update(safePercept3);
+        kb.update(safePercept4);
+        kb.update(safePercept5);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(1, 0)); // is room safe?
+        System.out.println("query: " + queryAtom1.toString());
+        boolean expectedOutput1 = true;
+        boolean actualOutput1 = kb.query(queryAtom1);   
+        System.out.format("query result: %b%n%n", actualOutput1);
+        assertEquals(expectedOutput1, actualOutput1);
+    }
+    
+    @Test
+    public void test_KB_axioms_safe_bottomLeftCorner()
+    {
+        ActualWorld world = new ActualWorld(3);
+        KnowledgeBase kb = new KnowledgeBase();
+        
+        KBAtom safePercept0 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(0, 1)); 
+        KBAtom safePercept1 = new KBAtomConstant(true,  "SMELLY",   ActualWorld.getRoom(0, 1)); 
+        KBAtom safePercept2 = new KBAtomConstant(true,  "WINDY",    ActualWorld.getRoom(0, 1)); 
+        // is smell from other adjacent cell
+        KBAtom safePercept3 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(1, 0)); 
+        KBAtom safePercept4 = new KBAtomConstant(true,  "SMELLY",   ActualWorld.getRoom(1, 0)); 
+        KBAtom safePercept5 = new KBAtomConstant(false, "WINDY",    ActualWorld.getRoom(1, 0)); 
+        
+        kb.update(safePercept0);
+        kb.update(safePercept1);
+        kb.update(safePercept2);
+        kb.update(safePercept3);
+        kb.update(safePercept4);
+        kb.update(safePercept5);
+        
+        KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(0, 0)); // is room safe?
         System.out.println("query: " + queryAtom1.toString());
         boolean expectedOutput1 = true;
         boolean actualOutput1 = kb.query(queryAtom1);   

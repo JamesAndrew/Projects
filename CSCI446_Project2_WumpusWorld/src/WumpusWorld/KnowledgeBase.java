@@ -122,12 +122,12 @@ public class KnowledgeBase
     {
         // run unification on the current kb
         List<KBcnf> temp = unify(kb, query);
-        System.out.println("\nUnified KB: ");
-        for (int i = 0; i < temp.size(); i++)
-        {
-            System.out.format("%d: ", i);
-            System.out.println(temp.get(i).toString());
-        }
+//        System.out.println("\nUnified KB: ");
+//        for (int i = 0; i < temp.size(); i++)
+//        {
+//            System.out.format("%d: ", i);
+//            System.out.println(temp.get(i).toString());
+//        }
         
         // run resolution algorithm
         return resolution_subroutine(temp);
@@ -214,18 +214,18 @@ public class KnowledgeBase
             }
             
             ///
-            System.out.println("\ntempKB (before localKb is updated): ");
-            for (int i = 0; i < temp.size(); i++)
-            {
-                System.out.format("%d: ", i);
-                System.out.println(temp.get(i).toString());
-            }
-            System.out.println("\nlocalKb after update: ");
-            for (int i = 0; i < localKb.size(); i++)
-            {
-                System.out.format("%d: ", i);
-                System.out.println(localKb.get(i).toString());
-            }
+//            System.out.println("\ntempKB (before localKb is updated): ");
+//            for (int i = 0; i < temp.size(); i++)
+//            {
+//                System.out.format("%d: ", i);
+//                System.out.println(temp.get(i).toString());
+//            }
+//            System.out.println("\nlocalKb after update: ");
+//            for (int i = 0; i < localKb.size(); i++)
+//            {
+//                System.out.format("%d: ", i);
+//                System.out.println(localKb.get(i).toString());
+//            }
             ///
             
             // reture false query if the localKb had nothing new added to it
@@ -520,15 +520,198 @@ public class KnowledgeBase
             conjunctions.get(3).addAll(Arrays.asList(
                 new KBAtomVariable(true, "EXPLORED", new int[]{0,-1}),
                 new KBAtomVariable(false,"SMELLY",   new int[]{0,-1}),
-                new KBAtomVariable(false,"WINDY",    new int[]{0,-1})
+                new KBAtomVariable(false,"WINDY",    new int[]{0,-1}),
+                new KBAtomVariable(false, "SAFE", new int[]{0,0})
             ));
         }
         // query cell left column : no rooms to the left (along y=0 column)
         else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
         {
-            throw new PendingException();
+            // add 3 disjunction lists
+            for (int i = 0; i < 3; i++)
+            {
+                conjunctions.add(new ArrayList<KBAtom>());
+            }
+            // generate the disjunctive sentences
+            conjunctions.get(0).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{0,1}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{0,1}),
+                new KBAtomVariable(false,"WINDY",    new int[]{0,1})
+            ));
+            conjunctions.get(1).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{1,0}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{1,0}),
+                new KBAtomVariable(false,"WINDY",    new int[]{1,0})
+            ));
+            conjunctions.get(2).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{0,-1}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{0,-1}),
+                new KBAtomVariable(false,"WINDY",    new int[]{0,-1}),
+                new KBAtomVariable(false, "SAFE", new int[]{0,0})
+            ));
         }
-        
+        // query cell top left corner
+        else if (((row - 1 < 0) && (column + 1 >= ActualWorld.getSize())))  
+        {
+            // add 2 disjunction lists
+            for (int i = 0; i < 2; i++)
+            {
+                conjunctions.add(new ArrayList<KBAtom>());
+            }
+            // generate the disjunctive sentences
+            conjunctions.get(0).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{0,-1}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{0,-1}),
+                new KBAtomVariable(false,"WINDY",    new int[]{0,-1})
+            ));
+            conjunctions.get(1).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{1,0}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{1,0}),
+                new KBAtomVariable(false,"WINDY",    new int[]{1,0}),
+                new KBAtomVariable(false, "SAFE", new int[]{0,0})
+            ));
+        }
+        // query cell top row
+        else if ((column + 1 >= ActualWorld.getSize()) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
+        {
+            // add 3 disjunction lists
+            for (int i = 0; i < 3; i++)
+            {
+                conjunctions.add(new ArrayList<KBAtom>());
+            }
+            // generate the disjunctive sentences
+            conjunctions.get(0).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{-1,0}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{-1,0}),
+                new KBAtomVariable(false,"WINDY",    new int[]{-1,0})
+            ));
+            conjunctions.get(1).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{0,-1}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{0,-1}),
+                new KBAtomVariable(false,"WINDY",    new int[]{0,-1})
+            ));
+            conjunctions.get(2).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{1, 0}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{1, 0}),
+                new KBAtomVariable(false,"WINDY",    new int[]{1, 0}),
+                new KBAtomVariable(false, "SAFE", new int[]{0,0})
+            ));
+        }
+        // query cell top right corner
+        else if ((row + 1 >= ActualWorld.getSize()) && column + 1 >= ActualWorld.getSize()) 
+        {
+            // add 2 disjunction lists
+            for (int i = 0; i < 2; i++)
+            {
+                conjunctions.add(new ArrayList<KBAtom>());
+            }
+            // generate the disjunctive sentences
+            conjunctions.get(0).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{-1,0}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{-1,0}),
+                new KBAtomVariable(false,"WINDY",    new int[]{-1,0})
+            ));
+            conjunctions.get(1).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{0,-1}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{0,-1}),
+                new KBAtomVariable(false,"WINDY",    new int[]{0,-1}),
+                new KBAtomVariable(false, "SAFE", new int[]{0,0})
+            ));
+        }
+        // query cell right column
+        else if ((row + 1 >= ActualWorld.getSize()) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
+        {
+            // add 3 disjunction lists
+            for (int i = 0; i < 3; i++)
+            {
+                conjunctions.add(new ArrayList<KBAtom>());
+            }
+            // generate the disjunctive sentences
+            conjunctions.get(0).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{-1, 0}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{-1, 0}),
+                new KBAtomVariable(false,"WINDY",    new int[]{-1, 0})
+            ));
+            conjunctions.get(1).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{0, 1}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{0, 1}),
+                new KBAtomVariable(false,"WINDY",    new int[]{0, 1})
+            ));
+            conjunctions.get(2).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{0, -1}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{0, -1}),
+                new KBAtomVariable(false,"WINDY",    new int[]{0, -1}),
+                new KBAtomVariable(false, "SAFE", new int[]{0,0})
+            ));
+        }
+        // query cell bottom right corner
+        else if ((row + 1 >= ActualWorld.getSize()) && column - 1 < 0)
+        {
+            // add 2 disjunction lists
+            for (int i = 0; i < 2; i++)
+            {
+                conjunctions.add(new ArrayList<KBAtom>());
+            }
+            // generate the disjunctive sentences
+            conjunctions.get(0).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{-1,0}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{-1,0}),
+                new KBAtomVariable(false,"WINDY",    new int[]{-1,0})
+            ));
+            conjunctions.get(1).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{0, 1}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{0, 1}),
+                new KBAtomVariable(false,"WINDY",    new int[]{0, 1}),
+                new KBAtomVariable(false, "SAFE",    new int[]{0,0})
+            ));
+        }
+        // query cell bottom row
+        else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
+        {
+            // add 3 disjunction lists
+            for (int i = 0; i < 3; i++)
+            {
+                conjunctions.add(new ArrayList<KBAtom>());
+            }
+            // generate the disjunctive sentences
+            conjunctions.get(0).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{-1, 0}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{-1, 0}),
+                new KBAtomVariable(false,"WINDY",    new int[]{-1, 0})
+            ));
+            conjunctions.get(1).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{0, 1}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{0, 1}),
+                new KBAtomVariable(false,"WINDY",    new int[]{0, 1})
+            ));
+            conjunctions.get(2).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{1, 0}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{1, 0}),
+                new KBAtomVariable(false,"WINDY",    new int[]{1, 0}),
+                new KBAtomVariable(false, "SAFE",    new int[]{0,0})
+            ));  
+        }  
+        // query cell bottom left corner
+        else if((row - 1 < 0) && column - 1 < 0)
+        {
+            // add 2 disjunction lists
+            for (int i = 0; i < 2; i++)
+            {
+                conjunctions.add(new ArrayList<KBAtom>());
+            }
+            // generate the disjunctive sentences
+            conjunctions.get(0).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{1, 0}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{1, 0}),
+                new KBAtomVariable(false,"WINDY",    new int[]{1, 0})
+            ));
+            conjunctions.get(1).addAll(Arrays.asList(
+                new KBAtomVariable(true, "EXPLORED", new int[]{0, 1}),
+                new KBAtomVariable(false,"SMELLY",   new int[]{0, 1}),
+                new KBAtomVariable(false,"WINDY",    new int[]{0, 1}),
+                new KBAtomVariable(false, "SAFE",    new int[]{0,0})
+            ));   
+        }  
         else
         {
             throw new RuntimeException("None of the room positions calculated correctly"
@@ -631,17 +814,6 @@ public class KnowledgeBase
         }  
         // query cell bottom row
         else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
-        {
-            disj.addAll(Arrays.asList( 
-                new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
-                new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
-                new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
-                new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
-            )
-            );     
-        }  
-        // query cell bottom row
-        else if ((column - 1 < 0) && (row - 1 < 0) && (column - 1 >= 0))
         {
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
