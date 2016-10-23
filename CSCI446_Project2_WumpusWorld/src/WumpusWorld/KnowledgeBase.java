@@ -95,13 +95,13 @@ public class KnowledgeBase
             KBcnf clonerCNF = cloner1.deepClone(cnf);
             tempKB.add(clonerCNF);
         }
-        //System.out.format("Key: %s, Value: %s%n", key, contextual_kb.get(key).toString());
-        System.out.println("Key: " + key);
-        System.out.println("Value: ");
-        for (int i = 0; i < contextual_kb.get(key).size(); i++)
-        {
-            System.out.format("%d: %s%n", i, contextual_kb.get(key).get(i));
-        }
+        
+//        System.out.println("Key: " + key);
+//        System.out.println("Value: ");
+//        for (int i = 0; i < contextual_kb.get(key).size(); i++)
+//        {
+//            System.out.format("%d: %s%n", i, contextual_kb.get(key).get(i));
+//        }
         
         // add the negation of the question to the temp kb
         question.flipNegation();
@@ -143,12 +143,12 @@ public class KnowledgeBase
     {
         List<KBcnf> localKb = kb;
         localKb = splitConjunctions(localKb);
-        System.out.println("\nlocalKb for resolution subroutine after conjunctions split: ");
-        for (int i = 0; i < localKb.size(); i++)
-        {
-            System.out.format("%d: ", i);
-            System.out.println(localKb.get(i).toString());
-        }
+//        System.out.println("\nlocalKb for resolution subroutine after conjunctions split: ");
+//        for (int i = 0; i < localKb.size(); i++)
+//        {
+//            System.out.format("%d: ", i);
+//            System.out.println(localKb.get(i).toString());
+//        }
         
         do
         {
@@ -251,7 +251,7 @@ public class KnowledgeBase
             
 //            System.out.println("updated local kb: " + localKb.toString());
             generatedSentences.clear();
-            System.out.println("local resolution kb size: " + localKb.size());
+//            System.out.println("local resolution kb size: " + localKb.size());
                     
         } while (true);
     }

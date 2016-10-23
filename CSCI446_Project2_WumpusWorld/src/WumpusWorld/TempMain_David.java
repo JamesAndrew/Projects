@@ -9,7 +9,6 @@ public class TempMain_David
         * hand-placed wumpus, smells, and gold
         */
         ActualWorld aWorld = new ActualWorld(3);
-        KnowledgeBase kb = new KnowledgeBase();
         
         // hardcode actual-world state
         ActualWorld.getRoom(2,0).setIsWumpus(true);
@@ -19,6 +18,7 @@ public class TempMain_David
         ActualWorld.getRoom(2,2).setHasGold(true);
         
         // set agent and begin routine
-        KBAgent agent = new KBAgent(ActualWorld.getSize());
+        KBAgent agent = new KBAgent();
+        agent.findGold();
     }
 }

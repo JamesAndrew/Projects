@@ -18,13 +18,13 @@ public class KnowledgeBaseTest {
         KnowledgeBase kb = new KnowledgeBase();
         
         // no smell or wind from left cell
-        KBAtom safePercept0 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(0, 1)); 
-        KBAtom safePercept1 = new KBAtomConstant(true, "SMELLY",    ActualWorld.getRoom(0, 1)); 
-        KBAtom safePercept2 = new KBAtomConstant(true, "WINDY",     ActualWorld.getRoom(0, 1)); 
+        KBAtom safePercept0 = new KBAtomConstant(false, "EXPLORED",  ActualWorld.getRoom(0, 1)); 
+        KBAtom safePercept1 = new KBAtomConstant(true,  "SMELLY",    ActualWorld.getRoom(0, 1)); 
+        KBAtom safePercept2 = new KBAtomConstant(true,  "WINDY",     ActualWorld.getRoom(0, 1)); 
         // is smell from right cell
-        KBAtom safePercept3 = new KBAtomConstant(false, "EXPLORED", ActualWorld.getRoom(1, 0)); 
-        KBAtom safePercept4 = new KBAtomConstant(true,  "SMELLY",   ActualWorld.getRoom(1, 0)); 
-        KBAtom safePercept5 = new KBAtomConstant(false, "WINDY",    ActualWorld.getRoom(1, 0)); 
+        KBAtom safePercept3 = new KBAtomConstant(false, "EXPLORED",  ActualWorld.getRoom(1, 0)); 
+        KBAtom safePercept4 = new KBAtomConstant(true,  "SMELLY",    ActualWorld.getRoom(1, 0)); 
+        KBAtom safePercept5 = new KBAtomConstant(false, "WINDY",     ActualWorld.getRoom(1, 0)); 
         
         kb.update(safePercept0);
         kb.update(safePercept1);

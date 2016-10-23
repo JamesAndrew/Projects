@@ -37,9 +37,6 @@ public class KBAtomConstant extends KBAtom
             case ("BLOCKED"):
                 if (term.isBlocked()) value = true;
                 break;
-            case ("EXISTS"):
-                if (term.isExists()) value = true;
-                break;
             case ("EXPLORED"):
                 if (term.isIsExplored()) value = true;
                 break;
