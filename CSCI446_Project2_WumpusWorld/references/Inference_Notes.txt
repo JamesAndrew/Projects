@@ -1,0 +1,9 @@
+- Lots of changes to the UML. Be sure to update after the fact
+- KnowledgeBase.resolution_subroutine() is very unoptimized at the moment. Talk about better ways 
+  to pairwise compare and not generate already generated resolvents (this is fixed)
+- Axioms must already be in CNF form (maybe don't need to talk about this)
+- Asserted existence of every cell upon KB creation to work with edge cases such as with seeing is there is a wumpus or pit
+- Code would be heavily optimized if there was a way to only use the axioms relevant to what is being queried
+	- put good work in to this, be sure to talk about it
+- Blocked room also needs to get perceptions such as if it is smelly or windy in order for 'safe' axiom to work
+- Need 'has been explored' option for assertion of is an adjacent sell if safe to move to

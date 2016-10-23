@@ -58,7 +58,7 @@ public final class ReactiveAgent
         moves = m;
         
         actualWorld = w;
-        currentRoom = actualWorld.getStart();
+        currentRoom = actualWorld.getRoom(0, 0);
         prevRoom = new Room(0,0);
         
         state = new World(3);
@@ -107,7 +107,7 @@ public final class ReactiveAgent
             alive = true;
             if (turn == 1)
             {
-                currentRoom = actualWorld.getStart();
+                currentRoom = actualWorld.getRoom(0, 0);
             }
             else
             {
@@ -218,7 +218,6 @@ public final class ReactiveAgent
         System.out.println("Direction: " + direction);
         System.out.println("arrows " + arrows);
         System.out.println("The agent is in room " + currentRoom.getRoomRow() + " " + currentRoom.getRoomColumn());
-        System.out.println("There are " + actualWorld.getWumpi() + " wumpi");
         System.out.println();
         
     }
@@ -572,7 +571,7 @@ public final class ReactiveAgent
     
     public void initArrows()
     {
-        arrows = actualWorld.getWumpi();
+        arrows = actualWorld.getNumArrows();
     }
     
     public void initDirection()
@@ -655,11 +654,6 @@ public final class ReactiveAgent
             {
                 System.out.println("The agent smells a horrible stench");
                 reasonShootAction();
-            }
-
-            if (currentRoom.isEmpty() == true)
-            {
-                System.out.println("The room is empty");
             }
             
             reasonForward();
