@@ -52,7 +52,7 @@ public class KBAgent
             if (endState) break;
             
             // ask where to go next or what action to take
-            int[] action = kb.requestAction(currentRoom[0], currentRoom[1], frontier);
+            int[] action = kb.requestAction(currentRoom[0], currentRoom[1], frontier, arrows);
             if (!endState) performAction(action);
         }
         // update statistics for this run

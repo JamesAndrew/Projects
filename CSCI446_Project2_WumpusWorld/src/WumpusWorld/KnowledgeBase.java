@@ -134,11 +134,18 @@ public class KnowledgeBase
      * @param currentRow : agent's current row location
      * @param currentCol : agent's current col location
      * @param frontier : frontier that is tracked by the agent
+     * @param numArrows : checks to kill wumpus if > 0
      * @return [action, row to move to, col to move to]
      */ 
-    public int[] requestAction(int currentRow, int currentCol, Map<Integer, Room> frontier)
+    public int[] requestAction(int currentRow, int currentCol, Map<Integer, Room> frontier, int numArrows)
     {
         int[] returnedAction = new int[3];
+        
+        // if a wumpus location is certain, move to the cell and kill it
+        if (numArrows > 0)
+        {
+            
+        }
         
         // sort frontier from closest to furthest away
         ArrayList<Room> sortedFrontier = sortFrontier(frontier, currentRow, currentCol);
@@ -915,7 +922,7 @@ public class KnowledgeBase
     }
     
     /**
-     * Room has wumpus if all adjacent rooms are smelly
+     * Room has wumpus if all adjacent rooms are explored and smelly
      * gets only relevant adjacent cell axioms when querying on a wumpus (or pit)
      */
     private ArrayList<KBcnf> axiom_dynamic_RoomHasWumpus(Room term)
@@ -932,6 +939,12 @@ public class KnowledgeBase
                 new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+                
+                new KBAtomVariable(true, "EXPLORED", new int[]{-1,0}),
+                new KBAtomVariable(true, "EXPLORED", new int[]{0,1}),
+                new KBAtomVariable(true, "EXPLORED", new int[]{1,0}),
+                new KBAtomVariable(true, "EXPLORED", new int[]{0,-1}),
+                
                 new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
             ));
         }
@@ -942,6 +955,11 @@ public class KnowledgeBase
                 new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+                
+                new KBAtomVariable(true, "EXPLORED", new int[]{0,1}),
+                new KBAtomVariable(true, "EXPLORED", new int[]{1,0}),
+                new KBAtomVariable(true, "EXPLORED", new int[]{0,-1}),
+                
                 new KBAtomVariable(false, "WUMPUS", new int[]{0,0}) 
             ));     
         }
@@ -951,6 +969,10 @@ public class KnowledgeBase
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+                
+                new KBAtomVariable(true, "EXPLORED", new int[]{1,0}),
+                new KBAtomVariable(true, "EXPLORED", new int[]{0,-1}),             
+             
                 new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
             )
             );     
@@ -962,6 +984,11 @@ public class KnowledgeBase
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+                
+                new KBAtomVariable(true, "EXPLORED", new int[]{-1,0}),
+                new KBAtomVariable(true, "EXPLORED", new int[]{1,0}),
+                new KBAtomVariable(true, "EXPLORED", new int[]{0,-1}),
+                
                 new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
             )
             );     
@@ -972,6 +999,10 @@ public class KnowledgeBase
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+                
+                new KBAtomVariable(true, "EXPLORED", new int[]{-1,0}),
+                new KBAtomVariable(true, "EXPLORED", new int[]{0,-1}),
+                
                 new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
             )
             );     
@@ -983,6 +1014,11 @@ public class KnowledgeBase
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,-1}),
+                
+                new KBAtomVariable(true, "EXPLORED", new int[]{-1,0}),
+                new KBAtomVariable(true, "EXPLORED", new int[]{0,1}),
+                new KBAtomVariable(true, "EXPLORED", new int[]{0,-1}),
+                
                 new KBAtomVariable(false, "WUMPUS", new int[]{0,0}) 
             )
             );     
@@ -993,6 +1029,10 @@ public class KnowledgeBase
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
+                
+                new KBAtomVariable(true, "EXPLORED", new int[]{-1,0}),
+                new KBAtomVariable(true, "EXPLORED", new int[]{0,1}),
+                
                 new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
             )
             );     
@@ -1004,6 +1044,11 @@ public class KnowledgeBase
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
                 new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
+                
+                new KBAtomVariable(true, "EXPLORED", new int[]{-1,0}),
+                new KBAtomVariable(true, "EXPLORED", new int[]{0,1}),
+                new KBAtomVariable(true, "EXPLORED", new int[]{1,0}),
+                
                 new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
             )
             );     
@@ -1014,6 +1059,10 @@ public class KnowledgeBase
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
                 new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
+                
+                new KBAtomVariable(true, "EXPLORED", new int[]{0,1}),
+                new KBAtomVariable(true, "EXPLORED", new int[]{1,0}),
+                
                 new KBAtomVariable(false, "WUMPUS", new int[]{0,0})
             )
             );     
