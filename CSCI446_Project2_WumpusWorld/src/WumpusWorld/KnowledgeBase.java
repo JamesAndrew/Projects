@@ -79,8 +79,10 @@ public class KnowledgeBase
                 contextual_kb.get(key).addAll(isShinyAxioms);
                 break;
             case "PIT":
-                throw new PendingException();
-//                break;
+                // add the room-contextualized wumpus axioms
+                ArrayList<KBcnf> hasPitAxioms = axiom_dynamic_RoomHasPit(question.getTerm());
+                contextual_kb.get(key).addAll(hasPitAxioms);
+                break;
             case "WUMPUS":
                 // add the room-contextualized wumpus axioms
                 ArrayList<KBcnf> hasWumpusAxioms = axiom_dynamic_RoomHasWumpus(question.getTerm());
@@ -785,6 +787,128 @@ public class KnowledgeBase
         return returnedKB;
     }
 
+    /**
+     * Room has pit if all adjacent rooms are smelly
+     * gets only relevant adjacent cell axioms when querying on a pit 
+     */
+    private ArrayList<KBcnf> axiom_dynamic_RoomHasPit(Room term)
+    {
+        ArrayList<KBAtom> disj = new ArrayList<>();
+        int row = term.getRoomRow();
+        int column = term.getRoomColumn();
+        
+        // query cell not on wall (existing rooms on every side)
+        if ((row - 1 >= 0) && (row + 1 < World.getSize()) && (column - 1 >= 0) && (column + 1 < World.getSize()))
+        {
+            disj.addAll(Arrays.asList(                
+                new KBAtomVariable(true, "WINDY", new int[]{-1,0}),
+                new KBAtomVariable(true, "WINDY", new int[]{0,1}),
+                new KBAtomVariable(true, "WINDY", new int[]{1,0}),
+                new KBAtomVariable(true, "WINDY", new int[]{0,-1}),
+                new KBAtomVariable(false, "PIT", new int[]{0,0})
+            ));
+        }
+        // query cell left column : no rooms to the left (along y=0 column)
+        else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < World.getSize()))
+        {
+            disj.addAll(Arrays.asList( 
+                new KBAtomVariable(true, "WINDY", new int[]{0,1}),
+                new KBAtomVariable(true, "WINDY", new int[]{1,0}),
+                new KBAtomVariable(true, "WINDY", new int[]{0,-1}),
+                new KBAtomVariable(false, "PIT", new int[]{0,0}) 
+            ));     
+        }
+        // query cell top left corner
+        else if (((row - 1 < 0) && (column + 1 >= World.getSize())))  
+        {
+            disj.addAll(Arrays.asList( 
+                new KBAtomVariable(true, "WINDY", new int[]{1,0}),
+                new KBAtomVariable(true, "WINDY", new int[]{0,-1}),
+                new KBAtomVariable(false, "PIT", new int[]{0,0})
+            )
+            );     
+        }  
+        // query cell top row
+        else if ((column + 1 >= World.getSize()) && (row - 1 >= 0) && (row + 1 < World.getSize()))
+        {
+            disj.addAll(Arrays.asList( 
+                new KBAtomVariable(true, "WINDY", new int[]{-1,0}),
+                new KBAtomVariable(true, "WINDY", new int[]{1,0}),
+                new KBAtomVariable(true, "WINDY", new int[]{0,-1}),
+                new KBAtomVariable(false, "PIT", new int[]{0,0})
+            )
+            );     
+        }  
+        // query cell top right corner
+        else if ((row + 1 >= World.getSize()) && column + 1 >= World.getSize()) 
+        {
+            disj.addAll(Arrays.asList( 
+                new KBAtomVariable(true, "WINDY", new int[]{-1,0}),
+                new KBAtomVariable(true, "WINDY", new int[]{0,-1}),
+                new KBAtomVariable(false, "PIT", new int[]{0,0})
+            )
+            );     
+        }     
+        // query cell right column
+        else if ((row + 1 >= World.getSize()) && (column - 1 >= 0) && (column + 1 < World.getSize()))
+        {
+            disj.addAll(Arrays.asList( 
+                new KBAtomVariable(true, "WINDY", new int[]{-1,0}),
+                new KBAtomVariable(true, "WINDY", new int[]{0,1}),
+                new KBAtomVariable(true, "WINDY", new int[]{0,-1}),
+                new KBAtomVariable(false, "PIT", new int[]{0,0}) 
+            )
+            );     
+        }  
+        // query cell bottom right corner
+        else if ((row + 1 >= World.getSize()) && column - 1 < 0)
+        {
+            disj.addAll(Arrays.asList( 
+                new KBAtomVariable(true, "WINDY", new int[]{-1,0}),
+                new KBAtomVariable(true, "WINDY", new int[]{0,1}),
+                new KBAtomVariable(false, "PIT", new int[]{0,0})
+            )
+            );     
+        }  
+        // query cell bottom row
+        else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < World.getSize()))
+        {
+            disj.addAll(Arrays.asList( 
+                new KBAtomVariable(true, "WINDY", new int[]{-1,0}),
+                new KBAtomVariable(true, "WINDY", new int[]{0,1}),
+                new KBAtomVariable(true, "WINDY", new int[]{1,0}),
+                new KBAtomVariable(false, "PIT", new int[]{0,0})
+            )
+            );     
+        }  
+        // query cell bottom left corner
+        else if((row - 1 < 0) && column - 1 < 0)
+        {
+            disj.addAll(Arrays.asList( 
+                new KBAtomVariable(true, "WINDY", new int[]{0,1}),
+                new KBAtomVariable(true, "WINDY", new int[]{1,0}),
+                new KBAtomVariable(false, "PIT", new int[]{0,0})
+            )
+            );     
+        }  
+        else
+        {
+            throw new RuntimeException("None of the room positions calculated correctly"
+                    + " during axiom_dynamic_RoomHasWumpus");
+        }
+        ArrayList<ArrayList<KBAtom>> disjunctions =  new ArrayList<>(Arrays.asList(disj));
+        KBcnf newCNF = new KBcnf(disjunctions);
+        
+        ArrayList<KBcnf> returnedKB = new ArrayList<>();
+        // add the variable axioms
+        returnedKB.add(newCNF);
+        // also add all smelly percepts attained thus far
+        ArrayList<KBcnf> smellyPercepts = addContextualPercepts("WINDY");
+        returnedKB.addAll(smellyPercepts);
+        
+        return returnedKB;
+    }
+    
     /**
      * Room has wumpus if all adjacent rooms are smelly
      * gets only relevant adjacent cell axioms when querying on a wumpus (or pit)
