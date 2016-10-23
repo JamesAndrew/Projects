@@ -976,12 +976,21 @@ public class KnowledgeBase
                     }
                     else
                     {
-                        throw new RuntimeException("None of the conditions were met while sorting the frontier");
+                        sortedList.add(room);
+                        break;
                     }
                 }
             }
         }
         if (sortedList.size() != frontier.size()) throw new RuntimeException("Sorted list doesn't match frontier size");
         return sortedList;
+    }
+    
+    private void printFrontier(Map<Integer, Room> frontier)
+    {
+        for (Integer key : frontier.keySet())
+        {
+            System.out.format("(%d, %d)%n", frontier.get(key).getRoomRow(), frontier.get(key).getRoomColumn());
+        }
     }
 }

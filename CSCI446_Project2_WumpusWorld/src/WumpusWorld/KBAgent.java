@@ -29,18 +29,17 @@ public class KBAgent
 
     public void findGold() 
     {
-//        while (!endState)
-        for (int i = 0; i < 1; i++) // temp forced loop while testing
+        while (!endState)
+//        for (int i = 0; i < 6; i++) // temp forced loop while testing
         {
-            if (endState) break;
-            
             System.out.format("\nCurrent Room: (%d, %d)%n", currentRoom[0], currentRoom[1]);
             
             // update kb about current room
             ArrayList<KBAtom> roomPercepts = perceiveRoom(currentRoom);
             for (KBAtom atom : roomPercepts) kb.update(atom);
             printKbPercepts();
-
+            if (endState) break;
+            
             // ask where to go next or what action to take
             int[] action = kb.requestAction(currentRoom[0], currentRoom[1], frontier);
             if (!endState) performAction(action);
@@ -64,7 +63,6 @@ public class KBAgent
             case 1:
                 // change this later to actually do safe path traversal
                 Integer frontierKey = Integer.valueOf(String.valueOf(action[1]) + String.valueOf(action[2]));
-                System.out.println("frontierKey: " + frontierKey);
                 
                 currentRoom[0] = action[1];
                 currentRoom[1] = action[2];
@@ -106,7 +104,11 @@ public class KBAgent
         for (KBAtom atom : perceptions)
         {
             KBAtomConstant current = (KBAtomConstant) atom;
-            if (current.predicate.equals("SHINY") && !current.negation) endState = true;
+            if (current.predicate.equals("SHINY") && !current.negation)
+            {
+                System.out.println("=== Gold has been found. Picking up gold and exiting. ===");
+                endState = true;
+            }
         }
         
         return perceptions;
@@ -136,10 +138,8 @@ public class KBAgent
 
     private void updateFrontier(Integer newRoomKey) 
     {
-        System.out.println("frontier before removal: " + frontier.toString());
         // remove room just moved in to from frontier
         frontier.remove(newRoomKey);
-        System.out.println("frontier after removal: " + frontier.toString());
         
         // add adjacent rooms given they haven't already been explored and are in the bounds of the map
         ArrayList<Integer[]> adjRooms = new ArrayList<>();
