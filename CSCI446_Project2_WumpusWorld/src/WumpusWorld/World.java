@@ -128,7 +128,7 @@ public class World
                 {
                     float o = rand.nextFloat();
                 
-                    if (o < pObs)
+                    if (o < pObs && (i != 0 && i != 1 && j != 0 && j != 1))
                     {
                         theWorld[i][j].setIsBlocked(true);
                         System.out.println("obstacle placed");
@@ -138,7 +138,7 @@ public class World
                     {
                         float p = rand.nextFloat();
 
-                        if (p < pPit)
+                        if (p < pPit && (i != 0 && i != 1 && j != 0 && j != 1))
                         {
                             theWorld[i][j].setIsPit(true);
                             System.out.println("pit placed");
@@ -204,7 +204,7 @@ public class World
                         }
 
                         float w = rand.nextFloat();
-                        if (w < pWumpus)
+                        if (w < pWumpus && (i != 0 && i != 1 && j != 0 && j != 1))
                         {
                             theWorld[i][j].setIsWumpus(true);
                             System.out.println("wumpus placed");
