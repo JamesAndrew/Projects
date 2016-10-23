@@ -87,8 +87,7 @@ public class KBAgent
                 Integer frontierKey = Integer.valueOf(String.valueOf(action[1]) + String.valueOf(action[2]));
                 int distance = Math.abs(action[1] - currentRoom[0]) + Math.abs(action[2] - currentRoom[1]);
                 
-                currentRoom[0] = action[1];
-                currentRoom[1] = action[2];
+                currentRoom = moveToRoom(action[1], action[2]);
                 cellsExplored++;
                 
                 updateFrontier(frontierKey);
@@ -113,6 +112,54 @@ public class KBAgent
         }
     }
     
+    private Integer[] moveToRoom(int row, int col)
+    {
+        Integer[] nextRoom = new Integer[]{row, col};
+        String firstDirection;
+        String secondDirection;
+        int currentRow = currentRoom[0];
+        int currentCol = currentRoom[1];
+        
+        if (row < currentRow) firstDirection = "west";
+        else firstDirection = "east";
+        
+        if (col < currentCol) secondDirection = "south";
+        else secondDirection = "north";
+        
+        // rotate and take away points until at first needed direction
+        int i1 = 4;
+        while (i1 >= 0)
+        {
+            if (currentDirection.equals(firstDirection)) 
+            {
+                score -= Math.abs(row - currentRow);
+                break;
+            }
+            else
+            {
+                turnCW();
+                i1++;
+            }
+        }
+        // rotate and take away points until at second needed direction
+        int i2 = 4;
+        while (i2 >= 0)
+        {
+            if (currentDirection.equals(secondDirection)) 
+            {
+                score -= Math.abs(row - currentRow);
+                break;
+            }
+            else
+            {
+                turnCW();
+                i2++;
+            }
+        }
+        
+        return nextRoom;
+    }
+    
     /**
      * Shoot arrow, remove wumpus and smells, and move in to that cell
      * @param row wumpus location row
@@ -124,8 +171,7 @@ public class KBAgent
         cellsExplored++;
         score += 10;
         arrows--;
-        currentRoom[0] = row;
-        currentRoom[1] = col;
+        moveToRoom(row, col);
         
         // remove wumpus and smells
         World.getRoom(row, col).setIsWumpus(false);
@@ -171,18 +217,6 @@ public class KBAgent
         }
         
         return perceptions;
-    }
-    
-    private void turnCCW()
-    {
-                                                                                numDecisionsMade++;
-        Map<String, String> ccwMapping = new HashMap<>();
-        ccwMapping.put("north", "west");
-        ccwMapping.put("east", "north");
-        ccwMapping.put("south", "east");
-        ccwMapping.put("west", "south");
-        
-        this.currentDirection = ccwMapping.get(currentDirection);
     }
     
     private void turnCW()
