@@ -13,7 +13,7 @@ public class World
     private Random random = new Random();
     
     // density of wompui
-    private final double wumpusProbability = 0.1;
+    private final double wumpusProbability = 0.15;
     
    /**
      * constructor the agent will use for perceived world
@@ -47,10 +47,14 @@ public class World
             {
                 if (random.nextDouble() <= wumpusProbability)
                 {
-                    Room currentRoom = rooms[row][col];
-                    placeWumpusAndSmells(currentRoom, row, col);
-                    numWumpi++;
-                    break;
+                    if (row + col <= 1) { } // don't place in (0,0), (1,0), or (0,1)
+                    else
+                    {
+                        Room currentRoom = rooms[row][col];
+                        placeWumpusAndSmells(currentRoom, row, col);
+                        numWumpi++;
+                        break;
+                    }
                 }
             }
         }
