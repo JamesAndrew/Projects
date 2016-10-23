@@ -56,12 +56,12 @@ public class KBAgent
             if (!endState) performAction(action);
         }
         // update statistics for this run
-        statsMap.put("numDecisionsMade", 0);
-        statsMap.put("goldFound", 0);
-        statsMap.put("wumpiKilled", 0);
-        statsMap.put("pitFalls", 0);
-        statsMap.put("wumpusDeaths", 0);
-        statsMap.put("cellsExplored", 0);
+        statsMap.put("numDecisionsMade", numDecisionsMade);
+        statsMap.put("goldFound", goldFound);
+        statsMap.put("wumpiKilled", wumpiKilled);
+        statsMap.put("pitFalls", pitFalls);
+        statsMap.put("wumpusDeaths", wumpusDeaths);
+        statsMap.put("cellsExplored", cellsExplored);
         statsMap.put("score", score);
                 
         System.out.println("=== Simulation Concluded ===");
@@ -81,21 +81,28 @@ public class KBAgent
     {
         switch(action[0])
         {
+            // move to new cell (agent takes care of rotations and the traversal)
             case 1:
+                                                                                numDecisionsMade++; 
                 Integer frontierKey = Integer.valueOf(String.valueOf(action[1]) + String.valueOf(action[2]));
                 int distance = Math.abs(action[1] - currentRoom[0]) + Math.abs(action[2] - currentRoom[1]);
                 currentRoom[0] = action[1];
                 currentRoom[1] = action[2];
+                                                                                cellsExplored++;
                 updateFrontier(frontierKey);
                 System.out.format("Moved to room (%d, %d)%n", currentRoom[0], currentRoom[1]);
 //                printFrontier();
-                score -= distance;
+                                                                                score -= distance;
                 System.out.println("Score: " + score);
                 break;
+            // shoot arrow
             case 2:
+                                                                                numDecisionsMade++;
                 arrows--;
                 break;
+            // exit
             case 3:
+                                                                                numDecisionsMade++;
                 endState = true;
                 break;
             default:
@@ -128,8 +135,9 @@ public class KBAgent
             KBAtomConstant current = (KBAtomConstant) atom;
             if (current.predicate.equals("SHINY") && !current.negation)
             {
+                                                                                goldFound++;
                 System.out.println("=== Gold has been found. Picking up gold and exiting. ===");
-                score += 1000;
+                                                                                score += 1000;
                 System.out.println("Score: " + score);
                 endState = true;
             }
@@ -140,6 +148,7 @@ public class KBAgent
     
     private void turnCCW()
     {
+                                                                                numDecisionsMade++;
         Map<String, String> ccwMapping = new HashMap<>();
         ccwMapping.put("north", "west");
         ccwMapping.put("east", "north");
@@ -151,6 +160,7 @@ public class KBAgent
     
     private void turnCW()
     {
+                                                                                numDecisionsMade++;
         Map<String, String> ccwMapping = new HashMap<>();
         ccwMapping.put("north", "east");
         ccwMapping.put("east", "south");

@@ -15,7 +15,7 @@ public class TempMain_David
     { 
         int worldSize = 5;
         // run the world 20 times
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 20; i++)
         {
             World aWorld = new World(worldSize);
             World.printWorld();
