@@ -11,11 +11,14 @@ public class KBAgent
     // current direction agent is facing. options are "west", "north", "east", and "south"
     private String currentDirection = "east";
     // arrow stock
-    private int arrows = 1;
+    private int arrows = World.getNumArrows();
     // flips to true once gold is found or no safe room exists
     private boolean endState = false;
     // mapping of frontier - cells adjacent to explored cells that are potentials to go to next
-    Map<Integer, Room> frontier = new HashMap<>();
+    private Map<Integer, Room> frontier = new HashMap<>();
+    // Statistics and points tracking
+    private AgentStatistics stats = new AgentStatistics();
+    private Integer score = 0;
     // the knowledge base used for queries. is updated by the agent
     private KnowledgeBase kb;
     
@@ -44,6 +47,10 @@ public class KBAgent
             int[] action = kb.requestAction(currentRoom[0], currentRoom[1], frontier);
             if (!endState) performAction(action);
         }
+        
+        stats.addReactiveStats(World.getSize(), score);
+        System.out.format("%n=== Final Score: %d ===%n", score);
+        System.out.println("=== Simulation Concluded ===");
     }
 
     /**
@@ -61,14 +68,15 @@ public class KBAgent
         switch(action[0])
         {
             case 1:
-                // change this later to actually do safe path traversal
                 Integer frontierKey = Integer.valueOf(String.valueOf(action[1]) + String.valueOf(action[2]));
-                
+                int distance = Math.abs(action[1] - currentRoom[0]) + Math.abs(action[2] - currentRoom[1]);
                 currentRoom[0] = action[1];
                 currentRoom[1] = action[2];
                 updateFrontier(frontierKey);
                 System.out.format("Moved to room (%d, %d)%n", currentRoom[0], currentRoom[1]);
 //                printFrontier();
+                score -= distance;
+                System.out.println("Score: " + score);
                 break;
             case 2:
                 arrows--;
@@ -107,6 +115,8 @@ public class KBAgent
             if (current.predicate.equals("SHINY") && !current.negation)
             {
                 System.out.println("=== Gold has been found. Picking up gold and exiting. ===");
+                score += 1000;
+                System.out.println("Score: " + score);
                 endState = true;
             }
         }

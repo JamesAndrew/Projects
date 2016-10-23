@@ -12,10 +12,13 @@ public class World
     private static int size;
     private Random random = new Random();
     
-    // density of wompui
-    private final double wumpusProbability = 0.1;
-    private final double pitProbability = 0.1;
+    // density of dangers
+    private final double wumpusProbability = 0.05;
+    private final double pitProbability = 0.05;
     private final double obstructionProbability = 0.05;
+    
+    // number of wumpi/arrows (used for setting initial number of arrows)
+    private static int numArrows;
     
    /**
      * constructor the agent will use for perceived world
@@ -49,7 +52,7 @@ public class World
             {
                 if (random.nextDouble() <= wumpusProbability)
                 {
-                    if (row + col <= 1) { } // don't place in (0,0), (1,0), or (0,1)
+                    if (row + col <= 2) { } // don't place in (0,0), (1,0), or (0,1)
                     else
                     {
                         Room currentRoom = rooms[row][col];
@@ -60,7 +63,7 @@ public class World
                 }
                 if (random.nextDouble() <= pitProbability)
                 {
-                    if (row + col <= 1) { } // don't place in (0,0), (1,0), or (0,1)
+                    if (row + col <= 2) { } // don't place in (0,0), (1,0), or (0,1)
                     else
                     {
                         Room currentRoom = rooms[row][col];
@@ -71,7 +74,7 @@ public class World
                 }
                 if (random.nextDouble() <= obstructionProbability)
                 {
-                    if (row + col <= 1) { } // don't place in (0,0), (1,0), or (0,1)
+                    if (row + col <= 2) { } // don't place in (0,0), (1,0), or (0,1)
                     else 
                     {
                         Room currentRoom = rooms[row][col];
@@ -101,6 +104,7 @@ public class World
             }
             
             placeWumpusAndSmells(rooms[randRow][randCol], randRow, randCol);
+            numWumpi = 1;
         }
         if (numPits == 0)
         {
@@ -122,7 +126,7 @@ public class World
             
             placePitAndBreezes(rooms[randRow][randCol], randRow, randCol);
         }
-        
+        numArrows = numWumpi;
         placeGold();
     }
     
@@ -310,19 +314,25 @@ public class World
             {
                 Room currentRoom = rooms[row][col];
                 System.out.format("(%d,%d)", row, col);
-                if (currentRoom.isShiny()) System.out.print("gold, ");
-                if (currentRoom.isWumpus()) System.out.print("wumpus, ");
-                if (currentRoom.isSmelly()) System.out.print("smelly, ");
-                if (currentRoom.isPit()) System.out.print("pit, ");
-                if (currentRoom.isBreezy()) System.out.print("breezy, ");
-                if (currentRoom.isBlocked()) System.out.print("blocked ");
+                if (currentRoom.isShiny())        System.out.print("gold   ");
+                else if (currentRoom.isWumpus())  System.out.print("wumpus ");
+                else if (currentRoom.isSmelly())  System.out.print("smelly ");
+                else if (currentRoom.isPit())     System.out.print("pit    ");
+                else if (currentRoom.isBreezy())  System.out.print("breezy ");
+                else if (currentRoom.isBlocked()) System.out.print("blocked");
+                else                              System.out.print("  ---  ");
                 if (col != size-1)
                 {
-                    System.out.print(" | ");
+                    System.out.print("| ");
                 }
                 
             }
             System.out.println();
         }
+    }
+
+    public static int getNumArrows() 
+    {
+        return numArrows;
     }
 }
