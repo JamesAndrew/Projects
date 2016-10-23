@@ -13,7 +13,9 @@ public class World
     private Random random = new Random();
     
     // density of wompui
-    private final double wumpusProbability = 0.15;
+    private final double wumpusProbability = 0.1;
+    private final double pitProbability = 0.1;
+    private final double obstructionProbability = 0.05;
     
    /**
      * constructor the agent will use for perceived world
@@ -38,7 +40,7 @@ public class World
     private void placeObjects() 
     {
         int numWumpi = 0;
-        int numPits = 0;    // todo
+        int numPits = 0;  
         
         // iterate over all cells and place items based on their probability
         for (int row = 0; row < size; row++)
@@ -54,6 +56,26 @@ public class World
                         placeWumpusAndSmells(currentRoom, row, col);
                         numWumpi++;
                         break;
+                    }
+                }
+                if (random.nextDouble() <= pitProbability)
+                {
+                    if (row + col <= 1) { } // don't place in (0,0), (1,0), or (0,1)
+                    else
+                    {
+                        Room currentRoom = rooms[row][col];
+                        placePitAndBreezes(currentRoom, row, col);
+                        numPits++;
+                        break;
+                    }
+                }
+                if (random.nextDouble() <= obstructionProbability)
+                {
+                    if (row + col <= 1) { } // don't place in (0,0), (1,0), or (0,1)
+                    else 
+                    {
+                        Room currentRoom = rooms[row][col];
+                        currentRoom.setIsBlocked(true);
                     }
                 }
             }
@@ -78,9 +100,28 @@ public class World
                 }
             }
             
-            placeWumpusAndSmells(rooms[randRow][randCol], randRow, numWumpi);
+            placeWumpusAndSmells(rooms[randRow][randCol], randRow, randCol);
         }
-        // (todo) pits
+        if (numPits == 0)
+        {
+            int randRow = 0;
+            int randCol = 0;
+            boolean validRoom = false;
+            while (randRow + randCol <= 1 && !validRoom)
+            {
+                randRow = random.nextInt(size);
+                randCol = random.nextInt(size);
+                if (!(rooms[randRow][randCol].isBlocked()) &&
+                    !(rooms[randRow][randCol].isPit())     &&
+                    !(rooms[randRow][randCol].isShiny())   &&
+                    !(rooms[randRow][randCol].isWumpus()))
+                {
+                    validRoom = true;
+                }
+            }
+            
+            placePitAndBreezes(rooms[randRow][randCol], randRow, randCol);
+        }
         
         placeGold();
     }
@@ -174,6 +215,75 @@ public class World
         else throw new RuntimeException("None of the room positions calculated correctly"
                 + " during placeWumpusAndSmells");
         
+    }
+    
+    private void placePitAndBreezes(Room currentRoom, int row, int column) 
+    {
+        currentRoom.setIsPit(true);
+        
+        // place smells in adjacent rooms 
+        // (existing rooms on every side)
+        if ((row - 1 >= 0) && (row + 1 < size) && (column - 1 >= 0) && (column + 1 < size))
+        {
+            rooms[row-1][column  ].setIsBreezy(true);
+            rooms[row  ][column+1].setIsBreezy(true);
+            rooms[row+1][column  ].setIsBreezy(true);
+            rooms[row  ][column-1].setIsBreezy(true);
+        }
+        // query cell left column : no rooms to the left (along y=0 column)
+        else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < size))
+        {
+            rooms[row  ][column+1].setIsBreezy(true);
+            rooms[row+1][column  ].setIsBreezy(true);
+            rooms[row  ][column-1].setIsBreezy(true);
+        }
+        // query cell top left corner
+        else if (((row - 1 < 0) && (column + 1 >= size)))  
+        {
+            rooms[row+1][column  ].setIsBreezy(true);
+            rooms[row  ][column-1].setIsBreezy(true);
+        }
+        // query cell top row 
+        else if ((column + 1 >= size) && (row - 1 >= 0) && (row + 1 < size))
+        {
+            rooms[row-1][column  ].setIsBreezy(true);
+            rooms[row+1][column  ].setIsBreezy(true);
+            rooms[row  ][column-1].setIsBreezy(true);
+        }
+        // query cell top right corner
+        else if ((row + 1 >= size) && column + 1 >= size) 
+        {
+            rooms[row-1][column  ].setIsBreezy(true);
+            rooms[row  ][column-1].setIsBreezy(true);
+        }
+        // query cell right column
+        else if ((row + 1 >= size) && (column - 1 >= 0) && (column + 1 < size))
+        {
+            rooms[row-1][column  ].setIsBreezy(true);
+            rooms[row  ][column+1].setIsBreezy(true);
+            rooms[row  ][column-1].setIsBreezy(true);
+        }
+        // query cell bottom right corner
+        else if ((row + 1 >= size) && column - 1 < 0)
+        {
+            rooms[row-1][column  ].setIsBreezy(true);
+            rooms[row  ][column+1].setIsBreezy(true);
+        }
+        // query cell bottom row
+        else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < size))
+        {
+            rooms[row-1][column  ].setIsBreezy(true);
+            rooms[row  ][column+1].setIsBreezy(true);
+            rooms[row+1][column  ].setIsBreezy(true);
+        }
+        // query cell bottom left corner
+        else if((row - 1 < 0) && column - 1 < 0)
+        {
+            rooms[row  ][column+1].setIsBreezy(true);
+            rooms[row+1][column  ].setIsBreezy(true);
+        }
+        else throw new RuntimeException("None of the room positions calculated correctly"
+                + " during placePitAndBreezes");
     }
     
     public static Room getRoom(int row, int col)

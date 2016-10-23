@@ -557,7 +557,7 @@ public class KnowledgeBase
             // add 4 disjunction lists
             for (int i = 0; i < 4; i++)
             {
-                conjunctions.add(new ArrayList<KBAtom>());
+                conjunctions.add(new ArrayList<>());
             }
             // generate the disjunctive sentences
             conjunctions.get(0).addAll(Arrays.asList(                
