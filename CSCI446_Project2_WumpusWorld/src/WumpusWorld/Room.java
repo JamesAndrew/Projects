@@ -31,11 +31,14 @@ public class Room
         roomColumn = col;
         
         // initiall all rooms are empty (not smelly, not breezy, etc)
-        isExplored = false;
-        isBreezy = false;
-        isSmelly = false;
-        isBlocked = false;
-        isShiny = false;
+        isExplored  = false;
+        isBreezy    = false;
+        isSmelly    = false;
+        isBlocked   = false;
+        isShiny     = false;
+        isWumpus    = false;
+        isPit       = false;
+        isShiny     = false;
     }
     /**
      * used to create a fake room that doesn't exist when the logic goes out of

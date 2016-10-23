@@ -37,6 +37,9 @@ public class World
     
     private void placeObjects() 
     {
+        int numWumpi = 0;
+        int numPits = 0;    // todo
+        
         // iterate over all cells and place items based on their probability
         for (int row = 0; row < size; row++)
         {
@@ -46,11 +49,57 @@ public class World
                 {
                     Room currentRoom = rooms[row][col];
                     placeWumpusAndSmells(currentRoom, row, col);
+                    numWumpi++;
                     break;
                 }
             }
         }
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        // if no wumpus or pit generated, guarantee at least one is placed
+        if (numWumpi == 0)
+        {
+            int randRow = 0;
+            int randCol = 0;
+            boolean validRoom = false;
+            while (randRow + randCol <= 1 && !validRoom)
+            {
+                randRow = random.nextInt(size);
+                randCol = random.nextInt(size);
+                if (!(rooms[randRow][randCol].isBlocked()) &&
+                    !(rooms[randRow][randCol].isPit())     &&
+                    !(rooms[randRow][randCol].isShiny())   &&
+                    !(rooms[randRow][randCol].isWumpus()))
+                {
+                    validRoom = true;
+                }
+            }
+            
+            placeWumpusAndSmells(rooms[randRow][randCol], randRow, numWumpi);
+        }
+        // (todo) pits
+        
+        placeGold();
+    }
+    
+    private void placeGold()
+    {
+        int randRow = 0;
+        int randCol = 0;
+        boolean validRoom = false;
+        while (randRow + randCol <= 1 && !validRoom)
+        {
+            randRow = random.nextInt(size);
+            randCol = random.nextInt(size);
+            if (!(rooms[randRow][randCol].isBlocked()) &&
+                !(rooms[randRow][randCol].isPit())     &&
+                !(rooms[randRow][randCol].isShiny())   &&
+                !(rooms[randRow][randCol].isWumpus()))
+            {
+                validRoom = true;
+            }
+        }
+        rooms[randRow][randCol].setIsShiny(true);
+        rooms[randRow][randCol].setHasGold(true);
     }
     
     private void placeWumpusAndSmells(Room currentRoom, int row, int column) 
@@ -138,5 +187,28 @@ public class World
         return size;
     }
 
-    
+    public static void printWorld()
+    {
+        for (int row = 0; row < size; row++)
+        {
+            System.out.format("Row %d: ", row);
+            for (int col = 0; col < size; col++)
+            {
+                Room currentRoom = rooms[row][col];
+                System.out.format("(%d,%d)", row, col);
+                if (currentRoom.isShiny()) System.out.print("gold, ");
+                if (currentRoom.isWumpus()) System.out.print("wumpus, ");
+                if (currentRoom.isSmelly()) System.out.print("smelly, ");
+                if (currentRoom.isPit()) System.out.print("pit, ");
+                if (currentRoom.isBreezy()) System.out.print("breezy, ");
+                if (currentRoom.isBlocked()) System.out.print("blocked ");
+                if (col != size-1)
+                {
+                    System.out.print(" | ");
+                }
+                
+            }
+            System.out.println();
+        }
+    }
 }
