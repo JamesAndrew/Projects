@@ -83,31 +83,57 @@ public class KBAgent
         {
             // move to new cell (agent takes care of rotations and the traversal)
             case 1:
-                                                                                numDecisionsMade++; 
+                numDecisionsMade++; 
                 Integer frontierKey = Integer.valueOf(String.valueOf(action[1]) + String.valueOf(action[2]));
                 int distance = Math.abs(action[1] - currentRoom[0]) + Math.abs(action[2] - currentRoom[1]);
+                
                 currentRoom[0] = action[1];
                 currentRoom[1] = action[2];
-                                                                                cellsExplored++;
+                cellsExplored++;
+                
                 updateFrontier(frontierKey);
                 System.out.format("Moved to room (%d, %d)%n", currentRoom[0], currentRoom[1]);
 //                printFrontier();
-                                                                                score -= distance;
+                score -= distance;
                 System.out.println("Score: " + score);
                 break;
             // shoot arrow
             case 2:
-                                                                                numDecisionsMade++;
-                arrows--;
+                numDecisionsMade++;
+                int wumpusLocRow = action[1];
+                int wumpusLocCol = action[2];
+                shootArrow(wumpusLocRow, wumpusLocCol);
                 break;
             // exit
             case 3:
-                                                                                numDecisionsMade++;
+                numDecisionsMade++;
                 endState = true;
                 break;
             default:
                 throw new RuntimeException("The provided action integer does not match to the switch statement in KBAgent");
         }
+    }
+    
+    /**
+     * Shoot arrow, remove wumpus and smells, and move in to that cell
+     * @param row wumpus location row
+     * @param col wumpus location col
+     */
+    private void shootArrow(int row, int col)
+    {
+        wumpiKilled++;
+        cellsExplored++;
+        score += 10;
+        arrows--;
+        currentRoom[0] = row;
+        currentRoom[1] = col;
+        
+        // remove wumpus and smells
+        World.getRoom(row, col).setIsWumpus(false);
+        if (row - 1 >= 0)              World.getRoom(row - 1, col).setIsSmelly(false);
+        if (col + 1 < World.getSize()) World.getRoom(row, col + 1).setIsSmelly(false);
+        if (row + 1 < World.getSize()) World.getRoom(row + 1, col).setIsSmelly(false);
+        if (col - 1 >= 0)              World.getRoom(row, col - 1).setIsSmelly(false);
     }
     
     /**

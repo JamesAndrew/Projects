@@ -144,7 +144,64 @@ public class KnowledgeBase
         // if a wumpus location is certain, move to the cell and kill it
         if (numArrows > 0)
         {
-            
+            // check rooms on each side for wumpus
+            Room adjCell;
+            // left room
+            if (currentRow - 1 >= 0)
+            {
+                adjCell = World.getRoom(currentRow - 1, currentCol);
+                KBAtomConstant queryAtom = new KBAtomConstant(false, "WUMPUS", adjCell);
+                if (query(queryAtom))
+                {
+                    returnedAction[0] = 2;
+                    returnedAction[1] = currentRow -1;
+                    returnedAction[2] = currentCol;
+                    
+                    return returnedAction;
+                }
+            }
+            // top room
+            if (currentCol + 1 < World.getSize()) 
+            {
+                adjCell = World.getRoom(currentRow, currentCol + 1);
+                KBAtomConstant queryAtom = new KBAtomConstant(false, "WUMPUS", adjCell);
+                if (query(queryAtom))
+                {
+                    returnedAction[0] = 2;
+                    returnedAction[1] = currentRow;
+                    returnedAction[2] = currentCol + 1;
+                    
+                    return returnedAction;
+                }
+            }
+            // right room
+            if (currentRow + 1 < World.getSize()) 
+            {
+                adjCell = World.getRoom(currentRow + 1, currentCol);
+                KBAtomConstant queryAtom = new KBAtomConstant(false, "WUMPUS", adjCell);
+                if (query(queryAtom))
+                {
+                    returnedAction[0] = 2;
+                    returnedAction[1] = currentRow + 1;
+                    returnedAction[2] = currentCol;
+                    
+                    return returnedAction;
+                }
+            }
+            // bottom room
+            if (currentCol - 1 >= 0)  
+            {
+                adjCell = World.getRoom(currentRow, currentCol - 1);
+                KBAtomConstant queryAtom = new KBAtomConstant(false, "WUMPUS", adjCell);
+                if (query(queryAtom))
+                {
+                    returnedAction[0] = 2;
+                    returnedAction[1] = currentRow;
+                    returnedAction[2] = currentCol - 1;
+                    
+                    return returnedAction;
+                }
+            }
         }
         
         // sort frontier from closest to furthest away
@@ -1079,7 +1136,7 @@ public class KnowledgeBase
         // add the variable axioms
         returnedKB.add(newCNF);
         // also add all smelly percepts attained thus far
-        ArrayList<KBcnf> smellyPercepts = addContextualPercepts("SMELLY");
+        ArrayList<KBcnf> smellyPercepts = addContextualPercepts("SMELLY", "EXPLORED");
         returnedKB.addAll(smellyPercepts);
         
         return returnedKB;
