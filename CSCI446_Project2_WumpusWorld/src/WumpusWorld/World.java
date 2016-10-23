@@ -135,17 +135,17 @@ public class World
         int randRow = 0;
         int randCol = 0;
         boolean validRoom = false;
-        while (randRow + randCol <= 1 && !validRoom)
+        while (randRow + randCol <= 3 && !validRoom)
         {
             randRow = random.nextInt(size);
             randCol = random.nextInt(size);
             if (!(rooms[randRow][randCol].isBlocked()) &&
                 !(rooms[randRow][randCol].isPit())     &&
-                !(rooms[randRow][randCol].isShiny())   &&
                 !(rooms[randRow][randCol].isWumpus()))
             {
                 validRoom = true;
             }
+            if (randRow + randCol <= 3) validRoom = false;
         }
         rooms[randRow][randCol].setIsShiny(true);
         rooms[randRow][randCol].setHasGold(true);
