@@ -68,7 +68,7 @@ public class KBAgent
                 currentRoom[1] = action[2];
                 updateFrontier(frontierKey);
                 System.out.format("Moved to room (%d, %d)%n", currentRoom[0], currentRoom[1]);
-                printFrontier();
+//                printFrontier();
                 break;
             case 2:
                 arrows--;
