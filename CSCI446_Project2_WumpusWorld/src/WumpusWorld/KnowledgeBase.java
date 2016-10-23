@@ -138,8 +138,9 @@ public class KnowledgeBase
         System.out.println("Sorted Frontier: ");
         for (Room room : sortedFrontier)
         {
-            System.out.println(room.toString());
+            System.out.print(room.toString() + ", ");
         }
+        System.out.println();
         
         // move to room if room is safe
         boolean isSafe = false;
