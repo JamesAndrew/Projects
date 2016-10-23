@@ -1,3 +1,5 @@
+- wumpusProbability = 0.10;  pitProbability = 0.05;  obstructionProbability = 0.05;
+
 - Lots of changes to the UML. Be sure to update after the fact
 - KnowledgeBase.resolution_subroutine() is very unoptimized at the moment. Talk about better ways 
   to pairwise compare and not generate already generated resolvents (this is fixed)

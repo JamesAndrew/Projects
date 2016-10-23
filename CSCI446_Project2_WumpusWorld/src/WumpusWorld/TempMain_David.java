@@ -1,17 +1,30 @@
 package WumpusWorld;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+
 public class TempMain_David 
 {
-    public static void main(String[] args)
+    public static void main(String[] args) throws UnsupportedEncodingException, FileNotFoundException, IOException
     { 
-        World aWorld = new World(15);
+        int worldSize = 5;
+        World aWorld = new World(worldSize);
         World.printWorld();
         
         // set agent and begin routine
         KBAgent agent = new KBAgent();
         agent.findGold();
         
+        String fileOutputName = "Run_Results_GraphSize_" + worldSize + "x" + worldSize + ".txt";
         AgentStatistics statistics = new AgentStatistics();
-        statistics.printResults();
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileOutputName), "utf-8")))
+        {
+            writer.write(statistics.generateResultsOutput());
+        }
     }
 }

@@ -13,7 +13,7 @@ public class World
     private Random random = new Random();
     
     // density of dangers
-    private final double wumpusProbability = 0.05;
+    private final double wumpusProbability = 0.10;
     private final double pitProbability = 0.05;
     private final double obstructionProbability = 0.05;
     
