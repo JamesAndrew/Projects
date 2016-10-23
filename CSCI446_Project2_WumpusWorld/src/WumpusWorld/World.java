@@ -8,284 +8,331 @@ import java.util.Random;
  */
 public class World 
 {
-    private final Room [][] theWorld;
-    private Room start;
-    private final int size;
-    private final float pPit;
-    private final float pObs;
-    private final float pWumpus;
-    private int wumpi;
+    private static Room [][] rooms;
+    private static int size;
+    private Random random = new Random();
     
-    // constructor the agent will use for perceived world
+    // density of dangers
+    private final double wumpusProbability = 0.05;
+    private final double pitProbability = 0.05;
+    private final double obstructionProbability = 0.05;
+    
+    // number of wumpi/arrows (used for setting initial number of arrows)
+    private static int numArrows;
+    
+   /**
+     * constructor the agent will use for perceived world
+     * @param s : number of rows for the s*s sized world
+     */
     public World(int s)
     {
-        System.out.println("== Initializing the Perceived World ==");
-        
-        pPit = 0;
-        pObs = 0;
-        pWumpus = 0;
-        
         size = s;
-        theWorld = new Room[size][size];
+        rooms = new Room[size][size];
         for (int i = 0; i < size; i++)
         {
             for (int j = 0; j < size; j++)
             {
-                theWorld[i][j] = new Room(i, j);
-            }
-        }
-    }
-    
-    // constructor for the actual world
-    public World(int s, float p, float o, float w)
-    {
-        System.out.println("== Initializing the Actual World ==");
-        pPit = p;
-        pObs = o;
-        pWumpus = w;
-        
-        size = s;
-        theWorld = new Room[size][size];
-        for (int i = 0; i < size; i++)
-        {
-            for (int j = 0; j < size; j++)
-            {
-                theWorld[i][j] = new Room(i, j);
+                rooms[i][j] = new Room(i, j);
             }
         }
         
-        setUpWorld();
-        System.out.println();
+        // place wumpi, smells, pits, gold etc.
+        placeObjects();
     }
     
-    private void setUpWorld()
+    private void placeObjects() 
     {
-        System.out.println(" = Setting Up Map = ");
-         
-        initWorld();
-    }
-    
-    private void initWorld()
-    {
-        Random rand = new Random();
+        int numWumpi = 0;
+        int numPits = 0;  
         
-        /**
-         * place the gold
-         */
-        int r = rand.nextInt(size);
-        int c = rand.nextInt(size);
-        theWorld[r][c].setIsShiny(true);
-        System.out.println("The gold is in room " + r + " " + c);
-            
-        
-        /**
-         * Place the start room in a random empty 
-         */
-        boolean startPlaced = false;
-        while(!startPlaced)
+        // iterate over all cells and place items based on their probability
+        for (int row = 0; row < size; row++)
         {
-            r = rand.nextInt(size);
-            c = rand.nextInt(size);
-            
-            if (theWorld[r][c].isShiny())
+            for (int col = 0; col < size; col++)
             {
-                startPlaced = false;
-            }
-            
-            else
-            {
-                startPlaced = true;
-                start = theWorld[r][c];
-                System.out.println("The agent is in room " + r + " " + c);
-            }
-        }
-        
-        /**
-         * Add the obstacles, pits and wumpi
-         */
-        for (int i = 0; i < size; i++)
-        {
-            for (int j = 0; j < size; j++)
-            {
-                System.out.println("Initialize room " + i + " " + j);
-                if (theWorld[i][j].isShiny())
+                if (random.nextDouble() <= wumpusProbability)
                 {
-                    System.out.println("occupied by gold");
-                }
-                
-                else if ( (i == start.getRoomRow()) && (j == start.getRoomColumn()) )
-                {
-                    System.out.println("starting point");
-                }
-                
-                else
-                {
-                    float o = rand.nextFloat();
-                
-                    if (o < pObs)
-                    {
-                        theWorld[i][j].setIsBlocked(true);
-                        System.out.println("obstacle placed");
-                    }
-
+                    if (row + col <= 2) { } // don't place in (0,0), (1,0), or (0,1)
                     else
                     {
-                        float p = rand.nextFloat();
-
-                        if (p < pPit)
-                        {
-                            theWorld[i][j].setIsPit(true);
-                            System.out.println("pit placed");
-                            if(i == 0 && j == 0)
-                            {
-                                theWorld[i][j+1].setIsBreezy(true);
-                                theWorld[i+1][j].setIsBreezy(true);
-                            }
-
-                            else if(i == 0 && j < size-1)
-                            {
-                                theWorld[i][j-1].setIsBreezy(true);
-                                theWorld[i][j+1].setIsBreezy(true);
-                                theWorld[i+1][j].setIsBreezy(true);
-                            }
-
-                            else if(i == 0 && j == size-1)
-                            {
-                                theWorld[i][j-1].setIsBreezy(true);
-                                theWorld[i+1][j].setIsBreezy(true);
-                            }
-
-                            else if(i < size-1 && j == 0)
-                            {
-                                theWorld[i-1][j].setIsBreezy(true);
-                                theWorld[i][j+1].setIsBreezy(true);
-                                theWorld[i+1][j].setIsBreezy(true);
-                            }
-
-                            else if(i < size-1 && j == size-1)
-                            {
-                                theWorld[i-1][j].setIsBreezy(true);
-                                theWorld[i][j-1].setIsBreezy(true);
-                                theWorld[i+1][j].setIsBreezy(true);
-                            }
-
-                            else if(i == size-1 && j == 0)
-                            {
-                                theWorld[i-1][j].setIsBreezy(true);
-                                theWorld[i][j+1].setIsBreezy(true);
-                            }
-
-                            else if(i == size-1 && j < size-1)
-                            {
-                                theWorld[i][j-1].setIsBreezy(true);
-                                theWorld[i-1][j].setIsBreezy(true);
-                                theWorld[i][j+1].setIsBreezy(true);
-                            }
-
-                            else if(i == size-1 && j == size-1)
-                            {
-                                theWorld[i][j-1].setIsBreezy(true);
-                                theWorld[i-1][j].setIsBreezy(true);
-                            }
-
-                            else
-                            {
-                                theWorld[i-1][j].setIsBreezy(true);
-                                theWorld[i][j+1].setIsBreezy(true);
-                                theWorld[i+1][j].setIsBreezy(true);
-                                theWorld[i][j-1].setIsBreezy(true);
-                            }
-                        }
-
-                        float w = rand.nextFloat();
-                        if (w < pWumpus)
-                        {
-                            theWorld[i][j].setIsWumpus(true);
-                            System.out.println("wumpus placed");
-                            wumpi++;
-                            if(i == 0 && j == 0)
-                            {
-                                theWorld[i][j+1].setIsSmelly(true);
-                                theWorld[i+1][j].setIsSmelly(true);
-                            }
-
-                            else if(i == 0 && j < size-1)
-                            {
-                                theWorld[i][j-1].setIsSmelly(true);
-                                theWorld[i][j+1].setIsSmelly(true);
-                                theWorld[i+1][j].setIsSmelly(true);
-                            }
-
-                            else if(i == 0 && j == size-1)
-                            {
-                                theWorld[i][j-1].setIsSmelly(true);
-                                theWorld[i+1][j].setIsSmelly(true);
-                            }
-
-                            else if(i < size-1 && j == 0)
-                            {
-                                theWorld[i-1][j].setIsSmelly(true);
-                                theWorld[i][j+1].setIsSmelly(true);
-                                theWorld[i+1][j].setIsSmelly(true);
-                            }
-
-                            else if(i < size-1 && j == size-1)
-                            {
-                                theWorld[i-1][j].setIsSmelly(true);
-                                theWorld[i][j-1].setIsSmelly(true);
-                                theWorld[i+1][j].setIsSmelly(true);
-                            }
-
-                            else if(i == size-1 && j == 0)
-                            {
-                                theWorld[i-1][j].setIsSmelly(true);
-                                theWorld[i][j+1].setIsSmelly(true);
-                            }
-
-                            else if(i == size-1 && j < size-1)
-                            {
-                                theWorld[i][j-1].setIsSmelly(true);
-                                theWorld[i-1][j].setIsSmelly(true);
-                                theWorld[i][j+1].setIsSmelly(true);
-                            }
-
-                            else if(i == size-1 && j == size-1)
-                            {
-                                theWorld[i][j-1].setIsSmelly(true);
-                                theWorld[i-1][j].setIsSmelly(true);
-                            }
-
-                            else
-                            {
-                                theWorld[i-1][j].setIsSmelly(true);
-                                theWorld[i][j+1].setIsSmelly(true);
-                                theWorld[i+1][j].setIsSmelly(true);
-                                theWorld[i][j-1].setIsSmelly(true);
-                            }
-                        }
+                        Room currentRoom = rooms[row][col];
+                        placeWumpusAndSmells(currentRoom, row, col);
+                        numWumpi++;
+                        break;
+                    }
+                }
+                if (random.nextDouble() <= pitProbability)
+                {
+                    if (row + col <= 2) { } // don't place in (0,0), (1,0), or (0,1)
+                    else
+                    {
+                        Room currentRoom = rooms[row][col];
+                        placePitAndBreezes(currentRoom, row, col);
+                        numPits++;
+                        break;
+                    }
+                }
+                if (random.nextDouble() <= obstructionProbability)
+                {
+                    if (row + col <= 2) { } // don't place in (0,0), (1,0), or (0,1)
+                    else 
+                    {
+                        Room currentRoom = rooms[row][col];
+                        currentRoom.setIsBlocked(true);
                     }
                 }
             }
         }
+        
+        // if no wumpus or pit generated, guarantee at least one is placed
+        if (numWumpi == 0)
+        {
+            int randRow = 0;
+            int randCol = 0;
+            boolean validRoom = false;
+            while (randRow + randCol <= 1 && !validRoom)
+            {
+                randRow = random.nextInt(size);
+                randCol = random.nextInt(size);
+                if (!(rooms[randRow][randCol].isBlocked()) &&
+                    !(rooms[randRow][randCol].isPit())     &&
+                    !(rooms[randRow][randCol].isShiny())   &&
+                    !(rooms[randRow][randCol].isWumpus()))
+                {
+                    validRoom = true;
+                }
+            }
+            
+            placeWumpusAndSmells(rooms[randRow][randCol], randRow, randCol);
+            numWumpi = 1;
+        }
+        if (numPits == 0)
+        {
+            int randRow = 0;
+            int randCol = 0;
+            boolean validRoom = false;
+            while (randRow + randCol <= 1 && !validRoom)
+            {
+                randRow = random.nextInt(size);
+                randCol = random.nextInt(size);
+                if (!(rooms[randRow][randCol].isBlocked()) &&
+                    !(rooms[randRow][randCol].isPit())     &&
+                    !(rooms[randRow][randCol].isShiny())   &&
+                    !(rooms[randRow][randCol].isWumpus()))
+                {
+                    validRoom = true;
+                }
+            }
+            
+            placePitAndBreezes(rooms[randRow][randCol], randRow, randCol);
+        }
+        numArrows = numWumpi;
+        placeGold();
     }
     
-    public int getSize()
+    private void placeGold()
+    {
+        int randRow = 0;
+        int randCol = 0;
+        boolean validRoom = false;
+        while (randRow + randCol <= 1 && !validRoom)
+        {
+            randRow = random.nextInt(size);
+            randCol = random.nextInt(size);
+            if (!(rooms[randRow][randCol].isBlocked()) &&
+                !(rooms[randRow][randCol].isPit())     &&
+                !(rooms[randRow][randCol].isShiny())   &&
+                !(rooms[randRow][randCol].isWumpus()))
+            {
+                validRoom = true;
+            }
+        }
+        rooms[randRow][randCol].setIsShiny(true);
+        rooms[randRow][randCol].setHasGold(true);
+    }
+    
+    private void placeWumpusAndSmells(Room currentRoom, int row, int column) 
+    {
+        currentRoom.setIsWumpus(true);
+        
+        // place smells in adjacent rooms 
+        // (existing rooms on every side)
+        if ((row - 1 >= 0) && (row + 1 < size) && (column - 1 >= 0) && (column + 1 < size))
+        {
+            rooms[row-1][column  ].setIsSmelly(true);
+            rooms[row  ][column+1].setIsSmelly(true);
+            rooms[row+1][column  ].setIsSmelly(true);
+            rooms[row  ][column-1].setIsSmelly(true);
+        }
+        // query cell left column : no rooms to the left (along y=0 column)
+        else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < size))
+        {
+            rooms[row  ][column+1].setIsSmelly(true);
+            rooms[row+1][column  ].setIsSmelly(true);
+            rooms[row  ][column-1].setIsSmelly(true);
+        }
+        // query cell top left corner
+        else if (((row - 1 < 0) && (column + 1 >= size)))  
+        {
+            rooms[row+1][column  ].setIsSmelly(true);
+            rooms[row  ][column-1].setIsSmelly(true);
+        }
+        // query cell top row 
+        else if ((column + 1 >= size) && (row - 1 >= 0) && (row + 1 < size))
+        {
+            rooms[row-1][column  ].setIsSmelly(true);
+            rooms[row+1][column  ].setIsSmelly(true);
+            rooms[row  ][column-1].setIsSmelly(true);
+        }
+        // query cell top right corner
+        else if ((row + 1 >= size) && column + 1 >= size) 
+        {
+            rooms[row-1][column  ].setIsSmelly(true);
+            rooms[row  ][column-1].setIsSmelly(true);
+        }
+        // query cell right column
+        else if ((row + 1 >= size) && (column - 1 >= 0) && (column + 1 < size))
+        {
+            rooms[row-1][column  ].setIsSmelly(true);
+            rooms[row  ][column+1].setIsSmelly(true);
+            rooms[row  ][column-1].setIsSmelly(true);
+        }
+        // query cell bottom right corner
+        else if ((row + 1 >= size) && column - 1 < 0)
+        {
+            rooms[row-1][column  ].setIsSmelly(true);
+            rooms[row  ][column+1].setIsSmelly(true);
+        }
+        // query cell bottom row
+        else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < size))
+        {
+            rooms[row-1][column  ].setIsSmelly(true);
+            rooms[row  ][column+1].setIsSmelly(true);
+            rooms[row+1][column  ].setIsSmelly(true);
+        }
+        // query cell bottom left corner
+        else if((row - 1 < 0) && column - 1 < 0)
+        {
+            rooms[row  ][column+1].setIsSmelly(true);
+            rooms[row+1][column  ].setIsSmelly(true);
+        }
+        else throw new RuntimeException("None of the room positions calculated correctly"
+                + " during placeWumpusAndSmells");
+        
+    }
+    
+    private void placePitAndBreezes(Room currentRoom, int row, int column) 
+    {
+        currentRoom.setIsPit(true);
+        
+        // place smells in adjacent rooms 
+        // (existing rooms on every side)
+        if ((row - 1 >= 0) && (row + 1 < size) && (column - 1 >= 0) && (column + 1 < size))
+        {
+            rooms[row-1][column  ].setIsBreezy(true);
+            rooms[row  ][column+1].setIsBreezy(true);
+            rooms[row+1][column  ].setIsBreezy(true);
+            rooms[row  ][column-1].setIsBreezy(true);
+        }
+        // query cell left column : no rooms to the left (along y=0 column)
+        else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < size))
+        {
+            rooms[row  ][column+1].setIsBreezy(true);
+            rooms[row+1][column  ].setIsBreezy(true);
+            rooms[row  ][column-1].setIsBreezy(true);
+        }
+        // query cell top left corner
+        else if (((row - 1 < 0) && (column + 1 >= size)))  
+        {
+            rooms[row+1][column  ].setIsBreezy(true);
+            rooms[row  ][column-1].setIsBreezy(true);
+        }
+        // query cell top row 
+        else if ((column + 1 >= size) && (row - 1 >= 0) && (row + 1 < size))
+        {
+            rooms[row-1][column  ].setIsBreezy(true);
+            rooms[row+1][column  ].setIsBreezy(true);
+            rooms[row  ][column-1].setIsBreezy(true);
+        }
+        // query cell top right corner
+        else if ((row + 1 >= size) && column + 1 >= size) 
+        {
+            rooms[row-1][column  ].setIsBreezy(true);
+            rooms[row  ][column-1].setIsBreezy(true);
+        }
+        // query cell right column
+        else if ((row + 1 >= size) && (column - 1 >= 0) && (column + 1 < size))
+        {
+            rooms[row-1][column  ].setIsBreezy(true);
+            rooms[row  ][column+1].setIsBreezy(true);
+            rooms[row  ][column-1].setIsBreezy(true);
+        }
+        // query cell bottom right corner
+        else if ((row + 1 >= size) && column - 1 < 0)
+        {
+            rooms[row-1][column  ].setIsBreezy(true);
+            rooms[row  ][column+1].setIsBreezy(true);
+        }
+        // query cell bottom row
+        else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < size))
+        {
+            rooms[row-1][column  ].setIsBreezy(true);
+            rooms[row  ][column+1].setIsBreezy(true);
+            rooms[row+1][column  ].setIsBreezy(true);
+        }
+        // query cell bottom left corner
+        else if((row - 1 < 0) && column - 1 < 0)
+        {
+            rooms[row  ][column+1].setIsBreezy(true);
+            rooms[row+1][column  ].setIsBreezy(true);
+        }
+        else throw new RuntimeException("None of the room positions calculated correctly"
+                + " during placePitAndBreezes");
+    }
+    
+    public static Room getRoom(int row, int col)
+    {
+        return rooms[row][col];
+    }
+    
+    public static Room[][] getRooms() 
+    {
+        return rooms;
+    }
+    
+    public static int getSize()
     {
         return size;
     }
-    
-    public Room getRoom(int row, int col)
+
+    public static void printWorld()
     {
-        return theWorld[row][col];
+        for (int row = 0; row < size; row++)
+        {
+            System.out.format("Row %d: ", row);
+            for (int col = 0; col < size; col++)
+            {
+                Room currentRoom = rooms[row][col];
+                System.out.format("(%d,%d)", row, col);
+                if (currentRoom.isShiny())        System.out.print("gold   ");
+                else if (currentRoom.isWumpus())  System.out.print("wumpus ");
+                else if (currentRoom.isSmelly())  System.out.print("smelly ");
+                else if (currentRoom.isPit())     System.out.print("pit    ");
+                else if (currentRoom.isBreezy())  System.out.print("breezy ");
+                else if (currentRoom.isBlocked()) System.out.print("blocked");
+                else                              System.out.print("  ---  ");
+                if (col != size-1)
+                {
+                    System.out.print("| ");
+                }
+                
+            }
+            System.out.println();
+        }
     }
-    
-    public Room getStart()
+
+    public static int getNumArrows() 
     {
-        return start;
-    }
-    
-    public int getWumpi()
-    {
-        return wumpi;
+        return numArrows;
     }
 }

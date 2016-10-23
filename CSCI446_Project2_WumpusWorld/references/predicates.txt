@@ -1,0 +1,17 @@
+### List of all predicates used in the Wumpus world
+### A predicate is part of an atomic sentence
+### and looks like SMELLY(...), WINDY(...), PIT(...), etc
+
+# room states
+ADJ					// adjacent
+!!EXISTS!!			// room exists (can delete this; replaced with EXPLORED)
+BLOCKED
+EXPLORED
+HASGOLD
+OBST 				// has obstacle 
+PIT
+SAFE				// known safe to move in to	
+SHINY
+SMELLY
+WINDY
+WUMPUS
