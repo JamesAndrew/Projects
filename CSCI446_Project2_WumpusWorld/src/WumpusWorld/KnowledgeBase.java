@@ -148,7 +148,7 @@ public class KnowledgeBase
         {
             int newRow = sortedFrontier.get(i).getRoomRow();
             int newCol = sortedFrontier.get(i).getRoomColumn();
-            KBAtomConstant safeQuery = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(newRow, newCol));
+            KBAtomConstant safeQuery = new KBAtomConstant(false, "SAFE", World.getRoom(newRow, newCol));
             isSafe = query(safeQuery);
             
             System.out.format("Query if room (%d, %d) is safe%n", newRow, newCol);
@@ -550,7 +550,7 @@ public class KnowledgeBase
         int column = term.getRoomColumn();
         
         // query cell not on wall (existing rooms on every side)
-        if ((row - 1 >= 0) && (row + 1 < ActualWorld.getSize()) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
+        if ((row - 1 >= 0) && (row + 1 < World.getSize()) && (column - 1 >= 0) && (column + 1 < World.getSize()))
         {
             // add 4 disjunction lists
             for (int i = 0; i < 4; i++)
@@ -581,7 +581,7 @@ public class KnowledgeBase
             ));
         }
         // query cell left column : no rooms to the left (along y=0 column)
-        else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
+        else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < World.getSize()))
         {
             // add 3 disjunction lists
             for (int i = 0; i < 3; i++)
@@ -607,7 +607,7 @@ public class KnowledgeBase
             ));
         }
         // query cell top left corner
-        else if (((row - 1 < 0) && (column + 1 >= ActualWorld.getSize())))  
+        else if (((row - 1 < 0) && (column + 1 >= World.getSize())))  
         {
             // add 2 disjunction lists
             for (int i = 0; i < 2; i++)
@@ -628,7 +628,7 @@ public class KnowledgeBase
             ));
         }
         // query cell top row
-        else if ((column + 1 >= ActualWorld.getSize()) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
+        else if ((column + 1 >= World.getSize()) && (row - 1 >= 0) && (row + 1 < World.getSize()))
         {
             // add 3 disjunction lists
             for (int i = 0; i < 3; i++)
@@ -654,7 +654,7 @@ public class KnowledgeBase
             ));
         }
         // query cell top right corner
-        else if ((row + 1 >= ActualWorld.getSize()) && column + 1 >= ActualWorld.getSize()) 
+        else if ((row + 1 >= World.getSize()) && column + 1 >= World.getSize()) 
         {
             // add 2 disjunction lists
             for (int i = 0; i < 2; i++)
@@ -675,7 +675,7 @@ public class KnowledgeBase
             ));
         }
         // query cell right column
-        else if ((row + 1 >= ActualWorld.getSize()) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
+        else if ((row + 1 >= World.getSize()) && (column - 1 >= 0) && (column + 1 < World.getSize()))
         {
             // add 3 disjunction lists
             for (int i = 0; i < 3; i++)
@@ -701,7 +701,7 @@ public class KnowledgeBase
             ));
         }
         // query cell bottom right corner
-        else if ((row + 1 >= ActualWorld.getSize()) && column - 1 < 0)
+        else if ((row + 1 >= World.getSize()) && column - 1 < 0)
         {
             // add 2 disjunction lists
             for (int i = 0; i < 2; i++)
@@ -722,7 +722,7 @@ public class KnowledgeBase
             ));
         }
         // query cell bottom row
-        else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
+        else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < World.getSize()))
         {
             // add 3 disjunction lists
             for (int i = 0; i < 3; i++)
@@ -796,7 +796,7 @@ public class KnowledgeBase
         int column = term.getRoomColumn();
         
         // query cell not on wall (existing rooms on every side)
-        if ((row - 1 >= 0) && (row + 1 < ActualWorld.getSize()) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
+        if ((row - 1 >= 0) && (row + 1 < World.getSize()) && (column - 1 >= 0) && (column + 1 < World.getSize()))
         {
             disj.addAll(Arrays.asList(                
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
@@ -807,7 +807,7 @@ public class KnowledgeBase
             ));
         }
         // query cell left column : no rooms to the left (along y=0 column)
-        else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
+        else if ((row - 1 < 0) && (column - 1 >= 0) && (column + 1 < World.getSize()))
         {
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "SMELLY", new int[]{0,1}),
@@ -817,7 +817,7 @@ public class KnowledgeBase
             ));     
         }
         // query cell top left corner
-        else if (((row - 1 < 0) && (column + 1 >= ActualWorld.getSize())))  
+        else if (((row - 1 < 0) && (column + 1 >= World.getSize())))  
         {
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "SMELLY", new int[]{1,0}),
@@ -827,7 +827,7 @@ public class KnowledgeBase
             );     
         }  
         // query cell top row
-        else if ((column + 1 >= ActualWorld.getSize()) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
+        else if ((column + 1 >= World.getSize()) && (row - 1 >= 0) && (row + 1 < World.getSize()))
         {
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
@@ -838,7 +838,7 @@ public class KnowledgeBase
             );     
         }  
         // query cell top right corner
-        else if ((row + 1 >= ActualWorld.getSize()) && column + 1 >= ActualWorld.getSize()) 
+        else if ((row + 1 >= World.getSize()) && column + 1 >= World.getSize()) 
         {
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
@@ -848,7 +848,7 @@ public class KnowledgeBase
             );     
         }     
         // query cell right column
-        else if ((row + 1 >= ActualWorld.getSize()) && (column - 1 >= 0) && (column + 1 < ActualWorld.getSize()))
+        else if ((row + 1 >= World.getSize()) && (column - 1 >= 0) && (column + 1 < World.getSize()))
         {
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
@@ -859,7 +859,7 @@ public class KnowledgeBase
             );     
         }  
         // query cell bottom right corner
-        else if ((row + 1 >= ActualWorld.getSize()) && column - 1 < 0)
+        else if ((row + 1 >= World.getSize()) && column - 1 < 0)
         {
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),
@@ -869,7 +869,7 @@ public class KnowledgeBase
             );     
         }  
         // query cell bottom row
-        else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < ActualWorld.getSize()))
+        else if ((column - 1 < 0) && (row - 1 >= 0) && (row + 1 < World.getSize()))
         {
             disj.addAll(Arrays.asList( 
                 new KBAtomVariable(true, "SMELLY", new int[]{-1,0}),

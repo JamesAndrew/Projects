@@ -23,8 +23,8 @@ public class KBAgent
     {
         kb = new KnowledgeBase();
         // initialize frontier with the cell above and to the right (0,1) and (1,0)
-        frontier.put(01, ActualWorld.getRoom(0, 1));
-        frontier.put(10, ActualWorld.getRoom(1, 0));
+        frontier.put(01, World.getRoom(0, 1));
+        frontier.put(10, World.getRoom(1, 0));
     }
 
     public void findGold() 
@@ -95,11 +95,11 @@ public class KBAgent
         int column = currentRoom[1];
         
         // curent room is now explored
-        ActualWorld.getRoom(row, column).setIsExplored(true);
+        World.getRoom(row, column).setIsExplored(true);
         
         // for any known property about the current room, add those perceptions 
         ArrayList<KBAtom> perceptions;
-        perceptions = ActualWorld.getRoom(row, column).returnRoomAttributes();
+        perceptions = World.getRoom(row, column).returnRoomAttributes();
         // is the shiny percept happens, set flag to exit the program
         for (KBAtom atom : perceptions)
         {
@@ -150,11 +150,11 @@ public class KBAgent
         
         for (Integer[] entry : adjRooms)
         {
-            if      (entry[0] < 0 || entry[0] >= ActualWorld.getSize()) { } // do nothing
-            else if (entry[1] < 0 || entry[1] >= ActualWorld.getSize()) { } // do nothing
+            if      (entry[0] < 0 || entry[0] >= World.getSize()) { } // do nothing
+            else if (entry[1] < 0 || entry[1] >= World.getSize()) { } // do nothing
             else
             {
-                Room currentRoom = ActualWorld.getRoom(entry[0], entry[1]);
+                Room currentRoom = World.getRoom(entry[0], entry[1]);
                 Integer frontierKey = Integer.valueOf(String.valueOf(entry[0]) + String.valueOf(entry[1]));
                 if (!(currentRoom.isIsExplored())) frontier.put(frontierKey, currentRoom);
             }
