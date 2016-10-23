@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class KBAgent 
 {
-    private int[] currentRoom = new int[]{0,0};
+    private Integer[] currentRoom = new Integer[]{0,0};
     // current direction agent is facing. options are "west", "north", "east", and "south"
     private String currentDirection = "east";
     // arrow stock
@@ -15,7 +15,7 @@ public class KBAgent
     // flips to true once gold is found or no safe room exists
     private boolean endState = false;
     // mapping of frontier - cells adjacent to explored cells that are potentials to go to next
-    Map<int[], Room> frontier = new HashMap<>();
+    Map<Integer, Room> frontier = new HashMap<>();
     // the knowledge base used for queries. is updated by the agent
     private KnowledgeBase kb;
     
@@ -23,8 +23,8 @@ public class KBAgent
     {
         kb = new KnowledgeBase();
         // initialize frontier with the cell above and to the right (0,1) and (1,0)
-        frontier.put(new int[]{0,1}, ActualWorld.getRoom(0, 1));
-        frontier.put(new int[]{1,0}, ActualWorld.getRoom(1, 0));
+        frontier.put(01, ActualWorld.getRoom(0, 1));
+        frontier.put(10, ActualWorld.getRoom(1, 0));
     }
 
     public void findGold() 
@@ -32,6 +32,8 @@ public class KBAgent
 //        while (!endState)
         for (int i = 0; i < 1; i++) // temp forced loop while testing
         {
+            if (endState) break;
+            
             System.out.format("\nCurrent Room: (%d, %d)%n", currentRoom[0], currentRoom[1]);
             
             // update kb about current room
@@ -40,19 +42,8 @@ public class KBAgent
             printKbPercepts();
 
             // ask where to go next or what action to take
-            int[] action = kb.requestAction(currentRoom[0], currentRoom[1]);
+            int[] action = kb.requestAction(currentRoom[0], currentRoom[1], frontier);
             if (!endState) performAction(action);
-            
-            
-            
-            
-            KBAtomConstant queryAtom1 = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(currentRoom[0] + 1, currentRoom[1]));
-            System.out.println("Query result: " + kb.query(queryAtom1));
-            if (kb.query(queryAtom1)) 
-            {
-                System.out.println("Moving to next room");
-                currentRoom[0] = 1;
-            }
         }
     }
 
@@ -62,6 +53,7 @@ public class KBAgent
      * 
      * 1: move to a new cell
      * 2: shoot arrow
+     * 3: exit dungeon (no safe rooms to move to)
      * 
      * index 0 is the action, index 1 and 2 is the row and column to move to
      */
@@ -71,13 +63,20 @@ public class KBAgent
         {
             case 1:
                 // change this later to actually do safe path traversal
-                int[] newRoom = new int[]{action[1], action[2]};
-                currentRoom[0] = newRoom[0];
-                currentRoom[1] = newRoom[1];
-                updateFrontier(newRoom);
+                Integer frontierKey = Integer.valueOf(String.valueOf(action[1]) + String.valueOf(action[2]));
+                System.out.println("frontierKey: " + frontierKey);
+                
+                currentRoom[0] = action[1];
+                currentRoom[1] = action[2];
+                updateFrontier(frontierKey);
+                System.out.format("Moved to room (%d, %d)%n", currentRoom[0], currentRoom[1]);
+                printFrontier();
                 break;
             case 2:
                 arrows--;
+                break;
+            case 3:
+                endState = true;
                 break;
             default:
                 throw new RuntimeException("The provided action integer does not match to the switch statement in KBAgent");
@@ -90,18 +89,18 @@ public class KBAgent
      * @param currentRoom
      * @return 
      */
-    private ArrayList<KBAtom> perceiveRoom(int[] currentRoom) 
+    private ArrayList<KBAtom> perceiveRoom(Integer[] currentRoom) 
     {
 //        System.out.format("current room attributes: %n");
         
         int row = currentRoom[0];
         int column = currentRoom[1];
         
-        ArrayList<KBAtom> perceptions = new ArrayList<>();
-        
         // curent room is now explored
         ActualWorld.getRoom(row, column).setIsExplored(true);
+        
         // for any known property about the current room, add those perceptions 
+        ArrayList<KBAtom> perceptions;
         perceptions = ActualWorld.getRoom(row, column).returnRoomAttributes();
         // is the shiny percept happens, set flag to exit the program
         for (KBAtom atom : perceptions)
@@ -111,19 +110,6 @@ public class KBAgent
         }
         
         return perceptions;
-    }
-    
-    private void printKbPercepts()
-    {
-        List<KBcnf> percepts = kb.getKb_cnf();
-        
-        System.out.println("Knowledge base percepts: ");
-        for (int i = 0; i < percepts.size(); i++)
-        {
-            System.out.format("%s, ", percepts.get(i).toString());
-            if ((i+1) % 5 == 0) System.out.println();
-        }
-        System.out.println();
     }
     
     private void turnCCW()
@@ -148,27 +134,52 @@ public class KBAgent
         this.currentDirection = ccwMapping.get(currentDirection);
     }
 
-    private void updateFrontier(int[] newRoom) 
+    private void updateFrontier(Integer newRoomKey) 
     {
+        System.out.println("frontier before removal: " + frontier.toString());
         // remove room just moved in to from frontier
-        frontier.remove(newRoom);
+        frontier.remove(newRoomKey);
+        System.out.println("frontier after removal: " + frontier.toString());
         
         // add adjacent rooms given they haven't already been explored and are in the bounds of the map
-        ArrayList<int[]> adjRooms = new ArrayList<>();
-        adjRooms.add(new int[]{newRoom[0]-1, newRoom[1]   });
-        adjRooms.add(new int[]{newRoom[0],   newRoom[1]+1 });
-        adjRooms.add(new int[]{newRoom[0]+1, newRoom[1]   });
-        adjRooms.add(new int[]{newRoom[0],   newRoom[1]-1 });
+        ArrayList<Integer[]> adjRooms = new ArrayList<>();
+        adjRooms.add(new Integer[]{currentRoom[0]-1, currentRoom[1]   });
+        adjRooms.add(new Integer[]{currentRoom[0],   currentRoom[1]+1 });
+        adjRooms.add(new Integer[]{currentRoom[0]+1, currentRoom[1]   });
+        adjRooms.add(new Integer[]{currentRoom[0],   currentRoom[1]-1 });
         
-        for (int[] entry : adjRooms)
+        for (Integer[] entry : adjRooms)
         {
             if      (entry[0] < 0 || entry[0] >= ActualWorld.getSize()) { } // do nothing
             else if (entry[1] < 0 || entry[1] >= ActualWorld.getSize()) { } // do nothing
             else
             {
                 Room currentRoom = ActualWorld.getRoom(entry[0], entry[1]);
-                if (!(currentRoom.isIsExplored())) frontier.put(entry, currentRoom);
+                Integer frontierKey = Integer.valueOf(String.valueOf(entry[0]) + String.valueOf(entry[1]));
+                if (!(currentRoom.isIsExplored())) frontier.put(frontierKey, currentRoom);
             }
+        }
+    }
+    
+    private void printKbPercepts()
+    {
+        List<KBcnf> percepts = kb.getKb_cnf();
+        
+        System.out.println("Knowledge base percepts: ");
+        for (int i = 0; i < percepts.size(); i++)
+        {
+            System.out.format("%s, ", percepts.get(i).toString());
+            if ((i+1) % 5 == 0) System.out.println();
+        }
+        System.out.println();
+    }
+    
+    private void printFrontier()
+    {
+        System.out.println("Updated frontier: ");
+        for (Integer key : frontier.keySet())
+        {
+            System.out.format("(%d, %d)%n", frontier.get(key).getRoomRow(), frontier.get(key).getRoomColumn());
         }
     }
 }

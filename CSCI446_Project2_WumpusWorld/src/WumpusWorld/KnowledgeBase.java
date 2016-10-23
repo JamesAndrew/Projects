@@ -121,19 +121,56 @@ public class KnowledgeBase
     /**
      * action 1: move to a new cell
      * action 2: shoot arrow
+     * action 3: exit dungeon (no safe rooms to move to)
      * 
      * index 0 is the action, index 1 and 2 is the row and column to move to
      * @param currentRow : agent's current row location
      * @param currentCol : agent's current col location
+     * @param frontier : frontier that is tracked by the agent
      * @return [action, row to move to, col to move to]
      */ 
-    public int[] requestAction(int currentRow, int currentCol)
+    public int[] requestAction(int currentRow, int currentCol, Map<Integer, Room> frontier)
     {
         int[] returnedAction = new int[3];
         
+        // sort frontier from closest to furthest away
+        ArrayList<Room> sortedFrontier = sortFrontier(frontier, currentRow, currentCol);
+        System.out.println("Sorted Frontier: ");
+        for (Room room : sortedFrontier)
+        {
+            System.out.println(room.toString());
+        }
+        
+        // move to room if room is safe
+        boolean isSafe = false;
+        for (int i = 0; i < sortedFrontier.size(); i++)
+        {
+            int newRow = sortedFrontier.get(i).getRoomRow();
+            int newCol = sortedFrontier.get(i).getRoomColumn();
+            KBAtomConstant safeQuery = new KBAtomConstant(false, "SAFE", ActualWorld.getRoom(newRow, newCol));
+            isSafe = query(safeQuery);
+            
+            System.out.format("Query if room (%d, %d) is safe%n", newRow, newCol);
+            System.out.format("Query value: %b%n", isSafe);
+            
+            if (isSafe)
+            {
+                returnedAction[0] = 1;
+                returnedAction[1] = newRow;
+                returnedAction[2] = newCol;
+                
+                break;
+            }
+        }
+        // if no frontier cell was found safe, you're trapped, so end the simulation
+        if (!isSafe)
+        {
+            System.out.println("No certain safe room exists to move to. Exiting dungeon...");
+            returnedAction[0] = 3;
+        }
         
         // todo: shoot arrow functionality
-        throw new PendingException();
+        return returnedAction;
     }
     
     private boolean resolution(List<KBcnf> kb, KBAtomConstant query)
@@ -900,5 +937,51 @@ public class KnowledgeBase
         }
         
         return returnedPercepts;
+    }
+
+    /**
+     * sorts the local frontier from closest to furthest away from current location
+     * @param frontier
+     * @param row : current row location
+     * @param column : current column location
+     * @return 
+     */
+    private ArrayList<Room> sortFrontier(Map<Integer, Room> frontier, int row, int column) 
+    {
+        ArrayList<Room> sortedList = new ArrayList<>();
+        for (Room room : frontier.values())
+        {
+            if (sortedList.isEmpty()) 
+            {
+                sortedList.add(room);
+            }
+            else
+            {
+                int distance = (Math.abs(room.getRoomRow() - row) + Math.abs(room.getRoomColumn() - column));
+                
+                for (int i = 0; i < sortedList.size(); i++)
+                {
+                    Room otherRoom = sortedList.get(i);
+                    
+                    if ((otherRoom.getRoomRow() == room.getRoomRow()) && (otherRoom.getRoomColumn() == room.getRoomColumn())) { } // do nothing
+                    else if (distance <= (Math.abs(otherRoom.getRoomRow() - row) + Math.abs(otherRoom.getRoomColumn() - column)))
+                    {
+                        sortedList.add(i, room);
+                        break;
+                    }
+                    else if (i == sortedList.size() - 1)
+                    {
+                        sortedList.add(room);
+                        break;
+                    }
+                    else
+                    {
+                        throw new RuntimeException("None of the conditions were met while sorting the frontier");
+                    }
+                }
+            }
+        }
+        if (sortedList.size() != frontier.size()) throw new RuntimeException("Sorted list doesn't match frontier size");
+        return sortedList;
     }
 }

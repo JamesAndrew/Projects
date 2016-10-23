@@ -157,4 +157,11 @@ public class Room
     {
         this.isSafe = isSafe;
     }
+    
+    @Override
+    public String toString()
+    {
+        String value = "(" + roomRow + ", " + roomColumn + ")";
+        return value;
+    }
 }
