@@ -31,7 +31,7 @@ public class KnowledgeBase
     { 
         // initialize the contextual_kb categories
         contextual_kb.put("BLOCKED",    new ArrayList<>());
-        contextual_kb.put("EXPLORED",    new ArrayList<>());
+        contextual_kb.put("EXPLORED",   new ArrayList<>());
         contextual_kb.put("HASGOLD",    new ArrayList<>());
         contextual_kb.put("PIT",        new ArrayList<>());
         contextual_kb.put("SAFE",       new ArrayList<>());
@@ -116,6 +116,24 @@ public class KnowledgeBase
         
         // run the resolution algorithm 
         return resolution(tempKB, question);
+    }
+    
+    /**
+     * action 1: move to a new cell
+     * action 2: shoot arrow
+     * 
+     * index 0 is the action, index 1 and 2 is the row and column to move to
+     * @param currentRow : agent's current row location
+     * @param currentCol : agent's current col location
+     * @return [action, row to move to, col to move to]
+     */ 
+    public int[] requestAction(int currentRow, int currentCol)
+    {
+        int[] returnedAction = new int[3];
+        
+        
+        // todo: shoot arrow functionality
+        throw new PendingException();
     }
     
     private boolean resolution(List<KBcnf> kb, KBAtomConstant query)

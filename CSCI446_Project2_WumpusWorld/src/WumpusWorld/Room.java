@@ -31,6 +31,7 @@ public class Room
         roomColumn = col;
         
         // initiall all rooms are empty (not smelly, not breezy, etc)
+        isExplored = false;
         isBreezy = false;
         isSmelly = false;
         isBlocked = false;
