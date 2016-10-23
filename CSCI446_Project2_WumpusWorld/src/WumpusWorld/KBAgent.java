@@ -95,7 +95,6 @@ public class KBAgent
                 System.out.format("Moved to room (%d, %d)%n", currentRoom[0], currentRoom[1]);
 //                printFrontier();
                 score -= distance;
-                System.out.println("Score: " + score);
                 break;
             // shoot arrow
             case 2:
@@ -134,6 +133,8 @@ public class KBAgent
         if (col + 1 < World.getSize()) World.getRoom(row, col + 1).setIsSmelly(false);
         if (row + 1 < World.getSize()) World.getRoom(row + 1, col).setIsSmelly(false);
         if (col - 1 >= 0)              World.getRoom(row, col - 1).setIsSmelly(false);
+        
+        System.out.format("Killed wumpus in room (%d, %d)%n", row, col);
     }
     
     /**
