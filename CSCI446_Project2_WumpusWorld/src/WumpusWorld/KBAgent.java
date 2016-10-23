@@ -15,12 +15,21 @@ public class KBAgent
     // flips to true once gold is found or no safe room exists
     private boolean endState = false;
     // mapping of frontier - cells adjacent to explored cells that are potentials to go to next
-    private Map<Integer, Room> frontier = new HashMap<>();
-    // Statistics and points tracking
-    private AgentStatistics stats = new AgentStatistics();
-    private Integer score = 0;
+    private final Map<Integer, Room> frontier = new HashMap<>();
     // the knowledge base used for queries. is updated by the agent
     private KnowledgeBase kb;
+    
+                            // Statistics and points tracking //
+    // Key: Category ("numDecisionsMade", "goldFound", "wumpiKilled", "pitFalls", "wumpusDeaths", "cellsExplored", "score"
+    // Value: Integer values of their respective category
+    private HashMap<String, Integer> statsMap = new HashMap<>();
+    private Integer numDecisionsMade = 0;
+    private Integer goldFound = 0;
+    private Integer wumpiKilled = 0;
+    private Integer pitFalls = 0;
+    private Integer wumpusDeaths = 0;
+    private Integer cellsExplored = 0;
+    private Integer score = 0;
     
     public KBAgent()
     {
@@ -33,7 +42,6 @@ public class KBAgent
     public void findGold() 
     {
         while (!endState)
-//        for (int i = 0; i < 6; i++) // temp forced loop while testing
         {
             System.out.format("\nCurrent Room: (%d, %d)%n", currentRoom[0], currentRoom[1]);
             
@@ -47,9 +55,15 @@ public class KBAgent
             int[] action = kb.requestAction(currentRoom[0], currentRoom[1], frontier);
             if (!endState) performAction(action);
         }
-        
-        stats.addReactiveStats(World.getSize(), score);
-        System.out.format("%n=== Final Score: %d ===%n", score);
+        // update statistics for this run
+        statsMap.put("numDecisionsMade", 0);
+        statsMap.put("goldFound", 0);
+        statsMap.put("wumpiKilled", 0);
+        statsMap.put("pitFalls", 0);
+        statsMap.put("wumpusDeaths", 0);
+        statsMap.put("cellsExplored", 0);
+        statsMap.put("score", score);
+                
         System.out.println("=== Simulation Concluded ===");
     }
 
@@ -191,5 +205,10 @@ public class KBAgent
         {
             System.out.format("(%d, %d)%n", frontier.get(key).getRoomRow(), frontier.get(key).getRoomColumn());
         }
+    }
+
+    public HashMap<String, Integer> getStatsMap() 
+    {
+        return statsMap;
     }
 }

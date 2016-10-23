@@ -21,11 +21,16 @@ public class KnowledgeBase
     // kb as a result of exploration. Holds only KBAtomConstants
     private List<KBcnf> percept_kb = new ArrayList<>();
     // mapping of relevant axioms to each query. These are KBAtomVariables
-    private Map<String, List<KBcnf>> contextual_kb = new HashMap<>();
+    private final Map<String, List<KBcnf>> contextual_kb = new HashMap<>();
     // mapping of query requests to appropriate axiom contexts
-    private Map<String, List<String>> contextMapping = new HashMap<>();
+    private final Map<String, List<String>> contextMapping = new HashMap<>();
+    
+    // First Key: run #
+    // Second Key: Category ("numDecisionsMade", "goldFound", "wumpiKilled", "pitFalls", "wumpusDeaths", "cellsExplored", "score"
+    // Second Value: Integer values of their respective category
+    private HashMap<String, Integer> statistics = new HashMap<>();
     // cloner for deep coppying from the knowledge base
-    Cloner cloner = new Cloner();
+    private final Cloner cloner = new Cloner();
     
     public KnowledgeBase() 
     { 
@@ -1117,5 +1122,12 @@ public class KnowledgeBase
         {
             System.out.format("(%d, %d)%n", frontier.get(key).getRoomRow(), frontier.get(key).getRoomColumn());
         }
+    }
+
+    /**
+     * @return the statistics
+     */
+    public HashMap<String, Integer> getStatistics() {
+        return statistics;
     }
 }
