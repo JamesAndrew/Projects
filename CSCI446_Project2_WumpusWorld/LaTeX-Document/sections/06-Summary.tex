@@ -1,0 +1,7 @@
+\section{Summary}
+As expected, the reactive agent did not perform very well on average over the range of world sizes used in testing.  The lack of reasoning about cells that were outside of the agent's current percept range severely inhibited it from avoiding dangerous cells and successfully finding the gold.  
+Even on smaller world sizes such as the initial 5x5 grid, the reactive agent failed to reach the goal state the majority of the time and was repeatedly killed, giving it little chance to finish with a positive score. 
+
+By using the reactive agent as a benchmark for performance improvement, it was possible to determine whether or not the additions to the knowledge-based agent were increasing or decreasing performance. 
+With the exception of decisions made, which is due to the far greater complexity of the knowledge-based approach, every measured value was better for the knowledge-based agent than for the reactive agent. 
+Perhaps one of the most telling statistics for the improvements over the reactive version is the fact that the knowledge-based agent did not die once for all iterations over all world sizes, showing that it was able to very successfully determine which unknown cells were more dangerous than others. Overall, the results for the knowledge-based agent show a great improvement over the much simpler reactive agent. 

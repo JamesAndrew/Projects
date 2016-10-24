@@ -1,0 +1,16 @@
+\section{Experimental Approach} \label{sec:exp approach}
+World sizes from 5 to 25 will be run with a step increase of 5. 
+The probability of placing a pit was set to 0.10, Wumpus to 0.05, and obstacle to 0.05. 
+There will never been more than 1 danger in any given square.
+ 
+Though the contents of most cells will be left entirely up to the probability function, the cells immediately above and to the right of the starting cell will be left empty so that at least one safe move will be guaranteed. 
+
+The agent begins to search for the gold and tracks each time it makes a decision, when it succeeded at finding the gold, when it kills a Wumpus, when it falls down a pit, when it dies, when it explores a new room, and its score. 
+The score metric starts at zero, subtracts one point for each action made\footnote{This includes turning clockwise and counterclockwise and moving from one room to another}, subtracts ten points for firing an arrow, adds ten points for shooting an arrow, subtracts 1,000 points for dying, and adds 1,000 points for finding the gold.
+
+Because one agent utilizes an inference engine and the other does not, the way decisions are made is notably different.
+Thus we look for the rate of change in average decisions made as the world size increases.
+
+To generate statistically significant data, we run each map size for each agent 20 times and take the average result of the 20 sample runs.
+This data is displayed in section \ref{sec:exp-results}.
+Detailed data about the individual results of each run is provided in appendix \ref{app:DetailedRunData}.

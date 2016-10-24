@@ -1,0 +1,171 @@
+\section{Description of Algorithms Implemented} \label{sec:description}
+
+\subsection{Model-Based Reactive Agent} \label{subsec:desc-modelbasedreactiveagent}
+The model-based reactive agent is simple compared to the KB-Agent. Below contains the main loop of the reactive agent.
+
+\begin{algorithm}[!ht]
+\caption{Model-Based Reactive Agent}\label{Model-Based Reactive Agent}
+\begin{algorithmic}[1]
+\While {allowed moves left}
+\Procedure{ReactiveAgent}{actualWorld}
+	\State $perceivedWorld$ = what the agent knows about the next state
+    \State $model$ = what will happen when an agent makes a certain decision
+    \State $rules$ = a set of simple condition-action rules
+    \State $action$ = most recent action
+    \State
+    \State $state$ = $updateState(perceivedWorld, $ $action, $ $sensors, $ $model)$
+    \State $action$ = $Action(state, $ $rules)$
+    \State \Return $action$
+\EndProcedure
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+The agent is very limited in ability due to only being aware of its previous move and can only guess the state of rooms directly adjacent to it. Since the reactive agent can't look as far ahead as the KB-agent, a max moves variable is used to prevent infinite loops\cite{Zhang}. Naturally, this means the reactive will die...a lot.
+
+\subsection{Knowledge-Based Agent} \label{subsec:desc-knowledgebasedagent}
+The KB-agent is written in Java and utilizes an object oriented representation of conjunctive normal form (CNF) grammar\footnote{In this implementation, the composite patter is consistently used to create a CNF representation of literals, clauses, operators, and sentences.} along with unification and resolution algorithms to provide answers to queries from the agent such as \textit{`is room (3,4) safe?'} or \textit{`should I fire an arrow, and at which cell?'}.
+
+\subsubsection{Inference Engine Design} \label{subsubsec:inference engine}
+To achieve inference through first-order logic, the KB-agent uses a inference powered knowledge base\footnote{Henceforth knowledge base and inference engine refer to the same thing.}  which has a static list of first-order logic, universal axioms and a dynamic list of atomic sentences provided by the agent as he explores and perceives the world. 
+Unification is used to transform the variable, universal axioms into constants relevant to the current query.
+Resolution takes the unified knowledge base and a query and provides a value of true or false.
+The inference engine also has logic built into it to decide the best action to take\footnote{Move to a known safe cell, fire an arrow, pick up the gold, or prematurely exit the dungeon} given the current known state of the world.
+
+As the world size increases, the number of agent-perceived atomic sentences increases exponentially.
+The resolution algorithm uses pairwise comparison of each atomic sentence which will result in infeasibly time-expensive procedures as the knowledge base becomes large.
+To deal with this, the knowledge base uses a first order logic system and contains contextual mappings of query requests mapped to a subset of axioms and atoms in the knowledge base.
+When a query is made, irrelevant sentences are not included in the knowledge base.
+
+\paragraph{Atoms and Predicates}
+The most basic composed logic object used is an Atom which consists of a negation value, a predicate, and a term.\footnote{The term is used during unification and is either a variable room or a unified reference to a specific room.}
+The predicates are predefined and are as follows:
+\begin{multicols}{3}
+\begin{itemize}
+	\item $BLOCKED$
+    \item $EXP$ (explored)
+    \item $HASGOLD$
+    \item $OBST$ (obstructed)
+    \item $PIT$
+    \item $SAFE$
+    \item $SHINY$
+    \item $SMELLY$
+    \item $WUMPUS$
+\end{itemize}
+\end{multicols}
+
+\paragraph{Universal Axiomatic Sentences}
+The most important axioms for this problem are sentences describing when a room has a Wumpus in it, when a room has a pit, and when a room is safe.
+These axioms are described in equations \ref{eq:HasWumpus} through \ref{eq:IsSafe}.
+The rest of the inferences and instructions are extensions of these three primary sentences.
+In the complimentary code, all axioms are written in conjunctive normal form, but for ease of reading they are written here in their equivalent implication form.
+
+If all adjacent rooms\footnote{Note that in the code implementation, edge cases also had to be included in the axioms. In other words, if the query room was Room [0,0], then conjunctives for Room [-1,0] and Room [0,-1] are not a part of the CNF} to a query square are explored and determined smelly, then the query room has a Wumpus in it.
+\begin{align}\label{eq:HasWumpus}
+\begin{split}
+	(SMELLY(Room_{x-1,y}) &\land EXP(Room_{x-1,y})) \land \\
+    (SMELLY(Room_{x,y+1}) &\land EXP(Room_{x,y+1})) \land \\
+    (SMELLY(Room_{x+1,y}) &\land EXP(Room_{x+1,y})) \land \\
+    (SMELLY(Room_{x,y+1}) &\land EXP(Room_{x,y-1})) \\
+    &\Rightarrow WUMPUS(Room_{x,y})
+\end{split}
+\end{align}
+
+In similar fashion, if all adjacent rooms are explored and determined windy, then the query room is a pit.
+\begin{align}\label{eq:HasPit}
+\begin{split}
+	(WINDY(Room_{x-1,y}) &\land EXP(Room_{x-1,y})) \land \\
+    (WINDY(Room_{x,y+1}) &\land EXP(Room_{x,y+1})) \land \\
+    (WINDY(Room_{x+1,y}) &\land EXP(Room_{x+1,y})) \land \\
+    (WINDY(Room_{x,y-1}) &\land EXP(Room_{x,y-1})) \\
+    &\Rightarrow PIT(Room_{x,y})
+\end{split}
+\end{align}
+
+Finally, a room is known to be safe if any of the surrounding rooms have been explored and have neither a smell or wind attribute.
+\begin{align}\label{eq:IsSafe}
+\begin{split}
+	(\neg SMELLY(Room_{x-1,y}) \land \neg WINDY(Room_{x-1,y}) &\land EXP(Room_{x-1,y})) \lor \\
+    (\neg SMELLY(Room_{x,y+1}) \land \neg WINDY(Room_{x,y+1}) &\land EXP(Room_{x,y+1})) \lor \\
+    (\neg SMELLY(Room_{x+1,y}) \land \neg WINDY(Room_{x+1,y}) &\land EXP(Room_{x+1,y})) \lor \\
+    (\neg SMELLY(Room_{x,y-1}) \land \neg WINDY(Room_{x,y-1}) &\land EXP(Room_{x,y-1})) \\
+    &\Rightarrow PIT(Room_{x,y})
+\end{split}
+\end{align}
+
+The rest of the axioms are straight forward such as identifying if a room has gold in it:
+\begin{align}\label{eq:HasGold}
+\begin{split}
+	SHINY(Room_{x,y}) \Rightarrow HASGOLD(Room_{x,y})
+\end{split}
+\end{align}
+
+\paragraph{Unification}
+Before running resolution on a given query, the knowledge base axioms need to be unified.
+The unification shown in algorithm \ref{alg:unification} follows the concepts described by Russell and Norvig \cite{Russell}, but takes advantage of the domain of this problem by only looking to transform atoms of type \textit{variable} into atoms of type \textit{constant} with allowed predicates already defined.
+\begin{algorithm}
+\caption{Unification}\label{alg:unification}
+\begin{algorithmic}[1]
+\Procedure{Unify}{kb, query}
+	\State \textbf{Pre:} \textit{kb} is the knowledge base
+    \State \textbf{Pre:} \textit{query} is an atomic sentence
+    \For {each sentence in \textit{kb}}
+    	\For {each atom}
+        	\If {\textsc{Subst}($\theta, atom$) = \textsc{Subst}($\theta, query$)}
+            	\State \textsc{Unify}($atom, query$)
+            \EndIf
+        \EndFor
+    \EndFor
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\paragraph{Resolution}
+Resolution follows the resolution inference rules outlined in Russell and Norvig \cite{Russell}. 
+It utilizes the fact that all statements in the knowledge base are already in conjunctive normal form and applies a proof by contradiction to assert the truth of a query. 
+After all terms have been unified, split any conjunctions into individual sentences. 
+Next, do a pairwise comparison of each sentence in the knowledge base.
+If a new resolvent clause is generated that has not been generated before, add it to the local knowledge base. 
+If an empty resolvent clause is generated, the proof by contradiction succeeded. 
+Assert the query is true.
+If no unique resolvent clauses are generated after all pairwise comparisons, assert the query is false.
+The algorithm is shown in algorithm \ref{alg:resolution}.
+\begin{algorithm}
+\caption{Resolution}\label{alg:resolution}
+\begin{algorithmic}[1]
+\Procedure{Resolve}{kb, query}
+	\State \textbf{Pre:} the knowledge base, kb, has been unified with the query
+    \State $kb \gets $ \textsc{SplitConjunctions}$(kb)$
+    \Repeat
+    	\For {all pairwise comparisons $(a,b)$ sentences in $kb$}
+        	\State $r \gets (a-resolvent\_atom) \cup (b-resolvent\_atom)$
+            \If {$r \notin a \lor b$ }
+            	\If {$r = \emptyset$}
+                    \State query is \textbf{True}
+                \Else
+                	\State $kb = kb \cup r$
+                \EndIf
+            \EndIf
+        \EndFor
+        \If {$kb$ was not updated over the loop}
+        	\State query is \textbf{False}
+        \EndIf
+    \Until {query is \textbf{true} or \textbf{false}}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+Due to the repeated pairwise comparisons of the knowledge base, it is vital to ensure the local knowledge base only contains the necessary sentences relevant to the query as mentioned at the beginning of section \ref{subsubsec:inference engine}.\footnote{Alternately, a more optimized algorithm should be used such as backward chaining.}
+
+\paragraph{Request Action}
+The agent moves through the dungeon by perceiving the room it is currently in, updating the knowledge base with the perceptions, and requesting an action to preform to the knowledge base. 
+A frontier of unexplored cells is tracked throughout the scenario.
+The \textsc{RequestAction} command follows a simple order-of-priority method of approach as follows:
+\begin{enumerate}
+	\item If the agent's current room is shiny, pick up the gold and exit the simulation.
+    \item Move to the closest room in the frontier list that can be asserted as safe.
+    \item If there are no safe rooms to move to, move to a safe room adjacent to where a Wumpus is known to exist and shoot it.
+    \item If there are still no safe rooms, no guaranteed safe move can occur, so exit the simulation.
+\end{enumerate}
+
+

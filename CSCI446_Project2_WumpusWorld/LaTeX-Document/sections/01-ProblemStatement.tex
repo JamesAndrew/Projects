@@ -1,0 +1,28 @@
+\section{Problem Statement} \label{sec:problem statement}
+This project is an implementation of first order logic, unification, and resolution through the setting of the Wumpus World. 
+The Wumpus World is an explorable dungeon with the goal state of finding the room with gold in it; but there are pits, blocked rooms, and dangerous Wumpus monsters in the way. 
+The agent has a bow and arrow at his disposal to kill the Wumpus and a refined inference engine to decide what rooms to go to and which actions to take.
+
+The problem handled by this project focuses on the inference engine.
+For dungeons of sizes 5 x 5 to 25 x 25, inference rules are used to always make the safest choice depending on information about the dungeon the agent has revealed.
+The challenge is to decode how to state and use first-order clauses in a programmatic fashion. 
+
+Evaluation will compare the logic-based agent to a simple, reactive agent.
+The reactive agent always chooses what it believes is the most safe neighbor cell is based on only the current perception at time $t$ for room $C_{x,y}(t)$.
+The metrics used to compare the two agents are:
+\begin{enumerate}
+	\item Number of decisions made.
+    \item The gold was or was not found.
+    \item Number of Wumpi killed by the agent.
+    \item Number of times the agent fell in to a pit.
+    \item Number of times the agent is killed by a Wumpus.
+    \item Number of unique cells explored.
+    \item The agent's score.\footnote{-1 point for each movement, -10 points for firing an arrow, +10 for killing a Wumpus, -1000 for dying, +1000 points for finding the gold.}
+\end{enumerate}
+
+\subsection{Hypothesis} \label{subsec:hypothesis}
+Given the knowledge based agent (KB-agent) will have rules in place to never move into a potentially dangerous room until the inference engine can assure the room is safe, one can hypothesize the KB-agent will produce a better score than the reactive agent for every map size on average. 
+For small map sizes\footnote{5x5 or 10x10} the reactive agent may outperform the KB-agent for minimizing number of decisions made and number of cells explored, but the reactive agent will be notably outperformed in all categories as the map size increases.  
+
+Furthermore, The KB-agent will likely perform in NP time.
+Run time will slow down dramatically as the search space becomes large due to exponential growth of logical comparisons that will be made\cite{Ansari}.
