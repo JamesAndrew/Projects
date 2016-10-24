@@ -13,7 +13,7 @@ public class TempMain_David
     
     public static void main(String[] args) throws UnsupportedEncodingException, FileNotFoundException, IOException
     { 
-        int worldSize = 10;
+        int worldSize = 5;
         // run the world 20 times
         for (int i = 0; i < 1; i++)
         {
