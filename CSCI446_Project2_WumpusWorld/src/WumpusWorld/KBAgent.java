@@ -33,6 +33,7 @@ public class KBAgent
     
     public KBAgent()
     {
+        numDecisionsMade = 0;
         kb = new KnowledgeBase();
         // initialize frontier with the cell above and to the right (0,1) and (1,0)
         frontier.put(01, World.getRoom(0, 1));
