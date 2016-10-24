@@ -13,9 +13,9 @@ public class TempMain_David
     
     public static void main(String[] args) throws UnsupportedEncodingException, FileNotFoundException, IOException
     { 
-        int worldSize = 25;
+        int worldSize = 10;
         // run the world 20 times
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 1; i++)
         {
             World aWorld = new World(worldSize);
             World.printWorld();

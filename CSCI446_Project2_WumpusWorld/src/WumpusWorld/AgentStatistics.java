@@ -62,15 +62,15 @@ public class AgentStatistics
         for (HashMap<String, Integer> value : reactiveAgentStats.values())
         {
             HashMap<String, Integer> currentMap = value;
-            System.out.format("%d, %d, %d, %d, %d, %d, %d, %d%n", 
-                i,
-                currentMap.get("numDecisionsMade"),
-                currentMap.get("goldFound"),
-                currentMap.get("wumpiKilled"),
-                currentMap.get("pitFalls"),
-                currentMap.get("wumpusDeaths"),
-                currentMap.get("cellsExplored"),
-                currentMap.get("score"));
+            System.out.format("%s: %d%n %s: %d%n %s: %d%n %s: %d%n %s: %d%n %s: %d%n %s: %d%n %s: %d%n", 
+                "Run #: ", i,
+                "Num Decisions Made: ", currentMap.get("numDecisionsMade"),
+                "Gold Found?: ", currentMap.get("goldFound"),
+                "Wumpi Killed: ", currentMap.get("wumpiKilled"),
+                "Pit falls: ", currentMap.get("pitFalls"),
+                "Deaths to wumpus: ", currentMap.get("wumpusDeaths"),
+                "Num cells explored: ", currentMap.get("cellsExplored"),
+                "Total score: ", currentMap.get("score"));
             
             sb.append(String.format("%d, %d, %d, %d, %d, %d, %d, %d%n", 
                 i,

@@ -49,7 +49,7 @@ public class KBAgent
             // update kb about current room
             ArrayList<KBAtom> roomPercepts = perceiveRoom(currentRoom);
             for (KBAtom atom : roomPercepts) kb.update(atom);
-//            printKbPercepts();
+            printKbPercepts();
             if (endState) break;
             
             // ask where to go next or what action to take

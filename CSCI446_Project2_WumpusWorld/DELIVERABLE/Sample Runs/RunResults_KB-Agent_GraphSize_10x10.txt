@@ -1,0 +1,649 @@
+ant -f "C:\\Users\\David\\Dropbox\\MSU 2016 Fall\\Artificial Intelligence\\Projects\\CSCI446_Project2_WumpusWorld" -Dnb.internal.action.name=run run
+init:
+Deleting: C:\Users\David\Dropbox\MSU 2016 Fall\Artificial Intelligence\Projects\CSCI446_Project2_WumpusWorld\build\built-jar.properties
+deps-jar:
+Updating property file: C:\Users\David\Dropbox\MSU 2016 Fall\Artificial Intelligence\Projects\CSCI446_Project2_WumpusWorld\build\built-jar.properties
+compile:
+run:
+Row 0: (0,0)  ---  | (0,1)  ---  | (0,2)smelly | (0,3)wumpus | (0,4)smelly | (0,5)  ---  | (0,6)  ---  | (0,7)smelly | (0,8)gold   | (0,9)  ---  
+Row 1: (1,0)  ---  | (1,1)  ---  | (1,2)  ---  | (1,3)smelly | (1,4)smelly | (1,5)  ---  | (1,6)smelly | (1,7)wumpus | (1,8)smelly | (1,9)  ---  
+Row 2: (2,0)  ---  | (2,1)  ---  | (2,2)  ---  | (2,3)smelly | (2,4)wumpus | (2,5)smelly | (2,6)smelly | (2,7)smelly | (2,8)  ---  | (2,9)  ---  
+Row 3: (3,0)  ---  | (3,1)  ---  | (3,2)  ---  | (3,3)  ---  | (3,4)smelly | (3,5)smelly | (3,6)wumpus | (3,7)smelly | (3,8)  ---  | (3,9)  ---  
+Row 4: (4,0)  ---  | (4,1)  ---  | (4,2)  ---  | (4,3)smelly | (4,4)wumpus | (4,5)smelly | (4,6)smelly | (4,7)  ---  | (4,8)  ---  | (4,9)  ---  
+Row 5: (5,0)smelly | (5,1)  ---  | (5,2)  ---  | (5,3)  ---  | (5,4)smelly | (5,5)  ---  | (5,6)  ---  | (5,7)  ---  | (5,8)  ---  | (5,9)  ---  
+Row 6: (6,0)wumpus | (6,1)smelly | (6,2)breezy | (6,3)  ---  | (6,4)  ---  | (6,5)  ---  | (6,6)  ---  | (6,7)  ---  | (6,8)  ---  | (6,9)  ---  
+Row 7: (7,0)smelly | (7,1)breezy | (7,2)pit    | (7,3)breezy | (7,4)  ---  | (7,5)  ---  | (7,6)  ---  | (7,7)  ---  | (7,8)  ---  | (7,9)  ---  
+Row 8: (8,0)  ---  | (8,1)blocked| (8,2)breezy | (8,3)  ---  | (8,4)  ---  | (8,5)  ---  | (8,6)  ---  | (8,7)smelly | (8,8)  ---  | (8,9)  ---  
+Row 9: (9,0)  ---  | (9,1)  ---  | (9,2)  ---  | (9,3)  ---  | (9,4)  ---  | (9,5)  ---  | (9,6)smelly | (9,7)wumpus | (9,8)smelly | (9,9)  ---  
+
+Current Room: (0, 0)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+
+Sorted Frontier: 
+(1, 0), (0, 1), 
+Query if room (1, 0) is safe
+Query value: true
+Moved to room (1, 0)
+
+Current Room: (1, 0)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+
+Sorted Frontier: 
+(1, 1), (2, 0), (0, 1), 
+Query if room (1, 1) is safe
+Query value: true
+Moved to room (1, 1)
+
+Current Room: (1, 1)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+
+Sorted Frontier: 
+(1, 2), (2, 1), (0, 1), (2, 0), 
+Query if room (1, 2) is safe
+Query value: true
+Moved to room (1, 2)
+
+Current Room: (1, 2)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+
+Sorted Frontier: 
+(1, 3), (2, 2), (0, 2), (0, 1), (2, 0), (2, 1), 
+Query if room (1, 3) is safe
+Query value: true
+Moved to room (1, 3)
+
+Current Room: (1, 3)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+
+Sorted Frontier: 
+(1, 4), (2, 3), (0, 3), (0, 2), (0, 1), (2, 0), (2, 1), (2, 2), 
+Query if room (1, 4) is safe
+Query value: false
+Query if room (2, 3) is safe
+Query value: false
+Query if room (0, 3) is safe
+Query value: false
+Query if room (0, 2) is safe
+Query value: true
+Moved to room (0, 2)
+
+Current Room: (0, 2)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+[[!BLOCKED(room(0, 2))]], [[!WINDY(room(0, 2))]], [[!SHINY(room(0, 2))]], [[SMELLY(room(0, 2))]], [[EXPLORED(room(0, 2))]], 
+
+Sorted Frontier: 
+(0, 3), (0, 1), (2, 0), (2, 1), (2, 2), (2, 3), (1, 4), 
+Query if room (0, 3) is safe
+Query value: false
+Query if room (0, 1) is safe
+Query value: true
+Moved to room (0, 1)
+
+Current Room: (0, 1)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+[[!BLOCKED(room(0, 2))]], [[!WINDY(room(0, 2))]], [[!SHINY(room(0, 2))]], [[SMELLY(room(0, 2))]], [[EXPLORED(room(0, 2))]], 
+[[!BLOCKED(room(0, 1))]], [[!WINDY(room(0, 1))]], [[!SHINY(room(0, 1))]], [[!SMELLY(room(0, 1))]], [[EXPLORED(room(0, 1))]], 
+
+Sorted Frontier: 
+(2, 1), (0, 3), (2, 0), (2, 2), (2, 3), (1, 4), 
+Query if room (2, 1) is safe
+Query value: true
+Moved to room (2, 1)
+
+Current Room: (2, 1)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+[[!BLOCKED(room(0, 2))]], [[!WINDY(room(0, 2))]], [[!SHINY(room(0, 2))]], [[SMELLY(room(0, 2))]], [[EXPLORED(room(0, 2))]], 
+[[!BLOCKED(room(0, 1))]], [[!WINDY(room(0, 1))]], [[!SHINY(room(0, 1))]], [[!SMELLY(room(0, 1))]], [[EXPLORED(room(0, 1))]], 
+[[!BLOCKED(room(2, 1))]], [[!WINDY(room(2, 1))]], [[!SHINY(room(2, 1))]], [[!SMELLY(room(2, 1))]], [[EXPLORED(room(2, 1))]], 
+
+Sorted Frontier: 
+(3, 1), (2, 2), (2, 0), (0, 3), (2, 3), (1, 4), 
+Query if room (3, 1) is safe
+Query value: true
+Moved to room (3, 1)
+
+Current Room: (3, 1)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+[[!BLOCKED(room(0, 2))]], [[!WINDY(room(0, 2))]], [[!SHINY(room(0, 2))]], [[SMELLY(room(0, 2))]], [[EXPLORED(room(0, 2))]], 
+[[!BLOCKED(room(0, 1))]], [[!WINDY(room(0, 1))]], [[!SHINY(room(0, 1))]], [[!SMELLY(room(0, 1))]], [[EXPLORED(room(0, 1))]], 
+[[!BLOCKED(room(2, 1))]], [[!WINDY(room(2, 1))]], [[!SHINY(room(2, 1))]], [[!SMELLY(room(2, 1))]], [[EXPLORED(room(2, 1))]], 
+[[!BLOCKED(room(3, 1))]], [[!WINDY(room(3, 1))]], [[!SHINY(room(3, 1))]], [[!SMELLY(room(3, 1))]], [[EXPLORED(room(3, 1))]], 
+
+Sorted Frontier: 
+(3, 0), (4, 1), (3, 2), (0, 3), (2, 0), (2, 2), (2, 3), (1, 4), 
+Query if room (3, 0) is safe
+Query value: true
+Moved to room (3, 0)
+
+Current Room: (3, 0)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+[[!BLOCKED(room(0, 2))]], [[!WINDY(room(0, 2))]], [[!SHINY(room(0, 2))]], [[SMELLY(room(0, 2))]], [[EXPLORED(room(0, 2))]], 
+[[!BLOCKED(room(0, 1))]], [[!WINDY(room(0, 1))]], [[!SHINY(room(0, 1))]], [[!SMELLY(room(0, 1))]], [[EXPLORED(room(0, 1))]], 
+[[!BLOCKED(room(2, 1))]], [[!WINDY(room(2, 1))]], [[!SHINY(room(2, 1))]], [[!SMELLY(room(2, 1))]], [[EXPLORED(room(2, 1))]], 
+[[!BLOCKED(room(3, 1))]], [[!WINDY(room(3, 1))]], [[!SHINY(room(3, 1))]], [[!SMELLY(room(3, 1))]], [[EXPLORED(room(3, 1))]], 
+[[!BLOCKED(room(3, 0))]], [[!WINDY(room(3, 0))]], [[!SHINY(room(3, 0))]], [[!SMELLY(room(3, 0))]], [[EXPLORED(room(3, 0))]], 
+
+Sorted Frontier: 
+(4, 0), (2, 0), (3, 2), (0, 3), (2, 2), (2, 3), (4, 1), (1, 4), 
+Query if room (4, 0) is safe
+Query value: true
+Moved to room (4, 0)
+
+Current Room: (4, 0)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+[[!BLOCKED(room(0, 2))]], [[!WINDY(room(0, 2))]], [[!SHINY(room(0, 2))]], [[SMELLY(room(0, 2))]], [[EXPLORED(room(0, 2))]], 
+[[!BLOCKED(room(0, 1))]], [[!WINDY(room(0, 1))]], [[!SHINY(room(0, 1))]], [[!SMELLY(room(0, 1))]], [[EXPLORED(room(0, 1))]], 
+[[!BLOCKED(room(2, 1))]], [[!WINDY(room(2, 1))]], [[!SHINY(room(2, 1))]], [[!SMELLY(room(2, 1))]], [[EXPLORED(room(2, 1))]], 
+[[!BLOCKED(room(3, 1))]], [[!WINDY(room(3, 1))]], [[!SHINY(room(3, 1))]], [[!SMELLY(room(3, 1))]], [[EXPLORED(room(3, 1))]], 
+[[!BLOCKED(room(3, 0))]], [[!WINDY(room(3, 0))]], [[!SHINY(room(3, 0))]], [[!SMELLY(room(3, 0))]], [[EXPLORED(room(3, 0))]], 
+[[!BLOCKED(room(4, 0))]], [[!WINDY(room(4, 0))]], [[!SHINY(room(4, 0))]], [[!SMELLY(room(4, 0))]], [[EXPLORED(room(4, 0))]], 
+
+Sorted Frontier: 
+(4, 1), (5, 0), (3, 2), (0, 3), (2, 0), (2, 2), (2, 3), (1, 4), 
+Query if room (4, 1) is safe
+Query value: true
+Moved to room (4, 1)
+
+Current Room: (4, 1)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+[[!BLOCKED(room(0, 2))]], [[!WINDY(room(0, 2))]], [[!SHINY(room(0, 2))]], [[SMELLY(room(0, 2))]], [[EXPLORED(room(0, 2))]], 
+[[!BLOCKED(room(0, 1))]], [[!WINDY(room(0, 1))]], [[!SHINY(room(0, 1))]], [[!SMELLY(room(0, 1))]], [[EXPLORED(room(0, 1))]], 
+[[!BLOCKED(room(2, 1))]], [[!WINDY(room(2, 1))]], [[!SHINY(room(2, 1))]], [[!SMELLY(room(2, 1))]], [[EXPLORED(room(2, 1))]], 
+[[!BLOCKED(room(3, 1))]], [[!WINDY(room(3, 1))]], [[!SHINY(room(3, 1))]], [[!SMELLY(room(3, 1))]], [[EXPLORED(room(3, 1))]], 
+[[!BLOCKED(room(3, 0))]], [[!WINDY(room(3, 0))]], [[!SHINY(room(3, 0))]], [[!SMELLY(room(3, 0))]], [[EXPLORED(room(3, 0))]], 
+[[!BLOCKED(room(4, 0))]], [[!WINDY(room(4, 0))]], [[!SHINY(room(4, 0))]], [[!SMELLY(room(4, 0))]], [[EXPLORED(room(4, 0))]], 
+[[!BLOCKED(room(4, 1))]], [[!WINDY(room(4, 1))]], [[!SHINY(room(4, 1))]], [[!SMELLY(room(4, 1))]], [[EXPLORED(room(4, 1))]], 
+
+Sorted Frontier: 
+(4, 2), (5, 1), (5, 0), (3, 2), (0, 3), (2, 0), (2, 2), (2, 3), (1, 4), 
+Query if room (4, 2) is safe
+Query value: true
+Moved to room (4, 2)
+
+Current Room: (4, 2)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+[[!BLOCKED(room(0, 2))]], [[!WINDY(room(0, 2))]], [[!SHINY(room(0, 2))]], [[SMELLY(room(0, 2))]], [[EXPLORED(room(0, 2))]], 
+[[!BLOCKED(room(0, 1))]], [[!WINDY(room(0, 1))]], [[!SHINY(room(0, 1))]], [[!SMELLY(room(0, 1))]], [[EXPLORED(room(0, 1))]], 
+[[!BLOCKED(room(2, 1))]], [[!WINDY(room(2, 1))]], [[!SHINY(room(2, 1))]], [[!SMELLY(room(2, 1))]], [[EXPLORED(room(2, 1))]], 
+[[!BLOCKED(room(3, 1))]], [[!WINDY(room(3, 1))]], [[!SHINY(room(3, 1))]], [[!SMELLY(room(3, 1))]], [[EXPLORED(room(3, 1))]], 
+[[!BLOCKED(room(3, 0))]], [[!WINDY(room(3, 0))]], [[!SHINY(room(3, 0))]], [[!SMELLY(room(3, 0))]], [[EXPLORED(room(3, 0))]], 
+[[!BLOCKED(room(4, 0))]], [[!WINDY(room(4, 0))]], [[!SHINY(room(4, 0))]], [[!SMELLY(room(4, 0))]], [[EXPLORED(room(4, 0))]], 
+[[!BLOCKED(room(4, 1))]], [[!WINDY(room(4, 1))]], [[!SHINY(room(4, 1))]], [[!SMELLY(room(4, 1))]], [[EXPLORED(room(4, 1))]], 
+[[!BLOCKED(room(4, 2))]], [[!WINDY(room(4, 2))]], [[!SHINY(room(4, 2))]], [[!SMELLY(room(4, 2))]], [[EXPLORED(room(4, 2))]], 
+
+Sorted Frontier: 
+(4, 3), (5, 2), (3, 2), (5, 0), (0, 3), (5, 1), (2, 0), (2, 2), (2, 3), (1, 4), 
+Query if room (4, 3) is safe
+Query value: true
+Moved to room (4, 3)
+
+Current Room: (4, 3)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+[[!BLOCKED(room(0, 2))]], [[!WINDY(room(0, 2))]], [[!SHINY(room(0, 2))]], [[SMELLY(room(0, 2))]], [[EXPLORED(room(0, 2))]], 
+[[!BLOCKED(room(0, 1))]], [[!WINDY(room(0, 1))]], [[!SHINY(room(0, 1))]], [[!SMELLY(room(0, 1))]], [[EXPLORED(room(0, 1))]], 
+[[!BLOCKED(room(2, 1))]], [[!WINDY(room(2, 1))]], [[!SHINY(room(2, 1))]], [[!SMELLY(room(2, 1))]], [[EXPLORED(room(2, 1))]], 
+[[!BLOCKED(room(3, 1))]], [[!WINDY(room(3, 1))]], [[!SHINY(room(3, 1))]], [[!SMELLY(room(3, 1))]], [[EXPLORED(room(3, 1))]], 
+[[!BLOCKED(room(3, 0))]], [[!WINDY(room(3, 0))]], [[!SHINY(room(3, 0))]], [[!SMELLY(room(3, 0))]], [[EXPLORED(room(3, 0))]], 
+[[!BLOCKED(room(4, 0))]], [[!WINDY(room(4, 0))]], [[!SHINY(room(4, 0))]], [[!SMELLY(room(4, 0))]], [[EXPLORED(room(4, 0))]], 
+[[!BLOCKED(room(4, 1))]], [[!WINDY(room(4, 1))]], [[!SHINY(room(4, 1))]], [[!SMELLY(room(4, 1))]], [[EXPLORED(room(4, 1))]], 
+[[!BLOCKED(room(4, 2))]], [[!WINDY(room(4, 2))]], [[!SHINY(room(4, 2))]], [[!SMELLY(room(4, 2))]], [[EXPLORED(room(4, 2))]], 
+[[!BLOCKED(room(4, 3))]], [[!WINDY(room(4, 3))]], [[!SHINY(room(4, 3))]], [[SMELLY(room(4, 3))]], [[EXPLORED(room(4, 3))]], 
+
+Sorted Frontier: 
+(4, 4), (5, 3), (3, 3), (3, 2), (5, 0), (0, 3), (5, 1), (2, 0), (5, 2), (2, 2), (2, 3), (1, 4), 
+Query if room (4, 4) is safe
+Query value: false
+Query if room (5, 3) is safe
+Query value: false
+Query if room (3, 3) is safe
+Query value: false
+Query if room (3, 2) is safe
+Query value: true
+Moved to room (3, 2)
+
+Current Room: (3, 2)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+[[!BLOCKED(room(0, 2))]], [[!WINDY(room(0, 2))]], [[!SHINY(room(0, 2))]], [[SMELLY(room(0, 2))]], [[EXPLORED(room(0, 2))]], 
+[[!BLOCKED(room(0, 1))]], [[!WINDY(room(0, 1))]], [[!SHINY(room(0, 1))]], [[!SMELLY(room(0, 1))]], [[EXPLORED(room(0, 1))]], 
+[[!BLOCKED(room(2, 1))]], [[!WINDY(room(2, 1))]], [[!SHINY(room(2, 1))]], [[!SMELLY(room(2, 1))]], [[EXPLORED(room(2, 1))]], 
+[[!BLOCKED(room(3, 1))]], [[!WINDY(room(3, 1))]], [[!SHINY(room(3, 1))]], [[!SMELLY(room(3, 1))]], [[EXPLORED(room(3, 1))]], 
+[[!BLOCKED(room(3, 0))]], [[!WINDY(room(3, 0))]], [[!SHINY(room(3, 0))]], [[!SMELLY(room(3, 0))]], [[EXPLORED(room(3, 0))]], 
+[[!BLOCKED(room(4, 0))]], [[!WINDY(room(4, 0))]], [[!SHINY(room(4, 0))]], [[!SMELLY(room(4, 0))]], [[EXPLORED(room(4, 0))]], 
+[[!BLOCKED(room(4, 1))]], [[!WINDY(room(4, 1))]], [[!SHINY(room(4, 1))]], [[!SMELLY(room(4, 1))]], [[EXPLORED(room(4, 1))]], 
+[[!BLOCKED(room(4, 2))]], [[!WINDY(room(4, 2))]], [[!SHINY(room(4, 2))]], [[!SMELLY(room(4, 2))]], [[EXPLORED(room(4, 2))]], 
+[[!BLOCKED(room(4, 3))]], [[!WINDY(room(4, 3))]], [[!SHINY(room(4, 3))]], [[SMELLY(room(4, 3))]], [[EXPLORED(room(4, 3))]], 
+[[!BLOCKED(room(3, 2))]], [[!WINDY(room(3, 2))]], [[!SHINY(room(3, 2))]], [[!SMELLY(room(3, 2))]], [[EXPLORED(room(3, 2))]], 
+
+Sorted Frontier: 
+(2, 2), (3, 3), (5, 0), (0, 3), (5, 1), (2, 0), (5, 2), (5, 3), (2, 3), (4, 4), (1, 4), 
+Query if room (2, 2) is safe
+Query value: true
+Moved to room (2, 2)
+
+Current Room: (2, 2)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+[[!BLOCKED(room(0, 2))]], [[!WINDY(room(0, 2))]], [[!SHINY(room(0, 2))]], [[SMELLY(room(0, 2))]], [[EXPLORED(room(0, 2))]], 
+[[!BLOCKED(room(0, 1))]], [[!WINDY(room(0, 1))]], [[!SHINY(room(0, 1))]], [[!SMELLY(room(0, 1))]], [[EXPLORED(room(0, 1))]], 
+[[!BLOCKED(room(2, 1))]], [[!WINDY(room(2, 1))]], [[!SHINY(room(2, 1))]], [[!SMELLY(room(2, 1))]], [[EXPLORED(room(2, 1))]], 
+[[!BLOCKED(room(3, 1))]], [[!WINDY(room(3, 1))]], [[!SHINY(room(3, 1))]], [[!SMELLY(room(3, 1))]], [[EXPLORED(room(3, 1))]], 
+[[!BLOCKED(room(3, 0))]], [[!WINDY(room(3, 0))]], [[!SHINY(room(3, 0))]], [[!SMELLY(room(3, 0))]], [[EXPLORED(room(3, 0))]], 
+[[!BLOCKED(room(4, 0))]], [[!WINDY(room(4, 0))]], [[!SHINY(room(4, 0))]], [[!SMELLY(room(4, 0))]], [[EXPLORED(room(4, 0))]], 
+[[!BLOCKED(room(4, 1))]], [[!WINDY(room(4, 1))]], [[!SHINY(room(4, 1))]], [[!SMELLY(room(4, 1))]], [[EXPLORED(room(4, 1))]], 
+[[!BLOCKED(room(4, 2))]], [[!WINDY(room(4, 2))]], [[!SHINY(room(4, 2))]], [[!SMELLY(room(4, 2))]], [[EXPLORED(room(4, 2))]], 
+[[!BLOCKED(room(4, 3))]], [[!WINDY(room(4, 3))]], [[!SHINY(room(4, 3))]], [[SMELLY(room(4, 3))]], [[EXPLORED(room(4, 3))]], 
+[[!BLOCKED(room(3, 2))]], [[!WINDY(room(3, 2))]], [[!SHINY(room(3, 2))]], [[!SMELLY(room(3, 2))]], [[EXPLORED(room(3, 2))]], 
+[[!BLOCKED(room(2, 2))]], [[!WINDY(room(2, 2))]], [[!SHINY(room(2, 2))]], [[!SMELLY(room(2, 2))]], [[EXPLORED(room(2, 2))]], 
+
+Sorted Frontier: 
+(2, 3), (2, 0), (3, 3), (5, 0), (0, 3), (5, 1), (5, 2), (5, 3), (4, 4), (1, 4), 
+Query if room (2, 3) is safe
+Query value: true
+Moved to room (2, 3)
+
+Current Room: (2, 3)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+[[!BLOCKED(room(0, 2))]], [[!WINDY(room(0, 2))]], [[!SHINY(room(0, 2))]], [[SMELLY(room(0, 2))]], [[EXPLORED(room(0, 2))]], 
+[[!BLOCKED(room(0, 1))]], [[!WINDY(room(0, 1))]], [[!SHINY(room(0, 1))]], [[!SMELLY(room(0, 1))]], [[EXPLORED(room(0, 1))]], 
+[[!BLOCKED(room(2, 1))]], [[!WINDY(room(2, 1))]], [[!SHINY(room(2, 1))]], [[!SMELLY(room(2, 1))]], [[EXPLORED(room(2, 1))]], 
+[[!BLOCKED(room(3, 1))]], [[!WINDY(room(3, 1))]], [[!SHINY(room(3, 1))]], [[!SMELLY(room(3, 1))]], [[EXPLORED(room(3, 1))]], 
+[[!BLOCKED(room(3, 0))]], [[!WINDY(room(3, 0))]], [[!SHINY(room(3, 0))]], [[!SMELLY(room(3, 0))]], [[EXPLORED(room(3, 0))]], 
+[[!BLOCKED(room(4, 0))]], [[!WINDY(room(4, 0))]], [[!SHINY(room(4, 0))]], [[!SMELLY(room(4, 0))]], [[EXPLORED(room(4, 0))]], 
+[[!BLOCKED(room(4, 1))]], [[!WINDY(room(4, 1))]], [[!SHINY(room(4, 1))]], [[!SMELLY(room(4, 1))]], [[EXPLORED(room(4, 1))]], 
+[[!BLOCKED(room(4, 2))]], [[!WINDY(room(4, 2))]], [[!SHINY(room(4, 2))]], [[!SMELLY(room(4, 2))]], [[EXPLORED(room(4, 2))]], 
+[[!BLOCKED(room(4, 3))]], [[!WINDY(room(4, 3))]], [[!SHINY(room(4, 3))]], [[SMELLY(room(4, 3))]], [[EXPLORED(room(4, 3))]], 
+[[!BLOCKED(room(3, 2))]], [[!WINDY(room(3, 2))]], [[!SHINY(room(3, 2))]], [[!SMELLY(room(3, 2))]], [[EXPLORED(room(3, 2))]], 
+[[!BLOCKED(room(2, 2))]], [[!WINDY(room(2, 2))]], [[!SHINY(room(2, 2))]], [[!SMELLY(room(2, 2))]], [[EXPLORED(room(2, 2))]], 
+[[!BLOCKED(room(2, 3))]], [[!WINDY(room(2, 3))]], [[!SHINY(room(2, 3))]], [[SMELLY(room(2, 3))]], [[EXPLORED(room(2, 3))]], 
+
+Sorted Frontier: 
+(2, 4), (3, 3), (5, 0), (0, 3), (5, 1), (2, 0), (5, 2), (5, 3), (4, 4), (1, 4), 
+Query if room (2, 4) is safe
+Query value: false
+Query if room (3, 3) is safe
+Query value: true
+Moved to room (3, 3)
+
+Current Room: (3, 3)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+[[!BLOCKED(room(0, 2))]], [[!WINDY(room(0, 2))]], [[!SHINY(room(0, 2))]], [[SMELLY(room(0, 2))]], [[EXPLORED(room(0, 2))]], 
+[[!BLOCKED(room(0, 1))]], [[!WINDY(room(0, 1))]], [[!SHINY(room(0, 1))]], [[!SMELLY(room(0, 1))]], [[EXPLORED(room(0, 1))]], 
+[[!BLOCKED(room(2, 1))]], [[!WINDY(room(2, 1))]], [[!SHINY(room(2, 1))]], [[!SMELLY(room(2, 1))]], [[EXPLORED(room(2, 1))]], 
+[[!BLOCKED(room(3, 1))]], [[!WINDY(room(3, 1))]], [[!SHINY(room(3, 1))]], [[!SMELLY(room(3, 1))]], [[EXPLORED(room(3, 1))]], 
+[[!BLOCKED(room(3, 0))]], [[!WINDY(room(3, 0))]], [[!SHINY(room(3, 0))]], [[!SMELLY(room(3, 0))]], [[EXPLORED(room(3, 0))]], 
+[[!BLOCKED(room(4, 0))]], [[!WINDY(room(4, 0))]], [[!SHINY(room(4, 0))]], [[!SMELLY(room(4, 0))]], [[EXPLORED(room(4, 0))]], 
+[[!BLOCKED(room(4, 1))]], [[!WINDY(room(4, 1))]], [[!SHINY(room(4, 1))]], [[!SMELLY(room(4, 1))]], [[EXPLORED(room(4, 1))]], 
+[[!BLOCKED(room(4, 2))]], [[!WINDY(room(4, 2))]], [[!SHINY(room(4, 2))]], [[!SMELLY(room(4, 2))]], [[EXPLORED(room(4, 2))]], 
+[[!BLOCKED(room(4, 3))]], [[!WINDY(room(4, 3))]], [[!SHINY(room(4, 3))]], [[SMELLY(room(4, 3))]], [[EXPLORED(room(4, 3))]], 
+[[!BLOCKED(room(3, 2))]], [[!WINDY(room(3, 2))]], [[!SHINY(room(3, 2))]], [[!SMELLY(room(3, 2))]], [[EXPLORED(room(3, 2))]], 
+[[!BLOCKED(room(2, 2))]], [[!WINDY(room(2, 2))]], [[!SHINY(room(2, 2))]], [[!SMELLY(room(2, 2))]], [[EXPLORED(room(2, 2))]], 
+[[!BLOCKED(room(2, 3))]], [[!WINDY(room(2, 3))]], [[!SHINY(room(2, 3))]], [[SMELLY(room(2, 3))]], [[EXPLORED(room(2, 3))]], 
+[[!BLOCKED(room(3, 3))]], [[!WINDY(room(3, 3))]], [[!SHINY(room(3, 3))]], [[!SMELLY(room(3, 3))]], [[EXPLORED(room(3, 3))]], 
+
+Sorted Frontier: 
+(3, 4), (5, 0), (0, 3), (5, 1), (2, 0), (5, 2), (5, 3), (2, 4), (4, 4), (1, 4), 
+Query if room (3, 4) is safe
+Query value: true
+Moved to room (3, 4)
+
+Current Room: (3, 4)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+[[!BLOCKED(room(0, 2))]], [[!WINDY(room(0, 2))]], [[!SHINY(room(0, 2))]], [[SMELLY(room(0, 2))]], [[EXPLORED(room(0, 2))]], 
+[[!BLOCKED(room(0, 1))]], [[!WINDY(room(0, 1))]], [[!SHINY(room(0, 1))]], [[!SMELLY(room(0, 1))]], [[EXPLORED(room(0, 1))]], 
+[[!BLOCKED(room(2, 1))]], [[!WINDY(room(2, 1))]], [[!SHINY(room(2, 1))]], [[!SMELLY(room(2, 1))]], [[EXPLORED(room(2, 1))]], 
+[[!BLOCKED(room(3, 1))]], [[!WINDY(room(3, 1))]], [[!SHINY(room(3, 1))]], [[!SMELLY(room(3, 1))]], [[EXPLORED(room(3, 1))]], 
+[[!BLOCKED(room(3, 0))]], [[!WINDY(room(3, 0))]], [[!SHINY(room(3, 0))]], [[!SMELLY(room(3, 0))]], [[EXPLORED(room(3, 0))]], 
+[[!BLOCKED(room(4, 0))]], [[!WINDY(room(4, 0))]], [[!SHINY(room(4, 0))]], [[!SMELLY(room(4, 0))]], [[EXPLORED(room(4, 0))]], 
+[[!BLOCKED(room(4, 1))]], [[!WINDY(room(4, 1))]], [[!SHINY(room(4, 1))]], [[!SMELLY(room(4, 1))]], [[EXPLORED(room(4, 1))]], 
+[[!BLOCKED(room(4, 2))]], [[!WINDY(room(4, 2))]], [[!SHINY(room(4, 2))]], [[!SMELLY(room(4, 2))]], [[EXPLORED(room(4, 2))]], 
+[[!BLOCKED(room(4, 3))]], [[!WINDY(room(4, 3))]], [[!SHINY(room(4, 3))]], [[SMELLY(room(4, 3))]], [[EXPLORED(room(4, 3))]], 
+[[!BLOCKED(room(3, 2))]], [[!WINDY(room(3, 2))]], [[!SHINY(room(3, 2))]], [[!SMELLY(room(3, 2))]], [[EXPLORED(room(3, 2))]], 
+[[!BLOCKED(room(2, 2))]], [[!WINDY(room(2, 2))]], [[!SHINY(room(2, 2))]], [[!SMELLY(room(2, 2))]], [[EXPLORED(room(2, 2))]], 
+[[!BLOCKED(room(2, 3))]], [[!WINDY(room(2, 3))]], [[!SHINY(room(2, 3))]], [[SMELLY(room(2, 3))]], [[EXPLORED(room(2, 3))]], 
+[[!BLOCKED(room(3, 3))]], [[!WINDY(room(3, 3))]], [[!SHINY(room(3, 3))]], [[!SMELLY(room(3, 3))]], [[EXPLORED(room(3, 3))]], 
+[[!BLOCKED(room(3, 4))]], [[!WINDY(room(3, 4))]], [[!SHINY(room(3, 4))]], [[SMELLY(room(3, 4))]], [[EXPLORED(room(3, 4))]], 
+
+Sorted Frontier: 
+(4, 4), (2, 4), (3, 5), (0, 3), (5, 0), (5, 1), (2, 0), (5, 2), (5, 3), (1, 4), 
+Query if room (4, 4) is safe
+Query value: false
+Query if room (2, 4) is safe
+Query value: false
+Query if room (3, 5) is safe
+Query value: false
+Query if room (0, 3) is safe
+Query value: false
+Query if room (5, 0) is safe
+Query value: true
+Moved to room (5, 0)
+
+Current Room: (5, 0)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+[[!BLOCKED(room(0, 2))]], [[!WINDY(room(0, 2))]], [[!SHINY(room(0, 2))]], [[SMELLY(room(0, 2))]], [[EXPLORED(room(0, 2))]], 
+[[!BLOCKED(room(0, 1))]], [[!WINDY(room(0, 1))]], [[!SHINY(room(0, 1))]], [[!SMELLY(room(0, 1))]], [[EXPLORED(room(0, 1))]], 
+[[!BLOCKED(room(2, 1))]], [[!WINDY(room(2, 1))]], [[!SHINY(room(2, 1))]], [[!SMELLY(room(2, 1))]], [[EXPLORED(room(2, 1))]], 
+[[!BLOCKED(room(3, 1))]], [[!WINDY(room(3, 1))]], [[!SHINY(room(3, 1))]], [[!SMELLY(room(3, 1))]], [[EXPLORED(room(3, 1))]], 
+[[!BLOCKED(room(3, 0))]], [[!WINDY(room(3, 0))]], [[!SHINY(room(3, 0))]], [[!SMELLY(room(3, 0))]], [[EXPLORED(room(3, 0))]], 
+[[!BLOCKED(room(4, 0))]], [[!WINDY(room(4, 0))]], [[!SHINY(room(4, 0))]], [[!SMELLY(room(4, 0))]], [[EXPLORED(room(4, 0))]], 
+[[!BLOCKED(room(4, 1))]], [[!WINDY(room(4, 1))]], [[!SHINY(room(4, 1))]], [[!SMELLY(room(4, 1))]], [[EXPLORED(room(4, 1))]], 
+[[!BLOCKED(room(4, 2))]], [[!WINDY(room(4, 2))]], [[!SHINY(room(4, 2))]], [[!SMELLY(room(4, 2))]], [[EXPLORED(room(4, 2))]], 
+[[!BLOCKED(room(4, 3))]], [[!WINDY(room(4, 3))]], [[!SHINY(room(4, 3))]], [[SMELLY(room(4, 3))]], [[EXPLORED(room(4, 3))]], 
+[[!BLOCKED(room(3, 2))]], [[!WINDY(room(3, 2))]], [[!SHINY(room(3, 2))]], [[!SMELLY(room(3, 2))]], [[EXPLORED(room(3, 2))]], 
+[[!BLOCKED(room(2, 2))]], [[!WINDY(room(2, 2))]], [[!SHINY(room(2, 2))]], [[!SMELLY(room(2, 2))]], [[EXPLORED(room(2, 2))]], 
+[[!BLOCKED(room(2, 3))]], [[!WINDY(room(2, 3))]], [[!SHINY(room(2, 3))]], [[SMELLY(room(2, 3))]], [[EXPLORED(room(2, 3))]], 
+[[!BLOCKED(room(3, 3))]], [[!WINDY(room(3, 3))]], [[!SHINY(room(3, 3))]], [[!SMELLY(room(3, 3))]], [[EXPLORED(room(3, 3))]], 
+[[!BLOCKED(room(3, 4))]], [[!WINDY(room(3, 4))]], [[!SHINY(room(3, 4))]], [[SMELLY(room(3, 4))]], [[EXPLORED(room(3, 4))]], 
+[[!BLOCKED(room(5, 0))]], [[!WINDY(room(5, 0))]], [[!SHINY(room(5, 0))]], [[SMELLY(room(5, 0))]], [[EXPLORED(room(5, 0))]], 
+
+Sorted Frontier: 
+(6, 0), (5, 1), (0, 3), (3, 5), (2, 0), (5, 2), (5, 3), (2, 4), (4, 4), (1, 4), 
+Query if room (6, 0) is safe
+Query value: false
+Query if room (5, 1) is safe
+Query value: true
+Moved to room (5, 1)
+
+.
+. (etc....)
+.
+
+Sorted Frontier: 
+(4, 5), (3, 6), (3, 5), (6, 6), (0, 3), (6, 7), (6, 8), (6, 9), (7, 1), (7, 2), (7, 5), (7, 6), (7, 7), (1, 4), (8, 3), (2, 0), (2, 4), (8, 8), (9, 3), (9, 7), (3, 7), (3, 8), (3, 9), (4, 4), (6, 0), 
+Query if room (4, 5) is safe
+Query value: true
+Moved to room (4, 5)
+
+Current Room: (4, 5)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+[[!BLOCKED(room(0, 2))]], [[!WINDY(room(0, 2))]], [[!SHINY(room(0, 2))]], [[SMELLY(room(0, 2))]], [[EXPLORED(room(0, 2))]], 
+[[!BLOCKED(room(0, 1))]], [[!WINDY(room(0, 1))]], [[!SHINY(room(0, 1))]], [[!SMELLY(room(0, 1))]], [[EXPLORED(room(0, 1))]], 
+[[!BLOCKED(room(2, 1))]], [[!WINDY(room(2, 1))]], [[!SHINY(room(2, 1))]], [[!SMELLY(room(2, 1))]], [[EXPLORED(room(2, 1))]], 
+[[!BLOCKED(room(3, 1))]], [[!WINDY(room(3, 1))]], [[!SHINY(room(3, 1))]], [[!SMELLY(room(3, 1))]], [[EXPLORED(room(3, 1))]], 
+[[!BLOCKED(room(3, 0))]], [[!WINDY(room(3, 0))]], [[!SHINY(room(3, 0))]], [[!SMELLY(room(3, 0))]], [[EXPLORED(room(3, 0))]], 
+[[!BLOCKED(room(4, 0))]], [[!WINDY(room(4, 0))]], [[!SHINY(room(4, 0))]], [[!SMELLY(room(4, 0))]], [[EXPLORED(room(4, 0))]], 
+[[!BLOCKED(room(4, 1))]], [[!WINDY(room(4, 1))]], [[!SHINY(room(4, 1))]], [[!SMELLY(room(4, 1))]], [[EXPLORED(room(4, 1))]], 
+[[!BLOCKED(room(4, 2))]], [[!WINDY(room(4, 2))]], [[!SHINY(room(4, 2))]], [[!SMELLY(room(4, 2))]], [[EXPLORED(room(4, 2))]], 
+[[!BLOCKED(room(4, 3))]], [[!WINDY(room(4, 3))]], [[!SHINY(room(4, 3))]], [[SMELLY(room(4, 3))]], [[EXPLORED(room(4, 3))]], 
+[[!BLOCKED(room(3, 2))]], [[!WINDY(room(3, 2))]], [[!SHINY(room(3, 2))]], [[!SMELLY(room(3, 2))]], [[EXPLORED(room(3, 2))]], 
+[[!BLOCKED(room(2, 2))]], [[!WINDY(room(2, 2))]], [[!SHINY(room(2, 2))]], [[!SMELLY(room(2, 2))]], [[EXPLORED(room(2, 2))]], 
+[[!BLOCKED(room(2, 3))]], [[!WINDY(room(2, 3))]], [[!SHINY(room(2, 3))]], [[SMELLY(room(2, 3))]], [[EXPLORED(room(2, 3))]], 
+[[!BLOCKED(room(3, 3))]], [[!WINDY(room(3, 3))]], [[!SHINY(room(3, 3))]], [[!SMELLY(room(3, 3))]], [[EXPLORED(room(3, 3))]], 
+[[!BLOCKED(room(3, 4))]], [[!WINDY(room(3, 4))]], [[!SHINY(room(3, 4))]], [[SMELLY(room(3, 4))]], [[EXPLORED(room(3, 4))]], 
+[[!BLOCKED(room(5, 0))]], [[!WINDY(room(5, 0))]], [[!SHINY(room(5, 0))]], [[SMELLY(room(5, 0))]], [[EXPLORED(room(5, 0))]], 
+[[!BLOCKED(room(5, 1))]], [[!WINDY(room(5, 1))]], [[!SHINY(room(5, 1))]], [[!SMELLY(room(5, 1))]], [[EXPLORED(room(5, 1))]], 
+[[!BLOCKED(room(6, 1))]], [[!WINDY(room(6, 1))]], [[!SHINY(room(6, 1))]], [[SMELLY(room(6, 1))]], [[EXPLORED(room(6, 1))]], 
+[[!BLOCKED(room(5, 2))]], [[!WINDY(room(5, 2))]], [[!SHINY(room(5, 2))]], [[!SMELLY(room(5, 2))]], [[EXPLORED(room(5, 2))]], 
+[[!BLOCKED(room(6, 2))]], [[WINDY(room(6, 2))]], [[!SHINY(room(6, 2))]], [[!SMELLY(room(6, 2))]], [[EXPLORED(room(6, 2))]], 
+[[!BLOCKED(room(5, 3))]], [[!WINDY(room(5, 3))]], [[!SHINY(room(5, 3))]], [[!SMELLY(room(5, 3))]], [[EXPLORED(room(5, 3))]], 
+[[!BLOCKED(room(6, 3))]], [[!WINDY(room(6, 3))]], [[!SHINY(room(6, 3))]], [[!SMELLY(room(6, 3))]], [[EXPLORED(room(6, 3))]], 
+[[!BLOCKED(room(7, 3))]], [[WINDY(room(7, 3))]], [[!SHINY(room(7, 3))]], [[!SMELLY(room(7, 3))]], [[EXPLORED(room(7, 3))]], 
+[[!BLOCKED(room(6, 4))]], [[!WINDY(room(6, 4))]], [[!SHINY(room(6, 4))]], [[!SMELLY(room(6, 4))]], [[EXPLORED(room(6, 4))]], 
+[[!BLOCKED(room(5, 4))]], [[!WINDY(room(5, 4))]], [[!SHINY(room(5, 4))]], [[SMELLY(room(5, 4))]], [[EXPLORED(room(5, 4))]], 
+[[!BLOCKED(room(7, 4))]], [[!WINDY(room(7, 4))]], [[!SHINY(room(7, 4))]], [[!SMELLY(room(7, 4))]], [[EXPLORED(room(7, 4))]], 
+[[!BLOCKED(room(8, 4))]], [[!WINDY(room(8, 4))]], [[!SHINY(room(8, 4))]], [[!SMELLY(room(8, 4))]], [[EXPLORED(room(8, 4))]], 
+[[!BLOCKED(room(9, 4))]], [[!WINDY(room(9, 4))]], [[!SHINY(room(9, 4))]], [[!SMELLY(room(9, 4))]], [[EXPLORED(room(9, 4))]], 
+[[!BLOCKED(room(9, 5))]], [[!WINDY(room(9, 5))]], [[!SHINY(room(9, 5))]], [[!SMELLY(room(9, 5))]], [[EXPLORED(room(9, 5))]], 
+[[!BLOCKED(room(8, 5))]], [[!WINDY(room(8, 5))]], [[!SHINY(room(8, 5))]], [[!SMELLY(room(8, 5))]], [[EXPLORED(room(8, 5))]], 
+[[!BLOCKED(room(8, 6))]], [[!WINDY(room(8, 6))]], [[!SHINY(room(8, 6))]], [[!SMELLY(room(8, 6))]], [[EXPLORED(room(8, 6))]], 
+[[!BLOCKED(room(8, 7))]], [[!WINDY(room(8, 7))]], [[!SHINY(room(8, 7))]], [[SMELLY(room(8, 7))]], [[EXPLORED(room(8, 7))]], 
+[[BLOCKED(room(9, 6))]], [[!WINDY(room(9, 6))]], [[!SHINY(room(9, 6))]], [[SMELLY(room(9, 6))]], [[EXPLORED(room(9, 6))]], 
+[[!BLOCKED(room(6, 5))]], [[!WINDY(room(6, 5))]], [[!SHINY(room(6, 5))]], [[!SMELLY(room(6, 5))]], [[EXPLORED(room(6, 5))]], 
+[[!BLOCKED(room(5, 5))]], [[!WINDY(room(5, 5))]], [[!SHINY(room(5, 5))]], [[!SMELLY(room(5, 5))]], [[EXPLORED(room(5, 5))]], 
+[[!BLOCKED(room(5, 6))]], [[!WINDY(room(5, 6))]], [[!SHINY(room(5, 6))]], [[!SMELLY(room(5, 6))]], [[EXPLORED(room(5, 6))]], 
+[[!BLOCKED(room(5, 7))]], [[!WINDY(room(5, 7))]], [[!SHINY(room(5, 7))]], [[!SMELLY(room(5, 7))]], [[EXPLORED(room(5, 7))]], 
+[[!BLOCKED(room(5, 8))]], [[!WINDY(room(5, 8))]], [[!SHINY(room(5, 8))]], [[!SMELLY(room(5, 8))]], [[EXPLORED(room(5, 8))]], 
+[[!BLOCKED(room(5, 9))]], [[!WINDY(room(5, 9))]], [[!SHINY(room(5, 9))]], [[!SMELLY(room(5, 9))]], [[EXPLORED(room(5, 9))]], 
+[[!BLOCKED(room(4, 9))]], [[!WINDY(room(4, 9))]], [[!SHINY(room(4, 9))]], [[!SMELLY(room(4, 9))]], [[EXPLORED(room(4, 9))]], 
+[[!BLOCKED(room(4, 8))]], [[!WINDY(room(4, 8))]], [[!SHINY(room(4, 8))]], [[!SMELLY(room(4, 8))]], [[EXPLORED(room(4, 8))]], 
+[[!BLOCKED(room(4, 7))]], [[!WINDY(room(4, 7))]], [[!SHINY(room(4, 7))]], [[!SMELLY(room(4, 7))]], [[EXPLORED(room(4, 7))]], 
+[[!BLOCKED(room(4, 6))]], [[!WINDY(room(4, 6))]], [[!SHINY(room(4, 6))]], [[SMELLY(room(4, 6))]], [[EXPLORED(room(4, 6))]], 
+[[!BLOCKED(room(4, 5))]], [[!WINDY(room(4, 5))]], [[!SHINY(room(4, 5))]], [[SMELLY(room(4, 5))]], [[EXPLORED(room(4, 5))]], 
+
+Killed wumpus in room (4, 4)
+
+Current Room: (4, 5)
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+[[!BLOCKED(room(0, 2))]], [[!WINDY(room(0, 2))]], [[!SHINY(room(0, 2))]], [[SMELLY(room(0, 2))]], [[EXPLORED(room(0, 2))]], 
+[[!BLOCKED(room(0, 1))]], [[!WINDY(room(0, 1))]], [[!SHINY(room(0, 1))]], [[!SMELLY(room(0, 1))]], [[EXPLORED(room(0, 1))]], 
+[[!BLOCKED(room(2, 1))]], [[!WINDY(room(2, 1))]], [[!SHINY(room(2, 1))]], [[!SMELLY(room(2, 1))]], [[EXPLORED(room(2, 1))]], 
+[[!BLOCKED(room(3, 1))]], [[!WINDY(room(3, 1))]], [[!SHINY(room(3, 1))]], [[!SMELLY(room(3, 1))]], [[EXPLORED(room(3, 1))]], 
+[[!BLOCKED(room(3, 0))]], [[!WINDY(room(3, 0))]], [[!SHINY(room(3, 0))]], [[!SMELLY(room(3, 0))]], [[EXPLORED(room(3, 0))]], 
+[[!BLOCKED(room(4, 0))]], [[!WINDY(room(4, 0))]], [[!SHINY(room(4, 0))]], [[!SMELLY(room(4, 0))]], [[EXPLORED(room(4, 0))]], 
+[[!BLOCKED(room(4, 1))]], [[!WINDY(room(4, 1))]], [[!SHINY(room(4, 1))]], [[!SMELLY(room(4, 1))]], [[EXPLORED(room(4, 1))]], 
+[[!BLOCKED(room(4, 2))]], [[!WINDY(room(4, 2))]], [[!SHINY(room(4, 2))]], [[!SMELLY(room(4, 2))]], [[EXPLORED(room(4, 2))]], 
+[[!BLOCKED(room(4, 3))]], [[!WINDY(room(4, 3))]], [[!SHINY(room(4, 3))]], [[SMELLY(room(4, 3))]], [[EXPLORED(room(4, 3))]], 
+[[!BLOCKED(room(3, 2))]], [[!WINDY(room(3, 2))]], [[!SHINY(room(3, 2))]], [[!SMELLY(room(3, 2))]], [[EXPLORED(room(3, 2))]], 
+[[!BLOCKED(room(2, 2))]], [[!WINDY(room(2, 2))]], [[!SHINY(room(2, 2))]], [[!SMELLY(room(2, 2))]], [[EXPLORED(room(2, 2))]], 
+[[!BLOCKED(room(2, 3))]], [[!WINDY(room(2, 3))]], [[!SHINY(room(2, 3))]], [[SMELLY(room(2, 3))]], [[EXPLORED(room(2, 3))]], 
+[[!BLOCKED(room(3, 3))]], [[!WINDY(room(3, 3))]], [[!SHINY(room(3, 3))]], [[!SMELLY(room(3, 3))]], [[EXPLORED(room(3, 3))]], 
+[[!BLOCKED(room(3, 4))]], [[!WINDY(room(3, 4))]], [[!SHINY(room(3, 4))]], [[SMELLY(room(3, 4))]], [[EXPLORED(room(3, 4))]], 
+[[!BLOCKED(room(5, 0))]], [[!WINDY(room(5, 0))]], [[!SHINY(room(5, 0))]], [[SMELLY(room(5, 0))]], [[EXPLORED(room(5, 0))]], 
+[[!BLOCKED(room(5, 1))]], [[!WINDY(room(5, 1))]], [[!SHINY(room(5, 1))]], [[!SMELLY(room(5, 1))]], [[EXPLORED(room(5, 1))]], 
+[[!BLOCKED(room(6, 1))]], [[!WINDY(room(6, 1))]], [[!SHINY(room(6, 1))]], [[SMELLY(room(6, 1))]], [[EXPLORED(room(6, 1))]], 
+[[!BLOCKED(room(5, 2))]], [[!WINDY(room(5, 2))]], [[!SHINY(room(5, 2))]], [[!SMELLY(room(5, 2))]], [[EXPLORED(room(5, 2))]], 
+[[!BLOCKED(room(6, 2))]], [[WINDY(room(6, 2))]], [[!SHINY(room(6, 2))]], [[!SMELLY(room(6, 2))]], [[EXPLORED(room(6, 2))]], 
+[[!BLOCKED(room(5, 3))]], [[!WINDY(room(5, 3))]], [[!SHINY(room(5, 3))]], [[!SMELLY(room(5, 3))]], [[EXPLORED(room(5, 3))]], 
+[[!BLOCKED(room(6, 3))]], [[!WINDY(room(6, 3))]], [[!SHINY(room(6, 3))]], [[!SMELLY(room(6, 3))]], [[EXPLORED(room(6, 3))]], 
+[[!BLOCKED(room(7, 3))]], [[WINDY(room(7, 3))]], [[!SHINY(room(7, 3))]], [[!SMELLY(room(7, 3))]], [[EXPLORED(room(7, 3))]], 
+[[!BLOCKED(room(6, 4))]], [[!WINDY(room(6, 4))]], [[!SHINY(room(6, 4))]], [[!SMELLY(room(6, 4))]], [[EXPLORED(room(6, 4))]], 
+[[!BLOCKED(room(5, 4))]], [[!WINDY(room(5, 4))]], [[!SHINY(room(5, 4))]], [[SMELLY(room(5, 4))]], [[EXPLORED(room(5, 4))]], 
+[[!BLOCKED(room(7, 4))]], [[!WINDY(room(7, 4))]], [[!SHINY(room(7, 4))]], [[!SMELLY(room(7, 4))]], [[EXPLORED(room(7, 4))]], 
+[[!BLOCKED(room(8, 4))]], [[!WINDY(room(8, 4))]], [[!SHINY(room(8, 4))]], [[!SMELLY(room(8, 4))]], [[EXPLORED(room(8, 4))]], 
+[[!BLOCKED(room(9, 4))]], [[!WINDY(room(9, 4))]], [[!SHINY(room(9, 4))]], [[!SMELLY(room(9, 4))]], [[EXPLORED(room(9, 4))]], 
+[[!BLOCKED(room(9, 5))]], [[!WINDY(room(9, 5))]], [[!SHINY(room(9, 5))]], [[!SMELLY(room(9, 5))]], [[EXPLORED(room(9, 5))]], 
+[[!BLOCKED(room(8, 5))]], [[!WINDY(room(8, 5))]], [[!SHINY(room(8, 5))]], [[!SMELLY(room(8, 5))]], [[EXPLORED(room(8, 5))]], 
+[[!BLOCKED(room(8, 6))]], [[!WINDY(room(8, 6))]], [[!SHINY(room(8, 6))]], [[!SMELLY(room(8, 6))]], [[EXPLORED(room(8, 6))]], 
+[[!BLOCKED(room(8, 7))]], [[!WINDY(room(8, 7))]], [[!SHINY(room(8, 7))]], [[SMELLY(room(8, 7))]], [[EXPLORED(room(8, 7))]], 
+[[BLOCKED(room(9, 6))]], [[!WINDY(room(9, 6))]], [[!SHINY(room(9, 6))]], [[SMELLY(room(9, 6))]], [[EXPLORED(room(9, 6))]], 
+[[!BLOCKED(room(6, 5))]], [[!WINDY(room(6, 5))]], [[!SHINY(room(6, 5))]], [[!SMELLY(room(6, 5))]], [[EXPLORED(room(6, 5))]], 
+[[!BLOCKED(room(5, 5))]], [[!WINDY(room(5, 5))]], [[!SHINY(room(5, 5))]], [[!SMELLY(room(5, 5))]], [[EXPLORED(room(5, 5))]], 
+[[!BLOCKED(room(5, 6))]], [[!WINDY(room(5, 6))]], [[!SHINY(room(5, 6))]], [[!SMELLY(room(5, 6))]], [[EXPLORED(room(5, 6))]], 
+[[!BLOCKED(room(5, 7))]], [[!WINDY(room(5, 7))]], [[!SHINY(room(5, 7))]], [[!SMELLY(room(5, 7))]], [[EXPLORED(room(5, 7))]], 
+[[!BLOCKED(room(5, 8))]], [[!WINDY(room(5, 8))]], [[!SHINY(room(5, 8))]], [[!SMELLY(room(5, 8))]], [[EXPLORED(room(5, 8))]], 
+[[!BLOCKED(room(5, 9))]], [[!WINDY(room(5, 9))]], [[!SHINY(room(5, 9))]], [[!SMELLY(room(5, 9))]], [[EXPLORED(room(5, 9))]], 
+[[!BLOCKED(room(4, 9))]], [[!WINDY(room(4, 9))]], [[!SHINY(room(4, 9))]], [[!SMELLY(room(4, 9))]], [[EXPLORED(room(4, 9))]], 
+[[!BLOCKED(room(4, 8))]], [[!WINDY(room(4, 8))]], [[!SHINY(room(4, 8))]], [[!SMELLY(room(4, 8))]], [[EXPLORED(room(4, 8))]], 
+[[!BLOCKED(room(4, 7))]], [[!WINDY(room(4, 7))]], [[!SHINY(room(4, 7))]], [[!SMELLY(room(4, 7))]], [[EXPLORED(room(4, 7))]], 
+[[!BLOCKED(room(4, 6))]], [[!WINDY(room(4, 6))]], [[!SHINY(room(4, 6))]], [[SMELLY(room(4, 6))]], [[EXPLORED(room(4, 6))]], 
+[[!BLOCKED(room(4, 5))]], [[!WINDY(room(4, 5))]], [[!SHINY(room(4, 5))]], [[SMELLY(room(4, 5))]], [[EXPLORED(room(4, 5))]], 
+[[!BLOCKED(room(4, 5))]], [[!WINDY(room(4, 5))]], [[!SHINY(room(4, 5))]], [[!SMELLY(room(4, 5))]], [[EXPLORED(room(4, 5))]], 
+
+.
+. (etc...)
+.
+
+Sorted Frontier: 
+(0, 8), (0, 7), (0, 6), (0, 5), (0, 4), (0, 3), (6, 6), (6, 7), (6, 8), (6, 9), (7, 1), (7, 2), (7, 5), (7, 6), (7, 7), (8, 3), (2, 0), (8, 8), (9, 3), (9, 7), (6, 0), 
+Query if room (0, 8) is safe
+Query value: true
+Moved to room (0, 8)
+
+Current Room: (0, 8)
+=== Gold has been found. Picking up gold and exiting. ===
+Score: 906
+Knowledge base percepts: 
+[[!BLOCKED(room(0, 0))]], [[!WINDY(room(0, 0))]], [[!SHINY(room(0, 0))]], [[!SMELLY(room(0, 0))]], [[EXPLORED(room(0, 0))]], 
+[[!BLOCKED(room(1, 0))]], [[!WINDY(room(1, 0))]], [[!SHINY(room(1, 0))]], [[!SMELLY(room(1, 0))]], [[EXPLORED(room(1, 0))]], 
+[[!BLOCKED(room(1, 1))]], [[!WINDY(room(1, 1))]], [[!SHINY(room(1, 1))]], [[!SMELLY(room(1, 1))]], [[EXPLORED(room(1, 1))]], 
+[[!BLOCKED(room(1, 2))]], [[!WINDY(room(1, 2))]], [[!SHINY(room(1, 2))]], [[!SMELLY(room(1, 2))]], [[EXPLORED(room(1, 2))]], 
+[[!BLOCKED(room(1, 3))]], [[!WINDY(room(1, 3))]], [[!SHINY(room(1, 3))]], [[SMELLY(room(1, 3))]], [[EXPLORED(room(1, 3))]], 
+[[!BLOCKED(room(0, 2))]], [[!WINDY(room(0, 2))]], [[!SHINY(room(0, 2))]], [[SMELLY(room(0, 2))]], [[EXPLORED(room(0, 2))]], 
+[[!BLOCKED(room(0, 1))]], [[!WINDY(room(0, 1))]], [[!SHINY(room(0, 1))]], [[!SMELLY(room(0, 1))]], [[EXPLORED(room(0, 1))]], 
+[[!BLOCKED(room(2, 1))]], [[!WINDY(room(2, 1))]], [[!SHINY(room(2, 1))]], [[!SMELLY(room(2, 1))]], [[EXPLORED(room(2, 1))]], 
+[[!BLOCKED(room(3, 1))]], [[!WINDY(room(3, 1))]], [[!SHINY(room(3, 1))]], [[!SMELLY(room(3, 1))]], [[EXPLORED(room(3, 1))]], 
+[[!BLOCKED(room(3, 0))]], [[!WINDY(room(3, 0))]], [[!SHINY(room(3, 0))]], [[!SMELLY(room(3, 0))]], [[EXPLORED(room(3, 0))]], 
+[[!BLOCKED(room(4, 0))]], [[!WINDY(room(4, 0))]], [[!SHINY(room(4, 0))]], [[!SMELLY(room(4, 0))]], [[EXPLORED(room(4, 0))]], 
+[[!BLOCKED(room(4, 1))]], [[!WINDY(room(4, 1))]], [[!SHINY(room(4, 1))]], [[!SMELLY(room(4, 1))]], [[EXPLORED(room(4, 1))]], 
+[[!BLOCKED(room(4, 2))]], [[!WINDY(room(4, 2))]], [[!SHINY(room(4, 2))]], [[!SMELLY(room(4, 2))]], [[EXPLORED(room(4, 2))]], 
+[[!BLOCKED(room(4, 3))]], [[!WINDY(room(4, 3))]], [[!SHINY(room(4, 3))]], [[SMELLY(room(4, 3))]], [[EXPLORED(room(4, 3))]], 
+[[!BLOCKED(room(3, 2))]], [[!WINDY(room(3, 2))]], [[!SHINY(room(3, 2))]], [[!SMELLY(room(3, 2))]], [[EXPLORED(room(3, 2))]], 
+[[!BLOCKED(room(2, 2))]], [[!WINDY(room(2, 2))]], [[!SHINY(room(2, 2))]], [[!SMELLY(room(2, 2))]], [[EXPLORED(room(2, 2))]], 
+[[!BLOCKED(room(2, 3))]], [[!WINDY(room(2, 3))]], [[!SHINY(room(2, 3))]], [[SMELLY(room(2, 3))]], [[EXPLORED(room(2, 3))]], 
+[[!BLOCKED(room(3, 3))]], [[!WINDY(room(3, 3))]], [[!SHINY(room(3, 3))]], [[!SMELLY(room(3, 3))]], [[EXPLORED(room(3, 3))]], 
+[[!BLOCKED(room(3, 4))]], [[!WINDY(room(3, 4))]], [[!SHINY(room(3, 4))]], [[SMELLY(room(3, 4))]], [[EXPLORED(room(3, 4))]], 
+[[!BLOCKED(room(5, 0))]], [[!WINDY(room(5, 0))]], [[!SHINY(room(5, 0))]], [[SMELLY(room(5, 0))]], [[EXPLORED(room(5, 0))]], 
+[[!BLOCKED(room(5, 1))]], [[!WINDY(room(5, 1))]], [[!SHINY(room(5, 1))]], [[!SMELLY(room(5, 1))]], [[EXPLORED(room(5, 1))]], 
+[[!BLOCKED(room(6, 1))]], [[!WINDY(room(6, 1))]], [[!SHINY(room(6, 1))]], [[SMELLY(room(6, 1))]], [[EXPLORED(room(6, 1))]], 
+[[!BLOCKED(room(5, 2))]], [[!WINDY(room(5, 2))]], [[!SHINY(room(5, 2))]], [[!SMELLY(room(5, 2))]], [[EXPLORED(room(5, 2))]], 
+[[!BLOCKED(room(6, 2))]], [[WINDY(room(6, 2))]], [[!SHINY(room(6, 2))]], [[!SMELLY(room(6, 2))]], [[EXPLORED(room(6, 2))]], 
+[[!BLOCKED(room(5, 3))]], [[!WINDY(room(5, 3))]], [[!SHINY(room(5, 3))]], [[!SMELLY(room(5, 3))]], [[EXPLORED(room(5, 3))]], 
+[[!BLOCKED(room(6, 3))]], [[!WINDY(room(6, 3))]], [[!SHINY(room(6, 3))]], [[!SMELLY(room(6, 3))]], [[EXPLORED(room(6, 3))]], 
+[[!BLOCKED(room(7, 3))]], [[WINDY(room(7, 3))]], [[!SHINY(room(7, 3))]], [[!SMELLY(room(7, 3))]], [[EXPLORED(room(7, 3))]], 
+[[!BLOCKED(room(6, 4))]], [[!WINDY(room(6, 4))]], [[!SHINY(room(6, 4))]], [[!SMELLY(room(6, 4))]], [[EXPLORED(room(6, 4))]], 
+[[!BLOCKED(room(5, 4))]], [[!WINDY(room(5, 4))]], [[!SHINY(room(5, 4))]], [[SMELLY(room(5, 4))]], [[EXPLORED(room(5, 4))]], 
+[[!BLOCKED(room(7, 4))]], [[!WINDY(room(7, 4))]], [[!SHINY(room(7, 4))]], [[!SMELLY(room(7, 4))]], [[EXPLORED(room(7, 4))]], 
+[[!BLOCKED(room(8, 4))]], [[!WINDY(room(8, 4))]], [[!SHINY(room(8, 4))]], [[!SMELLY(room(8, 4))]], [[EXPLORED(room(8, 4))]], 
+[[!BLOCKED(room(9, 4))]], [[!WINDY(room(9, 4))]], [[!SHINY(room(9, 4))]], [[!SMELLY(room(9, 4))]], [[EXPLORED(room(9, 4))]], 
+[[!BLOCKED(room(9, 5))]], [[!WINDY(room(9, 5))]], [[!SHINY(room(9, 5))]], [[!SMELLY(room(9, 5))]], [[EXPLORED(room(9, 5))]], 
+[[!BLOCKED(room(8, 5))]], [[!WINDY(room(8, 5))]], [[!SHINY(room(8, 5))]], [[!SMELLY(room(8, 5))]], [[EXPLORED(room(8, 5))]], 
+[[!BLOCKED(room(8, 6))]], [[!WINDY(room(8, 6))]], [[!SHINY(room(8, 6))]], [[!SMELLY(room(8, 6))]], [[EXPLORED(room(8, 6))]], 
+[[!BLOCKED(room(8, 7))]], [[!WINDY(room(8, 7))]], [[!SHINY(room(8, 7))]], [[SMELLY(room(8, 7))]], [[EXPLORED(room(8, 7))]], 
+[[BLOCKED(room(9, 6))]], [[!WINDY(room(9, 6))]], [[!SHINY(room(9, 6))]], [[SMELLY(room(9, 6))]], [[EXPLORED(room(9, 6))]], 
+[[!BLOCKED(room(6, 5))]], [[!WINDY(room(6, 5))]], [[!SHINY(room(6, 5))]], [[!SMELLY(room(6, 5))]], [[EXPLORED(room(6, 5))]], 
+[[!BLOCKED(room(5, 5))]], [[!WINDY(room(5, 5))]], [[!SHINY(room(5, 5))]], [[!SMELLY(room(5, 5))]], [[EXPLORED(room(5, 5))]], 
+[[!BLOCKED(room(5, 6))]], [[!WINDY(room(5, 6))]], [[!SHINY(room(5, 6))]], [[!SMELLY(room(5, 6))]], [[EXPLORED(room(5, 6))]], 
+[[!BLOCKED(room(5, 7))]], [[!WINDY(room(5, 7))]], [[!SHINY(room(5, 7))]], [[!SMELLY(room(5, 7))]], [[EXPLORED(room(5, 7))]], 
+[[!BLOCKED(room(5, 8))]], [[!WINDY(room(5, 8))]], [[!SHINY(room(5, 8))]], [[!SMELLY(room(5, 8))]], [[EXPLORED(room(5, 8))]], 
+[[!BLOCKED(room(5, 9))]], [[!WINDY(room(5, 9))]], [[!SHINY(room(5, 9))]], [[!SMELLY(room(5, 9))]], [[EXPLORED(room(5, 9))]], 
+[[!BLOCKED(room(4, 9))]], [[!WINDY(room(4, 9))]], [[!SHINY(room(4, 9))]], [[!SMELLY(room(4, 9))]], [[EXPLORED(room(4, 9))]], 
+[[!BLOCKED(room(4, 8))]], [[!WINDY(room(4, 8))]], [[!SHINY(room(4, 8))]], [[!SMELLY(room(4, 8))]], [[EXPLORED(room(4, 8))]], 
+[[!BLOCKED(room(4, 7))]], [[!WINDY(room(4, 7))]], [[!SHINY(room(4, 7))]], [[!SMELLY(room(4, 7))]], [[EXPLORED(room(4, 7))]], 
+[[!BLOCKED(room(4, 6))]], [[!WINDY(room(4, 6))]], [[!SHINY(room(4, 6))]], [[SMELLY(room(4, 6))]], [[EXPLORED(room(4, 6))]], 
+[[!BLOCKED(room(4, 5))]], [[!WINDY(room(4, 5))]], [[!SHINY(room(4, 5))]], [[SMELLY(room(4, 5))]], [[EXPLORED(room(4, 5))]], 
+[[!BLOCKED(room(4, 5))]], [[!WINDY(room(4, 5))]], [[!SHINY(room(4, 5))]], [[!SMELLY(room(4, 5))]], [[EXPLORED(room(4, 5))]], 
+[[!BLOCKED(room(4, 5))]], [[!WINDY(room(4, 5))]], [[!SHINY(room(4, 5))]], [[!SMELLY(room(4, 5))]], [[EXPLORED(room(4, 5))]], 
+[[!BLOCKED(room(4, 5))]], [[!WINDY(room(4, 5))]], [[!SHINY(room(4, 5))]], [[!SMELLY(room(4, 5))]], [[EXPLORED(room(4, 5))]], 
+[[!BLOCKED(room(4, 5))]], [[!WINDY(room(4, 5))]], [[!SHINY(room(4, 5))]], [[!SMELLY(room(4, 5))]], [[EXPLORED(room(4, 5))]], 
+[[!BLOCKED(room(4, 5))]], [[!WINDY(room(4, 5))]], [[!SHINY(room(4, 5))]], [[!SMELLY(room(4, 5))]], [[EXPLORED(room(4, 5))]], 
+[[!BLOCKED(room(4, 5))]], [[!WINDY(room(4, 5))]], [[!SHINY(room(4, 5))]], [[!SMELLY(room(4, 5))]], [[EXPLORED(room(4, 5))]], 
+[[!BLOCKED(room(4, 5))]], [[!WINDY(room(4, 5))]], [[!SHINY(room(4, 5))]], [[!SMELLY(room(4, 5))]], [[EXPLORED(room(4, 5))]], 
+[[!BLOCKED(room(4, 4))]], [[!WINDY(room(4, 4))]], [[!SHINY(room(4, 4))]], [[!SMELLY(room(4, 4))]], [[EXPLORED(room(4, 4))]], 
+[[!BLOCKED(room(3, 5))]], [[!WINDY(room(3, 5))]], [[!SHINY(room(3, 5))]], [[SMELLY(room(3, 5))]], [[EXPLORED(room(3, 5))]], 
+[[!BLOCKED(room(3, 6))]], [[!WINDY(room(3, 6))]], [[!SHINY(room(3, 6))]], [[!SMELLY(room(3, 6))]], [[EXPLORED(room(3, 6))]], 
+[[!BLOCKED(room(3, 7))]], [[!WINDY(room(3, 7))]], [[!SHINY(room(3, 7))]], [[SMELLY(room(3, 7))]], [[EXPLORED(room(3, 7))]], 
+[[!BLOCKED(room(3, 8))]], [[!WINDY(room(3, 8))]], [[!SHINY(room(3, 8))]], [[!SMELLY(room(3, 8))]], [[EXPLORED(room(3, 8))]], 
+[[!BLOCKED(room(3, 9))]], [[!WINDY(room(3, 9))]], [[!SHINY(room(3, 9))]], [[!SMELLY(room(3, 9))]], [[EXPLORED(room(3, 9))]], 
+[[!BLOCKED(room(2, 9))]], [[!WINDY(room(2, 9))]], [[!SHINY(room(2, 9))]], [[!SMELLY(room(2, 9))]], [[EXPLORED(room(2, 9))]], 
+[[!BLOCKED(room(2, 8))]], [[!WINDY(room(2, 8))]], [[!SHINY(room(2, 8))]], [[!SMELLY(room(2, 8))]], [[EXPLORED(room(2, 8))]], 
+[[!BLOCKED(room(2, 7))]], [[!WINDY(room(2, 7))]], [[!SHINY(room(2, 7))]], [[SMELLY(room(2, 7))]], [[EXPLORED(room(2, 7))]], 
+[[!BLOCKED(room(2, 6))]], [[!WINDY(room(2, 6))]], [[!SHINY(room(2, 6))]], [[SMELLY(room(2, 6))]], [[EXPLORED(room(2, 6))]], 
+[[!BLOCKED(room(2, 5))]], [[!WINDY(room(2, 5))]], [[!SHINY(room(2, 5))]], [[!SMELLY(room(2, 5))]], [[EXPLORED(room(2, 5))]], 
+[[!BLOCKED(room(2, 4))]], [[!WINDY(room(2, 4))]], [[!SHINY(room(2, 4))]], [[!SMELLY(room(2, 4))]], [[EXPLORED(room(2, 4))]], 
+[[!BLOCKED(room(1, 4))]], [[!WINDY(room(1, 4))]], [[!SHINY(room(1, 4))]], [[SMELLY(room(1, 4))]], [[EXPLORED(room(1, 4))]], 
+[[!BLOCKED(room(1, 5))]], [[!WINDY(room(1, 5))]], [[!SHINY(room(1, 5))]], [[!SMELLY(room(1, 5))]], [[EXPLORED(room(1, 5))]], 
+[[!BLOCKED(room(1, 6))]], [[!WINDY(room(1, 6))]], [[!SHINY(room(1, 6))]], [[SMELLY(room(1, 6))]], [[EXPLORED(room(1, 6))]], 
+[[!BLOCKED(room(1, 7))]], [[!WINDY(room(1, 7))]], [[!SHINY(room(1, 7))]], [[!SMELLY(room(1, 7))]], [[EXPLORED(room(1, 7))]], 
+[[!BLOCKED(room(1, 8))]], [[!WINDY(room(1, 8))]], [[!SHINY(room(1, 8))]], [[SMELLY(room(1, 8))]], [[EXPLORED(room(1, 8))]], 
+[[!BLOCKED(room(1, 9))]], [[!WINDY(room(1, 9))]], [[!SHINY(room(1, 9))]], [[!SMELLY(room(1, 9))]], [[EXPLORED(room(1, 9))]], 
+[[!BLOCKED(room(0, 9))]], [[!WINDY(room(0, 9))]], [[!SHINY(room(0, 9))]], [[!SMELLY(room(0, 9))]], [[EXPLORED(room(0, 9))]], 
+[[!BLOCKED(room(0, 8))]], [[!WINDY(room(0, 8))]], [[SHINY(room(0, 8))]], [[!SMELLY(room(0, 8))]], [[EXPLORED(room(0, 8))]], 
+
+=== Simulation Concluded ===
+Run #: : 1
+ Num Decisions Made: : 98032
+ Gold Found?: : 1
+ Wumpi Killed: : 7
+ Pit falls: : 0
+ Deaths to wumpus: : 0
+ Num cells explored: : 74
+ Total score: : 906
+BUILD SUCCESSFUL (total time: 12 seconds)
