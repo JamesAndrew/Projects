@@ -1,0 +1,101 @@
+== Initializing the Actual World ==
+Probability of Pit: 0.2
+Probability of Obstacle: 0.2
+Probability of Wumpus: 0.2
+Map size: 3x3
+
+ = Setting Up Map = 
+The gold is in room 0 2
+The agent is in room 0 0
+Initialize room 0 0
+starting point
+Initialize room 0 1
+pit placed
+Initialize room 0 2
+occupied by gold
+Initialize room 1 0
+pit placed
+Initialize room 1 1
+Initialize room 1 2
+Initialize room 2 0
+pit placed
+Initialize room 2 1
+Initialize room 2 2
+pit placed
+
+== Initializing the Perceived World ==
+Current Room: 0 0
+Remaining arrows: 0
+safe?: true
+Score: 0
+The agent feels a slight breeze
+The room is empty
+The agent has moved forward.
+
+Current Room: 1 0
+Remaining arrows: 0
+safe?: true
+Score: -1
+The agent feels a slight breeze
+The room is empty
+The agent has moved forward.
+
+Current Room: 2 0
+Remaining arrows: 0
+safe?: true
+Score: -2
+The agent has fell down a bottomless pit.
+The agent has died.
+
+Current Room: 1 0
+Remaining arrows: 0
+safe?: true
+Score: -1002
+The agent feels a slight breeze
+The room is empty
+obstacle, pit, or wumpus there
+The agent has turned left 90 degrees
+
+Current Room: 1 0
+Remaining arrows: 0
+safe?: true
+Score: -1003
+The agent feels a slight breeze
+The room is empty
+The agent has moved forward.
+
+Current Room: 1 1
+Remaining arrows: 0
+safe?: true
+Score: -1004
+The agent feels a slight breeze
+The room is empty
+The agent has moved forward.
+
+Current Room: 1 2
+Remaining arrows: 0
+safe?: true
+Score: -1005
+The agent feels a slight breeze
+The room is empty
+the edge is there
+The agent has turned left 90 degrees
+
+Current Room: 1 2
+Remaining arrows: 0
+safe?: true
+Score: -1006
+The agent feels a slight breeze
+The room is empty
+The agent has moved forward.
+
+Current Room: 0 2
+Remaining arrows: 0
+safe?: true
+Score: -1007
+The agent has found the gold
+
+Current Room: 0 2
+Remaining arrows: 0
+safe?: true
+Score: -8
