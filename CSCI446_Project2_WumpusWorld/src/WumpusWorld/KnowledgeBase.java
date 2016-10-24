@@ -860,7 +860,7 @@ public class KnowledgeBase
     }
 
     /**
-     * Room has pit if all adjacent rooms are smelly
+     * Room has pit if all adjacent rooms are windy and have been explored
      * gets only relevant adjacent cell axioms when querying on a pit 
      */
     private ArrayList<KBcnf> axiom_dynamic_RoomHasPit(Room term)
