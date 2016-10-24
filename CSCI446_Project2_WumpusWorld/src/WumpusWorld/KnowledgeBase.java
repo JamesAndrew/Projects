@@ -314,6 +314,7 @@ public class KnowledgeBase
                             // otherwise add new generated clause to the generate KBcnf list if it is unique
                             else 
                             {
+                                KBAgent.numDecisionsMade++;
                                 boolean unique = true;
                                 for (KBcnf cnf : generatedSentences)
                                 {
@@ -405,6 +406,7 @@ public class KnowledgeBase
                 {
                     KBcnf newCNF = new KBcnf(disjunction);
                     splitCNFs.add(newCNF);
+                    KBAgent.numDecisionsMade++;
                 }
                 // remove the kb entry with conjunctions
                 oldKb.remove(i);
@@ -498,6 +500,7 @@ public class KnowledgeBase
 //                    System.out.println("current atom: " + atom.toString());
                     if (atom instanceof KBAtomVariable)
                     {
+                        KBAgent.numDecisionsMade++;
                         KBAtomVariable currentAtom = (KBAtomVariable) atom;
                         KBAtomConstant replacement = currentAtom.convertToConstant(query);
 //                        System.out.println("Atom replacement :" + replacement.toString());

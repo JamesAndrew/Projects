@@ -23,7 +23,7 @@ public class KBAgent
     // Key: Category ("numDecisionsMade", "goldFound", "wumpiKilled", "pitFalls", "wumpusDeaths", "cellsExplored", "score"
     // Value: Integer values of their respective category
     private HashMap<String, Integer> statsMap = new HashMap<>();
-    private Integer numDecisionsMade = 0;
+    public static Integer numDecisionsMade = 0;
     private Integer goldFound = 0;
     private Integer wumpiKilled = 0;
     private Integer pitFalls = 0;
@@ -83,7 +83,6 @@ public class KBAgent
         {
             // move to new cell (agent takes care of rotations and the traversal)
             case 1:
-                numDecisionsMade++; 
                 Integer frontierKey = Integer.valueOf(String.valueOf(action[1]) + String.valueOf(action[2]));
                 int distance = Math.abs(action[1] - currentRoom[0]) + Math.abs(action[2] - currentRoom[1]);
                 
@@ -118,7 +117,7 @@ public class KBAgent
         String firstDirection;
         String secondDirection;
         int currentRow = currentRoom[0];
-        int currentCol = currentRoom[1];
+        int currentCol = currentRoom[1];                                        numDecisionsMade++;
         
         if (row < currentRow) firstDirection = "west";
         else firstDirection = "east";
@@ -180,7 +179,7 @@ public class KBAgent
         if (row + 1 < World.getSize()) World.getRoom(row + 1, col).setIsSmelly(false);
         if (col - 1 >= 0)              World.getRoom(row, col - 1).setIsSmelly(false);
         
-        System.out.format("Killed wumpus in room (%d, %d)%n", row, col);
+        System.out.format("Killed wumpus in room (%d, %d)%n", row, col);        numDecisionsMade++;
     }
     
     /**
@@ -197,7 +196,7 @@ public class KBAgent
         int column = currentRoom[1];
         
         // curent room is now explored
-        World.getRoom(row, column).setIsExplored(true);
+        World.getRoom(row, column).setIsExplored(true);                         numDecisionsMade++;
         
         // for any known property about the current room, add those perceptions 
         ArrayList<KBAtom> perceptions;
@@ -234,7 +233,7 @@ public class KBAgent
     private void updateFrontier(Integer newRoomKey) 
     {
         // remove room just moved in to from frontier
-        frontier.remove(newRoomKey);
+        frontier.remove(newRoomKey);                                            numDecisionsMade++;
         
         // add adjacent rooms given they haven't already been explored and are in the bounds of the map
         ArrayList<Integer[]> adjRooms = new ArrayList<>();
@@ -251,7 +250,10 @@ public class KBAgent
             {
                 Room currentRoom = World.getRoom(entry[0], entry[1]);
                 Integer frontierKey = Integer.valueOf(String.valueOf(entry[0]) + String.valueOf(entry[1]));
-                if (!(currentRoom.isIsExplored())) frontier.put(frontierKey, currentRoom);
+                if (!(currentRoom.isIsExplored())) 
+                {
+                    frontier.put(frontierKey, currentRoom);                     numDecisionsMade++;
+                }
             }
         }
     }
