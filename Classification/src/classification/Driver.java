@@ -9,7 +9,8 @@ package classification;
  *
  * @author James
  */
-public class Driver {
+public class Driver 
+{
 
     /**
      * @param args the command line arguments
