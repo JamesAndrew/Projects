@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<sim-project version="10.3" multi-file="no">
+  <meta>
+    <name>MLCategorizationUML</name>
+    <authors> </authors>
+    <description />
+  </meta>
+  <counters models="1">
+    <entity-names>
+      <counter>
+        <item-type type-id="class" type="UmlClass" />
+        <value>5</value>
+      </counter>
+    </entity-names>
+    <entity-ids>
+      <counter>
+        <item-type type-id="class" type="UmlClass" />
+        <value>6</value>
+      </counter>
+      <counter>
+        <item-type type-id="generalization" type="UmlGeneralization" />
+        <value>15</value>
+      </counter>
+      <counter>
+        <item-type type-id="relationship" type="UmlAssociation" />
+        <value>7</value>
+      </counter>
+      <counter>
+        <item-type type-id="" type="AbstractElementGroup" />
+        <value>6</value>
+      </counter>
+    </entity-ids>
+    <diagrams>
+      <counter>
+        <type>SoftwareIdeasModeler.Core.Diagrams.UmlDiagrams.UmlClassDiagram</type>
+        <value>1</value>
+      </counter>
+    </diagrams>
+    <fields>
+      <counter>
+        <type>SoftwareIdeasModeler.Core.DiagramItems.Fields.OperationField</type>
+        <value>10</value>
+      </counter>
+      <counter>
+        <type>SoftwareIdeasModeler.Core.DiagramItems.Fields.AttributeField</type>
+        <value>7</value>
+      </counter>
+    </fields>
+  </counters>
+  <alias-groups />
+  <management>
+    <persons>
+      <person id="P7397056203f6456dbdc122b485b3398c">
+        <first-name />
+        <last-name />
+        <role />
+        <e-mail />
+        <phone-number />
+        <description />
+        <color>#00000000</color>
+      </person>
+    </persons>
+    <tasks />
+    <requirements />
+    <issues />
+    <to-dos />
+  </management>
+  <glossary />
+  <types default="UML">
+    <type-sets>
+      <type-set file="UmlTypes.xml" />
+    </type-sets>
+    <custom-types>
+      <type id="Map&lt;Category : Size&gt;" tid="" name="Map&lt;Category : Size&gt;" description="" nullable="false" />
+      <type id="Map&lt;Categorizer, Map&lt;DataSet, Fitness&gt;&gt;" tid="" name="Map&lt;Categorizer, Map&lt;DataSet, Fitness&gt;&gt;" description="" nullable="false" />
+    </custom-types>
+  </types>
+  <filters />
+  <macros />
+  <items />
+  <models>
+    <model id="paf34d6715a424830bfdc78ddbf4d6ef6_361181609" name="Model 1" namespace="" order-index="1">
+      <meta>
+        <authors>
+          <author> </author>
+        </authors>
+        <description />
+        <creation-date>11/01/2016 23:00:20</creation-date>
+        <change-date>01/01/0001 00:00:00</change-date>
+        <revision-count>0</revision-count>
+        <version />
+      </meta>
+      <abstract-items />
+      <sub-models />
+      <diagram type="uml-class" id="p5f2c25808f994dc3ae75daea0c0c1f0c_606311358" name="ClassDiagram1" order-index="1" show-id="false" show-name="true" show-parent-name="false" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false">
+        <style>
+          <background-color index="1" color="#FFFFFFFF" />
+          <background-color index="2" color="#FFFFFFFF" />
+          <background-type type="solid" />
+        </style>
+        <meta>
+          <authors>
+            <author> </author>
+          </authors>
+          <description />
+          <creation-date>11/01/2016 23:00:20</creation-date>
+          <change-date>11/01/2016 23:21:04</change-date>
+          <revision-count>0</revision-count>
+          <version />
+        </meta>
+        <abstract-items>
+          <item id="di556933100290252532" cid="C001" type="class" name="Experiment" style-class="" visibility="package" change-tracking-state="added" creator="P7397056203f6456dbdc122b485b3398c" creation-date="11/01/2016 23:00:32">
+            <style class="default" />
+            <operations>
+              <operation id="o681ab0e22ab54c52bcf6f6454b3a95e8759" cid="ELEM008" name="Stratify-Partition" type="" type-id="" visibility="private">
+                <style class="default" />
+                <parameters>
+                  <parameter id="pa872af50034f459fb521e120285b3058" name="Data" type="" type-id="" />
+                </parameters>
+              </operation>
+              <operation id="o2bbe42a331df4d27b987317c9ca06fec790" cid="ELEM009" name="Run" type="" type-id="" visibility="public">
+                <style class="default" />
+                <parameters>
+                  <parameter id="paf86f7c8c9214596bbb0f03c50964b77" name="Data" type="" type-id="" />
+                </parameters>
+              </operation>
+            </operations>
+          </item>
+          <item id="di588764517123194957" cid="C002" type="class" name="Categorizer" style-class="" is-abstract="true" visibility="package" change-tracking-state="added" creator="P7397056203f6456dbdc122b485b3398c" creation-date="11/01/2016 23:01:05">
+            <style class="default" />
+            <operations>
+              <operation id="o24d0835662c64f709faa3db213d4bca6292" cid="ELEM001" name="Train" type="" type-id="" visibility="public">
+                <style class="default" />
+                <parameters>
+                  <parameter id="p9676fd12da3b4111a06a060416b04dac" name="List&lt;Data&gt;" type="" type-id="" />
+                </parameters>
+              </operation>
+              <operation id="of54c6e335e0b49f389421024008cfc37465" cid="ELEM002" name="Test" type="" type-id="" visibility="public">
+                <style class="default" />
+                <parameters>
+                  <parameter id="pf33755117599401fa1404124cbd38b96" name="Data" type="" type-id="" />
+                </parameters>
+              </operation>
+            </operations>
+            <source-codes>
+              <source-code language="ActionScript" />
+            </source-codes>
+          </item>
+          <item id="di843628147612984994" cid="C003" type="class" name="Statistics" style-class="" is-static="true" visibility="package" change-tracking-state="added" creator="P7397056203f6456dbdc122b485b3398c" creation-date="11/01/2016 23:01:56">
+            <stereotypes>
+              <stereotype name="static" />
+            </stereotypes>
+            <style class="default" />
+            <attributes>
+              <attribute id="aad43e88c60844ec7a26b81559469e14b397" cid="ELEM006" name="RunResults" type="Map&lt;Categorizer, Map&lt;DataSet, Fitness&gt;&gt;" type-id="Map&lt;Categorizer, Map&lt;DataSet, Fitness&gt;&gt;" visibility="public">
+                <style class="default" />
+              </attribute>
+            </attributes>
+            <operations>
+              <operation id="o99e13797d4604eb6addb3c17906f0f4f83" cid="ELEM007" name="CalculateAllFitnesses" type="String" type-id="Uml.String" visibility="public">
+                <style class="default" />
+              </operation>
+            </operations>
+            <source-codes>
+              <source-code language="ActionScript" />
+            </source-codes>
+          </item>
+          <item id="di362221262239301053" cid="C001" type="class" name="Nearest-Neighbor" style-class="" visibility="package" change-tracking-state="added" creator="P7397056203f6456dbdc122b485b3398c" creation-date="11/01/2016 23:00:32">
+            <style class="default" />
+          </item>
+          <item id="di439067371614713770" cid="C001" type="class" name="Naive-Bayes" style-class="" visibility="package" change-tracking-state="added" creator="P7397056203f6456dbdc122b485b3398c" creation-date="11/01/2016 23:00:32">
+            <style class="default" />
+          </item>
+          <item id="di539601906274926455" cid="C001" type="class" name="TAN" style-class="" visibility="package" change-tracking-state="added" creator="P7397056203f6456dbdc122b485b3398c" creation-date="11/01/2016 23:00:32">
+            <style class="default" />
+          </item>
+          <item id="di544032467468903734" cid="C001" type="class" name="ID3" style-class="" visibility="package" change-tracking-state="added" creator="P7397056203f6456dbdc122b485b3398c" creation-date="11/01/2016 23:00:32">
+            <style class="default" />
+          </item>
+          <item id="di797225019246518034" cid="GNR011" type="generalization" name="" style-class="" visibility="package" change-tracking-state="added" creator="P7397056203f6456dbdc122b485b3398c" creation-date="11/01/2016 23:12:59" from="di362221262239301053" to="di588764517123194957">
+            <style class="default" />
+          </item>
+          <item id="di139700235809095186" cid="GNR012" type="generalization" name="" style-class="" visibility="package" change-tracking-state="added" creator="P7397056203f6456dbdc122b485b3398c" creation-date="11/01/2016 23:13:04" from="di439067371614713770" to="di588764517123194957">
+            <style class="default" />
+          </item>
+          <item id="di542116595906053284" cid="GNR013" type="generalization" name="" style-class="" visibility="package" change-tracking-state="added" creator="P7397056203f6456dbdc122b485b3398c" creation-date="11/01/2016 23:13:08" from="di539601906274926455" to="di588764517123194957">
+            <style class="default" />
+          </item>
+          <item id="di818943369932265566" cid="GNR014" type="generalization" name="" style-class="" visibility="package" change-tracking-state="added" creator="P7397056203f6456dbdc122b485b3398c" creation-date="11/01/2016 23:13:13" from="di544032467468903734" to="di588764517123194957">
+            <style class="default" />
+          </item>
+          <item id="di771228744457276002" cid="C001" type="class" name="Data" style-class="" visibility="package" change-tracking-state="added" creator="P7397056203f6456dbdc122b485b3398c" creation-date="11/01/2016 23:00:32">
+            <style class="default" />
+            <attributes>
+              <attribute id="a2fde3ea7a0d846138efcca6450d61800618" cid="ELEM003" name="Size" type="Integer" type-id="Uml.Integer" visibility="public">
+                <style class="default" />
+              </attribute>
+              <attribute id="ae4e975540f344fce9520c3f04594929e868" cid="ELEM004" name="Population" type="Map&lt;Category : Size&gt;" type-id="Map&lt;Category : Size&gt;" visibility="public">
+                <style class="default" />
+              </attribute>
+            </attributes>
+            <operations>
+              <operation id="o2bd3cbef9d7a4aa7b2be929a24e98989383" cid="ELEM005" name="CalculateDistribution" type="" type-id="" visibility="public">
+                <style class="default" />
+              </operation>
+            </operations>
+          </item>
+          <item id="di821267469848919668" cid="REL004" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creator="P7397056203f6456dbdc122b485b3398c" creation-date="11/01/2016 23:17:29" from="di771228744457276002" to="di556933100290252532">
+            <style class="default" />
+            <relation from="di771228744457276002" to="di556933100290252532">
+              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="di503067052204979675" cid="REL005" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creator="P7397056203f6456dbdc122b485b3398c" creation-date="11/01/2016 23:20:58" from="di843628147612984994" to="di556933100290252532">
+            <style class="default" />
+            <relation from="di843628147612984994" to="di556933100290252532">
+              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="di946715220241828866" cid="REL006" type="relationship" name="" style-class="" visibility="package" change-tracking-state="added" creator="P7397056203f6456dbdc122b485b3398c" creation-date="11/01/2016 23:21:04" from="di588764517123194957" to="di556933100290252532">
+            <style class="default" />
+            <relation from="di588764517123194957" to="di556933100290252532">
+              <start-role id="" name="" navigability="" association-type="association" visibility="private" />
+              <end-role id="" name="" navigability="yes" association-type="association" visibility="private" />
+            </relation>
+          </item>
+        </abstract-items>
+        <layer name="Default" visible="true" enabled="true" locked="false">
+          <item id="di556933100290252532" iid="5bd5a722f123445d90c0977fab5ce624" creation-date="11/01/2016 23:00:32" order-index="0" type="entity">
+            <layout ax="450" ay="210" awidth="180" aheight="83" x="450" y="210" width="180" height="83" />
+            <class />
+          </item>
+          <item id="di843628147612984994" iid="d7848008f84e42519d05b79894abe9c7" creation-date="11/01/2016 23:01:56" order-index="2" type="entity">
+            <layout ax="300" ay="420" awidth="225" aheight="105" x="300" y="420" width="225" height="105" />
+            <class />
+          </item>
+          <item id="di771228744457276002" iid="57c63616d204457992f78c92d467817d" creation-date="11/01/2016 23:00:32" order-index="0" type="entity">
+            <layout ax="705" ay="195" awidth="255" aheight="105" x="705" y="195" width="255" height="105" />
+            <class />
+          </item>
+          <item id="di821267469848919668" iid="bdc824c81beb4c2fbe78ef316a40d700" creation-date="11/01/2016 23:17:29" order-index="7" type="relation">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="705" y1="255" x2="630" y2="257" start-border-pos="0.857142857142857" end-border-pos="0.392857142857143" name-position="0,0">
+              <points>
+                <point x="705" y="255" />
+                <point x="630" y="257" />
+              </points>
+            </layout>
+            <relation from="di771228744457276002" from-iid="57c63616d204457992f78c92d467817d" to="di556933100290252532" to-iid="5bd5a722f123445d90c0977fab5ce624" />
+          </item>
+          <item id="di503067052204979675" iid="a22434556638485e97a436c294f17a25" creation-date="11/01/2016 23:20:58" order-index="8" type="relation">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="perpendicular" lock-start-point="true" lock-end-point="true" lock-to-fields="true" auto-path="" x1="412" y1="420" x2="540" y2="293" start-border-pos="0.124444444444444" end-border-pos="0.625" name-position="0,0">
+              <points>
+                <point x="412" y="420" />
+                <point x="540" y="293" />
+              </points>
+            </layout>
+            <relation from="di843628147612984994" from-iid="d7848008f84e42519d05b79894abe9c7" from-field="static" to="di556933100290252532" to-iid="5bd5a722f123445d90c0977fab5ce624" />
+          </item>
+          <item id="di946715220241828866" iid="0e9e5bf73fd744588c1b956d9eccfa56" creation-date="11/01/2016 23:21:04" order-index="9" type="relation">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="perpendicular" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="660" y1="420" x2="540" y2="293" start-border-pos="0.125574720484346" end-border-pos="0.625" name-position="0,0">
+              <points>
+                <point x="660" y="420" />
+                <point x="540" y="293" />
+              </points>
+            </layout>
+            <relation from="di588764517123194957" from-iid="1d124dd749274fb0becacf283f1075e9" to="di556933100290252532" to-iid="5bd5a722f123445d90c0977fab5ce624" />
+          </item>
+          <item id="di588764517123194957" iid="1d124dd749274fb0becacf283f1075e9" creation-date="11/01/2016 23:01:05" order-index="1" type="entity">
+            <layout ax="585" ay="420" awidth="149.3135" aheight="105" x="585" y="420" width="149.3135" height="105" />
+            <class />
+          </item>
+          <item id="di797225019246518034" iid="6de3b16bb60c4c56a113628c5bb7d307" creation-date="11/01/2016 23:12:59" order-index="3" type="relation">
+            <layout line-style="perpendicular" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="810" y1="360" x2="734" y2="473" start-border-pos="0.875" end-border-pos="0.376190476190476" name-position="0,0">
+              <points>
+                <point x="810" y="360" />
+                <point x="734" y="473" />
+              </points>
+            </layout>
+            <relation from="di362221262239301053" from-iid="bf999527c9524a5dacf5b008fbf82cad" to="di588764517123194957" to-iid="1d124dd749274fb0becacf283f1075e9" />
+          </item>
+          <item id="di139700235809095186" iid="4a04c066f50842098b46d089cdc2a08a" creation-date="11/01/2016 23:13:04" order-index="4" type="relation">
+            <layout line-style="perpendicular" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="810" y1="435" x2="734" y2="473" start-border-pos="0.875" end-border-pos="0.376190476190476" name-position="0,0">
+              <points>
+                <point x="810" y="435" />
+                <point x="734" y="473" />
+              </points>
+            </layout>
+            <relation from="di439067371614713770" from-iid="06389ae3d4d04a13838f67fab0c1712c" to="di588764517123194957" to-iid="1d124dd749274fb0becacf283f1075e9" />
+          </item>
+          <item id="di542116595906053284" iid="7f8f70c3c1dc4af58e3198b60dc62f81" creation-date="11/01/2016 23:13:08" order-index="5" type="relation">
+            <layout line-style="perpendicular" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="810" y1="510" x2="734" y2="473" start-border-pos="0.875" end-border-pos="0.376190476190476" name-position="0,0">
+              <points>
+                <point x="810" y="510" />
+                <point x="734" y="473" />
+              </points>
+            </layout>
+            <relation from="di539601906274926455" from-iid="33a123bec40c44fc8e51550740892b19" to="di588764517123194957" to-iid="1d124dd749274fb0becacf283f1075e9" />
+          </item>
+          <item id="di818943369932265566" iid="84d79f2882ca4505a1be842701cb0adf" creation-date="11/01/2016 23:13:13" order-index="6" type="relation">
+            <layout line-style="perpendicular" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="810" y1="585" x2="734" y2="473" start-border-pos="0.875" end-border-pos="0.376190476190476" name-position="0,0">
+              <points>
+                <point x="810" y="585" />
+                <point x="734" y="473" />
+              </points>
+            </layout>
+            <relation from="di544032467468903734" from-iid="1c8fb08991e249ae800547654fc83168" to="di588764517123194957" to-iid="1d124dd749274fb0becacf283f1075e9" />
+          </item>
+          <item id="di362221262239301053" iid="bf999527c9524a5dacf5b008fbf82cad" creation-date="11/01/2016 23:00:32" order-index="0" type="entity">
+            <layout ax="810" ay="345" awidth="149.3135" aheight="30" x="810" y="345" width="149.3135" height="30" />
+            <class />
+          </item>
+          <item id="di439067371614713770" iid="06389ae3d4d04a13838f67fab0c1712c" creation-date="11/01/2016 23:00:32" order-index="0" type="entity">
+            <layout ax="810" ay="420" awidth="149.3135" aheight="30" x="810" y="420" width="149.3135" height="30" />
+            <class />
+          </item>
+          <item id="di539601906274926455" iid="33a123bec40c44fc8e51550740892b19" creation-date="11/01/2016 23:00:32" order-index="0" type="entity">
+            <layout ax="810" ay="495" awidth="149.3135" aheight="30" x="810" y="495" width="149.3135" height="30" />
+            <class />
+          </item>
+          <item id="di544032467468903734" iid="1c8fb08991e249ae800547654fc83168" creation-date="11/01/2016 23:00:32" order-index="0" type="entity">
+            <layout ax="810" ay="570" awidth="149.3135" aheight="30" x="810" y="570" width="149.3135" height="30" />
+            <class />
+          </item>
+        </layer>
+      </diagram>
+    </model>
+  </models>
+  <documents />
+  <document-templates />
+</sim-project>
