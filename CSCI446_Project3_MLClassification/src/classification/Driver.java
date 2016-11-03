@@ -3,7 +3,6 @@ package classification;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -18,16 +17,19 @@ public class Driver
     {
         // The list of all pre-processed data sets
         ArrayList<ArrayList<ArrayList<Double>>> dataSets = new ArrayList<>();
-        
         ArrayList<String> fileInputPaths = new ArrayList<>();
+        
         // mocking a pre-processed data set until the pre-processing is fully ready
         fileInputPaths.add("DataSets/mock-data-set.txt");
-        
         for (String dataTextFile : fileInputPaths)
         {
             ArrayList<ArrayList<Double>> currentDataSet = generateDataSet(dataTextFile);
-            printADataSet(currentDataSet);
+            dataSets.add(currentDataSet);
         }
+        
+        // instantiate the Experiment runner and provide it all the pre-processed data sets
+        Experiment experimentRunner = new Experiment(dataSets);
+//        experimentRunner.runExperiment();
     }
     
     /**
