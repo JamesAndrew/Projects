@@ -5,5 +5,5 @@ package classification;
  */
 public class Experiment 
 {
-    
+    public Experiment() { }
 }
