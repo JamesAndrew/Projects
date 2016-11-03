@@ -61,6 +61,7 @@ public class TempMain_David
         }
         s1.close();
         
+        // print the array
         for (int i1 = 0; i1 < list.length; i1++)
         {
             System.out.print("[");
@@ -71,5 +72,7 @@ public class TempMain_David
             System.out.print("]");
             System.out.println();
         }
+        
+        Categorizer kNN = new NearestNeighbor(list);
     }
 }
