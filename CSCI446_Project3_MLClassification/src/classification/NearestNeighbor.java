@@ -1,8 +1,6 @@
-
 package classification;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 public class NearestNeighbor implements Categorizer
 {
@@ -82,10 +80,3 @@ public class NearestNeighbor implements Categorizer
         }
     }
 }
-
-//            double[] currentLine = dataSet[i];
-//            double[] features = Arrays.copyOfRange(currentLine, 1, currentLine.length);
-//            System.out.println(Arrays.toString(features));
-//            Arrays.sort(features);
-//            System.out.println("min val: " + features[0]);
-//            System.out.println("max val: " + features[features.length - 1]);

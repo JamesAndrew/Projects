@@ -2,7 +2,6 @@ package classification;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class TempMain_David 
@@ -73,6 +72,8 @@ public class TempMain_David
             System.out.println();
         }
         
+        // instantiate the k-NN categorizer with the Iris data set sent to it
         Categorizer kNN = new NearestNeighbor(list);
+        // 'train' k-NN
     }
 }

@@ -1,8 +1,9 @@
 package classification;
 
 /**
- * Main pre-processes the data and sends a list of the pre-processed data
- * to the Experiment class 
+ * The driver provides a pre-processed (normalized, unneeded features removed,
+ * unknown features handled) List of data sets to a 'Experiment' instance.
+ * Each data set is a List<Vector> data type where the Vector is each data point
  */
 public class Driver 
 {
