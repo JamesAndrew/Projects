@@ -22,6 +22,8 @@ public class NaiveBayes
         System.out.println("=== Dummy Naive Bayes Method ===");
         int [][] data = { {1000025, 5, 1, 1, 1, 2, 1, 3, 1, 1, 2},
             {1002945, 5, 4, 4, 5, 7, 10, 3, 2, 1, 2} };
-        
+        // create frequency tables
     }
+    
+    // calculate probabilities
 }
