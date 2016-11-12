@@ -10,37 +10,47 @@ package classification;
  * @author James
  */
 public class NaiveBayes 
-{
+{ 
+    private int classes;
+    private int attr_values;
+    private int attributes;
+    
     public NaiveBayes()
     {
         System.out.println("=== Naive Bayes Experiment ===");
-        DummyNB();
+        NB();
     }
     
-    private void DummyNB()
+    private void NB()
     {
         System.out.println("=== Dummy Naive Bayes Method ===");
         int [][] train_data = { {1000025, 5, 1, 1, 1, 2, 1, 3, 1, 1, 2},
                           {1017122, 8, 10, 10, 8, 7, 10, 9, 7, 1, 4},
                           {1036172, 2, 1, 1, 1, 2, 1, 2, 1, 1, 2},
-                          {1041801, 5, 3, 3, 3, 2, 3, 4, 4, 1, 4}};
+                          {1041801, 5, 3, 3, 3, 2, 3, 4, 4, 1, 4},
+                          {369565, 4, 1, 1, 1, 3, 1, 1, 1, 1, 2},
+                          {1241035, 7, 8, 3, 7, 4, 5, 7, 8, 2, 4}};
         int [][] test_data = { {1047630, 7, 4, 6, 4, 6, 1, 4, 3, 1, 4},
-                               {1048672, 4, 1, 1, 1, 2, 1, 2, 1, 1, 2} };
+                               {1048672, 4, 1, 1, 1, 2, 1, 2, 1, 1, 2}};
 
-        
-        int attributes = 9;
-        int attr_values = 9;
-        int classes = 2;
+        System.out.println(train_data.length + " " + train_data[0].length);
+        attributes = 11;
+        attr_values = 11;
+        classes = 2;
         
         double [] class_stats = new double[classes];
-        double [][][] attr_stats = new double[classes][attributes+1][attr_values+1];
+        double [][][] attr_stats = new double[classes][attributes][attr_values];
                 
         int [] class_freq = new int [classes];
-        int [][][] attr_freq = new int [classes][attributes+1][attr_values+2];
+        int [][][] attr_freq = new int [classes][attributes][attr_values];
                 
+        /**
+         * determine the Naive Bayes Model
+         */
+        // loop through the data and determine frequencies
         for (int i = 0; i < train_data.length; i++)
         {
-            for(int j = 1; j < train_data[i].length; j++)
+            for(int j = 0; j < train_data[i].length; j++)
             {
                 System.out.print(train_data[i][j] + " ");
                 
@@ -108,6 +118,7 @@ public class NaiveBayes
                             attr_freq[c][j][10]++;
                             break;
                         default:
+                            attr_freq[c][j][0]++;
                             break;
                     }
                 }
@@ -115,6 +126,7 @@ public class NaiveBayes
                 
             }
             System.out.println();
+            // if on class attribute, determine prior probabilities of each class
             if (i == (train_data.length-1))
             {
                 class_stats[0] = (double)class_freq[0]/(double)train_data.length;
@@ -124,6 +136,7 @@ public class NaiveBayes
             System.out.println();
         }
         
+        // go through frequencies and determine probabilities
         for(int i = 0; i < attr_stats.length; i++)
         {
             for(int j = 0; j < attr_stats[i].length; j++)
@@ -132,15 +145,81 @@ public class NaiveBayes
                 {
                     System.out.println(attr_freq[i][j][k]);
                     attr_stats[i][j][k] = (double)attr_freq[i][j][k]/(double)class_freq[i];
-                    System.out.println("The probability of attribute " + j
-                            + "takes on value " + k + " given class " + i
-                            + " = " + attr_stats[i][j][k]);
+                    
+                    // check if any probabilities are 0
+                    if (attr_stats[i][j][k] == 0)
+                    {
+                        // apply m-estimate
+                        attr_stats[i][j][k] = mEst((double)attr_freq[i][j][k], (double)class_freq[i]);
+                    }
+                    
+                    // print final probabilities 
+                    System.out.println("P(A" + j
+                            + " = " + k + " | C" + i
+                            + ") = " + attr_stats[i][j][k]);
                 }
             }
         }
+        // print prior probabilities of each class
         System.out.println("Prior Probability for class 2 = " + class_stats[0]);
         System.out.println("Prior Probability for class 4 = " + class_stats[1]);
+        
+        /**
+         * Classify test data using Naive Bayes Parameters 
+         */
+        System.out.println("== Classifying test data ==");
+        double [] posteriors = new double [classes];
+        for (int i = 0; i < posteriors.length; i++)
+        {
+            posteriors[i] = 1.0;
+        }
+        
+        for (int i = 0; i < test_data.length; i++)
+        {
+            for (int j = 0; j < test_data[i].length; j++)
+            {
+                for (int k = 0; k < classes; k++)
+                {
+                    if (j == test_data[i].length - 1)
+                    {
+                        posteriors[k] = posteriors[k]*class_stats[k];
+                    }
+                    else
+                    {
+                        if (test_data[i][j] > test_data[0].length)
+                        {
+                            posteriors[k] = posteriors[k]*1.0;
+                        }
+                        else
+                        {
+                            posteriors[k] = posteriors[k]*attr_stats[k][j][test_data[i][j]];
+                        }
+                    }
+                }
+            }
+            
+            int classified = 0;
+            for (int l = 0; l < posteriors.length; l++)
+            {
+                if (posteriors[l] > posteriors[classified])
+                {
+                    classified = l;
+                }
+            }
+            System.out.println("Example " + i + "clasified as " + classified);
+        }
     }
     
-    // calculate probabilities
+    // m-estimate to handle 0 probabilities
+    public double mEst(double nc, double n)
+    {
+        double estimate;
+        double m = 1.0;
+        double p;
+        p = 1.0/(double)attr_values;
+        
+        estimate = (nc + m*p)/(n + m);
+        
+        return estimate;
+    }
 }
