@@ -42,4 +42,13 @@ public class TANNode
      {
          return influence; 
      }
+     
+     public boolean equals(TANNode compareNode)
+     {
+         if (compareNode.traitNumber == traitNumber && compareNode.traitValue == traitValue)
+         {
+             return true; 
+         }
+         return false; 
+     }
 }
