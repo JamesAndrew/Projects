@@ -13,7 +13,7 @@ import java.util.List;
 public class DataSet 
 {
     private String name;
-    private List<Vector> vectors = new ArrayList<>();
+    public List<Vector> vectors = new ArrayList<>();
     /**
      * Constructor takes in a data set from the Experiment class and gives it
      * a name based on the empirically known first line of data
