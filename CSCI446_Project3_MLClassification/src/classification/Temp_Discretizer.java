@@ -60,7 +60,9 @@ public class Temp_Discretizer
         // end the recursion if S is a set of size 1
         if (S.size() == 1)
         {
-            
+            // add cut point for that single entry 
+            cutPoints.add(S.get(0).get(1));
+            return;
         }
         // assign the index in the current subset that results in the least entropy 
         int minEntropyIndex = findMinEntropyCut(S);
@@ -78,15 +80,65 @@ public class Temp_Discretizer
         double minEntropy = Double.MAX_VALUE;
         
         // for each feature entry... (keeping as an ArrayList<ArrayList<Double>> to have the classification attached with it)
-        for (int i = 1; i < S.size(); i++)
+        for (int i = 0; i < S.size(); i++)
         {
             // make a cut point at this entry and calculate the resulting entropy
+            int cutIndex = i;
             
+            // create two subsets from the entries to the left (inclusive) and right (exclusive) of the cut point
+            ArrayList<ArrayList<Double>> S_1 = new ArrayList<>();
+            ArrayList<ArrayList<Double>> S_2 = new ArrayList<>();
+            
+            for (int leftSet = 0; leftSet <= i; leftSet++) 
+                S_1.add(leftSet, S.get(leftSet));
+            for (int rightSet = i+1, s2Index = 0; rightSet <= S.size(); rightSet++, s2Index++) 
+                S_2.add(s2Index, S.get(rightSet));
+            
+            System.out.format("S and subsets S_1 and S_2 at cut index %d: %n", i);
+            printADataSet(S);
+            printADataSet(S_1);
+            printADataSet(S_2);
+            
+            // calculate the entropy of each subset
+            double S1_Entropy = entropy(S_1);
+            double S2_Entropy = entropy(S_2);
         }
         
         if (bestIndex < 0) throw new RuntimeException("index never set in find min entropy cut");
         else
             return bestIndex;
+    }
+    
+    /**
+     * Calculates the class entropy of a set
+     * Ent(S) = -Sum_i=1^k [P(C_i, S) log_2(P(C_i, S))]
+     * 
+     * @param S the set to calculate entropy on
+     * @return a value representing entropy. high values mean more chaos
+     */
+    private static double entropy(ArrayList<ArrayList<Double>> S)
+    {
+        double sum = 0.0;
+        ArrayList<Double> classes = new ArrayList<>();
+        
+        // extract the existing classes for the current set
+        for (ArrayList<Double> entry : S)
+        {
+            Double currentClass = entry.get(0);
+            if (!classes.contains(currentClass)) classes.add(currentClass);
+        }
+        
+        // for each classification in S...
+        for (Double classification : classes)
+        {
+            // calculate proportion of current classification in S
+            int frequency = 0;
+            for (ArrayList<Double> entry : S)
+            {
+                if (entry.get(0) == (int)classification) frequency++;
+            }
+            double proportion = (double)frequency / (double)S.size();
+        }
     }
     
     private static ArrayList<ArrayList<Double>> sortFeature(ArrayList<ArrayList<Double>> input)
