@@ -14,7 +14,7 @@ public class Temp_Discretizer
 {
     // class-scoped variable that is filled during the recurisve calls of Discretize
     // each value is where a 'cut' will occur in the sorted data set array
-    private static ArrayList<Integer> cutPoints;
+    private static ArrayList<Double> cutPoints;
     
     /**
      * Start with a .txt file of a one-feature data set with continuous values,
@@ -44,13 +44,49 @@ public class Temp_Discretizer
      *  - mDLP              : "Minimal Description Length Principle". The halting condition.
      * 
      * Note that this currently only discretizes on feature column. A simple loop 
-     * can extend this to sort all feature columns one at a time
-     * @param input a data set with 1 feature (for now) that is sorted by feature values
+     * can extend this to sort all feature columns one at a time.
+     * 
+     * Might be good for me to have a more clarifying name, but note that this method
+     * does not actually complete the discretization. It just generates the cut points.
+     * The actual discretization process happens once we have the cut points.
+     * 
+     * I'm using single-letter variables to match the equations from various academic papers
+     * 
+     * @param S a data set with 1 feature (for now) that is sorted by feature values
      * @return fills class variable 'cutPoints' with a list of where the cut points will be
      */
-    private static void Discretize(ArrayList<ArrayList<Double>> input)
+    private static void Discretize(ArrayList<ArrayList<Double>> S)
     {
+        // end the recursion if S is a set of size 1
+        if (S.size() == 1)
+        {
+            
+        }
+        // assign the index in the current subset that results in the least entropy 
+        int minEntropyIndex = findMinEntropyCut(S);
+    }
+    
+    /**
+     * Iterate through each data point in S and calculate the class information entropy
+     * if a partition happened at that index. Return whichever index minimizes entropy
+     * @param S
+     * @return The index that minimizes entropy
+     */
+    private static int findMinEntropyCut(ArrayList<ArrayList<Double>> S)
+    {
+        int    bestIndex = -1;
+        double minEntropy = Double.MAX_VALUE;
         
+        // for each feature entry... (keeping as an ArrayList<ArrayList<Double>> to have the classification attached with it)
+        for (int i = 1; i < S.size(); i++)
+        {
+            // make a cut point at this entry and calculate the resulting entropy
+            
+        }
+        
+        if (bestIndex < 0) throw new RuntimeException("index never set in find min entropy cut");
+        else
+            return bestIndex;
     }
     
     private static ArrayList<ArrayList<Double>> sortFeature(ArrayList<ArrayList<Double>> input)
