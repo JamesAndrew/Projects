@@ -7,9 +7,9 @@ package classification;
 
 /**
  *
- * @author James NB
+ * @author James
  */
-public class NaiveBayes
+public class NaiveBayes 
 { 
     private int classes;
     private int attr_values;
