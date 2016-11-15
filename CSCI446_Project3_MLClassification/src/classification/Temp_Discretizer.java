@@ -12,6 +12,10 @@ import java.util.Scanner;
  */
 public class Temp_Discretizer 
 {
+    // class-scoped variable that is filled during the recurisve calls of Discretize
+    // each value is where a 'cut' will occur in the sorted data set array
+    private static ArrayList<Integer> cutPoints;
+    
     /**
      * Start with a .txt file of a one-feature data set with continuous values,
      * end with an ArrayList<ArrayList<Integer>> of discretized values
@@ -21,12 +25,31 @@ public class Temp_Discretizer
     public static void main(String[] args) throws FileNotFoundException 
     {
         // transform the .txt file into an ArrayList<ArrayList<Double>>
-        ArrayList<ArrayList<Double>> currentDataSet = generateDataSet("DataSets/mock-data-for-discretizing.txt");
+        ArrayList<ArrayList<Double>> currentDataSet = generateDataSet("DataSets/tiny-mock-data-for-discretizing.txt");
         
         // sort the data set (low-to-high) based on Feature_1 values
         currentDataSet = sortFeature(currentDataSet);
         printADataSet(currentDataSet);
         
+        // method that fills *n* partition locations in 'cutPoints' by calling the recursive 'Discretize' function
+        Discretize(currentDataSet);
+    }
+    
+    /**
+     * Methods used during recursion calls: 
+     *  - entropy           : utility calculation procedure
+     *  - classEntropy      : utility calculation procedure
+     *  - gain              : utility calculation procedure
+     *  - findMinEntropyCut : finds the index in the current subset that results in the least entropy 
+     *  - mDLP              : "Minimal Description Length Principle". The halting condition.
+     * 
+     * Note that this currently only discretizes on feature column. A simple loop 
+     * can extend this to sort all feature columns one at a time
+     * @param input a data set with 1 feature (for now) that is sorted by feature values
+     * @return fills class variable 'cutPoints' with a list of where the cut points will be
+     */
+    private static void Discretize(ArrayList<ArrayList<Double>> input)
+    {
         
     }
     
