@@ -356,8 +356,8 @@ public class Temp_Discretizer
      */
     private static ArrayList<ArrayList<Double>> assignDiscreteValues(ArrayList<ArrayList<Double>> S, int featColumn)
     {
-        Double                   discreteValue = 1.0;
-        Stack<Double>            cuts          = new Stack();
+        Double        discreteValue = 1.0;
+        Stack<Double> cuts          = new Stack();
         
         // add an extra placeholder cutpoint at the bottom to avoid a empty stack exception
         cuts.push(99.99);
@@ -372,7 +372,7 @@ public class Temp_Discretizer
         {
             ArrayList<Double> vector = S.get(i);
             // once a cut point is reached...
-            if (Objects.equals(vector.get(featColumn), cuts.peek()))
+            if (cuts.peek() < vector.get(featColumn))
             {
                 cuts.pop();
                 
