@@ -2,7 +2,10 @@ package classification;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -13,11 +16,18 @@ import java.util.Scanner;
  */
 public class Driver 
 {
-    public static void main(String[] args) throws FileNotFoundException 
+    // put the solvers you want the program to run on in here
+    public final static List<Class<?>> algorithmList = Arrays.asList(
+        NearestNeighbor.class
+    );
+    
+    public static void main(String[] args) throws FileNotFoundException, InstantiationException, 
+            IllegalAccessException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException 
     {
         // The list of all pre-processed data sets
         ArrayList<ArrayList<ArrayList<Integer>>> dataSets = new ArrayList<>();
         ArrayList<String> fileInputPaths = new ArrayList<>();
+        
         
         // Add the preprocessed sets here once ready:
         fileInputPaths.add("DataSets/Preprocessed/iris-preprocessed.txt");
@@ -30,7 +40,7 @@ public class Driver
         
         // instantiate the Experiment runner and provide it all the pre-processed data sets
         Experiment experimentRunner = new Experiment(dataSets);
-        experimentRunner.runExperiment();
+        experimentRunner.runExperiment(algorithmList);
     }
     
     /**
