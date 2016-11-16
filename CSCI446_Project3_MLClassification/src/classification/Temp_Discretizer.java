@@ -32,7 +32,7 @@ public class Temp_Discretizer
     public static void main(String[] args) throws FileNotFoundException 
     {
         // transform the .txt file into an ArrayList<ArrayList<Double>>
-        ArrayList<ArrayList<Double>> currentDataSet = generateDataSet("DataSets/tiny-mock-data-set.txt");
+        ArrayList<ArrayList<Double>> currentDataSet = generateDataSet("DataSets/mock-data-set.txt");
         
         // repeat process for each feature column:
         for (int featColumn = 1; featColumn < currentDataSet.get(0).size(); featColumn++)
@@ -480,10 +480,12 @@ public class Temp_Discretizer
         for (int i = 0; i < data.size(); i++)
         {
             ArrayList<Integer> vector = data.get(i);
-            System.out.format("%-3d: ", i);
-            for (Integer value : vector)
+//            System.out.format("%-3d: ", i);
+//            for (Integer value : vector)
+            for (int j = 0; j < vector.size(); j++)
             {
-                System.out.format("%d, ", value);
+                if (j < vector.size() - 1) System.out.format("%d, ", vector.get(j));
+                else System.out.format("%d", vector.get(j));
             }
             System.out.println();
         }
