@@ -48,6 +48,20 @@ public class Temp_Discretizer
             Discretize(currentDataSet, featColumn);
             Collections.sort(cutPoints);
             
+            // modify cut points to be the median value between the two feature values it should be between
+            for (int i = 0, j = 0; i < currentDataSet.size(); i++)
+            {
+                if (cutPoints.get(j) < currentDataSet.get(i).get(featColumn))
+                {
+                    double cutL = currentDataSet.get(i-1).get(featColumn);
+                    double cutR = currentDataSet.get(i).get(featColumn);
+                    double newCutValue = (cutL + cutR) / 2;
+                    cutPoints.set(j, newCutValue);
+                    j++;
+                }
+                if (j == cutPoints.size()) break;
+            }
+            
             System.out.println("\nFinal cut points, values only:");
             for (Double point : cutPoints) System.out.format("%.3f%n", point);
             
@@ -60,19 +74,20 @@ public class Temp_Discretizer
             }
             for (ArrayList<Double> vector : currentDataSet)
             {
-                for (Double value : vector)
-                {
-                    System.out.format("%.3f ", value);
-                }
-                System.out.println();
                 if (stack.size() > 0)
                 {
-                    if (Objects.equals(vector.get(featColumn), stack.peek()))
+                    if (stack.peek() < vector.get(featColumn))
                     {
                         System.out.println("------------------------------");
                         stack.pop();
                     }
                 }
+                
+                for (Double value : vector)
+                {
+                    System.out.format("%.3f ", value);
+                }
+                System.out.println();
             }
 
             // Discritize the ArrayList of doubles for the current feature column
