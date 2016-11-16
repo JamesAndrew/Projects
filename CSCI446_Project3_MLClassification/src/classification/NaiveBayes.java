@@ -9,20 +9,26 @@ package classification;
  *
  * @author James
  */
-public class NaiveBayes 
+public class NaiveBayes extends Categorizer
 { 
     private int classes;
     private int attr_values;
     private int attributes;
     
-    public NaiveBayes()
+    public NaiveBayes(DataSet[] trainingFolds, DataSet testingFold)
     {
+        super(trainingFolds, testingFold);
+        categorizerName = "NB";
+    
         System.out.println("=== Naive Bayes Experiment ===");
-        NB();
+        
     }
     
-    private void NB()
+    @Override
+    public void Train() 
     {
+        
+        
         System.out.println("=== Dummy Naive Bayes Method ===");
         int [][] train_data = { {1000025, 5, 1, 1, 1, 2, 1, 3, 1, 1, 2},
                           {1017122, 8, 10, 10, 8, 7, 10, 9, 7, 1, 4},
@@ -162,53 +168,60 @@ public class NaiveBayes
         }
         // print prior probabilities of each class
         System.out.println("Prior Probability for class 2 = " + class_stats[0]);
-        System.out.println("Prior Probability for class 4 = " + class_stats[1]);
-        
-        /**
-         * Classify test data using Naive Bayes Parameters 
-         */
-        System.out.println("== Classifying test data ==");
-        double [] posteriors = new double [classes];
-        for (int i = 0; i < posteriors.length; i++)
-        {
-            posteriors[i] = 1.0;
-        }
-        
-        for (int i = 0; i < test_data.length; i++)
-        {
-            for (int j = 0; j < test_data[i].length; j++)
-            {
-                for (int k = 0; k < classes; k++)
-                {
-                    if (j == test_data[i].length - 1)
-                    {
-                        posteriors[k] = posteriors[k]*class_stats[k];
-                    }
-                    else
-                    {
-                        if (test_data[i][j] > test_data[0].length)
-                        {
-                            posteriors[k] = posteriors[k]*1.0;
-                        }
-                        else
-                        {
-                            posteriors[k] = posteriors[k]*attr_stats[k][j][test_data[i][j]];
-                        }
-                    }
-                }
-            }
-            
-            int classified = 0;
-            for (int l = 0; l < posteriors.length; l++)
-            {
-                if (posteriors[l] > posteriors[classified])
-                {
-                    classified = l;
-                }
-            }
-            System.out.println("Example " + i + "clasified as " + classified);
-        }
+        System.out.println("Prior Probability for class 4 = " + class_stats[1]); 
     }
+
+    @Override
+    public int[][] Test() 
+    {
+//        /**
+//         * Classify test data using Naive Bayes Parameters 
+//         */
+//        System.out.println("== Classifying test data ==");
+//        double [] posteriors = new double [classes];
+//        for (int i = 0; i < posteriors.length; i++)
+//        {
+//            posteriors[i] = 1.0;
+//        }
+//        
+//        for (int i = 0; i < test_data.length; i++)
+//        {
+//            for (int j = 0; j < test_data[i].length; j++)
+//            {
+//                for (int k = 0; k < classes; k++)
+//                {
+//                    if (j == test_data[i].length - 1)
+//                    {
+//                        posteriors[k] = posteriors[k]*class_stats[k];
+//                    }
+//                    else
+//                    {
+//                        if (test_data[i][j] > test_data[0].length)
+//                        {
+//                            posteriors[k] = posteriors[k]*1.0;
+//                        }
+//                        else
+//                        {
+//                            posteriors[k] = posteriors[k]*attr_stats[k][j][test_data[i][j]];
+//                        }
+//                    }
+//                }
+//            }
+//            
+//            int classified = 0;
+//            for (int l = 0; l < posteriors.length; l++)
+//            {
+//                if (posteriors[l] > posteriors[classified])
+//                {
+//                    classified = l;
+//                }
+//            }
+//            System.out.println("Example " + i + "clasified as " + classified);
+//        }
+          int [][] stuff = {{0, 1}, {1, 0}};
+          return stuff;
+    } 
+    
     
     // m-estimate to handle 0 probabilities
     public double mEst(double nc, double n)

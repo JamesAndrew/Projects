@@ -15,6 +15,6 @@ public class TempMain_James
 {
     public static void main(String[] args) throws FileNotFoundException 
     {
-        NaiveBayes nb = new NaiveBayes();
+        //NaiveBayes nb = new NaiveBayes();
     }
 }
