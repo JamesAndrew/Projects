@@ -1,7 +1,6 @@
 package classification;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Experiment runs the 10-fold cross validation procedure
@@ -9,7 +8,8 @@ import java.util.List;
 public class Experiment 
 {
     // Collection of the 5 data sets in 'DataSet' object form
-    List<DataSet> dataSets = new ArrayList<>();
+//    List<DataSet> dataSets = new ArrayList<>();
+    DataSet[] dataSets;
     
     /**
      * Constructor expects a pre-processed List<List<List<Integer>>> 
@@ -17,14 +17,15 @@ public class Experiment
      * the discretized feature values.
      * The Experiment constructor is in charge of making the appropriate
      * 'DataSet' class representations of the provided list
-     * @param dataSets
+     * @param in_dataSets : pre-processed data from Driver
      */
-    public Experiment(ArrayList<ArrayList<ArrayList<Integer>>> dataSets) 
+    public Experiment(ArrayList<ArrayList<ArrayList<Integer>>> in_dataSets) 
     { 
         // fill the dataSets collection
-        for (ArrayList<ArrayList<Integer>> dataSet : dataSets)
+        dataSets = new DataSet[in_dataSets.size()];
+        for (int i = 0; i < in_dataSets.size(); i++)
         {
-            this.dataSets.add(new DataSet(dataSet));
+            this.dataSets[i] = new DataSet(in_dataSets.get(i));
         }
     }
     
@@ -34,6 +35,9 @@ public class Experiment
      */
     public void runExperiment()
     {
+        // create 10 partitions                                                 // TODO (DR) : stratification
+        
+        
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 }

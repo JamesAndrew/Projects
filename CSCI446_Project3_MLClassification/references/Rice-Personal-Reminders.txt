@@ -1,0 +1,4 @@
+Reminders:
+	- Need to stratify the partitions in the 'runExperiment()' method
+	
+Notes:

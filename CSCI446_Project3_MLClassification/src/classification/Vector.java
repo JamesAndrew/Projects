@@ -1,8 +1,6 @@
 package classification;
 
 import java.util.ArrayList;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-import sun.security.util.PendingException;
 
 /**
  * A vector is an array list of n integer values.
@@ -55,9 +53,10 @@ public class Vector
      * its intended use so added a pending exception to help things compile
      * @param attribute
      * @param index
+     * @return 
      */
     public boolean contains(double attribute, int index)
     {
-        throw new PendingException();
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 }
