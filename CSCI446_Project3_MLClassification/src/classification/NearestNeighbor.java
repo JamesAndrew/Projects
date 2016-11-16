@@ -21,7 +21,7 @@ public class NearestNeighbor extends Categorizer
     }
 
     @Override
-    public void Test() 
+    public int[][] Test() 
     {
         throw new UnsupportedOperationException("Not supported yet."); 
     }

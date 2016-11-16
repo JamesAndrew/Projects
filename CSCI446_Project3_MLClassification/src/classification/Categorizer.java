@@ -28,7 +28,10 @@ public abstract class Categorizer
     public abstract void Train();
     
     /**
-     * Then test
+     * Then test.
+     * The test class must return a (n x n) int array representing the
+     * confusion matrix results for the current run.
+     * See https://en.wikipedia.org/wiki/Confusion_matrix
      */
-    public abstract void Test();
+    public abstract int[][] Test();
 }

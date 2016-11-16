@@ -25,6 +25,10 @@ public class DataSet
         // name the data set based on known first value
         if (arrayListEquals(dataSet.get(0), iris_data_set))
             this.name = "iris_data_set";
+//                        "cancer_data_set"
+//                        "glass_data_set"
+//                        "house_data_set"
+//                        "soybean_data_set"
         else 
             throw new RuntimeException("The first line of the input data set did not match a known data set."
                 + "Check your data set with the associations in the DataSet class constructor.");
@@ -149,8 +153,27 @@ public class DataSet
         return output;
     }
     
+    /**
+     * @return the number of unique classifications this data set has
+     */
+    public int getNumClassifications()
+    {
+        ArrayList<Integer> classifications = new ArrayList<>();
+        for (Vector vector : vectors)
+        {
+            if (!(classifications.contains(vector.classification())))
+                classifications.add(vector.classification());
+        }
+        return classifications.size();
+    }
+    
     public Vector[] getVectors() 
     {
         return vectors;
+    }
+    
+    public String getName() 
+    {
+        return name;
     }
 }

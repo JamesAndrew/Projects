@@ -47,6 +47,9 @@ public class Experiment
         {
             DataSet currentDataSet = dataSets[dataSetsIndex];
             
+            // instantiate its confusion matrix in the stats class
+            Statistics.instantiateMatrix(currentDataSet.getName(), currentDataSet.getNumClassifications());
+            
             // create 10 partitions                   
             DataSet[] partitions = currentDataSet.fillPartitions();
             
@@ -60,6 +63,9 @@ public class Experiment
             // for each machine learning categorizer...
             for (Class<?> categorizer : algorithmList)
             {
+                // Holds the 10 fold-run confusion matrix results (used to take an average after the 10 runs complete)
+                ArrayList<int[][]> foldRunResults = new ArrayList<>();
+                
                 // for each 10-fold cross validation run...
                 for (int cvRun = 0; cvRun < partitions.length; cvRun++)
                 {
@@ -76,13 +82,48 @@ public class Experiment
                     
                     // train
                     currentCategorizer.Train();
-                    // then test and save results
-                    currentCategorizer.Test();
+                    
+                    // test and save results for the current fold run
+                    int[][] foldResult = currentCategorizer.Test();
+                    foldRunResults.add(foldResult);
                 }
+                
+                // average all values in the 10-fold CV run and sent to the Statistics class
+                double[][] averagedResults = averageFoldResults(foldRunResults);
+            }
+        }
+    }
+    
+    /**
+     * @param input : a list of 10 int[][] resulting from the 10-fold CV runs
+     * @return : the average of each entry as a single double[][] instance
+     */
+    private double[][] averageFoldResults(ArrayList<int[][]> input)
+    {
+        double[][] returnedArray = new double[input.get(0).length][];
+        for (int i = 0; i < returnedArray.length; i++) 
+            returnedArray[i] = new double[returnedArray.length]; 
+            
+        // for each row...
+        for (int i = 0; i < returnedArray.length; i++)
+        {
+            // for each column entry...
+            for (int j = 0; j < returnedArray.length; j++)
+            {
+                // calculate the average of all arrays at this index
+                double avgValue = 0.0;
+                for (int[][] fold : input)
+                {
+                    avgValue += fold[i][j];
+                }
+                avgValue = avgValue / (double)input.size();
+                
+                // and add to the array to return
+                returnedArray[i][j] = avgValue;
             }
         }
         
-//        throw new UnsupportedOperationException("Not supported yet."); 
+        return returnedArray;
     }
     
     /**
