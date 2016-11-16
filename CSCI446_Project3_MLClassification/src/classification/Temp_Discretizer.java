@@ -14,7 +14,7 @@ public class Temp_Discretizer
 {
     // class-scoped variable that is filled during the recurisve calls of Discretize
     // each value is where a 'cut' will occur in the sorted data set array
-    private static ArrayList<Double> cutPoints;
+    private static ArrayList<Double> cutPoints = new ArrayList<>();
     
     /**
      * Start with a .txt file of a one-feature data set with continuous values,
@@ -64,8 +64,58 @@ public class Temp_Discretizer
             cutPoints.add(S.get(0).get(1));
             return;
         }
-        // assign the index in the current subset that results in the least entropy 
+        
+        // assign the index in the current subset that results in the least entropy. This is 'T' in the Fayyad paper
         int minEntropyIndex = findMinEntropyCut(S);
+        
+        // get number of classifications in current set S, S_1, and S_2 (used for MDLPC claculation below)
+        ArrayList<ArrayList<Double>> S_1 = new ArrayList<>();
+	ArrayList<ArrayList<Double>> S_2 = new ArrayList<>();
+        ArrayList<Double> sClasses = new ArrayList<>();
+        ArrayList<Double> s1Classes = new ArrayList<>();
+        ArrayList<Double> s2Classes = new ArrayList<>();
+        
+        for (int leftSet = 0; leftSet <= minEntropyIndex; leftSet++) 
+		S_1.add(leftSet, S.get(leftSet));
+	for (int rightSet = minEntropyIndex+1, s2Index = 0; rightSet < S.size(); rightSet++, s2Index++) 
+		S_2.add(s2Index, S.get(rightSet));
+        
+        for (ArrayList<Double> entry : S)
+        {
+            Double currentClass = entry.get(0);
+            if (!sClasses.contains(currentClass)) sClasses.add(currentClass);
+        }
+        for (ArrayList<Double> entry : S_1)
+        {
+            Double currentClass = entry.get(0);
+            if (!s1Classes.contains(currentClass)) s1Classes.add(currentClass);
+        }
+        for (ArrayList<Double> entry : S_2)
+        {
+            Double currentClass = entry.get(0);
+            if (!s2Classes.contains(currentClass)) s2Classes.add(currentClass);
+        }
+        
+        int k = sClasses.size();
+        int k1 = s1Classes.size();
+        int k2 = s2Classes.size();
+        
+        // halting condition: MDLPC criterion (see Fayyad paper)
+        double gain = gain(S, minEntropyIndex);
+        double threshold = ((Math.log10(S.size()-1)/Math.log10(2))/S.size()) 
+                + ( Math.log10(Math.pow(3,k)-2)/Math.log10(2) - (k*entropy(S) - k1*entropy(S_1) - k2*entropy(S_2)) );
+        System.out.format("Halting condition: gain: %f, threshold: %f%n", gain, threshold);
+        if (gain > threshold)
+        {
+            // return if halting condition is met...
+            System.out.println("Halting condition met");
+        }
+        else
+        {
+            // otherwise add the cut point to the final list and recursively check the subsets on both sides of the cut
+            cutPoints.add(S.get(minEntropyIndex).get(1));
+            System.out.format("Added %f to the cutPoints list%n", S.get(minEntropyIndex).get(1));
+        }
     }
     
     /**
@@ -162,6 +212,35 @@ public class Temp_Discretizer
         return sum;
     }
     
+    /**
+     * Gain(A,T;S) = Ent(S) - E(A,T;S)
+     * E is the average class entropy equation
+     * Follows same approach for calculating E as findMinEntropyCut
+     * 
+     * @param S : The current feature set (often a subset)
+     * @param T : the cut index
+     * @return : the gain value
+     */
+    private static double gain(ArrayList<ArrayList<Double>> S, int T)
+    {
+        ArrayList<ArrayList<Double>> S_1 = new ArrayList<>();
+	ArrayList<ArrayList<Double>> S_2 = new ArrayList<>();
+        
+        for (int leftSet = 0; leftSet <= T; leftSet++) 
+		S_1.add(leftSet, S.get(leftSet));
+	for (int rightSet = T+1, s2Index = 0; rightSet < S.size(); rightSet++, s2Index++) 
+		S_2.add(s2Index, S.get(rightSet));
+        
+        // calculate the entropy of each subset
+	double S1_Entropy = entropy(S_1);
+	double S2_Entropy = entropy(S_2);
+        
+        double ent = entropy(S);
+        double e   = ((double)S_1.size() / (double)S.size())*S1_Entropy + ((double)S_2.size() / (double)S.size())*S2_Entropy;
+        double gain = ent - e;
+        
+        return gain;
+    }
     
     private static ArrayList<ArrayList<Double>> sortFeature(ArrayList<ArrayList<Double>> input)
     {
