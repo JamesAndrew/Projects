@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Scanner;
+import java.util.Stack;
 
 /**
  * Temp class that discretizes features of continuously valued data
@@ -16,6 +18,10 @@ public class Temp_Discretizer
     // class-scoped variable that is filled during the recurisve calls of Discretize
     // each value is where a 'cut' will occur in the sorted data set array
     private static ArrayList<Double> cutPoints = new ArrayList<>();
+    // tunable parameter to affect halting condition to stop making cuts. 
+    // lower values will make more cuts. 0.50 seemed to work well for the small 
+    // testing data set of size 24 with 3 classifications
+    private static double cutSensitivity = 0.50;
     
     /**
      * Start with a .txt file of a one-feature data set with continuous values,
@@ -38,6 +44,26 @@ public class Temp_Discretizer
         
         System.out.println("Final cut points:");
         for (Double point : cutPoints) System.out.format("%.3f%n", point);
+        
+        System.out.println("\nFinal cut points:");
+        Stack<Double> stack = new Stack();
+        for (int i = cutPoints.size() - 1; i >= 0; i--)
+        {
+            stack.push(cutPoints.get(i));
+        }
+        for (ArrayList<Double> vector : currentDataSet)
+        {
+            System.out.format("%.3f, %.3f%n", vector.get(0), vector.get(1));
+            if (stack.size() > 0)
+            {
+                if (Objects.equals(vector.get(1), stack.peek()))
+                {
+                    System.out.println("-------------");
+                    stack.pop();
+                }
+            }
+        }
+        
     }
     
     /**
@@ -110,6 +136,9 @@ public class Temp_Discretizer
         double gain = gain(S, minEntropyIndex);
         double threshold = ((Math.log10(S.size()-1) / Math.log10(2)) / S.size()) 
                 + ((Math.log10(Math.pow(3,k)-2) / Math.log10(2) - (k*entropy(S) - k1*entropy(S_1) - k2*entropy(S_2))) / S.size());
+        // take a fraction of the threshold depending on data size?
+        threshold *= cutSensitivity;
+        
         System.out.format("Halting condition: gain: %f, threshold: %f%n", gain, threshold);
         if (gain < threshold)
         {
@@ -155,20 +184,12 @@ public class Temp_Discretizer
             for (int rightSet = i+1, s2Index = 0; rightSet < S.size(); rightSet++, s2Index++) 
                 S_2.add(s2Index, S.get(rightSet));
             
-//            System.out.format("Subsets S_1 and S_2 at cut index %d: %n", i);
-//            System.out.println("S_1:");
-//            printADataSet(S_1);
-//            System.out.println("S_2:");
-//            printADataSet(S_2);
-            
             // calculate the entropy of each subset
             double S1_Entropy = entropy(S_1);
             double S2_Entropy = entropy(S_2);
-//            System.out.format("s1 entropy: %f%ns2 entropy: %f%n", S1_Entropy, S2_Entropy);
             
             // calculate average class entropy as a result of the cut
             double classEntropy = ((double)S_1.size() / (double)S.size())*S1_Entropy + ((double)S_2.size() / (double)S.size())*S2_Entropy;
-//            System.out.format("Class entropy: %f%n%n", classEntropy);
             
             // if this entropy is small, reassign minEntropy value
             if (classEntropy < minEntropy) 
