@@ -4,6 +4,7 @@ package classification;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -33,6 +34,10 @@ public class Temp_Discretizer
         
         // method that fills *n* partition locations in 'cutPoints' by calling the recursive 'Discretize' function
         Discretize(currentDataSet);
+        Collections.sort(cutPoints);
+        
+        System.out.println("Final cut points:");
+        for (Double point : cutPoints) System.out.format("%.3f%n", point);
     }
     
     /**
@@ -61,7 +66,8 @@ public class Temp_Discretizer
         if (S.size() == 1)
         {
             // add cut point for that single entry 
-            cutPoints.add(S.get(0).get(1));
+            double cutPoint = S.get(0).get(1);
+            if (!cutPoints.contains(cutPoint)) cutPoints.add(cutPoint);
             return;
         }
         
@@ -108,13 +114,18 @@ public class Temp_Discretizer
         if (gain > threshold)
         {
             // return if halting condition is met...
-            System.out.println("Halting condition met");
+            System.out.println("= Halting condition met =");
         }
         else
         {
-            // otherwise add the cut point to the final list and recursively check the subsets on both sides of the cut
-            cutPoints.add(S.get(minEntropyIndex).get(1));
-            System.out.format("Added %f to the cutPoints list%n", S.get(minEntropyIndex).get(1));
+            // otherwise add the cut point to the final list and... 
+            double cutPoint = S.get(minEntropyIndex).get(1);
+            if (!cutPoints.contains(cutPoint)) cutPoints.add(cutPoint);
+            System.out.format("= Added %f to the cutPoints list =%n", S.get(minEntropyIndex).get(1));
+            
+            // recursively check the subsets on both sides of the cut
+            Discretize(S_1);
+            Discretize(S_2);
         }
     }
     
