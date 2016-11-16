@@ -48,6 +48,11 @@ public class Statistics
         keyValue.put(dataSetName, matrix);
         results.put(algName, keyValue);
     }
+
+    public static HashMap<String, HashMap<String, double[][]>> getResults() 
+    {
+        return results;
+    }
 }
 
 
