@@ -108,10 +108,10 @@ public class Temp_Discretizer
         
         // halting condition: MDLPC criterion (see Fayyad paper)
         double gain = gain(S, minEntropyIndex);
-        double threshold = ((Math.log10(S.size()-1)/Math.log10(2))/S.size()) 
-                + ( Math.log10(Math.pow(3,k)-2)/Math.log10(2) - (k*entropy(S) - k1*entropy(S_1) - k2*entropy(S_2)) );
+        double threshold = ((Math.log10(S.size()-1) / Math.log10(2)) / S.size()) 
+                + ((Math.log10(Math.pow(3,k)-2) / Math.log10(2) - (k*entropy(S) - k1*entropy(S_1) - k2*entropy(S_2))) / S.size());
         System.out.format("Halting condition: gain: %f, threshold: %f%n", gain, threshold);
-        if (gain > threshold)
+        if (gain < threshold)
         {
             // return if halting condition is met...
             System.out.println("= Halting condition met =");
@@ -121,7 +121,7 @@ public class Temp_Discretizer
             // otherwise add the cut point to the final list and... 
             double cutPoint = S.get(minEntropyIndex).get(1);
             if (!cutPoints.contains(cutPoint)) cutPoints.add(cutPoint);
-            System.out.format("= Added %f to the cutPoints list =%n", S.get(minEntropyIndex).get(1));
+            System.out.format("= Added %f to the cutPoints list =%n%n", S.get(minEntropyIndex).get(1));
             
             // recursively check the subsets on both sides of the cut
             Discretize(S_1);
@@ -155,20 +155,20 @@ public class Temp_Discretizer
             for (int rightSet = i+1, s2Index = 0; rightSet < S.size(); rightSet++, s2Index++) 
                 S_2.add(s2Index, S.get(rightSet));
             
-            System.out.format("Subsets S_1 and S_2 at cut index %d: %n", i);
-            System.out.println("S_1:");
-            printADataSet(S_1);
-            System.out.println("S_2:");
-            printADataSet(S_2);
+//            System.out.format("Subsets S_1 and S_2 at cut index %d: %n", i);
+//            System.out.println("S_1:");
+//            printADataSet(S_1);
+//            System.out.println("S_2:");
+//            printADataSet(S_2);
             
             // calculate the entropy of each subset
             double S1_Entropy = entropy(S_1);
             double S2_Entropy = entropy(S_2);
-            System.out.format("s1 entropy: %f%ns2 entropy: %f%n", S1_Entropy, S2_Entropy);
+//            System.out.format("s1 entropy: %f%ns2 entropy: %f%n", S1_Entropy, S2_Entropy);
             
             // calculate average class entropy as a result of the cut
             double classEntropy = ((double)S_1.size() / (double)S.size())*S1_Entropy + ((double)S_2.size() / (double)S.size())*S2_Entropy;
-            System.out.format("Class entropy: %f%n%n", classEntropy);
+//            System.out.format("Class entropy: %f%n%n", classEntropy);
             
             // if this entropy is small, reassign minEntropy value
             if (classEntropy < minEntropy) 
@@ -178,6 +178,8 @@ public class Temp_Discretizer
             }
         }
         
+        System.out.println("Current S:");
+        printADataSet(S);
         System.out.format("Best index: %d with entropy %f%n", bestIndex, minEntropy);
         
         if (bestIndex < 0) throw new RuntimeException("index never set in find min entropy cut");
@@ -247,7 +249,7 @@ public class Temp_Discretizer
 	double S2_Entropy = entropy(S_2);
         
         double ent = entropy(S);
-        double e   = ((double)S_1.size() / (double)S.size())*S1_Entropy + ((double)S_2.size() / (double)S.size())*S2_Entropy;
+        double e   = ((double)S_1.size()/(double)S.size())*S1_Entropy + ((double)S_2.size()/(double)S.size())*S2_Entropy;
         double gain = ent - e;
         
         return gain;
@@ -329,8 +331,11 @@ public class Temp_Discretizer
     
     private static void printADataSet(ArrayList<ArrayList<Double>> data)
     {
-        for (ArrayList<Double> vector : data)
+//        for (ArrayList<Double> vector : data)
+        for (int i = 0; i < data.size(); i++)
         {
+            ArrayList<Double> vector = data.get(i);
+            System.out.format("%-2d: ", i);
             for (Double value : vector)
             {
                 System.out.format("%.3f, ", value);
