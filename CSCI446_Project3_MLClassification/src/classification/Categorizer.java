@@ -3,13 +3,15 @@ package classification;
 /**
  * All machine learning algorithms must extend the Categorizer class.
  * Upon instantiation of a Categorizer, the training and testing folds are provided.
- * Each machine learning algorithms must define and Train() and Test() method.
- * Also, a categorizer needs to define its name for sake of tracking statistics
+ Each machine learning algorithms must define and Train() and Test() method.
+ Also, a categorizer needs to define its categorizerName for sake of tracking statistics
  */
 public abstract class Categorizer 
 {
     private DataSet[] trainingFolds;
     private DataSet testingFold;
+    // set the categorizerName of each concrete categorizer in the constructor
+    protected String categorizerName;
     
     /**
      * Constructor used by all implementing classes
@@ -34,4 +36,9 @@ public abstract class Categorizer
      * See https://en.wikipedia.org/wiki/Confusion_matrix
      */
     public abstract int[][] Test();
+    
+    public String getCategorizerName()
+    {
+        return categorizerName;
+    }
 }

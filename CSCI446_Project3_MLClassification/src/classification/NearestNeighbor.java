@@ -2,8 +2,6 @@ package classification;
 
 public class NearestNeighbor extends Categorizer
 {
-    public static String categorizerName = "KNN";
-    
     /**
      * Constructor logic defined in abstract class
      * @param trainingFolds
@@ -12,6 +10,7 @@ public class NearestNeighbor extends Categorizer
     public NearestNeighbor(DataSet[] trainingFolds, DataSet testingFold)
     {
         super(trainingFolds, testingFold);
+        categorizerName = "KNN";
     }
     
     @Override

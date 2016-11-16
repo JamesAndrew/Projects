@@ -47,9 +47,6 @@ public class Experiment
         {
             DataSet currentDataSet = dataSets[dataSetsIndex];
             
-            // instantiate its confusion matrix in the stats class
-            Statistics.instantiateMatrix(currentDataSet.getName(), currentDataSet.getNumClassifications());
-            
             // create 10 partitions                   
             DataSet[] partitions = currentDataSet.fillPartitions();
             
@@ -65,6 +62,8 @@ public class Experiment
             {
                 // Holds the 10 fold-run confusion matrix results (used to take an average after the 10 runs complete)
                 ArrayList<int[][]> foldRunResults = new ArrayList<>();
+                // Crappy way of saving the categorizer name for the 'updateMatrix' call
+                String categorizerName = "not set yet";
                 
                 // for each 10-fold cross validation run...
                 for (int cvRun = 0; cvRun < partitions.length; cvRun++)
@@ -79,6 +78,7 @@ public class Experiment
                     args[0] = trainingFolds.getClass();
                     args[1] = testingFold.getClass();
                     Categorizer currentCategorizer = (Categorizer)categorizer.getDeclaredConstructor(args).newInstance(trainingFolds, testingFold);
+                    categorizerName = currentCategorizer.getCategorizerName();
                     
                     // train
                     currentCategorizer.Train();
@@ -90,8 +90,11 @@ public class Experiment
                 
                 // average all values in the 10-fold CV run and sent to the Statistics class
                 double[][] averagedResults = averageFoldResults(foldRunResults);
+                // and add to the statistics class
+                Statistics.updateMatrix(categorizerName, currentDataSet.getName(), averagedResults);
             }
         }
+        // program finishes once each data set has run (across all 5 categorizers)
     }
     
     /**
