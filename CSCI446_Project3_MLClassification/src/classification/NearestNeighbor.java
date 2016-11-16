@@ -1,7 +1,7 @@
 package classification;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 
 public class NearestNeighbor extends Categorizer
 {
@@ -18,7 +18,11 @@ public class NearestNeighbor extends Categorizer
     {
         super(trainingFolds, testingFold);
         categorizerName = "KNN";
-        k = trainingSet.getVectors().length / 15;
+        
+        // k is chosen to be one less than the total number of data points in 
+        // the classification with the least amount of values
+        k = trainingSet.getSizeOfSmallestClassificationSet() - 1;
+        
         System.out.println("k: " + k);
     }
     
@@ -44,13 +48,22 @@ public class NearestNeighbor extends Categorizer
         {
             // compute the distance from that point to all opints in the trainingSet
             Vector currentPoint = testingFold.getVectors()[i];
-            ArrayList<DistanceAndIndex> DIValues = new ArrayList<>();
+            ArrayList<DistanceAndIndex> diValues = new ArrayList<>();
             for (int j = 0; j < trainingSet.getVectors().length; j++)
             {
                 Vector otherPoint = trainingSet.getVectors()[j];
                 DistanceAndIndex currentDist = calculateDistance(currentPoint, otherPoint, j);
+                diValues.add(currentDist);
             }
             
+            // calculate the k closest points
+            Collections.sort(diValues);
+            
+//            for (DistanceAndIndex value : diValues)
+//            {
+//                System.out.format("%-6f %-6d%n", value.distance, value.index);
+//            }
+//            System.out.println("\n\n");
         }
         throw new UnsupportedOperationException();
     }
@@ -84,7 +97,7 @@ public class NearestNeighbor extends Categorizer
         return DIRetruned;
     }
     
-    class DistanceAndIndex
+    class DistanceAndIndex implements Comparable<DistanceAndIndex>
     {
         double distance;
         int    index;
@@ -93,6 +106,12 @@ public class NearestNeighbor extends Categorizer
         {
             distance = dist;
             index = indx;
+        }
+
+        @Override
+        public int compareTo(DistanceAndIndex t) 
+        {
+            return Double.compare(distance, t.distance);
         }
     }
 }
