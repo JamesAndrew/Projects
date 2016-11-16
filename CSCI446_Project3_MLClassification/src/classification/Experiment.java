@@ -12,17 +12,17 @@ public class Experiment
     List<DataSet> dataSets = new ArrayList<>();
     
     /**
-     * Constructor expects a pre-processed List<List<List<Double>>> 
+     * Constructor expects a pre-processed List<List<List<Integer>>> 
      * where the first vector value is the category and the rest are 
-     * the feature values.
+     * the discretized feature values.
      * The Experiment constructor is in charge of making the appropriate
      * 'DataSet' class representations of the provided list
      * @param dataSets
      */
-    public Experiment(ArrayList<ArrayList<ArrayList<Double>>> dataSets) 
+    public Experiment(ArrayList<ArrayList<ArrayList<Integer>>> dataSets) 
     { 
         // fill the dataSets collection
-        for (ArrayList<ArrayList<Double>> dataSet : dataSets)
+        for (ArrayList<ArrayList<Integer>> dataSet : dataSets)
         {
             this.dataSets.add(new DataSet(dataSet));
         }

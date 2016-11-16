@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * The driver provides a pre-processed (normalized, unneeded features removed,
- * unknown features handled) List of data sets to a 'Experiment' instance.
+ * The driver provides a pre-processed (discretized, unneeded features removed,
+ * unknown features handled) list of data sets to a 'Experiment' instance.
  * Each data set is a List<ArrayList> data type where the ArrayList is 
  * each data point vector
  */
@@ -16,14 +16,15 @@ public class Driver
     public static void main(String[] args) throws FileNotFoundException 
     {
         // The list of all pre-processed data sets
-        ArrayList<ArrayList<ArrayList<Double>>> dataSets = new ArrayList<>();
+        ArrayList<ArrayList<ArrayList<Integer>>> dataSets = new ArrayList<>();
         ArrayList<String> fileInputPaths = new ArrayList<>();
         
-        // mocking a pre-processed data set until the pre-processing is fully ready
-        fileInputPaths.add("DataSets/mock-data-set.txt");
+        // Add the preprocessed sets here once ready:
+        fileInputPaths.add("DataSets/Preprocessed/iris-preprocessed.txt");
+        
         for (String dataTextFile : fileInputPaths)
         {
-            ArrayList<ArrayList<Double>> currentDataSet = generateDataSet(dataTextFile);
+            ArrayList<ArrayList<Integer>> currentDataSet = generateDataSet(dataTextFile);
             dataSets.add(currentDataSet);
         }
         
@@ -40,7 +41,7 @@ public class Driver
      * @return An ArrayList<ArrayList> representation of the provided .txt data set
      * @throws FileNotFoundException 
      */
-    private static ArrayList<ArrayList<Double>> generateDataSet(String filePath) throws FileNotFoundException
+    private static ArrayList<ArrayList<Integer>> generateDataSet(String filePath) throws FileNotFoundException
     {
         int lineNums;
         try (Scanner scanner0 = new Scanner(new File(filePath))) 
@@ -62,23 +63,32 @@ public class Driver
             while (scanner1.hasNextLine())
             {
                 String rowString = scanner1.nextLine();
-                String[] rowSplit = rowString.split(",");
+                String[] rowSplit = rowString.split(", ");
                 fileAsString[i] = rowSplit;
                 i++;
             }
         }
         
+        for (String[] row : fileAsString)
+        {
+            for (String value : row)
+            {
+                System.out.format("%s ", value);
+            }
+            System.out.println();
+        }
+        
         // turn the double string array into its ArrayList<ArrayList> representation
-        ArrayList<ArrayList<Double>> dataSet = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> dataSet = new ArrayList<>();
         
         for (int dataPoint = 0; dataPoint < fileAsString.length; dataPoint++)
         {
-            ArrayList<Double> vector = new ArrayList<>();
+            ArrayList<Integer> vector = new ArrayList<>();
             String[] currentVector = fileAsString[dataPoint];
             
             for (int j = 0; j < currentVector.length; j++)
             {
-                vector.add(Double.parseDouble(currentVector[j]));
+                vector.add(Integer.parseInt(currentVector[j]));
             }
             dataSet.add(vector);
         }
@@ -86,11 +96,11 @@ public class Driver
     }
     
     
-    private static void printADataSet(ArrayList<ArrayList<Double>> data)
+    private static void printADataSet(ArrayList<ArrayList<Integer>> data)
     {
-        for (ArrayList<Double> vector : data)
+        for (ArrayList<Integer> vector : data)
         {
-            for (Double value : vector)
+            for (Integer value : vector)
             {
                 System.out.format("%.3f,", value);
             }
