@@ -99,13 +99,18 @@ public class Temp_Discretizer
             System.out.println("===========================================\n");
         }
         
-        /*
-            // Finally, discritize by assigning each 'bin' an incrementing, 
-            // arbitrary integer value (these could just as well be 'A', 'B', etc.)
-            ArrayList<ArrayList<Integer>> discreteDataSet = assignDiscreteValues(currentDataSet, featColumn);
-            System.out.println("\nFinal discretized points:");
-            printADiscreteDataSet(discreteDataSet);
-        */
+        // Finally, turn every value in the ArrayList<ArrayList<Double>> into an ArrayList<ArrayList<Integer>>
+        ArrayList<ArrayList<Integer>> discretizedData = new ArrayList<>();
+        for (int i = 0; i < currentDataSet.size(); i++)
+        {
+            ArrayList<Integer> currentNewVector = new ArrayList<>();
+            ArrayList<Double>  currentOldVector = currentDataSet.get(i);
+            
+            for (Double value : currentOldVector) currentNewVector.add(value.intValue());
+            discretizedData.add(currentNewVector);
+        }
+        System.out.println("Final discrete data set of integers: ");
+        printADiscreteDataSet(discretizedData);
     }
     
     /**
