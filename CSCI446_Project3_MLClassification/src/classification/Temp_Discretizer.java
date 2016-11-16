@@ -21,7 +21,7 @@ public class Temp_Discretizer
     // tunable parameter to affect halting condition to stop making cuts. 
     // lower values will make more cuts. 0.50 seemed to work well for the small 
     // testing data set of size 24 with 3 classifications
-    private static double cutSensitivity = 0.20;
+    private static double cutSensitivity = 0.35;
     
     /**
      * Start with a .txt file of a one-feature data set with continuous values,
@@ -32,11 +32,11 @@ public class Temp_Discretizer
     public static void main(String[] args) throws FileNotFoundException 
     {
         // transform the .txt file into an ArrayList<ArrayList<Double>>
-        ArrayList<ArrayList<Double>> currentDataSet = generateDataSet("DataSets/mock-data-for-discretizing.txt");
+        ArrayList<ArrayList<Double>> currentDataSet = generateDataSet("DataSets/tiny-mock-data-for-discretizing.txt");
         
         // sort the data set (low-to-high) based on Feature_1 values
         currentDataSet = sortFeature(currentDataSet);
-        printADataSet(currentDataSet);
+        printADoubleDataSet(currentDataSet);
         
         // method that fills *n* partition locations in 'cutPoints' by calling the recursive 'Discretize' function
         Discretize(currentDataSet);
@@ -45,6 +45,7 @@ public class Temp_Discretizer
         System.out.println("Final cut points:");
         for (Double point : cutPoints) System.out.format("%.3f%n", point);
         
+        // helpful print output stuff to make sense of what happened
         System.out.println("\nFinal cut points:");
         Stack<Double> stack = new Stack();
         for (int i = cutPoints.size() - 1; i >= 0; i--)
@@ -64,6 +65,11 @@ public class Temp_Discretizer
             }
         }
         
+        // Finally, discritize by assigning each 'bin' an incrementing, 
+        // arbitrary integer value (these could just as well be 'A', 'B', etc.
+        ArrayList<ArrayList<Integer>> discreteDataSet = assignDiscreteValues(currentDataSet);
+        System.out.println("\nFinal discretized points:");
+        printADiscreteDataSet(discreteDataSet);
     }
     
     /**
@@ -200,7 +206,7 @@ public class Temp_Discretizer
         }
         
         System.out.println("Current S:");
-        printADataSet(S);
+        printADoubleDataSet(S);
         System.out.format("Best index: %d with entropy %f%n", bestIndex, minEntropy);
         
         if (bestIndex < 0) throw new RuntimeException("index never set in find min entropy cut");
@@ -298,6 +304,76 @@ public class Temp_Discretizer
     }
     
     /**
+     * discretize by assigning each 'bin' an incrementing, arbitrary integer 
+     * value (these could just as well be 'A', 'B', etc.)
+     * @param S : the original data set with continuous values
+     * @return : the original ArrayList<ArrayList<Double>> dataset 
+     *           now as a discrete ArrayList<ArrayList<Integer>> dataset
+     */
+    private static ArrayList<ArrayList<Integer>> assignDiscreteValues(ArrayList<ArrayList<Double>> S)
+    {
+        Integer                       discreteValue   = 1;
+        Stack<ArrayList<Double>>      preBin          = new Stack<>();
+        Stack<Double>                 cuts            = new Stack();
+        ArrayList<ArrayList<Integer>> discreteDataSet = new ArrayList<>();
+        
+        // add an extra placeholder cutpoint at the bottom to avoid a empty stack exception
+        cuts.push(99.99);
+        for (int i = cutPoints.size() - 1; i >= 0; i--)
+        {
+            cuts.push(cutPoints.get(i));
+        }
+        
+//        for (ArrayList<Double> vector : S)
+        for (int i = 0; i < S.size(); i++)
+        {
+            ArrayList<Double> vector = S.get(i);
+            
+            preBin.push(vector);
+            // once a cut point is reached...
+            if (Objects.equals(vector.get(1), cuts.peek()))
+            {
+                cuts.pop();
+                
+                // empty all values in preBin into the discreteDataSet with 
+                // appropriate Double -> Integer transformations applied
+                while (!preBin.isEmpty())
+                {
+                    ArrayList<Double> currentVector = preBin.pop();
+                    Integer classification = currentVector.get(0).intValue();
+                    ArrayList<Integer> transformedVector = new ArrayList<>();
+                    
+                    transformedVector.add(classification);
+                    transformedVector.add(discreteValue);
+                    
+                    discreteDataSet.add(transformedVector);
+                }
+                discreteValue++;
+            }
+            // handle final case of last bin (doesn't have a cut point after it)
+            else if (i == S.size()-1)
+            {
+                cuts.pop();
+                
+                // empty all values in preBin into the discreteDataSet with 
+                // appropriate Double -> Integer transformations applied
+                while (!preBin.isEmpty())
+                {
+                    ArrayList<Double> currentVector = preBin.pop();
+                    Integer classification = currentVector.get(0).intValue();
+                    ArrayList<Integer> transformedVector = new ArrayList<>();
+                    
+                    transformedVector.add(classification);
+                    transformedVector.add(discreteValue);
+                    
+                    discreteDataSet.add(transformedVector);
+                }
+            }
+        }
+        return discreteDataSet;
+    }
+    
+    /**
      * Assumes the input dataset is already preprocessed with all values as doubles
      * and the first value is the categorization
      * 
@@ -350,16 +426,30 @@ public class Temp_Discretizer
         return dataSet;
     }
     
-    private static void printADataSet(ArrayList<ArrayList<Double>> data)
+    private static void printADoubleDataSet(ArrayList<ArrayList<Double>> data)
     {
-//        for (ArrayList<Double> vector : data)
         for (int i = 0; i < data.size(); i++)
         {
             ArrayList<Double> vector = data.get(i);
-            System.out.format("%-2d: ", i);
+            System.out.format("%-3d: ", i);
             for (Double value : vector)
             {
                 System.out.format("%.3f, ", value);
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+    
+    private static void printADiscreteDataSet(ArrayList<ArrayList<Integer>> data)
+    {
+        for (int i = 0; i < data.size(); i++)
+        {
+            ArrayList<Integer> vector = data.get(i);
+            System.out.format("%-3d: ", i);
+            for (Integer value : vector)
+            {
+                System.out.format("%d, ", value);
             }
             System.out.println();
         }
