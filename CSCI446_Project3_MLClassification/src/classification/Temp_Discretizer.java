@@ -21,7 +21,7 @@ public class Temp_Discretizer
     // tunable parameter to affect halting condition to stop making cuts. 
     // lower values will make more cuts. 0.50 seemed to work well for the small 
     // testing data set of size 24 with 3 classifications
-    private static double cutSensitivity = 0.50;
+    private static double cutSensitivity = 0.20;
     
     /**
      * Start with a .txt file of a one-feature data set with continuous values,
@@ -32,7 +32,7 @@ public class Temp_Discretizer
     public static void main(String[] args) throws FileNotFoundException 
     {
         // transform the .txt file into an ArrayList<ArrayList<Double>>
-        ArrayList<ArrayList<Double>> currentDataSet = generateDataSet("DataSets/tiny-mock-data-for-discretizing.txt");
+        ArrayList<ArrayList<Double>> currentDataSet = generateDataSet("DataSets/mock-data-for-discretizing.txt");
         
         // sort the data set (low-to-high) based on Feature_1 values
         currentDataSet = sortFeature(currentDataSet);
