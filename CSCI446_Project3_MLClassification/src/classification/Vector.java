@@ -1,6 +1,8 @@
 package classification;
 
 import java.util.ArrayList;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import sun.security.util.PendingException;
 
 /**
  * A vector is an array list of n integer values.
@@ -29,15 +31,15 @@ public class Vector
      * 
      * @return : The integer representation of the data point's classification
      */
-    public int getClassification()
+    public int classification()
     {
         return value[0];
     }
     
     /**
-     * @return : An int[] of only the features of this vector
+     * @return : An integer array of only the features of this vector
      */
-    public int[] getFeatures()
+    public int[] features()
     {
         int[] features = new int[value.length - 1];
         for (int i = 1; i < value.length; i++)
@@ -46,5 +48,16 @@ public class Vector
         }
         
         return features;
+    }
+    
+    /**
+     * (DR) method needed for stuff in the TAN class. Not totally confident in
+     * its intended use so added a pending exception to help things compile
+     * @param attribute
+     * @param index
+     */
+    public boolean contains(double attribute, int index)
+    {
+        throw new PendingException();
     }
 }

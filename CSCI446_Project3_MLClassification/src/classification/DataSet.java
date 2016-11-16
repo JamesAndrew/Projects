@@ -55,4 +55,10 @@ public class DataSet
         }
         return true;
     }
+
+    
+    public Vector[] getVectors() 
+    {
+        return vectors;
+    }
 }

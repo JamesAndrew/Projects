@@ -30,7 +30,7 @@ public class Driver
         
         // instantiate the Experiment runner and provide it all the pre-processed data sets
         Experiment experimentRunner = new Experiment(dataSets);
-//        experimentRunner.runExperiment();
+        experimentRunner.runExperiment();
     }
     
     /**
@@ -67,15 +67,6 @@ public class Driver
                 fileAsString[i] = rowSplit;
                 i++;
             }
-        }
-        
-        for (String[] row : fileAsString)
-        {
-            for (String value : row)
-            {
-                System.out.format("%s ", value);
-            }
-            System.out.println();
         }
         
         // turn the double string array into its ArrayList<ArrayList> representation
