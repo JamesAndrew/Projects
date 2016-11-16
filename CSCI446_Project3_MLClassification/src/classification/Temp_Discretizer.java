@@ -32,44 +32,65 @@ public class Temp_Discretizer
     public static void main(String[] args) throws FileNotFoundException 
     {
         // transform the .txt file into an ArrayList<ArrayList<Double>>
-        ArrayList<ArrayList<Double>> currentDataSet = generateDataSet("DataSets/tiny-mock-data-for-discretizing.txt");
+        ArrayList<ArrayList<Double>> currentDataSet = generateDataSet("DataSets/tiny-mock-data-set.txt");
         
-        // sort the data set (low-to-high) based on Feature_1 values
-        currentDataSet = sortFeature(currentDataSet);
-        printADoubleDataSet(currentDataSet);
-        
-        // method that fills *n* partition locations in 'cutPoints' by calling the recursive 'Discretize' function
-        Discretize(currentDataSet);
-        Collections.sort(cutPoints);
-        
-        System.out.println("Final cut points:");
-        for (Double point : cutPoints) System.out.format("%.3f%n", point);
-        
-        // helpful print output stuff to make sense of what happened
-        System.out.println("\nFinal cut points:");
-        Stack<Double> stack = new Stack();
-        for (int i = cutPoints.size() - 1; i >= 0; i--)
+        // repeat process for each feature column:
+        for (int featColumn = 1; featColumn < currentDataSet.get(0).size(); featColumn++)
         {
-            stack.push(cutPoints.get(i));
-        }
-        for (ArrayList<Double> vector : currentDataSet)
-        {
-            System.out.format("%.3f, %.3f%n", vector.get(0), vector.get(1));
-            if (stack.size() > 0)
+            // clear cutPoints after each column 
+            cutPoints.clear();
+            
+            System.out.format("= Discretizing feature column %d =%n", featColumn);
+            currentDataSet = sortByCurrentFeature(currentDataSet, featColumn);
+            printADoubleDataSet(currentDataSet);
+            
+            // method that fills *n* partition locations in 'cutPoints' by calling the recursive 'Discretize' function
+            Discretize(currentDataSet, featColumn);
+            Collections.sort(cutPoints);
+            
+            System.out.println("\nFinal cut points, values only:");
+            for (Double point : cutPoints) System.out.format("%.3f%n", point);
+            
+            // helpful print output stuff to make sense of what happened
+            System.out.format("%nFinal cut points (feature column %d)%n", featColumn);
+            Stack<Double> stack = new Stack();
+            for (int i = cutPoints.size() - 1; i >= 0; i--)
             {
-                if (Objects.equals(vector.get(1), stack.peek()))
+                stack.push(cutPoints.get(i));
+            }
+            for (ArrayList<Double> vector : currentDataSet)
+            {
+                for (Double value : vector)
                 {
-                    System.out.println("-------------");
-                    stack.pop();
+                    System.out.format("%.3f ", value);
+                }
+                System.out.println();
+                if (stack.size() > 0)
+                {
+                    if (Objects.equals(vector.get(featColumn), stack.peek()))
+                    {
+                        System.out.println("------------------------------");
+                        stack.pop();
+                    }
                 }
             }
+
+            // Discritize the ArrayList of doubles for the current feature column
+            // by assigning each 'bin' an incrementing, arbitrary integer value 
+            // (these could just as well be 'A', 'B', etc.)
+            currentDataSet = assignDiscreteValues(currentDataSet, featColumn);
+            System.out.println("\nFinal discretized points after running feature column " + featColumn + ":");
+            printADoubleDataSet(currentDataSet);
+            System.out.println("===========================================\n");
         }
         
-        // Finally, discritize by assigning each 'bin' an incrementing, 
-        // arbitrary integer value (these could just as well be 'A', 'B', etc.
-        ArrayList<ArrayList<Integer>> discreteDataSet = assignDiscreteValues(currentDataSet);
-        System.out.println("\nFinal discretized points:");
-        printADiscreteDataSet(discreteDataSet);
+        /*
+            // Finally, discritize by assigning each 'bin' an incrementing, 
+            // arbitrary integer value (these could just as well be 'A', 'B', etc.)
+            ArrayList<ArrayList<Integer>> discreteDataSet = assignDiscreteValues(currentDataSet, featColumn);
+            System.out.println("\nFinal discretized points:");
+            printADiscreteDataSet(discreteDataSet);
+        */
     }
     
     /**
@@ -89,16 +110,17 @@ public class Temp_Discretizer
      * 
      * I'm using single-letter variables to match the equations from various academic papers
      * 
-     * @param S a data set with 1 feature (for now) that is sorted by feature values
+     * @param S : a data set with 1 feature (for now) that is sorted by feature values
+     * @param featColumn : the current feature column discretization is happening to
      * @return fills class variable 'cutPoints' with a list of where the cut points will be
      */
-    private static void Discretize(ArrayList<ArrayList<Double>> S)
+    private static void Discretize(ArrayList<ArrayList<Double>> S, int featColumn)
     {
         // end the recursion if S is a set of size 1
         if (S.size() == 1)
         {
             // add cut point for that single entry 
-            double cutPoint = S.get(0).get(1);
+            double cutPoint = S.get(0).get(featColumn);
             if (!cutPoints.contains(cutPoint)) cutPoints.add(cutPoint);
             return;
         }
@@ -145,22 +167,22 @@ public class Temp_Discretizer
         // take a fraction of the threshold depending on data size?
         threshold *= cutSensitivity;
         
-        System.out.format("Halting condition: gain: %f, threshold: %f%n", gain, threshold);
+//        System.out.format("Halting condition: gain: %f, threshold: %f%n", gain, threshold);
         if (gain < threshold)
         {
             // return if halting condition is met...
-            System.out.println("= Halting condition met =");
+//            System.out.println("= Halting condition met =");
         }
         else
         {
             // otherwise add the cut point to the final list and... 
-            double cutPoint = S.get(minEntropyIndex).get(1);
+            double cutPoint = S.get(minEntropyIndex).get(featColumn);
             if (!cutPoints.contains(cutPoint)) cutPoints.add(cutPoint);
-            System.out.format("= Added %f to the cutPoints list =%n%n", S.get(minEntropyIndex).get(1));
+//            System.out.format("= Added %f to the cutPoints list =%n%n", S.get(minEntropyIndex).get(1));
             
             // recursively check the subsets on both sides of the cut
-            Discretize(S_1);
-            Discretize(S_2);
+            Discretize(S_1, featColumn);
+            Discretize(S_2, featColumn);
         }
     }
     
@@ -205,9 +227,9 @@ public class Temp_Discretizer
             }
         }
         
-        System.out.println("Current S:");
-        printADoubleDataSet(S);
-        System.out.format("Best index: %d with entropy %f%n", bestIndex, minEntropy);
+//        System.out.println("Current S:");
+//        printADoubleDataSet(S);
+//        System.out.format("Best index: %d with entropy %f%n", bestIndex, minEntropy);
         
         if (bestIndex < 0) throw new RuntimeException("index never set in find min entropy cut");
         else
@@ -282,7 +304,12 @@ public class Temp_Discretizer
         return gain;
     }
     
-    private static ArrayList<ArrayList<Double>> sortFeature(ArrayList<ArrayList<Double>> input)
+    /**
+     * @param input : the entire data set
+     * @param featureColumn : the feature column to sort then discretize
+     * @return the same data set, but sorted by the feature column of interest
+     */
+    private static ArrayList<ArrayList<Double>> sortByCurrentFeature(ArrayList<ArrayList<Double>> input, int featureColumn)
     {
         // just using bubble sort for now becuase this is a prototype. 
         boolean swapped = true;
@@ -291,7 +318,7 @@ public class Temp_Discretizer
             swapped = false;
             for (int i = 1; i < input.size(); i++)
             {
-                if (input.get(i-1).get(1) > input.get(i).get(1))
+                if (input.get(i-1).get(featureColumn) > input.get(i).get(featureColumn))
                 {
                     ArrayList<Double> temp = input.get(i);
                     input.set(i, input.get(i-1));
@@ -306,16 +333,16 @@ public class Temp_Discretizer
     /**
      * discretize by assigning each 'bin' an incrementing, arbitrary integer 
      * value (these could just as well be 'A', 'B', etc.)
-     * @param S : the original data set with continuous values
+     * 
+     * @param S          : the original data set with continuous values
+     * @param featColumn : the feature column being discretized
      * @return : the original ArrayList<ArrayList<Double>> dataset 
-     *           now as a discrete ArrayList<ArrayList<Integer>> dataset
+     *           but with "integer" double values instead of continuous doubles
      */
-    private static ArrayList<ArrayList<Integer>> assignDiscreteValues(ArrayList<ArrayList<Double>> S)
+    private static ArrayList<ArrayList<Double>> assignDiscreteValues(ArrayList<ArrayList<Double>> S, int featColumn)
     {
-        Integer                       discreteValue   = 1;
-        Stack<ArrayList<Double>>      preBin          = new Stack<>();
-        Stack<Double>                 cuts            = new Stack();
-        ArrayList<ArrayList<Integer>> discreteDataSet = new ArrayList<>();
+        Double                   discreteValue = 1.0;
+        Stack<Double>            cuts          = new Stack();
         
         // add an extra placeholder cutpoint at the bottom to avoid a empty stack exception
         cuts.push(99.99);
@@ -324,53 +351,41 @@ public class Temp_Discretizer
             cuts.push(cutPoints.get(i));
         }
         
-//        for (ArrayList<Double> vector : S)
+        // for each data point in the data set...
+        int prevCutIndex = -1;
         for (int i = 0; i < S.size(); i++)
         {
             ArrayList<Double> vector = S.get(i);
-            
-            preBin.push(vector);
             // once a cut point is reached...
-            if (Objects.equals(vector.get(1), cuts.peek()))
+            if (Objects.equals(vector.get(featColumn), cuts.peek()))
             {
                 cuts.pop();
                 
-                // empty all values in preBin into the discreteDataSet with 
-                // appropriate Double -> Integer transformations applied
-                while (!preBin.isEmpty())
+                // repalce all feature column values in the current bin with the
+                // current discreteValue
+                for (int binIndex = i; binIndex > prevCutIndex; binIndex--)
                 {
-                    ArrayList<Double> currentVector = preBin.pop();
-                    Integer classification = currentVector.get(0).intValue();
-                    ArrayList<Integer> transformedVector = new ArrayList<>();
-                    
-                    transformedVector.add(classification);
-                    transformedVector.add(discreteValue);
-                    
-                    discreteDataSet.add(transformedVector);
+                    S.get(binIndex).set(featColumn, discreteValue);
                 }
-                discreteValue++;
+                discreteValue += 1.0;
+                prevCutIndex = i;
             }
             // handle final case of last bin (doesn't have a cut point after it)
             else if (i == S.size()-1)
             {
                 cuts.pop();
                 
-                // empty all values in preBin into the discreteDataSet with 
-                // appropriate Double -> Integer transformations applied
-                while (!preBin.isEmpty())
+                // repalce all feature column values in the current bin with the
+                // current discreteValue
+                for (int binIndex = i; binIndex > prevCutIndex; binIndex--)
                 {
-                    ArrayList<Double> currentVector = preBin.pop();
-                    Integer classification = currentVector.get(0).intValue();
-                    ArrayList<Integer> transformedVector = new ArrayList<>();
-                    
-                    transformedVector.add(classification);
-                    transformedVector.add(discreteValue);
-                    
-                    discreteDataSet.add(transformedVector);
+                    S.get(binIndex).set(featColumn, discreteValue);
                 }
+                discreteValue += 1.0;
+                prevCutIndex = i;
             }
         }
-        return discreteDataSet;
+        return S;
     }
     
     /**
@@ -438,7 +453,6 @@ public class Temp_Discretizer
             }
             System.out.println();
         }
-        System.out.println();
     }
     
     private static void printADiscreteDataSet(ArrayList<ArrayList<Integer>> data)
@@ -453,6 +467,5 @@ public class Temp_Discretizer
             }
             System.out.println();
         }
-        System.out.println();
     }
 }
