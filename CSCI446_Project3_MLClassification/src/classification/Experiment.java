@@ -50,13 +50,6 @@ public class Experiment
             // create 10 partitions                   
             DataSet[] partitions = currentDataSet.fillPartitions();
             
-            for (int i = 0; i < partitions.length; i++)
-            {
-                System.out.format("Partition %d: %n", i);
-                DataSet current = partitions[i];
-                System.out.println(current.toString());
-            }
-            
             // for each machine learning categorizer...
             for (Class<?> categorizer : algorithmList)
             {

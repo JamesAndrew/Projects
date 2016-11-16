@@ -10,8 +10,8 @@ public abstract class Categorizer
 {
     protected DataSet[] trainingFolds;
     protected DataSet testingFold;
-    // set the categorizerName of each concrete categorizer in the constructor
-    protected String categorizerName;
+    protected DataSet trainingSet;    // all vectors in trianingFolds unioned into one DataSet
+    protected String categorizerName;  // set the categorizerName of each concrete categorizer in the constructor
     
     /**
      * Constructor used by all implementing classes
@@ -21,7 +21,8 @@ public abstract class Categorizer
     public Categorizer(DataSet[] trainingFolds, DataSet testingFold)
     {
         this.trainingFolds = trainingFolds;
-        this.testingFold = testingFold;
+        this.testingFold   = testingFold;
+        mergeTrainingFolds();
     }
     
     /**
@@ -36,6 +37,33 @@ public abstract class Categorizer
      * See https://en.wikipedia.org/wiki/Confusion_matrix
      */
     public abstract int[][] Test();
+    
+    /**
+     * unions all vectors in trianingFolds into one DataSet
+     */
+    public void mergeTrainingFolds()
+    {
+        // union all the training folds into training set
+        int traningSetSize = 0;
+        for (DataSet fold : trainingFolds)
+        {
+            traningSetSize += fold.getVectors().length;
+        }
+        trainingSet = new DataSet(traningSetSize);
+        
+        int i = 0;
+        for (DataSet fold : trainingFolds)
+        {
+            for (Vector vector : fold.getVectors())
+            {
+                trainingSet.addVector(vector, i);
+                i++;
+            }
+        }
+        if (i != trainingSet.getVectors().length)
+            throw new RuntimeException("'i' should equal " + trainingSet.getVectors().length 
+                + " but instead equals " + i);
+    }
     
     public String getCategorizerName()
     {

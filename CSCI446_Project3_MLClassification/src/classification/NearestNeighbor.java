@@ -5,6 +5,7 @@ public class NearestNeighbor extends Categorizer
     // tunable parameters
     int k;          // set in constructor
     
+    
     /**
      * Constructor logic defined in abstract class
      * @param trainingFolds
@@ -14,7 +15,8 @@ public class NearestNeighbor extends Categorizer
     {
         super(trainingFolds, testingFold);
         categorizerName = "KNN";
-        k = trainingFolds.length / 15;
+        k = trainingSet.getVectors().length / 15;
+        System.out.println("k: " + k);
     }
     
     @Override
