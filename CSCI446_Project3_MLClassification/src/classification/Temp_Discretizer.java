@@ -38,7 +38,7 @@ public class Temp_Discretizer
     /**
      * Methods used during recursion calls: 
      *  - entropy           : utility calculation procedure
-     *  - classEntropy      : utility calculation procedure
+     *  - classEntropy      : utility calculation procedure (just did this calculation in one line, no method)
      *  - gain              : utility calculation procedure
      *  - findMinEntropyCut : finds the index in the current subset that results in the least entropy 
      *  - mDLP              : "Minimal Description Length Principle". The halting condition.
@@ -91,18 +91,33 @@ public class Temp_Discretizer
             
             for (int leftSet = 0; leftSet <= i; leftSet++) 
                 S_1.add(leftSet, S.get(leftSet));
-            for (int rightSet = i+1, s2Index = 0; rightSet <= S.size(); rightSet++, s2Index++) 
+            for (int rightSet = i+1, s2Index = 0; rightSet < S.size(); rightSet++, s2Index++) 
                 S_2.add(s2Index, S.get(rightSet));
             
-            System.out.format("S and subsets S_1 and S_2 at cut index %d: %n", i);
-            printADataSet(S);
+            System.out.format("Subsets S_1 and S_2 at cut index %d: %n", i);
+            System.out.println("S_1:");
             printADataSet(S_1);
+            System.out.println("S_2:");
             printADataSet(S_2);
             
             // calculate the entropy of each subset
             double S1_Entropy = entropy(S_1);
             double S2_Entropy = entropy(S_2);
+            System.out.format("s1 entropy: %f%ns2 entropy: %f%n", S1_Entropy, S2_Entropy);
+            
+            // calculate average class entropy as a result of the cut
+            double classEntropy = ((double)S_1.size() / (double)S.size())*S1_Entropy + ((double)S_2.size() / (double)S.size())*S2_Entropy;
+            System.out.format("Class entropy: %f%n%n", classEntropy);
+            
+            // if this entropy is small, reassign minEntropy value
+            if (classEntropy < minEntropy) 
+            {
+                bestIndex = cutIndex;
+                minEntropy = classEntropy;
+            }
         }
+        
+        System.out.format("Best index: %d with entropy %f%n", bestIndex, minEntropy);
         
         if (bestIndex < 0) throw new RuntimeException("index never set in find min entropy cut");
         else
@@ -131,15 +146,22 @@ public class Temp_Discretizer
         // for each classification in S...
         for (Double classification : classes)
         {
-            // calculate proportion of current classification in S
+            // calculate proportion of current classification in S...
             int frequency = 0;
             for (ArrayList<Double> entry : S)
             {
-                if (entry.get(0) == (int)classification) frequency++;
+                if (entry.get(0).intValue() == classification.intValue()) frequency++;
             }
             double proportion = (double)frequency / (double)S.size();
+            // and multiply the two values in the summation
+            sum += proportion * (Math.log10(proportion) / Math.log10(2));
         }
+        
+        // final value has -1 multiplied to it
+        sum = sum * -1;
+        return sum;
     }
+    
     
     private static ArrayList<ArrayList<Double>> sortFeature(ArrayList<ArrayList<Double>> input)
     {
