@@ -35,9 +35,22 @@ public class Experiment
      */
     public void runExperiment()
     {
-        // create 10 partitions                                                 // TODO (DR) : stratification
+        // for each data set...
+        for (int dataSetsIndex = 0; dataSetsIndex < dataSets.length; dataSetsIndex++)
+        {
+            DataSet currentDataSet = dataSets[dataSetsIndex];
+            
+            // create 10 partitions                   
+            DataSet[] partitions = currentDataSet.fillPartitions();
+            
+            for (int i = 0; i < partitions.length; i++)
+            {
+                System.out.format("Partition %d: %n", i);
+                DataSet current = partitions[i];
+                System.out.println(current.toString());
+            }
+        }
         
-        
-        throw new UnsupportedOperationException("Not supported yet."); 
+//        throw new UnsupportedOperationException("Not supported yet."); 
     }
 }

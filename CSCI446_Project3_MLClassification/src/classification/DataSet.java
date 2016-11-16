@@ -11,6 +11,7 @@ public class DataSet
 {
     private String name;
     private final Vector[] vectors;
+    
     /**
      * Constructor takes in a data set from the Experiment class and gives it
      * a name based on the empirically known first line of data
@@ -41,6 +42,15 @@ public class DataSet
     }
     
     /**
+     * Create a new DataSet with a known vectors size
+     * @param size : the size to make the vectors property
+     */
+    public DataSet(int size)
+    {
+        vectors = new Vector[size];
+    }
+    
+    /**
      * custom .equals method for ArrayList<Double>
      * @param a1
      * @param a2
@@ -56,6 +66,88 @@ public class DataSet
         return true;
     }
 
+    /**
+     * Used during 10-fold cross validation
+     * Stratifies and generates 10 subsets
+     * 
+     * Note (todo) : not stratifying for now. Will deal with that later
+     * 
+     * @return a data set array of size 10 with all vectors represented in a stratified form
+     */
+    public DataSet[] fillPartitions() 
+    {
+        DataSet[] partitions = new DataSet[10];
+        ArrayList<Integer> usedIndexes = new ArrayList<>();
+        int partitionSize = vectors.length / 10;
+        int jumpSize = vectors.length / partitionSize;
+        int i = 0;
+        
+        // for each partition
+        for (int partitionsIndex = 0; partitionsIndex < partitions.length; partitionsIndex++)
+        {
+            DataSet currentPartition = new DataSet(partitionSize);
+
+            // repeat until the current partition is filled
+            for (int vectIndx = 0; vectIndx < currentPartition.getVectors().length; vectIndx++)
+            {
+                // get an unused index
+                while(alreadyChosen(usedIndexes, i))
+                {
+                    i = (i+1) % vectors.length;
+                }
+                // get the vector at that index and add to the currentPartition
+                Vector vector = this.vectors[i];
+                currentPartition.addVector(vector, vectIndx);
+
+                // add i to list of used indexes
+                usedIndexes.add(i);
+                // increase i by jump size
+                i = (i+jumpSize) % vectors.length;
+            }
+
+            // add the now-filled partition to partitions
+            partitions[partitionsIndex] = currentPartition;
+        }
+        
+        return partitions;
+    }
+    
+    /**
+     * @return true is index exists in usedIndexes
+     */
+    private boolean alreadyChosen(ArrayList<Integer> usedIndexes, int index)
+    {
+        if (usedIndexes.isEmpty()) return false;
+        for (int entry : usedIndexes)
+        {
+            if (index == entry) return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Add a Vector to the vectors array at a specified index
+     * @param value
+     * @param index 
+     */
+    public void addVector(Vector value, int index)
+    {
+        vectors[index] = value;
+    }
+    
+    /**
+     * Just prints the vector values in vectors
+     */
+    @Override
+    public String toString()
+    {
+        String output = "";
+        for (Vector point : vectors)
+        {
+            output = output + point.toString() + "\n";
+        }
+        return output;
+    }
     
     public Vector[] getVectors() 
     {

@@ -59,4 +59,19 @@ public class Vector
     {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
+    
+    /**
+     * prints the integer values in 'value'
+     */
+    @Override
+    public String toString()
+    {
+        String output = "[";
+        for (int data : value)
+        {
+            output = output + data + " ";
+        }
+        output = output + "]";
+        return output;
+    }
 }
