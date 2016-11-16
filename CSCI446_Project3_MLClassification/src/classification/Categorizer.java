@@ -8,8 +8,8 @@ package classification;
  */
 public abstract class Categorizer 
 {
-    private DataSet[] trainingFolds;
-    private DataSet testingFold;
+    protected DataSet[] trainingFolds;
+    protected DataSet testingFold;
     // set the categorizerName of each concrete categorizer in the constructor
     protected String categorizerName;
     
