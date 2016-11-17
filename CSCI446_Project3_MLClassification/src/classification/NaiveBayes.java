@@ -14,6 +14,12 @@ public class NaiveBayes extends Categorizer
     private int classes;
     private int attr_values;
     private int attributes;
+    
+    private double [] class_stats;
+    private double [][][] attr_stats;
+    private int [] class_freq;
+    private int [][][] attr_freq;
+    
     int[][] foldResult;         // stores the confusion matrix for current run
     
     public NaiveBayes(DataSet[] trainingFolds, DataSet testingFold)
@@ -30,39 +36,42 @@ public class NaiveBayes extends Categorizer
         {
             foldResult[i] = new int[matrixSize];
         }
+        
+        attributes = trainingFolds[0].getVectors()[0].features().length;
+        attr_values = 11;
+        classes = trainingFolds[0].getNumClassifications();
+        
+        class_stats = new double[classes];
+        attr_stats = new double[classes][attributes][attr_values];
+                
+        class_freq = new int [classes];
+        attr_freq = new int [classes][attributes][attr_values];
     }
     
     @Override
     public void Train() 
     {
+        System.out.println("=== Training Naive Bayes Model ===");
         
         
-        System.out.println("=== Dummy Naive Bayes Method ===");
-        int [][] train_data = { {1000025, 5, 1, 1, 1, 2, 1, 3, 1, 1, 2},
-                          {1017122, 8, 10, 10, 8, 7, 10, 9, 7, 1, 4},
-                          {1036172, 2, 1, 1, 1, 2, 1, 2, 1, 1, 2},
-                          {1041801, 5, 3, 3, 3, 2, 3, 4, 4, 1, 4},
-                          {369565, 4, 1, 1, 1, 3, 1, 1, 1, 1, 2},
-                          {1241035, 7, 8, 3, 7, 4, 5, 7, 8, 2, 4}};
-        int [][] test_data = { {1047630, 7, 4, 6, 4, 6, 1, 4, 3, 1, 4},
-                               {1048672, 4, 1, 1, 1, 2, 1, 2, 1, 1, 2}};
-
-        for (int i = 0; i < testingFold.getVectors().length; i++)
+        System.out.println("Classes: " + classes);
+        System.out.println("Attributes: " + attributes);
+        
+        
+        
+        for (int i = 0; i < trainingFolds.length; i++)
         {
-            Vector currentPoint = testingFold.getVectors()[i];
-            System.out.println(currentPoint);
+            Vector [] currentPoint = trainingFolds[i].getVectors();
+            for(int j = 0; j < currentPoint.length; j++)
+            {
+                System.out.println(currentPoint[j]);
+            }
         }
         
         
-        attributes = 11;
-        attr_values = 11;
-        classes = 2;
         
-        double [] class_stats = new double[classes];
-        double [][][] attr_stats = new double[classes][attributes][attr_values];
-                
-        int [] class_freq = new int [classes];
-        int [][][] attr_freq = new int [classes][attributes][attr_values];
+        
+        
         
         
         /**
@@ -193,7 +202,7 @@ public class NaiveBayes extends Categorizer
          * Classify test data using Naive Bayes Parameters 
          */
         System.out.println("== Classifying test data ==");
-        
+        System.out.println(testingFold.toString());
         
 //        double [] posteriors = new double [classes];
 //        for (int i = 0; i < posteriors.length; i++)
