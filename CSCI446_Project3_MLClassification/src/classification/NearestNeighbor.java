@@ -1,82 +1,221 @@
 package classification;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import sun.security.util.PendingException;
 
-public class NearestNeighbor implements Categorizer
+public class NearestNeighbor extends Categorizer
 {
-    private double[][] dataSet;
+    // tunable parameters
+    int k;                      // set in constructor
     
-    public NearestNeighbor(double[][] in_dataSet) 
-    { 
-        dataSet = in_dataSet;
-        normalizeValues();
-        printDataSet();
+    // other class properties
+    int[][] foldResult;         // stores the confusion matrix for current run
+    
+    /**
+     * Constructor logic defined in abstract class
+     * @param trainingFolds
+     * @param testingFold
+     */
+    public NearestNeighbor(DataSet[] trainingFolds, DataSet testingFold)
+    {
+        super(trainingFolds, testingFold);
+        categorizerName = "KNN";
+        
+        // k is chosen to be one less than the total number of data points in 
+        // the classification with the least amount of values
+        k = trainingSet.getSizeOfSmallestClassificationSet() - 1;
+        
+        // foldResult is an (n x n) matrix where n = number of classifications
+        int matrixSize = trainingSet.getNumClassifications();
+        foldResult = new int[matrixSize][];
+        for (int i = 0; i < foldResult.length; i++)
+        {
+            foldResult[i] = new int[matrixSize];
+        }
     }
     
     @Override
     public void Train() 
     {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        // K-NN is a lazy algorithm and has no training element apart from
+        // using the 9 training folds as the comparison points
     }
 
+    /**
+     * Iterate through each data point in testingFold, assign the point a 
+     * classification based on the majority label of the k closest points.
+     * Finally, evaluate and return the results as a confusion matrix
+     * 
+     * @return the classification results as a confusion matrix
+     */
     @Override
-    public void Test() 
+    public int[][] Test() 
     {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
-    
-    private void normalizeValues()
-    {
-        double[] feature1 = new double[dataSet.length];
-        double[] feature2 = new double[dataSet.length];
-        double[] feature3 = new double[dataSet.length];
-        double[] feature4 = new double[dataSet.length];
-        
-        for (int i = 0; i < dataSet.length; i++)
+        // for each point in the testing fold...
+        for (int i = 0; i < testingFold.getVectors().length; i++)
         {
-            feature1[i] = dataSet[i][1];
-            feature2[i] = dataSet[i][2];
-            feature3[i] = dataSet[i][3];
-            feature4[i] = dataSet[i][4];
-        }
-        
-        Arrays.sort(feature1);
-        Arrays.sort(feature2);
-        Arrays.sort(feature3);
-        Arrays.sort(feature4);
-        
-        double feat1Min = feature1[0];
-        double feat1Max = feature1[feature1.length - 1];
-        
-        double feat2Min = feature2[0];
-        double feat2Max = feature2[feature2.length - 1];
-        
-        double feat3Min = feature3[0];
-        double feat3Max = feature3[feature3.length - 1];
-        
-        double feat4Min = feature4[0];
-        double feat4Max = feature4[feature4.length - 1];
-        
-        for (int i = 0; i < dataSet.length; i++)
-        {
-            dataSet[i][1] = (dataSet[i][1] - feat1Min)/ (feat1Max - feat1Min);
-            dataSet[i][2] = (dataSet[i][2] - feat2Min)/ (feat2Max - feat2Min);
-            dataSet[i][3] = (dataSet[i][3] - feat3Min)/ (feat3Max - feat3Min);
-            dataSet[i][4] = (dataSet[i][4] - feat4Min)/ (feat4Max - feat4Min);
-        }
-    }
-    
-    private void printDataSet()
-    {
-        for (int i1 = 0; i1 < dataSet.length; i1++)
-        {
-            System.out.print("[");
-            for (int j = 0; j < dataSet[i1].length; j++)
+            // compute the distance from that point to all points in the trainingSet
+            Vector currentPoint = testingFold.getVectors()[i];
+            ArrayList<DistanceAndIndex> diValues = new ArrayList<>();
+            for (int j = 0; j < trainingSet.getVectors().length; j++)
             {
-                System.out.format("%.4f,", dataSet[i1][j]);
+                Vector otherPoint = trainingSet.getVectors()[j];
+                DistanceAndIndex currentDist = calculateDistance(currentPoint, otherPoint, j);
+                diValues.add(currentDist);
             }
-            System.out.print("]");
-            System.out.println();
+            
+            // calculate the k closest points and assign to a variable
+            Collections.sort(diValues);
+            ArrayList<Vector> kClosestPoints = new ArrayList<>(k);
+            for (int j = 0, diValuesInx = 0; j < k; j++, diValuesInx++)
+            {
+                int setIndex = diValues.get(diValuesInx).index;
+                kClosestPoints.add(trainingSet.getVectors()[setIndex]);
+            }
+            
+            // the classification is the majority class of the points in kClosestPoints
+            int classification = calculateMajorityClass(kClosestPoints);
+            
+//            System.out.format("Vector %d with features %s classification%n", i, Arrays.toString(currentPoint.features()));
+//            System.out.format("Expected: %d, Actual: %d%n%n", currentPoint.classification(), classification);
+            
+            // send the classification result to the foldResult statistic array
+            addResult(currentPoint.classification(), classification);
+        }
+        
+//        System.out.println("Confusion matrix: ");
+//        for (int i = 0; i < foldResult.length; i++)
+//        {
+//            for (int j = 0; j < foldResult[i].length; j++)
+//            {
+//                System.out.format("%d ", foldResult[i][j]);
+//            }
+//            System.out.println();
+//        }
+        
+        return foldResult;        
+    }
+    
+    /**
+     * @param input : a list of the k closest vectors
+     * @return : the majority classification 
+     */
+    private int calculateMajorityClass(ArrayList<Vector> input)
+    {
+        HashMap<Integer, Integer> classAndSize = new HashMap<>();
+        ArrayList<Integer> classifications = new ArrayList<>();
+        
+        // get list of each unique classification 
+        for (Vector point : input)
+        {
+            if (!(classifications.contains(point.classification())))
+            {
+                classifications.add(point.classification());
+            }
+        }
+        
+        // add as keys to the map
+        for (Integer value : classifications)
+        {
+            classAndSize.put(value, 0);
+        }
+        
+        // tally how many times each classification appeas
+        for (Vector point : input)
+        {
+            Integer pointClass = point.classification();
+            for (Integer key : classAndSize.keySet())
+            {
+                if (Objects.equals(key, pointClass))
+                {
+                    Integer currentVal = classAndSize.get(key);
+                    currentVal++;
+                    classAndSize.put(key, currentVal);
+                }
+            }
+        }
+        
+        // get key associated with largest value
+        int largestClass = -1;
+        int largestValue = -1;
+        for (Map.Entry<Integer, Integer> entry : classAndSize.entrySet())
+        {
+            if (entry.getValue() > largestValue)
+            {
+                largestValue = entry.getValue();
+                largestClass = entry.getKey();
+            }
+        }
+        
+        return largestClass;
+    }
+    
+    /**
+     * Adds a classification result to the confusion matrix
+     * @param expected : expected class
+     * @param actual  : actual class
+     */
+    private void addResult(int expected, int actual)
+    {
+        foldResult[expected][actual]++;
+    }
+    
+    /**
+     * Calculate categorical (discrete) distance between two vectors. Also
+     * track which index this is linked to
+     * 
+     * The equation used is discussed in 
+     * http://ce.sharif.edu/courses/84-85/2/ce324/resources/root/Supplementary%20Materials%20for%20Final%20Exam/Data%20Mining%20(Classification)pdf.pdf
+     * on page 11
+     * 
+     * Note that vectors also have the classification included in the vector 
+     * as the first value, so this removes the first array entry and only compares
+     * features
+     * 
+     * @param a : sample vector
+     * @param b : training vector
+     * @param index : the index of the training vector in the training set array
+     * @return : A data object that contains the distance and index
+     */
+    private DistanceAndIndex calculateDistance(Vector a, Vector b, int index)
+    {
+        if (a.getValue().length != b.getValue().length)
+            throw new RuntimeException("vectors a and b are of different lengths");
+        
+        int[] featuresA = a.features();
+        int[] featuresB = b.features();
+        double sum = 0.0;
+        
+        for (int i = 0; i < featuresA.length; i++)
+        {
+            if (featuresA[i] != featuresB[i]) sum += 1.0;
+        }
+        double distance = Math.sqrt(sum);
+        
+        DistanceAndIndex DIRetruned = new DistanceAndIndex(distance, index);
+        return DIRetruned;
+    }
+    
+    class DistanceAndIndex implements Comparable<DistanceAndIndex>
+    {
+        double distance;
+        int    index;
+        
+        public DistanceAndIndex(double dist, int indx)
+        {
+            distance = dist;
+            index = indx;
+        }
+
+        @Override
+        public int compareTo(DistanceAndIndex t) 
+        {
+            return Double.compare(distance, t.distance);
         }
     }
 }

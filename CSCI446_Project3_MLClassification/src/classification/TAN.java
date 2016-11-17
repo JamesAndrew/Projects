@@ -65,12 +65,12 @@ public class TAN
         int classOccurs = 0; 
         int setLength = 0; 
 
-        for (Vector v : dataSet.vectors)
+        for (Vector v : dataSet.getVectors())
         {
             setLength++; 
             boolean found1 = false; 
             boolean found2 = false; 
-            if (v.get(0) == node1.getClassifier())
+            if (v.classification() == node1.getClassifier()) // (todo: classification now changed to integer)
             {
                 classOccurs++; 
                 if (v.contains(node1.getTraitValue(), node1.getTraitIndex()))

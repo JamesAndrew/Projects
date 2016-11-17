@@ -1,0 +1,5 @@
+Reminders:
+	- Need to stratify the partitions in the 'runExperiment()' method
+	
+Notes:
+	- KNN: k is chosen to be one less than the total number of data points in the classification with the least amount of values
