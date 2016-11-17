@@ -1,7 +1,11 @@
 package classification;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class NearestNeighbor extends Categorizer
 {
@@ -43,10 +47,13 @@ public class NearestNeighbor extends Categorizer
     @Override
     public int[][] Test() 
     {
+        System.out.println("testing fold vectors: ");
+        System.out.println(testingFold.toString());
+        
         // for each point in the testing fold...
         for (int i = 0; i < testingFold.getVectors().length; i++)
         {
-            // compute the distance from that point to all opints in the trainingSet
+            // compute the distance from that point to all points in the trainingSet
             Vector currentPoint = testingFold.getVectors()[i];
             ArrayList<DistanceAndIndex> diValues = new ArrayList<>();
             for (int j = 0; j < trainingSet.getVectors().length; j++)
@@ -56,16 +63,76 @@ public class NearestNeighbor extends Categorizer
                 diValues.add(currentDist);
             }
             
-            // calculate the k closest points
+            // calculate the k closest points and assign to a variable
             Collections.sort(diValues);
+            ArrayList<Vector> kClosestPoints = new ArrayList<>(k);
+            for (int j = 0, diValuesInx = 0; j < k; j++, diValuesInx++)
+            {
+                int setIndex = diValues.get(diValuesInx).index;
+                kClosestPoints.add(trainingSet.getVectors()[setIndex]);
+            }
             
-//            for (DistanceAndIndex value : diValues)
-//            {
-//                System.out.format("%-6f %-6d%n", value.distance, value.index);
-//            }
-//            System.out.println("\n\n");
+            // the classification is the majority class of the points in kClosestPoints
+            int classification = calculateMajorityClass(kClosestPoints);
+            
+            System.out.format("Vector %d with features %s classification%n", i, Arrays.toString(currentPoint.features()));
+            System.out.format("Expected: %d, Actual: %d%n%n", currentPoint.classification(), classification);
         }
         throw new UnsupportedOperationException();
+    }
+    
+    /**
+     * @param input : a list of the k closest vectors
+     * @return : the majority classification 
+     */
+    private int calculateMajorityClass(ArrayList<Vector> input)
+    {
+        HashMap<Integer, Integer> classAndSize = new HashMap<>();
+        ArrayList<Integer> classifications = new ArrayList<>();
+        
+        // get list of each unique classification 
+        for (Vector point : input)
+        {
+            if (!(classifications.contains(point.classification())))
+            {
+                classifications.add(point.classification());
+            }
+        }
+        
+        // add as keys to the map
+        for (Integer value : classifications)
+        {
+            classAndSize.put(value, 0);
+        }
+        
+        // tally how many times each classification appeas
+        for (Vector point : input)
+        {
+            Integer pointClass = point.classification();
+            for (Integer key : classAndSize.keySet())
+            {
+                if (Objects.equals(key, pointClass))
+                {
+                    Integer currentVal = classAndSize.get(key);
+                    currentVal++;
+                    classAndSize.put(key, currentVal);
+                }
+            }
+        }
+        
+        // get key associated with largest value
+        int largestClass = -1;
+        int largestValue = -1;
+        for (Map.Entry<Integer, Integer> entry : classAndSize.entrySet())
+        {
+            if (entry.getValue() > largestValue)
+            {
+                largestValue = entry.getValue();
+                largestClass = entry.getKey();
+            }
+        }
+        
+        return largestClass;
     }
     
     /**
@@ -75,6 +142,10 @@ public class NearestNeighbor extends Categorizer
      * The equation used is discussed in 
      * http://ce.sharif.edu/courses/84-85/2/ce324/resources/root/Supplementary%20Materials%20for%20Final%20Exam/Data%20Mining%20(Classification)pdf.pdf
      * on page 11
+     * 
+     * Note that vectors also have the classification included in the vector 
+     * as the first value, so this removes the first array entry and only compares
+     * features
      * 
      * @param a : sample vector
      * @param b : training vector
@@ -86,10 +157,13 @@ public class NearestNeighbor extends Categorizer
         if (a.getValue().length != b.getValue().length)
             throw new RuntimeException("vectors a and b are of different lengths");
         
+        int[] featuresA = a.features();
+        int[] featuresB = b.features();
         double sum = 0.0;
-        for (int i = 0; i < a.getValue().length; i++)
+        
+        for (int i = 0; i < featuresA.length; i++)
         {
-            if (a.getValue()[i] == b.getValue()[i]) sum += 1.0;
+            if (featuresA[i] != featuresB[i]) sum += 1.0;
         }
         double distance = Math.sqrt(sum);
         

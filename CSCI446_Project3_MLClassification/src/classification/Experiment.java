@@ -59,7 +59,8 @@ public class Experiment
                 String categorizerName = "not set yet";
                 
                 // for each 10-fold cross validation run...
-                for (int cvRun = 0; cvRun < partitions.length; cvRun++)
+                for (int cvRun = 0; cvRun < 1; cvRun++) // temp to just run once
+//                for (int cvRun = 0; cvRun < partitions.length; cvRun++)
                 {
                     // create the 9 training folds
                     DataSet[] trainingFolds = generateTrainingFolds(partitions, cvRun);

@@ -170,9 +170,9 @@ public class DataSet
         // get list of each unique classification 
         for (Vector point : vectors)
         {
-            if (!(classifications.contains(point.getValue()[0])))
+            if (!(classifications.contains(point.classification())))
             {
-                classifications.add(point.getValue()[0]);
+                classifications.add(point.classification());
             }
         }
         
@@ -185,7 +185,7 @@ public class DataSet
         // Tally how many times each classification appeas
         for (Vector point : vectors)
         {
-            Integer pointClass = point.getValue()[0];
+            Integer pointClass = point.classification();
             for (Integer key : classAndSize.keySet())
             {
                 if (Objects.equals(key, pointClass))
