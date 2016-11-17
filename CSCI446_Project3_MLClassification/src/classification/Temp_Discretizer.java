@@ -32,7 +32,7 @@ public class Temp_Discretizer
     public static void main(String[] args) throws FileNotFoundException 
     {
         // transform the .txt file into an ArrayList<ArrayList<Double>>
-        ArrayList<ArrayList<Double>> currentDataSet = generateDataSet("DataSets/mock-data-set.txt");
+        ArrayList<ArrayList<Double>> currentDataSet = generateDataSet("DataSets/new-house-votes-84.txt");
         
         // repeat process for each feature column:
         for (int featColumn = 1; featColumn < currentDataSet.get(0).size(); featColumn++)
@@ -377,7 +377,7 @@ public class Temp_Discretizer
         {
             ArrayList<Double> vector = S.get(i);
             // once a cut point is reached...
-            if (cuts.peek() < vector.get(featColumn))
+            if (!cuts.isEmpty() && cuts.peek() < vector.get(featColumn))
             {
                 cuts.pop();
                 
@@ -393,7 +393,10 @@ public class Temp_Discretizer
             // handle final case of last bin (doesn't have a cut point after it)
             else if (i == S.size()-1)
             {
-                cuts.pop();
+                if (!cuts.isEmpty())
+                {
+                    cuts.pop();
+                }
                 
                 // repalce all feature column values in the current bin with the
                 // current discreteValue
