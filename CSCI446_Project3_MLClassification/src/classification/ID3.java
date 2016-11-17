@@ -2,6 +2,7 @@
 package classification;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Solver using Decision Tree Classification, specifically the Iterative Dichotomiser 3
@@ -46,6 +47,9 @@ public class ID3 extends Categorizer
     public void Train() 
     {
         ArrayList<Integer> features = trainingSet.getFeaturesList();
+        
+        System.out.format("About to run ID3 on the following training set:%n%s%n", trainingSet.toString());
+        
         rootNode = id3_Recursive(trainingSet, features);
     }
 
@@ -56,7 +60,8 @@ public class ID3 extends Categorizer
     @Override
     public int[][] Test() 
     {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        return new int[3][];
+//        throw new UnsupportedOperationException("Not supported yet."); 
     }
     
     /**
@@ -68,6 +73,7 @@ public class ID3 extends Categorizer
      */
     private ID3Node id3_Recursive(DataSet S, ArrayList<Integer> remainingFeatures)
     {
+        System.out.format("%n== Starting recursive method.%n== S: %n%s== remainingFeatures: %s%n", S.toString(), remainingFeatures.toString());
         // instantiate root node for this recursive scope
         ID3Node root = new ID3Node();
         
@@ -75,6 +81,7 @@ public class ID3 extends Categorizer
         // if all the values in S have the same classification, assign root that classification label and return
         if (S.getNumClassifications() == 1)
         {
+            System.out.format("All values in S found to be classification %s. Assigning as leaf node.%n", Arrays.toString(S.getClassifcationValues()));
             int leafValue = S.getVectors()[0].classification();
             root.setNodeValue(leafValue);
             return root;
@@ -84,6 +91,9 @@ public class ID3 extends Categorizer
         if (remainingFeatures.isEmpty())
         {
             int leafValue = S.getMajorityClassification();
+            
+            System.out.format("No remaining features left. Assigning current node as leaf with majority classificaton %d%n", leafValue);
+            
             root.setNodeValue(leafValue);
             return root;
         }
@@ -94,18 +104,29 @@ public class ID3 extends Categorizer
         // and assign to root
         root.setNodeValue(bestFeature);
         
+        System.out.format("Assigning current node to have best feature value %d%n", bestFeature);
+        
         // for each value 'bestFeature' can be...
         int[] bestFeatureValues = S.getValuesOfAFeature(bestFeature);
+        
+        System.out.format("For each value of best feature %d: (%s)%n", bestFeature, Arrays.toString(bestFeatureValues));
+        
         for (int value : bestFeatureValues)
         {
+            System.out.format("Current value: %d%n", value);
             DataSet featureValuesSubset = S.getSubsetByFeatureValue(bestFeature, value);
             
             // if Examples(V_i) is empty...
             if (featureValuesSubset.getVectors().length == 0)
             {
+                System.out.format("There are no values in S with this feature-value.%n");
+                
                 // make a new branch and node with classification lable of class majority in current set
                 int childNodeValue = S.getMajorityClassification();
                 root.getChildren().put(value, new ID3Node(childNodeValue));
+                
+                System.out.format("Made new branch and leaf node with the majority classification. Branch value: %d, leaf node classification: %d%n", value, childNodeValue);
+                
                 // return because leaf node 
                 return root;
             }
@@ -113,6 +134,10 @@ public class ID3 extends Categorizer
             else
             {
                 remainingFeatures.remove(bestFeature);
+                
+                System.out.format("Removed %d from the remaining features.%n", bestFeature);
+                System.out.format("Running next recursive call.%n");
+                
                 id3_Recursive(featureValuesSubset, remainingFeatures);
             }
         }
@@ -129,17 +154,22 @@ public class ID3 extends Categorizer
      */
     private int calculateMaxGainFeature(DataSet S, ArrayList<Integer> remainingFeatures)
     {
+        System.out.format("calculating max gain feature...%n");
+        
         double maxGain = Double.MIN_VALUE;
         int maxGainFeature = -1;
         
         // for each remaining feature...
         for (int feature : remainingFeatures)
         {
+            System.out.format("current feature: %d%n", feature);
             // calculate the gain of the data set given that feature. 
             double gain = informationGain(S, feature);
+            System.out.format("gain: %.3f%n", gain);
             // and save if max gain thus far
             if (gain > maxGain)
             {
+                System.out.format("Gain was greater, assignming to max gain feature");
                 maxGainFeature = feature;
             }
         }
@@ -159,8 +189,12 @@ public class ID3 extends Categorizer
      */
     private double informationGain(DataSet S, int feature)
     {
+        System.out.format("- information gain method -%n");
         double sum = 0.0;
         double totalEntropy = entropy(S);
+        
+        System.out.format("- total entropy: %.3f -%n", totalEntropy);
+        
         int[] featureValues = S.getValuesOfAFeature(feature);
         ArrayList<DataSet> subsetsByFeatureValue = new ArrayList<>();
         
@@ -191,8 +225,12 @@ public class ID3 extends Categorizer
      */
     private double entropy(DataSet S)
     {
+        System.out.format("-- entropy method on Data Set:-- %n%s%n", S.toString());
         double entropy = 0.0;
         int[] classifications = S.getClassifcationValues();
+        
+        System.out.format("-- classifications: %s --%n", Arrays.toString(classifications));
+        
         ArrayList<DataSet> subsetsByClassification = new ArrayList<>();
         
         // put each classification subset into the array list
@@ -200,13 +238,17 @@ public class ID3 extends Categorizer
         {
             DataSet subset = S.getSubsetByClassification(classification);
             subsetsByClassification.add(subset);
+            
+            System.out.format("-- subset of classification %d:--%n%s", classification, subset.toString());
         }
         
         // run the summation formula
         for (DataSet subset : subsetsByClassification)
         {
-            double proportion = subset.getVectors().length / S.getVectors().length;
+            double proportion = (double)subset.getVectors().length / (double)S.getVectors().length;
+            System.out.format("-- proportion value of current subset: %.3f%n", proportion);
             entropy += -1 * proportion * (Math.log10(proportion) / Math.log10(2));
+            System.out.format("-- sum thus far: %.3f --%n", entropy);
         }
         
         return entropy;
