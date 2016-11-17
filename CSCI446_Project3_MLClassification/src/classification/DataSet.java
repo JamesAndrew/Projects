@@ -57,19 +57,18 @@ public class DataSet
     }
     
     /**
-     * custom .equals method for ArrayList<Double>
-     * @param a1
-     * @param a2
-     * @return true if a1 == a2
+     * @return an arraylist of the arbitrary Integer feature categories this data set contains
      */
-    private boolean arrayListEquals(ArrayList<Integer> a1, ArrayList<Integer> a2)
+    public ArrayList<Integer> getFeaturesList()
     {
-        if (a1.size() != a2.size()) return false;
-        for (int i = 0; i < a1.size(); i++)
+        ArrayList<Integer> features = new ArrayList<>();
+        int[] someVector = vectors[0].getValue();
+        
+        for (int i = 1; i < someVector.length; i++)
         {
-            if ((!Objects.equals(a1.get(i), a2.get(i)))) return false;
+            features.add(i);
         }
-        return true;
+        return features;
     }
 
     /**
@@ -156,6 +155,59 @@ public class DataSet
     }
     
     /**
+     * @return the classification value that appears most in the data set
+     */
+    public int getMajorityClassification()
+    {
+        HashMap<Integer, Integer> classAndSize = new HashMap<>();
+        ArrayList<Integer> classifications = new ArrayList<>();
+        
+        // get list of each unique classification 
+        for (Vector point : vectors)
+        {
+            if (!(classifications.contains(point.classification())))
+            {
+                classifications.add(point.classification());
+            }
+        }
+        
+        // add as keys to the map
+        for (Integer value : classifications)
+        {
+            classAndSize.put(value, 0);
+        }
+        
+        // tally how many times each classification appeas
+        for (Vector point : vectors)
+        {
+            Integer pointClass = point.classification();
+            for (Integer key : classAndSize.keySet())
+            {
+                if (Objects.equals(key, pointClass))
+                {
+                    Integer currentVal = classAndSize.get(key);
+                    currentVal++;
+                    classAndSize.put(key, currentVal);
+                }
+            }
+        }
+        
+        // get key associated with largest value
+        int largestClass = -1;
+        int largestValue = -1;
+        for (Map.Entry<Integer, Integer> entry : classAndSize.entrySet())
+        {
+            if (entry.getValue() > largestValue)
+            {
+                largestValue = entry.getValue();
+                largestClass = entry.getKey();
+            }
+        }
+        
+        return largestClass;
+    }
+    
+    /**
      * Used in K-NN algorithm. 
      * k is chosen to be one less than the total number of data points in 
      * the classification with the least amount of values
@@ -208,6 +260,22 @@ public class DataSet
         }
         
         return smallestValue;
+    }
+    
+    /**
+     * custom .equals method for ArrayList<Double>
+     * @param a1
+     * @param a2
+     * @return true if a1 == a2
+     */
+    private boolean arrayListEquals(ArrayList<Integer> a1, ArrayList<Integer> a2)
+    {
+        if (a1.size() != a2.size()) return false;
+        for (int i = 0; i < a1.size(); i++)
+        {
+            if ((!Objects.equals(a1.get(i), a2.get(i)))) return false;
+        }
+        return true;
     }
     
     /**
