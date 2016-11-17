@@ -38,4 +38,12 @@ public class ID3Node
     {
         this.nodeValue = nodeValue;
     }
+    public HashMap<Integer, ID3Node> getChildren() 
+    {
+        return children;
+    }
+    public void setChildren(HashMap<Integer, ID3Node> children) 
+    {
+        this.children = children;
+    }
 }

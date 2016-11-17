@@ -90,10 +90,34 @@ public class ID3 extends Categorizer
         
         // else begin recursive tree building loop... //
         // calculate the feature that best classifies the data
-        int bestFeature = calculateMaxGainFeature(S);
+        int bestFeature = calculateMaxGainFeature(S, remainingFeatures);
+        // and assign to root
+        root.setNodeValue(bestFeature);
         
+        // for each value 'bestFeature' can be...
+        int[] bestFeatureValues = S.getValuesOfAFeature(bestFeature);
+        for (int value : bestFeatureValues)
+        {
+            DataSet featureValuesSubset = S.getSubsetByFeatureValue(bestFeature, value);
+            
+            // if Examples(V_i) is empty...
+            if (featureValuesSubset.getVectors().length == 0)
+            {
+                // make a new branch and node with classification lable of class majority in current set
+                int childNodeValue = S.getMajorityClassification();
+                root.getChildren().put(value, new ID3Node(childNodeValue));
+                // return because leaf node 
+                return root;
+            }
+            // otherwise if not empty, generate branch and subtree 
+            else
+            {
+                remainingFeatures.remove(bestFeature);
+                id3_Recursive(featureValuesSubset, remainingFeatures);
+            }
+        }
         
-        throw new UnsupportedOperationException("Not supported yet."); 
+        return root;
     }
     
     /**
@@ -103,10 +127,25 @@ public class ID3 extends Categorizer
      * @param S : the current data set 
      * @return : the feature value with the highest gain
      */
-    private int calculateMaxGainFeature(DataSet S)
+    private int calculateMaxGainFeature(DataSet S, ArrayList<Integer> remainingFeatures)
     {
+        double maxGain = Double.MIN_VALUE;
+        int maxGainFeature = -1;
         
-        throw new UnsupportedOperationException("Not supported yet.");
+        // for each remaining feature...
+        for (int feature : remainingFeatures)
+        {
+            // calculate the gain of the data set given that feature. 
+            double gain = informationGain(S, feature);
+            // and save if max gain thus far
+            if (gain > maxGain)
+            {
+                maxGainFeature = feature;
+            }
+        }
+        
+        if (maxGainFeature == -1) throw new RuntimeException("maxGainFeature was never set to an actual feature");
+        return maxGainFeature;
     }
     
     /**
