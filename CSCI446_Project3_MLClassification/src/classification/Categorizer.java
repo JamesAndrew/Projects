@@ -9,8 +9,8 @@ package classification;
 public abstract class Categorizer 
 {
     protected DataSet[] trainingFolds;
-    protected DataSet testingFold;
     protected DataSet trainingSet;    // all vectors in trianingFolds unioned into one DataSet
+    protected DataSet testingFold;
     protected String categorizerName;  // set the categorizerName of each concrete categorizer in the constructor
     
     /**

@@ -6,12 +6,15 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import sun.security.util.PendingException;
 
 public class NearestNeighbor extends Categorizer
 {
     // tunable parameters
-    int k;          // set in constructor
+    int k;                      // set in constructor
     
+    // other class properties
+    int[][] foldResult;         // stores the confusion matrix for current run
     
     /**
      * Constructor logic defined in abstract class
@@ -26,6 +29,15 @@ public class NearestNeighbor extends Categorizer
         // k is chosen to be one less than the total number of data points in 
         // the classification with the least amount of values
         k = trainingSet.getSizeOfSmallestClassificationSet() - 1;
+        
+        // foldResult is an (n x n) matrix where n = number of classifications
+        int matrixSize = trainingSet.getNumClassifications();
+        foldResult = new int[matrixSize][];
+        for (int i = 0; i < foldResult.length; i++)
+        {
+            foldResult[i] = new int[matrixSize];
+        }
+        System.out.format("fold result is a (%dx%d) matrix%n", matrixSize, matrixSize);
         
         System.out.println("k: " + k);
     }
@@ -77,8 +89,22 @@ public class NearestNeighbor extends Categorizer
             
             System.out.format("Vector %d with features %s classification%n", i, Arrays.toString(currentPoint.features()));
             System.out.format("Expected: %d, Actual: %d%n%n", currentPoint.classification(), classification);
+            
+            // send the classification result to the foldResult statistic array
+            addResult(currentPoint.classification(), classification);
         }
-        throw new UnsupportedOperationException();
+        
+        System.out.println("Confusion matrix: ");
+        for (int i = 0; i < foldResult.length; i++)
+        {
+            for (int j = 0; j < foldResult[i].length; j++)
+            {
+                System.out.format("%d ", foldResult[i][j]);
+            }
+            System.out.println();
+        }
+        
+        return foldResult;        
     }
     
     /**
@@ -133,6 +159,16 @@ public class NearestNeighbor extends Categorizer
         }
         
         return largestClass;
+    }
+    
+    /**
+     * Adds a classification result to the confusion matrix
+     * @param expected : expected class
+     * @param actual  : actual class
+     */
+    private void addResult(int expected, int actual)
+    {
+        foldResult[expected][actual]++;
     }
     
     /**
