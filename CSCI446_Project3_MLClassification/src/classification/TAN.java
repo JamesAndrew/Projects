@@ -12,21 +12,32 @@ import java.util.Map;
  */
 public class TAN
 {
-
+    private Map classCounts = new HashMap(); 
     private DataSet dataSet;
     private Map nodesByClass = new HashMap();
 
-    public TAN(DataSet set)
+    public TAN()
     {
-        this.dataSet = set;
+    }
+    
+    public void train(DataSet dataset)
+    {
+        this.dataSet = dataset;
+        setUpNodes();
+        setInfluences(); 
+    }
+    
+    public void test(DataSet dataset)
+    {
+        this.dataSet = dataset;
     }
 
-    public void setUpNodes(DataSet set)
+    private void setUpNodes()
     {
         //initialize nodes and add to nodesByClass with calssifier as key
     }
 
-    public void setInfluences()
+    private void setInfluences()
     {
         Iterator it = nodesByClass.entrySet().iterator();
         while (it.hasNext())
@@ -37,13 +48,16 @@ public class TAN
             {
                 for (TANNode node2 : nodes)
                 {
-
+                    if (node1.getClassifier() == node2.getClassifier() && !node1.equals(node2))
+                    {
+                        node1.addToAllInfluences(node2, calculateWeight(node1, node2));
+                    }
                 }
             }
         }
     }
 
-    public double calculateWeight(TANNode node1, TANNode node2)
+    private double calculateWeight(TANNode node1, TANNode node2)
     {
         int bothOccur = 0;
         int oneOccurs = 0;
@@ -59,12 +73,12 @@ public class TAN
             if (v.classification() == node1.getClassifier()) // (todo: classification now changed to integer)
             {
                 classOccurs++; 
-                if (v.contains(node1.getTraitValue(), node1.getTraitNumber()))
+                if (v.contains(node1.getTraitValue(), node1.getTraitIndex()))
                 {
                     oneOccurs++;
                     found1 = true; 
                 }
-                if (v.contains(node2.getTraitValue(), node2.getTraitNumber()))
+                if (v.contains(node2.getTraitValue(), node2.getTraitIndex()))
                 {
                     twoOccurs++; 
                     found2 = true; 
@@ -78,5 +92,24 @@ public class TAN
         double numerator = (double) bothOccur / classOccurs; 
         double denom = ((double) oneOccurs / classOccurs) * ((double) twoOccurs / classOccurs); 
         return ((double) bothOccur / setLength) * Math.log(numerator / denom);
+    }
+    
+    public double getProbability(double attVal, int index, double classVal)
+    {
+        TANNode matchNode = null; 
+        ArrayList<TANNode> nodes = (ArrayList) nodesByClass.get(classVal); 
+        for (TANNode node : nodes) 
+        {
+            if (node.getTraitValue() == attVal && node.getTraitIndex() == index)
+            {
+                matchNode = node; 
+                break; 
+            }
+        }
+        if (matchNode != null)
+        {
+            //if vector does not contain influencer, decrease prob
+        }
+        return 0.0001; 
     }
 }
