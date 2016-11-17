@@ -11,7 +11,7 @@ package classification;
  */
 public class NaiveBayes extends Categorizer
 { 
-    private int classes;
+    private final int classes;
     private final int attr_values;
     private final int attributes;
     
