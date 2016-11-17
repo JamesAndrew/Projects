@@ -12,26 +12,30 @@ import java.util.Map;
  */
 public class TAN extends Categorizer
 {
-    private Map<Integer, Integer> classCounts = new HashMap<Integer, Integer>(); 
+
+    private int totalClasses = 0;
+    private Map<Integer, Integer> classCounts = new HashMap<Integer, Integer>();
     private Map<Integer, ArrayList<TANNode>> nodesByClass = new HashMap<Integer, ArrayList<TANNode>>();
+    private Map<Integer, Integer> indexCounts = new HashMap<Integer, Integer>();
 
     public TAN(DataSet[] trainingFolds, DataSet testingFold)
     {
         super(trainingFolds, testingFold);
         categorizerName = "TAN";
     }
-    
+
     @Override
     public void Train()
-    {        
+    {
         setUpNodes();
-        setInfluences(); 
+        setInfluences();
+        setTotalClasses();
     }
-    
+
     @Override
     public int[][] Test()
     {
-        return null; 
+        return null;
     }
 
     private void setUpNodes()
@@ -43,46 +47,54 @@ public class TAN extends Categorizer
             int[] features = v.features();
             for (int i = 1; i < features.length; i++)
             {
-                boolean duplicate = false; 
+                boolean duplicate = false;
                 TANNode newNode = new TANNode(features[i], i, classifier);
                 //System.out.println("NewVal:" + newNode.getTraitValue() + " index:" + newNode.getTraitIndex() + " Class:" + newNode.getClassifier());
                 for (ArrayList<TANNode> nodeList : nodesByClass.values())
                 {
                     for (TANNode n : nodeList)
                     {
-                        TANNode node = (TANNode) n; 
+                        TANNode node = (TANNode) n;
                         //System.out.println("Val:" + node.getTraitValue() + " index:" + node.getTraitIndex() + " Class:" + node.getClassifier());                        
                         if (node.equals(newNode))
                         {
                             node.incrementOccurence();
-                            duplicate = true; 
+                            duplicate = true;
                             break;
                         }
                     }
                 }
                 if (!duplicate)
-                {                    
+                {
                     ArrayList nodeList = nodesByClass.get(classifier);
                     if (nodeList != null)
                     {
-                        nodeList.add(newNode); 
-                        nodesByClass.put(classifier, nodeList); 
-                    }
-                    else
+                        nodeList.add(newNode);
+                        nodesByClass.put(classifier, nodeList);
+                    } else
                     {
-                        nodesByClass.put(classifier, new ArrayList(Arrays.asList(newNode))); 
-                    }                    
-                    if (classCounts.get(classifier) != null)
-                    {
-                        int count = classCounts.get(classifier);
-                        count++; 
-                        classCounts.replace(classifier, count); 
+                        nodesByClass.put(classifier, new ArrayList(Arrays.asList(newNode)));
                     }
-                    else
-                    {
-                        classCounts.put(classifier, 1);
-                    }
-                }                    
+                }
+            }
+            if (classCounts.get(classifier) != null)
+            {
+                int count = classCounts.get(classifier);
+                count++;
+                classCounts.replace(classifier, count);
+            } else
+            {
+                classCounts.put(classifier, 1);
+            }
+        }
+        Iterator it2 = nodesByClass.entrySet().iterator();
+        while (it2.hasNext())
+        {
+            Map.Entry pair = (Map.Entry) it2.next();
+            ArrayList<TANNode> nodes = (ArrayList) pair.getValue();
+            for (TANNode node : nodes)
+            {
+                node.setMostInfluential();
             }
         }
     }
@@ -105,16 +117,6 @@ public class TAN extends Categorizer
                 }
             }
         }
-        Iterator it2 = nodesByClass.entrySet().iterator();
-        while (it2.hasNext())
-        {
-            Map.Entry pair = (Map.Entry) it2.next();
-            ArrayList<TANNode> nodes = (ArrayList) pair.getValue();
-            for (TANNode node : nodes)
-            {
-                node.setMostInfluential();
-            }
-        }
     }
 
     private double calculateWeight(TANNode node1, TANNode node2)
@@ -122,54 +124,68 @@ public class TAN extends Categorizer
         int bothOccur = 0;
         int oneOccurs = 0;
         int twoOccurs = 0;
-        int classOccurs = 0; 
-        int setLength = 0; 
+        int classOccurs = 0;
+        int setLength = 0;
 
         for (Vector v : trainingSet.getVectors())
         {
-            setLength++; 
-            boolean found1 = false; 
-            boolean found2 = false; 
+            setLength++;
+            boolean found1 = false;
+            boolean found2 = false;
             if (v.classification() == node1.getClassifier()) // (todo: classification now changed to integer)
             {
-                classOccurs++; 
+                classOccurs++;
                 if (v.contains(node1.getTraitValue(), node1.getTraitIndex()))
                 {
                     oneOccurs++;
-                    found1 = true; 
+                    found1 = true;
                 }
                 if (v.contains(node2.getTraitValue(), node2.getTraitIndex()))
                 {
-                    twoOccurs++; 
-                    found2 = true; 
+                    twoOccurs++;
+                    found2 = true;
                 }
                 if (found1 && found2)
                 {
-                    bothOccur++; 
+                    bothOccur++;
                 }
             }
         }
-        double numerator = (double) bothOccur / classOccurs; 
-        double denom = ((double) oneOccurs / classOccurs) * ((double) twoOccurs / classOccurs); 
+        double numerator = (double) bothOccur / classOccurs;
+        double denom = ((double) oneOccurs / classOccurs) * ((double) twoOccurs / classOccurs);
         return ((double) bothOccur / setLength) * Math.log(numerator / denom);
     }
-    
-    public double getProbability(double attVal, int index, double classVal)
+
+    public double getProbability(int attVal, int index, int classVal)
     {
-        TANNode matchNode = null; 
-        ArrayList<TANNode> nodes = (ArrayList) nodesByClass.get(classVal); 
-        for (TANNode node : nodes) 
+        TANNode matchNode = null;
+        ArrayList<TANNode> nodes = (ArrayList) nodesByClass.get(classVal);
+        for (TANNode node : nodes)
         {
             if (node.getTraitValue() == attVal && node.getTraitIndex() == index)
             {
-                matchNode = node; 
-                break; 
+                matchNode = node;
+                break;
             }
         }
         if (matchNode != null)
         {
             //if vector does not contain influencer, decrease prob
+            return (double) matchNode.occurs() / classCounts.get(matchNode.getClassifier());
         }
-        return 0.0001; 
+        return 0.0001;
+    }
+
+    public void setTotalClasses()
+    {
+        int total = 0;
+        Iterator it = classCounts.entrySet().iterator();
+        while (it.hasNext())
+        {
+            Map.Entry pair = (Map.Entry) it.next();
+            int count = (int) pair.getValue();
+            total += count;
+        }
+        totalClasses = total;
     }
 }

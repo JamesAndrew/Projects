@@ -31,7 +31,7 @@ public class Driver
         
         
         // Add the preprocessed sets here once ready:
-        fileInputPaths.add("DataSets/Preprocessed/iris-preprocessed.txt");
+        fileInputPaths.add("DataSets/Preprocessed/tiny-iris-preprocessed.txt");
         
         for (String dataTextFile : fileInputPaths)
         {
