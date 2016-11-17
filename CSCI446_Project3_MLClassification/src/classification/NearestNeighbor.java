@@ -37,9 +37,6 @@ public class NearestNeighbor extends Categorizer
         {
             foldResult[i] = new int[matrixSize];
         }
-        System.out.format("fold result is a (%dx%d) matrix%n", matrixSize, matrixSize);
-        
-        System.out.println("k: " + k);
     }
     
     @Override
@@ -59,9 +56,6 @@ public class NearestNeighbor extends Categorizer
     @Override
     public int[][] Test() 
     {
-        System.out.println("testing fold vectors: ");
-        System.out.println(testingFold.toString());
-        
         // for each point in the testing fold...
         for (int i = 0; i < testingFold.getVectors().length; i++)
         {
@@ -87,22 +81,22 @@ public class NearestNeighbor extends Categorizer
             // the classification is the majority class of the points in kClosestPoints
             int classification = calculateMajorityClass(kClosestPoints);
             
-            System.out.format("Vector %d with features %s classification%n", i, Arrays.toString(currentPoint.features()));
-            System.out.format("Expected: %d, Actual: %d%n%n", currentPoint.classification(), classification);
+//            System.out.format("Vector %d with features %s classification%n", i, Arrays.toString(currentPoint.features()));
+//            System.out.format("Expected: %d, Actual: %d%n%n", currentPoint.classification(), classification);
             
             // send the classification result to the foldResult statistic array
             addResult(currentPoint.classification(), classification);
         }
         
-        System.out.println("Confusion matrix: ");
-        for (int i = 0; i < foldResult.length; i++)
-        {
-            for (int j = 0; j < foldResult[i].length; j++)
-            {
-                System.out.format("%d ", foldResult[i][j]);
-            }
-            System.out.println();
-        }
+//        System.out.println("Confusion matrix: ");
+//        for (int i = 0; i < foldResult.length; i++)
+//        {
+//            for (int j = 0; j < foldResult[i].length; j++)
+//            {
+//                System.out.format("%d ", foldResult[i][j]);
+//            }
+//            System.out.println();
+//        }
         
         return foldResult;        
     }

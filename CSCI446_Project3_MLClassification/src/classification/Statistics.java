@@ -1,7 +1,9 @@
 
 package classification;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Static class that the Experiment class uses to update the run result values 
@@ -52,6 +54,33 @@ public class Statistics
     public static HashMap<String, HashMap<String, double[][]>> getResults() 
     {
         return results;
+    }
+    
+    /**
+     * print all confusion matrices in an easy to read way
+     */
+    public static void printConfusionMatrix()
+    {
+        System.out.println("\nPrinting all confusion matrices.");
+        for (Map.Entry<String, HashMap<String, double[][]>> entry1 : results.entrySet())
+        {
+            System.out.format("=== %s ===%n", entry1.getKey().toUpperCase());
+            
+            for (Map.Entry<String, double[][]> entry2 : entry1.getValue().entrySet())
+            {
+                System.out.format("%s: %n", entry2.getKey());
+                double[][] matrix = entry2.getValue();
+                for (int i = 0; i < matrix.length; i++)
+                {
+                    for (int j = 0; j < matrix[i].length; j++)
+                    {
+                        System.out.format("%.3f ", matrix[i][j]);
+                    }
+                    System.out.println();
+                }
+            }
+            System.out.println("\n");
+        }
     }
 }
 

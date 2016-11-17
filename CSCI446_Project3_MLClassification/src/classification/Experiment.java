@@ -59,8 +59,8 @@ public class Experiment
                 String categorizerName = "not set yet";
                 
                 // for each 10-fold cross validation run...
-                for (int cvRun = 0; cvRun < 1; cvRun++) // temp to just run once
-//                for (int cvRun = 0; cvRun < partitions.length; cvRun++)
+//                for (int cvRun = 0; cvRun < 1; cvRun++) // temp to just run once
+                for (int cvRun = 0; cvRun < partitions.length; cvRun++)
                 {
                     // create the 9 training folds
                     DataSet[] trainingFolds = generateTrainingFolds(partitions, cvRun);
@@ -84,11 +84,13 @@ public class Experiment
                 
                 // average all values in the 10-fold CV run and sent to the Statistics class
                 double[][] averagedResults = averageFoldResults(foldRunResults);
+                
                 // and add to the statistics class
                 Statistics.updateMatrix(categorizerName, currentDataSet.getName(), averagedResults);
             }
         }
         // program finishes once each data set has run (across all 5 categorizers)
+        Statistics.printConfusionMatrix();
     }
     
     /**
