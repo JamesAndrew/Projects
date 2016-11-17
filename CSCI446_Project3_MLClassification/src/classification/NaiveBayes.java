@@ -14,6 +14,7 @@ public class NaiveBayes extends Categorizer
     private int classes;
     private int attr_values;
     private int attributes;
+    int[][] foldResult;         // stores the confusion matrix for current run
     
     public NaiveBayes(DataSet[] trainingFolds, DataSet testingFold)
     {
@@ -22,6 +23,13 @@ public class NaiveBayes extends Categorizer
     
         System.out.println("=== Naive Bayes Experiment ===");
         
+        // foldResult is an (n x n) matrix where n = number of classifications
+        int matrixSize = trainingSet.getNumClassifications();
+        foldResult = new int[matrixSize][];
+        for (int i = 0; i < foldResult.length; i++)
+        {
+            foldResult[i] = new int[matrixSize];
+        }
     }
     
     @Override
@@ -39,7 +47,13 @@ public class NaiveBayes extends Categorizer
         int [][] test_data = { {1047630, 7, 4, 6, 4, 6, 1, 4, 3, 1, 4},
                                {1048672, 4, 1, 1, 1, 2, 1, 2, 1, 1, 2}};
 
-        System.out.println(train_data.length + " " + train_data[0].length);
+        for (int i = 0; i < testingFold.getVectors().length; i++)
+        {
+            Vector currentPoint = testingFold.getVectors()[i];
+            System.out.println(currentPoint);
+        }
+        
+        
         attributes = 11;
         attr_values = 11;
         classes = 2;
@@ -175,10 +189,12 @@ public class NaiveBayes extends Categorizer
     @Override
     public int[][] Test() 
     {
-//        /**
-//         * Classify test data using Naive Bayes Parameters 
-//         */
-//        System.out.println("== Classifying test data ==");
+        /**
+         * Classify test data using Naive Bayes Parameters 
+         */
+        System.out.println("== Classifying test data ==");
+        
+        
 //        double [] posteriors = new double [classes];
 //        for (int i = 0; i < posteriors.length; i++)
 //        {
