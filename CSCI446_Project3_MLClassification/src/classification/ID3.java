@@ -134,9 +134,23 @@ public class ID3 extends Categorizer
     private double entropy(DataSet S)
     {
         double entropy = 0.0;
+        int[] classifications = S.getClassifcationValues();
         ArrayList<DataSet> subsetsByClassification = new ArrayList<>();
         
+        // put each classification subset into the array list
+        for (int classification : classifications)
+        {
+            DataSet subset = S.getSubsetByClassification(classification);
+            subsetsByClassification.add(subset);
+        }
         
-        throw new UnsupportedOperationException("Not supported yet.");
+        // run the summation formula
+        for (DataSet subset : subsetsByClassification)
+        {
+            double proportion = subset.getVectors().length / S.getVectors().length;
+            entropy += -1 * proportion * (Math.log10(proportion) / Math.log10(2));
+        }
+        
+        return entropy;
     }
 }

@@ -46,7 +46,6 @@ public class DataSet
         
         System.out.println(this.name + " added to DataSet.vectors.");
     }
-    
     /**
      * Create a new DataSet with a known vectors size
      * @param size : the size to make the vectors property
@@ -56,21 +55,6 @@ public class DataSet
         vectors = new Vector[size];
     }
     
-    /**
-     * @return an arraylist of the arbitrary Integer feature categories this data set contains
-     */
-    public ArrayList<Integer> getFeaturesList()
-    {
-        ArrayList<Integer> features = new ArrayList<>();
-        int[] someVector = vectors[0].getValue();
-        
-        for (int i = 1; i < someVector.length; i++)
-        {
-            features.add(i);
-        }
-        return features;
-    }
-
     /**
      * Used during 10-fold cross validation
      * Stratifies and generates 10 subsets
@@ -141,13 +125,62 @@ public class DataSet
     }
     
     /**
+     * @return an arraylist of the arbitrary Integer feature categories this data set contains
+     */
+    public ArrayList<Integer> getFeaturesList()
+    {
+        ArrayList<Integer> features = new ArrayList<>();
+        int[] someVector = vectors[0].getValue();
+        
+        for (int i = 1; i < someVector.length; i++)
+        {
+            features.add(i);
+        }
+        return features;
+    }
+    
+    /**
      * @param classification : the actual value of the classification
-     * @return : a subset of this dataset with only values with 'classification' in it
+     * @return : a subset of this data set with only values with 'classification' in it
      */
     public DataSet getSubsetByClassification(int classification)
     {
-        ArrayList<
-        throw new UnsupportedOperationException("Not supported yet.");
+        ArrayList<Vector> tempVectors = new ArrayList<>();
+        for (Vector point : vectors)
+        {
+            if (point.classification() == classification) tempVectors.add(point);
+        }
+        
+        DataSet subset = new DataSet(tempVectors.size());
+        for (int i = 0; i < tempVectors.size(); i++)
+        {
+            subset.addVector(tempVectors.get(i), i);
+        }
+        
+        return subset;
+    }
+    
+    /**
+     * @param feature : the index or value (they're the same) of the feature column
+     * @param featureValue : the value that feature needs to have in order to add to the subset
+     * @return : a subset of this data set with only data points that have
+     *           value 'featureValue' for feature 'feature'
+     */
+    public DataSet getSubsetByFeatureValue(int feature, int featureValue)
+    {
+        ArrayList<Vector> tempVectors = new ArrayList<>();
+        for (Vector point : vectors)
+        {
+            if (point.hasFeatureValue(feature, featureValue)) tempVectors.add(point);
+        }
+        
+        DataSet subset = new DataSet(tempVectors.size());
+        for (int i = 0; i < tempVectors.size(); i++)
+        {
+            subset.addVector(tempVectors.get(i), i);
+        }
+        
+        return subset;
     }
     
     /**
