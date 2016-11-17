@@ -76,6 +76,14 @@ public class Vector
     }
     
     /**
+     * @return the number at feature entry 'feature'
+     */
+    public int getFeatureValue(int feature)
+    {
+        return value[feature];
+    }
+    
+    /**
      * prints the integer values in 'value'
      */
     @Override

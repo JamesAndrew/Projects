@@ -120,8 +120,27 @@ public class ID3 extends Categorizer
      */
     private double informationGain(DataSet S, int feature)
     {
+        double sum = 0.0;
+        double totalEntropy = entropy(S);
+        int[] featureValues = S.getValuesOfAFeature(feature);
+        ArrayList<DataSet> subsetsByFeatureValue = new ArrayList<>();
         
-        throw new UnsupportedOperationException("Not supported yet.");
+        // put each classification subset into the array list
+        for (int entry : featureValues)
+        {
+            DataSet subset = S.getSubsetByFeatureValue(feature, entry);
+            subsetsByFeatureValue.add(subset);
+        }
+        
+        // run the summation formula
+        for (DataSet subset : subsetsByFeatureValue)
+        {
+            double proportion = subset.getVectors().length / S.getVectors().length;
+            sum += -1 * proportion * entropy(subset);
+        }
+        
+        double gain = totalEntropy * sum;
+        return gain;
     }
     
     /**

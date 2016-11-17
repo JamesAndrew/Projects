@@ -224,6 +224,33 @@ public class DataSet
     }
     
     /**
+     * @param feature : the index or value (they're the same) of the feature column
+     * @return : an int array of all values feature 'feature' has for this DataSet
+     */
+    public int[] getValuesOfAFeature(int feature)
+    {
+        int[] featureValues;
+        ArrayList<Integer> featureValuesArrayList = new ArrayList<>();
+        // get list of each unique feature value
+        for (Vector point : vectors)
+        {
+            if (!(featureValuesArrayList.contains(point.getFeatureValue(feature))))
+            {
+                featureValuesArrayList.add(point.getFeatureValue(feature));
+            }
+        }
+        
+        // translate into a int[] object
+        featureValues = new int[featureValuesArrayList.size()];
+        for (int i = 0; i < featureValuesArrayList.size(); i++)
+        {
+            featureValues[i] = featureValuesArrayList.get(i);
+        }
+        
+        return featureValues;
+    }
+    
+    /**
      * @return the classification value that appears most in the data set
      */
     public int getMajorityClassification()
