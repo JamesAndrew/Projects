@@ -1,12 +1,10 @@
 package classification;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import sun.security.util.PendingException;
 
 public class NearestNeighbor extends Categorizer
 {
@@ -17,7 +15,7 @@ public class NearestNeighbor extends Categorizer
     int[][] foldResult;         // stores the confusion matrix for current run
     
     /**
-     * Constructor logic defined in abstract class
+     * Some constructor logic defined in abstract class
      * @param trainingFolds
      * @param testingFold
      */
