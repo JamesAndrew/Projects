@@ -10,26 +10,28 @@ import java.util.Map;
  *
  *
  */
-public class TAN
+public class TAN extends Categorizer
 {
     private Map classCounts = new HashMap(); 
-    private DataSet dataSet;
     private Map nodesByClass = new HashMap();
 
-    public TAN()
+    public TAN(DataSet[] trainingFolds, DataSet testingFold)
     {
+        super(trainingFolds, testingFold);
+        categorizerName = "TAN";
     }
     
-    public void train(DataSet dataset)
-    {
-        this.dataSet = dataset;
+    @Override
+    public void Train()
+    {        
         setUpNodes();
         setInfluences(); 
     }
     
-    public void test(DataSet dataset)
+    @Override
+    public int[][] Test()
     {
-        this.dataSet = dataset;
+        return null; 
     }
 
     private void setUpNodes()
@@ -65,7 +67,7 @@ public class TAN
         int classOccurs = 0; 
         int setLength = 0; 
 
-        for (Vector v : dataSet.getVectors())
+        for (Vector v : trainingSet.getVectors())
         {
             setLength++; 
             boolean found1 = false; 
