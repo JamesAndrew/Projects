@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import sun.security.util.PendingException;
 
 public class NearestNeighbor extends Categorizer
 {
@@ -37,6 +36,8 @@ public class NearestNeighbor extends Categorizer
         {
             foldResult[i] = new int[matrixSize];
         }
+        
+        System.out.format("k size: %d%n%n", k);
     }
     
     @Override
@@ -56,9 +57,12 @@ public class NearestNeighbor extends Categorizer
     @Override
     public int[][] Test() 
     {
+        System.out.println("Looping through each point in the testing fold and "
+                + "comparing to all testing vectors...");
         // for each point in the testing fold...
         for (int i = 0; i < testingFold.getVectors().length; i++)
         {
+            System.out.format("Current query data point: #%d%n", i+1);
             // compute the distance from that point to all points in the trainingSet
             Vector currentPoint = testingFold.getVectors()[i];
             ArrayList<DistanceAndIndex> diValues = new ArrayList<>();
@@ -77,12 +81,18 @@ public class NearestNeighbor extends Categorizer
                 int setIndex = diValues.get(diValuesInx).index;
                 kClosestPoints.add(trainingSet.getVectors()[setIndex]);
             }
+            System.out.format("Query vector expected classification: %d%n", currentPoint.classification());
+            System.out.format("Query vector features: %s%n", Arrays.toString(currentPoint.features()));
+            System.out.format("k-nearest training points to the testing vector (classifications and features):%n");
+            for (Vector vector : kClosestPoints)
+            {
+                System.out.println(vector.toString());
+            }
             
             // the classification is the majority class of the points in kClosestPoints
             int classification = calculateMajorityClass(kClosestPoints);
             
-//            System.out.format("Vector %d with features %s classification%n", i, Arrays.toString(currentPoint.features()));
-//            System.out.format("Expected: %d, Actual: %d%n%n", currentPoint.classification(), classification);
+            System.out.format("Query vector expected: %d, Query vector actual: %d%n%n", currentPoint.classification(), classification);
             
             // send the classification result to the foldResult statistic array
             addResult(currentPoint.classification(), classification);

@@ -40,7 +40,7 @@ public class Statistics
     /**
      * Called by the Experiment class to provide averaged 10-fold CV 
      * data to the correct matrix
-     * @param input       : The averaged 10-fold CV data for the 
+     * @param matrix      : The averaged 10-fold CV data for the confusion matrix
      * @param algName     : The categorizer algorithm name (needs to be defined in each concrete categorizer class)
      * @param dataSetName : The data set name (based off of names shown in the DataSet class constructor)
      */
@@ -79,8 +79,23 @@ public class Statistics
                     System.out.println();
                 }
             }
-            System.out.println("\n");
+            System.out.println();
         }
+        
+        // just for sample runs...
+        System.out.println("--------------------");
+        
+        double[][] confMatrix = results.get("KNN").get("iris_data_set");
+        
+        System.out.format("Category 1 %n"
+            + "   Sensitivity: %.3f%n"
+            + "   Precision:   %.3f%n"
+            + "   Accuracy:    %.3f%n",
+                confMatrix[0][0] / (confMatrix[0][0] + confMatrix[0][1] + confMatrix[0][2]),
+                confMatrix[0][0] / (confMatrix[0][0] + confMatrix[1][0] + confMatrix[2][0]),
+                ( confMatrix[0][0] + confMatrix[0][1] + confMatrix[0][2]) / 
+                    ( confMatrix[0][0]+confMatrix[0][1]+confMatrix[0][2]+confMatrix[1][0]+confMatrix[2][0] )
+        );
     }
 }
 

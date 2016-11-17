@@ -42,10 +42,12 @@ public class Experiment
     public void runExperiment(List<Class<?>> algorithmList) throws InstantiationException, 
             IllegalAccessException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException
     {
+        System.out.println("Beginning 10-fold Cross Validation...");
         // for each data set...
         for (int dataSetsIndex = 0; dataSetsIndex < dataSets.length; dataSetsIndex++)
         {
             DataSet currentDataSet = dataSets[dataSetsIndex];
+            System.out.println("Data Set: tiny-iris-data-set");
             
             // create 10 partitions                   
             DataSet[] partitions = currentDataSet.fillPartitions();
@@ -53,19 +55,24 @@ public class Experiment
             // for each machine learning categorizer...
             for (Class<?> categorizer : algorithmList)
             {
+                System.out.println("Algorithm: K-Nearest Neighbor\n");
                 // Holds the 10 fold-run confusion matrix results (used to take an average after the 10 runs complete)
                 ArrayList<int[][]> foldRunResults = new ArrayList<>();
                 // Crappy way of saving the categorizer name for the 'updateMatrix' call
                 String categorizerName = "not set yet";
                 
                 // for each 10-fold cross validation run...
-//                for (int cvRun = 0; cvRun < 1; cvRun++) // temp to just run once
-                for (int cvRun = 0; cvRun < partitions.length; cvRun++)
+                for (int cvRun = 0; cvRun < 2; cvRun++) // temp to just run once
+//                for (int cvRun = 0; cvRun < partitions.length; cvRun++)
                 {
+                    System.out.format("\nFold %d of %d being tested (Only 2 folds now for brevity. Is normally 10):%n", cvRun+1, 2);
                     // create the 9 training folds
                     DataSet[] trainingFolds = generateTrainingFolds(partitions, cvRun);
                     // create the 1 testing fold
                     DataSet testingFold = partitions[cvRun];
+                    System.out.format("Current testing fold discretized vectors "
+                            + "(the first column is the classification):%n%s", testingFold.toString());
+                    System.out.println("----------------------------------------------");
                     
                     // (re)instantiate the categorizer
                     Class[] args = new Class[2];
