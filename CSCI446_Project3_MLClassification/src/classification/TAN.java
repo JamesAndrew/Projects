@@ -41,22 +41,27 @@ public class TAN extends Categorizer
         {
             int classifier = v.classification();
             int[] features = v.features();
-            for (int i = 0; i < features.length; i++)
+            for (int i = 1; i < features.length; i++)
             {
                 boolean duplicate = false; 
                 TANNode newNode = new TANNode(features[i], i, classifier);
-                for (Object n : nodesByClass.values())
+                //System.out.println("NewVal:" + newNode.getTraitValue() + " index:" + newNode.getTraitIndex() + " Class:" + newNode.getClassifier());
+                for (ArrayList<TANNode> nodeList : nodesByClass.values())
                 {
-                    TANNode node = (TANNode) n; 
-                    if (node.equals(newNode))
+                    for (TANNode n : nodeList)
                     {
-                        node.incrementOccurence();
-                        duplicate = true; 
-                        break;
+                        TANNode node = (TANNode) n; 
+                        //System.out.println("Val:" + node.getTraitValue() + " index:" + node.getTraitIndex() + " Class:" + node.getClassifier());                        
+                        if (node.equals(newNode))
+                        {
+                            node.incrementOccurence();
+                            duplicate = true; 
+                            break;
+                        }
                     }
                 }
                 if (!duplicate)
-                {
+                {                    
                     ArrayList nodeList = nodesByClass.get(classifier);
                     if (nodeList != null)
                     {
@@ -98,6 +103,16 @@ public class TAN extends Categorizer
                         node1.addToAllInfluences(node2, calculateWeight(node1, node2));
                     }
                 }
+            }
+        }
+        Iterator it2 = nodesByClass.entrySet().iterator();
+        while (it2.hasNext())
+        {
+            Map.Entry pair = (Map.Entry) it2.next();
+            ArrayList<TANNode> nodes = (ArrayList) pair.getValue();
+            for (TANNode node : nodes)
+            {
+                node.setMostInfluential();
             }
         }
     }

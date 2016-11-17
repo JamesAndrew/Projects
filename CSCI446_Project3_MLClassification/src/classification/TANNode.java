@@ -86,10 +86,6 @@ public class TANNode
 
     public boolean equals(TANNode compareNode)
     {
-        if (compareNode.getClassifier() == classifier && compareNode.getTraitIndex() == traitIndex && compareNode.getTraitValue() == traitValue)
-        {
-            return true;
-        }
-        return false;
+        return (compareNode.getClassifier() == classifier && compareNode.getTraitIndex() == traitIndex && compareNode.getTraitValue() == traitValue);
     }
 }

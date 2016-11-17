@@ -55,9 +55,13 @@ public class Vector
      * @param index
      * @return 
      */
-    public boolean contains(double attribute, int index)
+    public boolean contains(int attribute, int index)
     {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        if (index < value.length)
+        {
+            return value[index] == attribute; 
+        }
+        return false;
     }
     
     public int[] getValue()
