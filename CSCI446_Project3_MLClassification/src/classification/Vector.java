@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class Vector 
 {
-    int[] value;
+    private int[] value;
     
     /**
      * Constructor takes a single discretized data entry from the
@@ -58,6 +58,11 @@ public class Vector
     public boolean contains(double attribute, int index)
     {
         throw new UnsupportedOperationException("Not supported yet."); 
+    }
+    
+    public int[] getValue()
+    {
+        return value;
     }
     
     /**

@@ -12,7 +12,7 @@ public class TANNode
 {
     private int numOccurences = 1; 
     private double traitValue;
-    private int traitNumber;
+    private int traitIndex;
     private double classifier;
     private HashMap allInfluences = new HashMap();
     private TANNode influence;
@@ -20,7 +20,7 @@ public class TANNode
     public TANNode(double traitValue, int traitNumber, double classifier)
     {
         this.traitValue = traitValue;
-        this.traitNumber = traitNumber;
+        this.traitIndex = traitNumber;
         this.classifier = classifier;
     }
 
@@ -39,9 +39,9 @@ public class TANNode
         return traitValue;
     }
 
-    public int getTraitNumber()
+    public int getTraitIndex()
     {
-        return traitNumber;
+        return traitIndex;
     }
 
     public TANNode getInfluence()
@@ -52,6 +52,15 @@ public class TANNode
     public void addToAllInfluences(TANNode node, double weight)
     {
         allInfluences.put(node, weight);
+    }
+    
+    public boolean influencesContains(TANNode node)
+    {
+        if (allInfluences.containsKey(node))
+        {
+            return true;
+        }
+        return false; 
     }
 
     public void setMostInfluential()
@@ -72,7 +81,7 @@ public class TANNode
 
     public boolean equals(TANNode compareNode)
     {
-        if (compareNode.getClassifier() == classifier && compareNode.getTraitNumber() == traitNumber && compareNode.getTraitValue() == traitValue)
+        if (compareNode.getClassifier() == classifier && compareNode.getTraitIndex() == traitIndex && compareNode.getTraitValue() == traitValue)
         {
             return true;
         }

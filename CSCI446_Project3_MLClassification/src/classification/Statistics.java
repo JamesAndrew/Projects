@@ -2,6 +2,7 @@
 package classification;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Static class that the Experiment class uses to update the run result values 
@@ -23,8 +24,6 @@ import java.util.HashMap;
  */
 public class Statistics 
 {
-
-    
     /**
      * A map data structure is used to categorize the confusion matrices
      * according to the correct Categorizer algorithm
@@ -53,67 +52,31 @@ public class Statistics
     {
         return results;
     }
+    
+    /**
+     * print all confusion matrices in an easy to read way
+     */
+    public static void printConfusionMatrix()
+    {
+        System.out.println("\nPrinting all confusion matrices.");
+        for (Map.Entry<String, HashMap<String, double[][]>> entry1 : results.entrySet())
+        {
+            System.out.format("=== %s ===%n", entry1.getKey().toUpperCase());
+            
+            for (Map.Entry<String, double[][]> entry2 : entry1.getValue().entrySet())
+            {
+                System.out.format("%s: %n", entry2.getKey());
+                double[][] matrix = entry2.getValue();
+                for (int i = 0; i < matrix.length; i++)
+                {
+                    for (int j = 0; j < matrix[i].length; j++)
+                    {
+                        System.out.format("%.3f ", matrix[i][j]);
+                    }
+                    System.out.println();
+                }
+            }
+            System.out.println("\n");
+        }
+    }
 }
-
-
-//    /**
-//     * There is a confusion matrix (n x n int array) for each Categorizer.
-//     * Rows represent the actual classification. Columns represent the predicted
-//     * values. See https://en.wikipedia.org/wiki/Confusion_matrix
-//     */
-//    private static double[][] cancer_matrix;
-//    private static double[][] glass_matrix;
-//    private static double[][] house_votes_matrix;
-//    private static double[][] iris_matrix;
-//    private static double[][] soybean_matrix;
-
-//    /**
-//     * Called by the Experiment class. Instantiates the above 5 class variables
-//     * with the correct dimensions 
-//     * @param name : Name of the dataset as defined in the DataSet class
-//     * @param dimensions : number of classifications
-//     */
-//    public static void instantiateMatrix(String name, int dimensions)
-//    {
-//        switch (name)
-//        {
-//            case "cancer_data_set":
-//                cancer_matrix = new double[dimensions][];
-//                for (int i = 0; i < cancer_matrix.length; i++)
-//                {
-//                    cancer_matrix[i] = new double[dimensions];
-//                }
-//                break;
-//            case "glass_data_set":
-//                glass_matrix = new double[dimensions][];
-//                for (int i = 0; i < glass_matrix.length; i++)
-//                {
-//                    glass_matrix[i] = new double[dimensions];
-//                }
-//                break;
-//            case "house_data_set":
-//                house_votes_matrix = new double[dimensions][];
-//                for (int i = 0; i < house_votes_matrix.length; i++)
-//                {
-//                    house_votes_matrix[i] = new double[dimensions];
-//                }
-//                break;
-//            case "iris_data_set":
-//                iris_matrix = new double[dimensions][];
-//                for (int i = 0; i < iris_matrix.length; i++)
-//                {
-//                    iris_matrix[i] = new double[dimensions];
-//                }
-//                break;
-//            case "soybean_data_set":
-//                soybean_matrix = new double[dimensions][];
-//                for (int i = 0; i < soybean_matrix.length; i++)
-//                {
-//                    soybean_matrix[i] = new double[dimensions];
-//                }
-//                break;
-//            default:
-//                throw new RuntimeException("The name provided in instantiateMatrix "
-//                        + "doesn't match a known data set name.");
-//        }
-//    }

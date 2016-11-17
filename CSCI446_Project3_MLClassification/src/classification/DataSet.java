@@ -2,6 +2,8 @@ package classification;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -140,20 +142,6 @@ public class DataSet
     }
     
     /**
-     * Just prints the vector values in vectors
-     */
-    @Override
-    public String toString()
-    {
-        String output = "";
-        for (Vector point : vectors)
-        {
-            output = output + point.toString() + "\n";
-        }
-        return output;
-    }
-    
-    /**
      * @return the number of unique classifications this data set has
      */
     public int getNumClassifications()
@@ -165,6 +153,75 @@ public class DataSet
                 classifications.add(vector.classification());
         }
         return classifications.size();
+    }
+    
+    /**
+     * Used in K-NN algorithm. 
+     * k is chosen to be one less than the total number of data points in 
+     * the classification with the least amount of values
+     * 
+     * @return number of data points in the smallest classification set 
+     */
+    public int getSizeOfSmallestClassificationSet()
+    {
+        HashMap<Integer, Integer> classAndSize = new HashMap<>();
+        ArrayList<Integer> classifications = new ArrayList<>();
+        
+        // get list of each unique classification 
+        for (Vector point : vectors)
+        {
+            if (!(classifications.contains(point.classification())))
+            {
+                classifications.add(point.classification());
+            }
+        }
+        
+        // add as keys to the map
+        for (Integer value : classifications)
+        {
+            classAndSize.put(value, 0);
+        }
+        
+        // Tally how many times each classification appeas
+        for (Vector point : vectors)
+        {
+            Integer pointClass = point.classification();
+            for (Integer key : classAndSize.keySet())
+            {
+                if (Objects.equals(key, pointClass))
+                {
+                    Integer currentVal = classAndSize.get(key);
+                    currentVal++;
+                    classAndSize.put(key, currentVal);
+                }
+            }
+        }
+        
+        // Get smallest value
+        int smallestValue = Integer.MAX_VALUE;
+        for (Map.Entry<Integer, Integer> entry : classAndSize.entrySet())
+        {
+            if (entry.getValue() < smallestValue)
+            {
+                smallestValue = entry.getValue();
+            }
+        }
+        
+        return smallestValue;
+    }
+    
+    /**
+     * Just prints the vector values in vectors
+     */
+    @Override
+    public String toString()
+    {
+        String output = "";
+        for (Vector point : vectors)
+        {
+            output = output + point.toString() + "\n";
+        }
+        return output;
     }
     
     public Vector[] getVectors() 
