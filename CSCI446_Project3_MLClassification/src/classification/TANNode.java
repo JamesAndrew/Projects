@@ -11,16 +11,16 @@ import java.util.Map;
 public class TANNode
 {
     private int numOccurences = 1; 
-    private double traitValue;
+    private int traitValue;
     private int traitIndex;
-    private double classifier;
+    private int classifier;
     private HashMap allInfluences = new HashMap();
     private TANNode influence;
 
-    public TANNode(double traitValue, int traitNumber, double classifier)
+    public TANNode(int traitValue, int traitIndex, int classifier)
     {
         this.traitValue = traitValue;
-        this.traitIndex = traitNumber;
+        this.traitIndex = traitIndex;
         this.classifier = classifier;
     }
 
@@ -29,12 +29,17 @@ public class TANNode
         return numOccurences; 
     }
     
-    public double getClassifier()
+    public void incrementOccurence()
+    {
+        numOccurences++;
+    }
+    
+    public int getClassifier()
     {
         return classifier;
     }
 
-    public double getTraitValue()
+    public int getTraitValue()
     {
         return traitValue;
     }

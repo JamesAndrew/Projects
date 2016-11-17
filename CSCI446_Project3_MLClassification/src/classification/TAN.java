@@ -1,9 +1,9 @@
 package classification;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,8 +12,8 @@ import java.util.Map;
  */
 public class TAN extends Categorizer
 {
-    private Map classCounts = new HashMap(); 
-    private Map nodesByClass = new HashMap();
+    private Map<Integer, Integer> classCounts = new HashMap<Integer, Integer>(); 
+    private Map<Integer, ArrayList<TANNode>> nodesByClass = new HashMap<Integer, ArrayList<TANNode>>();
 
     public TAN(DataSet[] trainingFolds, DataSet testingFold)
     {
@@ -36,7 +36,50 @@ public class TAN extends Categorizer
 
     private void setUpNodes()
     {
-        //initialize nodes and add to nodesByClass with calssifier as key
+        //initialize nodes and add to nodesByClass with classifier as key
+        for (Vector v : trainingSet.getVectors())
+        {
+            int classifier = v.classification();
+            int[] features = v.features();
+            for (int i = 0; i < features.length; i++)
+            {
+                boolean duplicate = false; 
+                TANNode newNode = new TANNode(features[i], i, classifier);
+                for (Object n : nodesByClass.values())
+                {
+                    TANNode node = (TANNode) n; 
+                    if (node.equals(newNode))
+                    {
+                        node.incrementOccurence();
+                        duplicate = true; 
+                        break;
+                    }
+                }
+                if (!duplicate)
+                {
+                    ArrayList nodeList = nodesByClass.get(classifier);
+                    if (nodeList != null)
+                    {
+                        nodeList.add(newNode); 
+                        nodesByClass.put(classifier, nodeList); 
+                    }
+                    else
+                    {
+                        nodesByClass.put(classifier, new ArrayList(Arrays.asList(newNode))); 
+                    }                    
+                    if (classCounts.get(classifier) != null)
+                    {
+                        int count = classCounts.get(classifier);
+                        count++; 
+                        classCounts.replace(classifier, count); 
+                    }
+                    else
+                    {
+                        classCounts.put(classifier, 1);
+                    }
+                }                    
+            }
+        }
     }
 
     private void setInfluences()
