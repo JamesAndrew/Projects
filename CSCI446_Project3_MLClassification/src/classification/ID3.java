@@ -88,10 +88,55 @@ public class ID3 extends Categorizer
             return root;
         }
         
-        // begin recursive tree building loop
+        // else begin recursive tree building loop... //
+        // calculate the feature that best classifies the data
+        int bestFeature = calculateMaxGainFeature(S);
         
         
         throw new UnsupportedOperationException("Not supported yet."); 
     }
     
+    /**
+     * Calculates the information gain for each feature in S and returns
+     * the feature value with the highest gain
+     * 
+     * @param S : the current data set 
+     * @return : the feature value with the highest gain
+     */
+    private int calculateMaxGainFeature(DataSet S)
+    {
+        
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    /**
+     * Gain(S, A) = Entropy(S) - SUM((|Sv| / |S|) * Entropy(Sv))
+     * Sums over each subset of S where S was split by each feature value of feature A
+     * 
+     * @param S : the current data set
+     * @param feature : the feature (value and index in the data set will match)
+     *                  used as a parameter in the gain equation 
+     * @return : The information gain of example S on feature A
+     */
+    private double informationGain(DataSet S, int feature)
+    {
+        
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    /**
+     * Entropy(S) = SUM(-p(I) log2 p(I))
+     * Sums over each classification in S
+     * 
+     * @param S : the current data set
+     * @return : the entropy of S
+     */
+    private double entropy(DataSet S)
+    {
+        double entropy = 0.0;
+        ArrayList<DataSet> subsetsByClassification = new ArrayList<>();
+        
+        
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

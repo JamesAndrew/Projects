@@ -141,6 +141,42 @@ public class DataSet
     }
     
     /**
+     * @param classification : the actual value of the classification
+     * @return : a subset of this dataset with only values with 'classification' in it
+     */
+    public DataSet getSubsetByClassification(int classification)
+    {
+        
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    /**
+     * @return : an integer array with the value of each unique classification
+     */
+    public int[] getClassifcationValues()
+    {
+        int[] classification;
+        ArrayList<Integer> classificationsArrayList = new ArrayList<>();
+        // get list of each unique classification 
+        for (Vector point : vectors)
+        {
+            if (!(classificationsArrayList.contains(point.classification())))
+            {
+                classificationsArrayList.add(point.classification());
+            }
+        }
+        
+        // translate into a int[] object
+        classification = new int[classificationsArrayList.size()];
+        for (int i = 0; i < classificationsArrayList.size(); i++)
+        {
+            classification[i] = classificationsArrayList.get(i);
+        }
+        
+        return classification;
+    }
+    
+    /**
      * @return the number of unique classifications this data set has
      */
     public int getNumClassifications()
@@ -280,6 +316,7 @@ public class DataSet
     
     /**
      * Just prints the vector values in vectors
+     * @return 
      */
     @Override
     public String toString()
