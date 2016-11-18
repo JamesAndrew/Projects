@@ -1,0 +1,346 @@
+iris_data_set added to DataSet.vectors.
+About to run ID3 on the following training set:
+[0 1 2 1 1 ]
+[0 1 4 1 1 ]
+[1 1 1 2 2 ]
+[1 5 1 2 2 ]
+[2 9 4 6 5 ]
+[2 8 2 5 6 ]
+[0 1 3 1 1 ]
+[0 2 6 1 1 ]
+[1 2 1 2 2 ]
+[1 4 2 2 2 ]
+[2 9 1 6 5 ]
+[2 9 6 6 6 ]
+[0 1 3 1 1 ]
+[0 1 1 1 1 ]
+[1 4 1 2 2 ]
+[1 2 1 2 2 ]
+[2 6 1 5 5 ]
+[2 9 1 6 6 ]
+[0 1 3 1 1 ]
+[0 1 2 1 1 ]
+[1 2 1 2 2 ]
+[1 6 1 2 2 ]
+[2 5 1 5 6 ]
+[2 8 3 6 6 ]
+[0 2 6 1 1 ]
+[0 1 4 1 1 ]
+[1 6 1 2 2 ]
+[1 2 1 2 2 ]
+[2 5 1 5 6 ]
+[2 8 2 6 6 ]
+[0 1 6 1 1 ]
+[0 2 4 1 1 ]
+[1 5 1 2 2 ]
+[1 2 1 2 2 ]
+[2 7 1 6 6 ]
+[2 7 1 6 6 ]
+[0 2 4 1 1 ]
+[0 2 5 1 1 ]
+[1 2 1 1 2 ]
+[1 2 1 2 2 ]
+[2 9 1 6 6 ]
+[2 8 4 6 6 ]
+[0 4 6 1 1 ]
+[0 2 6 1 1 ]
+[1 2 1 2 2 ]
+[1 6 1 2 2 ]
+[2 3 1 4 6 ]
+[2 8 2 6 6 ]
+[0 1 2 1 1 ]
+[0 1 6 1 1 ]
+[1 3 1 2 2 ]
+[1 4 1 2 2 ]
+[2 4 1 5 6 ]
+[2 9 2 6 6 ]
+
+
+== Starting recursive method. ==
+== S: 
+[0 1 2 1 1 ]
+[0 1 4 1 1 ]
+[1 1 1 2 2 ]
+[1 5 1 2 2 ]
+[2 9 4 6 5 ]
+[2 8 2 5 6 ]
+[0 1 3 1 1 ]
+[0 2 6 1 1 ]
+[1 2 1 2 2 ]
+[1 4 2 2 2 ]
+[2 9 1 6 5 ]
+[2 9 6 6 6 ]
+[0 1 3 1 1 ]
+[0 1 1 1 1 ]
+[1 4 1 2 2 ]
+[1 2 1 2 2 ]
+[2 6 1 5 5 ]
+[2 9 1 6 6 ]
+[0 1 3 1 1 ]
+[0 1 2 1 1 ]
+[1 2 1 2 2 ]
+[1 6 1 2 2 ]
+[2 5 1 5 6 ]
+[2 8 3 6 6 ]
+[0 2 6 1 1 ]
+[0 1 4 1 1 ]
+[1 6 1 2 2 ]
+[1 2 1 2 2 ]
+[2 5 1 5 6 ]
+[2 8 2 6 6 ]
+[0 1 6 1 1 ]
+[0 2 4 1 1 ]
+[1 5 1 2 2 ]
+[1 2 1 2 2 ]
+[2 7 1 6 6 ]
+[2 7 1 6 6 ]
+[0 2 4 1 1 ]
+[0 2 5 1 1 ]
+[1 2 1 1 2 ]
+[1 2 1 2 2 ]
+[2 9 1 6 6 ]
+[2 8 4 6 6 ]
+[0 4 6 1 1 ]
+[0 2 6 1 1 ]
+[1 2 1 2 2 ]
+[1 6 1 2 2 ]
+[2 3 1 4 6 ]
+[2 8 2 6 6 ]
+[0 1 2 1 1 ]
+[0 1 6 1 1 ]
+[1 3 1 2 2 ]
+[1 4 1 2 2 ]
+[2 4 1 5 6 ]
+[2 9 2 6 6 ]
+== remainingFeatures: [1, 2, 3, 4]
+- calculating max gain feature...
+- current feature: 1
+- gain: 0.939
+- gain was greater, assignming to max gain feature
+- current feature: 2
+- gain: 0.547
+- current feature: 3
+- gain: 1.480
+- gain was greater, assignming to max gain feature
+- current feature: 4
+- gain: 1.585
+- gain was greater, assignming to max gain feature
+Assigning current node to have best feature value 4
+
+For each value of best feature 4: ([1, 2, 5, 6])
+Current value: 1
+Subset for data of feature 4 with value 1:
+[0 1 2 1 1 ]
+[0 1 4 1 1 ]
+[0 1 3 1 1 ]
+[0 2 6 1 1 ]
+[0 1 3 1 1 ]
+[0 1 1 1 1 ]
+[0 1 3 1 1 ]
+[0 1 2 1 1 ]
+[0 2 6 1 1 ]
+[0 1 4 1 1 ]
+[0 1 6 1 1 ]
+[0 2 4 1 1 ]
+[0 2 4 1 1 ]
+[0 2 5 1 1 ]
+[0 4 6 1 1 ]
+[0 2 6 1 1 ]
+[0 1 2 1 1 ]
+[0 1 6 1 1 ]
+Added branch to current node (feature value 4) with value 1
+Removed 4 from the remaining features.
+Running next recursive call.
+
+== Starting recursive method. ==
+== S: 
+[0 1 2 1 1 ]
+[0 1 4 1 1 ]
+[0 1 3 1 1 ]
+[0 2 6 1 1 ]
+[0 1 3 1 1 ]
+[0 1 1 1 1 ]
+[0 1 3 1 1 ]
+[0 1 2 1 1 ]
+[0 2 6 1 1 ]
+[0 1 4 1 1 ]
+[0 1 6 1 1 ]
+[0 2 4 1 1 ]
+[0 2 4 1 1 ]
+[0 2 5 1 1 ]
+[0 4 6 1 1 ]
+[0 2 6 1 1 ]
+[0 1 2 1 1 ]
+[0 1 6 1 1 ]
+== remainingFeatures: [1, 2, 3]
+All values in S found to be classification [0]. Assigning as leaf node.
+Current value: 2
+Subset for data of feature 4 with value 2:
+[1 1 1 2 2 ]
+[1 5 1 2 2 ]
+[1 2 1 2 2 ]
+[1 4 2 2 2 ]
+[1 4 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 6 1 2 2 ]
+[1 6 1 2 2 ]
+[1 2 1 2 2 ]
+[1 5 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 1 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 6 1 2 2 ]
+[1 3 1 2 2 ]
+[1 4 1 2 2 ]
+Added branch to current node (feature value 4) with value 2
+Removed 4 from the remaining features.
+Running next recursive call.
+
+== Starting recursive method. ==
+== S: 
+[1 1 1 2 2 ]
+[1 5 1 2 2 ]
+[1 2 1 2 2 ]
+[1 4 2 2 2 ]
+[1 4 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 6 1 2 2 ]
+[1 6 1 2 2 ]
+[1 2 1 2 2 ]
+[1 5 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 1 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 6 1 2 2 ]
+[1 3 1 2 2 ]
+[1 4 1 2 2 ]
+== remainingFeatures: [1, 2, 3]
+All values in S found to be classification [1]. Assigning as leaf node.
+Current value: 5
+Subset for data of feature 4 with value 5:
+[2 9 4 6 5 ]
+[2 9 1 6 5 ]
+[2 6 1 5 5 ]
+Added branch to current node (feature value 4) with value 5
+Removed 4 from the remaining features.
+Running next recursive call.
+
+== Starting recursive method. ==
+== S: 
+[2 9 4 6 5 ]
+[2 9 1 6 5 ]
+[2 6 1 5 5 ]
+== remainingFeatures: [1, 2, 3]
+All values in S found to be classification [2]. Assigning as leaf node.
+Current value: 6
+Subset for data of feature 4 with value 6:
+[2 8 2 5 6 ]
+[2 9 6 6 6 ]
+[2 9 1 6 6 ]
+[2 5 1 5 6 ]
+[2 8 3 6 6 ]
+[2 5 1 5 6 ]
+[2 8 2 6 6 ]
+[2 7 1 6 6 ]
+[2 7 1 6 6 ]
+[2 9 1 6 6 ]
+[2 8 4 6 6 ]
+[2 3 1 4 6 ]
+[2 8 2 6 6 ]
+[2 4 1 5 6 ]
+[2 9 2 6 6 ]
+Added branch to current node (feature value 4) with value 6
+Removed 4 from the remaining features.
+Running next recursive call.
+
+== Starting recursive method. ==
+== S: 
+[2 8 2 5 6 ]
+[2 9 6 6 6 ]
+[2 9 1 6 6 ]
+[2 5 1 5 6 ]
+[2 8 3 6 6 ]
+[2 5 1 5 6 ]
+[2 8 2 6 6 ]
+[2 7 1 6 6 ]
+[2 7 1 6 6 ]
+[2 9 1 6 6 ]
+[2 8 4 6 6 ]
+[2 3 1 4 6 ]
+[2 8 2 6 6 ]
+[2 4 1 5 6 ]
+[2 9 2 6 6 ]
+== remainingFeatures: [1, 2, 3]
+All values in S found to be classification [2]. Assigning as leaf node.
+
+== Pruning Tree ==
+Tree before prune:
+
+(...Printing Decision Tree. (F) means feature value, (C) means classification, 
+(B)-> is the branch feature-value taken to get to the node it points to:...)
+F(4)
+-B(1)->C(0)
+-B(2)->C(1)
+-B(5)->C(2)
+-B(6)->C(2)
+
+
+Tree after prune:
+F(4)
+-B(1)->C(0)
+-B(2)->C(1)
+-B(5)->C(2)
+-B(6)->C(2)
+
+
+Testing classification accuracy on the following testing fold:
+[0 1 1 1 1 ]
+[0 1 3 1 1 ]
+[1 2 1 2 1 ]
+[1 5 1 2 2 ]
+[2 8 1 6 5 ]
+[2 8 4 5 6 ]
+Vector 0 with features [1, 1, 1, 1] and classification 0
+Expected: 0, Actual: 0
+
+Vector 1 with features [1, 3, 1, 1] and classification 0
+Expected: 0, Actual: 0
+
+Vector 2 with features [2, 1, 2, 1] and classification 1
+Expected: 1, Actual: 0
+
+Vector 3 with features [5, 1, 2, 2] and classification 1
+Expected: 1, Actual: 1
+
+Vector 4 with features [8, 1, 6, 5] and classification 2
+Expected: 2, Actual: 2
+
+Vector 5 with features [8, 4, 5, 6] and classification 2
+Expected: 2, Actual: 2
+
+
+Printing all confusion matrices.
+=== ID3 ===
+iris_data_set: 
+2.000 0.000 0.000 
+1.000 1.000 0.000 
+0.000 0.000 2.000 
+
+Other statistics:
+--------------------
+Category 1 
+   Sensitivity: 1.000
+   Precision:   0.667
+   Accuracy:    0.833
+Category 2 
+   Sensitivity: 0.500
+   Precision:   1.000
+   Accuracy:    0.833
+Category 3 
+   Sensitivity: 1.000
+   Precision:   1.000
+   Accuracy:    1.000
