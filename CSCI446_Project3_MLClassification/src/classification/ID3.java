@@ -2,7 +2,7 @@
 package classification;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -18,6 +18,7 @@ public class ID3 extends Categorizer
     int[][] foldResult;         // stores the confusion matrix for current run
     int[][] pruneResult;        // confusion matrix for deciding to keep a prune or not
     ID3Node rootNode;           // The root node of the ID3 Decision tree that is built after Train() runs
+    int[] numClassificationsFound;
 
     /**
      * Some constructor logic defined in abstract class
@@ -31,13 +32,14 @@ public class ID3 extends Categorizer
         
         // foldResult and prune result is an (n x n) matrix where n = number of classifications
         int matrixSize = trainingSet.getNumClassifications();
+        
         foldResult = new int[matrixSize][];
         for (int i = 0; i < foldResult.length; i++)
         {
             foldResult[i] = new int[matrixSize];
         }
         pruneResult = new int[matrixSize][];
-        for (int i = 0; i < pruneResult.length; i++)
+        for (int i = 0; i < foldResult.length; i++)
         {
             pruneResult[i] = new int[matrixSize];
         }
@@ -59,15 +61,8 @@ public class ID3 extends Categorizer
         rootNode = id3_Recursive(new ID3Node(), trainingSet, features);
         
         // then prune
-        System.out.println("\n== Pruning Tree ==");
-        System.out.format("Tree before prune:%n");
-        printDecisionTree(rootNode);
-        
         rootNode.setIsMasterRoot(true);
         reducedErrorPruning(rootNode, null, -1);
-        
-        System.out.format("\nTree after prune:%n");
-        printDecisionTree(rootNode);
     }
 
     /**
@@ -315,9 +310,15 @@ public class ID3 extends Categorizer
                     int[][] beforePrecisionConfMatrix = pruningTest();
                     double beforeAccuracy = Statistics.calculateMatrixTPR(beforePrecisionConfMatrix);
 
-                    // prune
-                    parentNode.getChildren().remove(nodeParentKey);
-
+                    // prune (remove children and assign the most common classification value)
+                    HashMap<Integer, ID3Node> tempChildren = node.getChildren();
+                    HashMap<Integer, ID3Node> tempEmpty = new HashMap<>();
+                    int tempFeatValue = node.getNodeValue();
+                    int newClassification = calculateSubtreeBestClassification(node);
+                    
+                    node.setChildren(tempEmpty); 
+                    node.setNodeValue(newClassification);
+                    
                     // get accuracy after prune
                     int[][] afterPrecisionConfMatrix = pruningTest();
                     double afterAccuracy = Statistics.calculateMatrixTPR(afterPrecisionConfMatrix);
@@ -329,9 +330,53 @@ public class ID3 extends Categorizer
                     }
                     else
                     {
-                        parentNode.getChildren().put(nodeParentKey, node);
+                        node.setNodeValue(tempFeatValue);
+                        node.setChildren(tempChildren);
                     }
                 }
+            }
+        }
+    }
+    
+    /**
+     * traverse the subtree and return the value of the most common classification found
+     * @param node
+     * @return 
+     */
+    private int calculateSubtreeBestClassification(ID3Node node)
+    {
+        numClassificationsFound = new int[trainingSet.getNumClassifications()];
+        
+        treeBestClassSubroutine(node);
+        int bestClassSize = -1;
+        int bestClassIndex = -1;
+        for (int i = 0; i < numClassificationsFound.length; i++)
+        {
+            if (numClassificationsFound[i] > bestClassSize)
+            {
+                bestClassSize = numClassificationsFound[i];
+                bestClassIndex = i;
+            }
+        }
+        if (bestClassSize == -1 || bestClassIndex == -1)
+        {
+            throw new RuntimeException("best classification never assigned during pruning");
+        }
+        
+        return bestClassIndex;
+    }
+    private void treeBestClassSubroutine(ID3Node node)
+    {
+        if (node.isLeaf())
+        {
+            numClassificationsFound[node.getNodeValue()]++;
+        }
+        else
+        {
+            for (Map.Entry<Integer, ID3Node> entry : node.getChildren().entrySet())
+            {
+                ID3Node child = entry.getValue();
+                treeBestClassSubroutine(child);
             }
         }
     }

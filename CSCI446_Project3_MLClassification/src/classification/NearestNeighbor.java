@@ -79,22 +79,9 @@ public class NearestNeighbor extends Categorizer
             // the classification is the majority class of the points in kClosestPoints
             int classification = calculateMajorityClass(kClosestPoints);
             
-//            System.out.format("Vector %d with features %s classification%n", i, Arrays.toString(currentPoint.features()));
-//            System.out.format("Expected: %d, Actual: %d%n%n", currentPoint.classification(), classification);
-            
             // send the classification result to the foldResult statistic array
             addResult(currentPoint.classification(), classification);
         }
-        
-//        System.out.println("Confusion matrix: ");
-//        for (int i = 0; i < foldResult.length; i++)
-//        {
-//            for (int j = 0; j < foldResult[i].length; j++)
-//            {
-//                System.out.format("%d ", foldResult[i][j]);
-//            }
-//            System.out.println();
-//        }
         
         return foldResult;        
     }
