@@ -1,5 +1,7 @@
 Reminders:
 	- Need to stratify the partitions in the 'runExperiment()' method
+	- Add other DataSet string names in construtor
 	
 Notes:
 	- KNN: k is chosen to be one less than the total number of data points in the classification with the least amount of values
+	- Talk about discretization approach in the report

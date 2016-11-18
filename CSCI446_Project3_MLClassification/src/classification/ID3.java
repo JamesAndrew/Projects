@@ -51,7 +51,11 @@ public class ID3 extends Categorizer
         
         System.out.format("About to run ID3 on the following training set:%n%s%n", trainingSet.toString());
         
+        // build tree until it cannot be built any further
         rootNode = id3_Recursive(new ID3Node(), trainingSet, features);
+        // then prune
+//        reducedErrorPruning(rootNode);
+        
         printDecisionTree(rootNode);
     }
 
@@ -179,7 +183,7 @@ public class ID3 extends Categorizer
     {
         System.out.format("- calculating max gain feature...%n");
         
-        double maxGain = Double.MIN_VALUE;
+        double maxGain = -100.0;
         int maxGainFeature = -1;
         
         // for each remaining feature...
@@ -190,6 +194,7 @@ public class ID3 extends Categorizer
             double gain = informationGain(S, feature);
             System.out.format("- gain: %.3f%n", gain);
             // and save if max gain thus far
+            System.out.format(". maxGain: %.3f .%n", maxGain);
             if (gain > maxGain)
             {
                 System.out.format("- gain was greater, assignming to max gain feature%n");
@@ -215,7 +220,6 @@ public class ID3 extends Categorizer
     {
         double sum = 0.0;
         double totalEntropy = entropy(S);
-        
         int[] featureValues = S.getValuesOfAFeature(feature);
         ArrayList<DataSet> subsetsByFeatureValue = new ArrayList<>();
         
@@ -265,6 +269,20 @@ public class ID3 extends Categorizer
         }
         
         return entropy;
+    }
+    
+    /**
+     * Prunes the decision tree following the REP method
+     * @param rootNode : root of the decision (sub)tree
+     */
+    private void reducedErrorPruning(ID3Node rootNode)
+    {
+        if (rootNode.isLeaf())
+        {
+            // return
+        }
+        
+        
     }
     
     /**
