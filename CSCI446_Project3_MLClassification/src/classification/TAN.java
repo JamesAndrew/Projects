@@ -24,6 +24,9 @@ public class TAN extends Categorizer
         categorizerName = "TAN";
     }
 
+    /**
+     * Method for controlling training of TAN
+     */
     @Override
     public void Train()
     {
@@ -32,28 +35,37 @@ public class TAN extends Categorizer
         setTotalClasses();
     }
 
+    /**
+     * Controls iteration and comparisons of testing dataset
+     */
     @Override
     public int[][] Test()
     {
+        //loop through each line of test data
         for (Vector v : testingFold.getVectors())
         {
             int classification = v.classification();
             int[] features = v.features();
-            double[] prob = {0, 0};
+            double[] prob =
+            {
+                0, 0
+            };
+            //calculate probability of each class 
             Iterator it = nodesByClass.entrySet().iterator();
             while (it.hasNext())
-            {                
+            {
                 Map.Entry pair = (Map.Entry) it.next();
                 int cls = (int) pair.getKey();
-                double localProb = (double) classCounts.get(cls) / totalClasses; 
+                //multiply probabilities for each feature
+                double localProb = (double) classCounts.get(cls) / totalClasses;
                 for (int i = 0; i < features.length; i++)
                 {
-                    localProb = localProb * getProbability(features[1], i, cls); 
+                    localProb = localProb * getProbability(features[1], i, cls, v);
                 }
                 if (localProb > prob[0])
                 {
                     prob[0] = localProb;
-                    prob[1] = cls; 
+                    prob[1] = cls;
                 }
             }
             System.out.println("Actual:" + classification + " Predicted:" + prob[1]);
@@ -61,6 +73,9 @@ public class TAN extends Categorizer
         return null;
     }
 
+    /**
+     * Initialize nodes that represent attributes
+     */
     private void setUpNodes()
     {
         //initialize nodes and add to nodesByClass with classifier as key
@@ -70,23 +85,24 @@ public class TAN extends Categorizer
             int[] features = v.features();
             for (int i = 0; i < features.length; i++)
             {
+                //create new node and check if already present
                 boolean duplicate = false;
                 TANNode newNode = new TANNode(features[i], i, classifier);
-                //System.out.println("NewVal:" + newNode.getTraitValue() + " index:" + newNode.getTraitIndex() + " Class:" + newNode.getClassifier());
                 for (ArrayList<TANNode> nodeList : nodesByClass.values())
                 {
                     for (TANNode n : nodeList)
                     {
-                        TANNode node = (TANNode) n;
-                        //System.out.println("Val:" + node.getTraitValue() + " index:" + node.getTraitIndex() + " Class:" + node.getClassifier());                        
+                        TANNode node = (TANNode) n;                      
                         if (node.equals(newNode))
                         {
+                            //increase occurence if found
                             node.incrementOccurence();
                             duplicate = true;
                             break;
                         }
                     }
                 }
+                //add to class list if not already there 
                 if (!duplicate)
                 {
                     ArrayList nodeList = nodesByClass.get(classifier);
@@ -100,6 +116,7 @@ public class TAN extends Categorizer
                     }
                 }
             }
+            //increase class count 
             if (classCounts.get(classifier) != null)
             {
                 int count = classCounts.get(classifier);
@@ -110,23 +127,17 @@ public class TAN extends Categorizer
                 classCounts.put(classifier, 1);
             }
         }
-        Iterator it2 = nodesByClass.entrySet().iterator();
-        while (it2.hasNext())
-        {
-            Map.Entry pair = (Map.Entry) it2.next();
-            ArrayList<TANNode> nodes = (ArrayList) pair.getValue();
-            for (TANNode node : nodes)
-            {
-                node.setMostInfluential();
-            }
-        }
     }
 
+    /**
+     * Set all possible influential nodes for each node 
+     */
     private void setInfluences()
     {
         Iterator it = nodesByClass.entrySet().iterator();
         while (it.hasNext())
         {
+            //calculate relation weight for each node in given class 
             Map.Entry pair = (Map.Entry) it.next();
             ArrayList<TANNode> nodes = (ArrayList) pair.getValue();
             for (TANNode node1 : nodes)
@@ -142,6 +153,9 @@ public class TAN extends Categorizer
         }
     }
 
+    /**
+     * Calculate weights between influential attributes
+     */
     private double calculateWeight(TANNode node1, TANNode node2)
     {
         int bothOccur = 0;
@@ -149,13 +163,13 @@ public class TAN extends Categorizer
         int twoOccurs = 0;
         int classOccurs = 0;
         int setLength = 0;
-
+        //determine probabilities of  node1 compared to node 2 
         for (Vector v : trainingSet.getVectors())
         {
             setLength++;
             boolean found1 = false;
             boolean found2 = false;
-            if (v.classification() == node1.getClassifier()) // (todo: classification now changed to integer)
+            if (v.classification() == node1.getClassifier()) 
             {
                 classOccurs++;
                 if (v.contains(node1.getTraitValue(), node1.getTraitIndex()))
@@ -174,37 +188,49 @@ public class TAN extends Categorizer
                 }
             }
         }
+        //prob calculations
         double numerator = (double) bothOccur / classOccurs;
         double denom = ((double) oneOccurs / classOccurs) * ((double) twoOccurs / classOccurs);
         return ((double) bothOccur / setLength) * Math.log(numerator / denom);
     }
 
-    public double getProbability(int attVal, int index, int classVal)
+    /**
+     * Get the probability of an attribute given test attribute info
+     */
+    private double getProbability(int attVal, int index, int classVal, Vector vector)
     {
-        TANNode matchNode = null;
-        //System.out.println("Check:" + attVal + " index:" + index + " Class:" + classVal);  
+        TANNode matchNode = null;  
         ArrayList<TANNode> nodes = (ArrayList) nodesByClass.get(classVal);
+        //find node that matches test attribute 
         for (TANNode node : nodes)
-        {
-            //System.out.println("Val:" + node.getTraitValue() + " index:" + node.getTraitIndex() + " Class:" + node.getClassifier());  
+        { 
             if (node.getTraitValue() == attVal && node.getTraitIndex() == index)
             {
                 matchNode = node;
                 break;
             }
         }
+        //calculate probability of found node 
         if (matchNode != null)
         {
-            //if vector does not contain influencer, decrease prob
-            return (double) matchNode.occurs() / classCounts.get(matchNode.getClassifier());
+            double prob = (double) matchNode.occurs() / classCounts.get(matchNode.getClassifier());
+            if (influencePresent(matchNode, vector))
+            {
+                return prob * 10;
+            }
+            return prob / 10;
+            //Naive: return (double) matchNode.occurs() / classCounts.get(matchNode.getClassifier());
         }
-        //System.out.println("Not found");
-        return 0.0001;
+        return .00001;
     }
 
-    public void setTotalClasses()
+    /**
+     * Calculate total number of classes and set most influential nodes 
+     */
+    private void setTotalClasses()
     {
         int total = 0;
+        //iterate through classes and add
         Iterator it = classCounts.entrySet().iterator();
         while (it.hasNext())
         {
@@ -213,5 +239,35 @@ public class TAN extends Categorizer
             total += count;
         }
         totalClasses = total;
+        //iterate through all nodes and set final influences
+        Iterator it2 = nodesByClass.entrySet().iterator();
+        while (it2.hasNext())
+        {
+            Map.Entry pair = (Map.Entry) it2.next();
+            ArrayList<TANNode> nodes = (ArrayList) pair.getValue();
+            for (TANNode node : nodes)
+            {
+                node.setMostInfluential();
+            }
+        }
+    }
+
+    /**
+     * Determine if influential node is present in current test vector
+     */
+    private boolean influencePresent(TANNode node, Vector vector)
+    {
+        int classifier = vector.classification();
+        int[] features = vector.features();
+        TANNode influence = node.getInfluence();
+        //look through current vector for match on influence node
+        for (int i = 0; i < features.length; i++)
+        {
+            if (influence != null && influence.getClassifier() == classifier && influence.getTraitValue() == features[i] && influence.getTraitIndex() == i)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
