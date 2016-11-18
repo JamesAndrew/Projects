@@ -60,7 +60,7 @@ public class ID3 extends Categorizer
         printDecisionTree(rootNode);
         
         rootNode.setIsMasterRoot(true);
-        reducedErrorPruning(rootNode, null, 0);
+        reducedErrorPruning(rootNode, null, -1);
         
         System.out.format("\nTree after prune:%n");
         printDecisionTree(rootNode);
@@ -286,47 +286,63 @@ public class ID3 extends Categorizer
     private void reducedErrorPruning(ID3Node node, ID3Node parentNode, int nodeParentKey)
     {
         System.out.format("- traversed to node %s through path %d%n", node.printValue(), nodeParentKey);
+        int timesReturned = 0;
         
         if (node.isLeaf())
         {
-            // return
+            // do nothing
         }
-        
-        // for each child node of the rootNode (sub)tree
-        for (Map.Entry<Integer, ID3Node> entry : node.getChildren().entrySet())
+        else
         {
-            int childKey = entry.getKey();
-            ID3Node child = entry.getValue();
-            
-            // iterate depth-first
-            reducedErrorPruning(child, node, childKey);
-            System.out.format("- returned back to node %s%n", node.printValue());
-            
-            // prune given node isn't the master root node
-            if (!(node.isIsMasterRoot()))
+            // have a way to iterate through each child to avoid concurrnet modification exception 
+            int[] keySet = new int[node.getChildren().keySet().size()];
+            int keySetItr = 0;
+            for (int key : node.getChildren().keySet())
             {
-                // get accuracy before prune
-                int[][] beforePrecisionConfMatrix = Test();
-                double beforeAccuracy = Statistics.calculateMatrixTPR(beforePrecisionConfMatrix);
+                keySet[keySetItr] = key;
+                keySetItr++;
+            }
+            
+            // for each child node of the rootNode (sub)tree
+            for (int i = 0; i < keySet.length; i++)
+            {
+                int numChildren = node.getChildren().size();
+                int childKey = keySet[i];
+                ID3Node child = node.getChildren().get(childKey); 
                 
-                // prune
-                parentNode.getChildren().remove(nodeParentKey);
+                // iterate depth-first
+                reducedErrorPruning(child, node, childKey);
+                timesReturned++;
                 
-                // get accuracy after prune
-                int[][] afterPrecisionConfMatrix = Test();
-                double afterAccuracy = Statistics.calculateMatrixTPR(afterPrecisionConfMatrix);
+                System.out.format("- returned back to node %s%n", node.printValue());
+                System.out.format("- times returned: %d%n", timesReturned);
                 
-                System.out.format("- before accuracy: %.3f%n", beforeAccuracy);
-                System.out.format("- after accuracy:  %.3f%n", afterAccuracy);
-                
-                // if accuracy is better, keep, otherwise revert
-                if (afterAccuracy > beforeAccuracy)
+                // prune given node isn't the master root node and all children have been visited (this avoids concurrent modification exception)
+                if (!(node.isIsMasterRoot()) && timesReturned == numChildren)
                 {
-                    System.out.format("- prune improved accuracy, keeping pruned state.%n");
-                }
-                else
-                {
-                    parentNode.getChildren().put(nodeParentKey, node);
+                    // get accuracy before prune
+                    int[][] beforePrecisionConfMatrix = Test();
+                    double beforeAccuracy = Statistics.calculateMatrixTPR(beforePrecisionConfMatrix);
+
+                    // prune
+                    parentNode.getChildren().remove(nodeParentKey);
+
+                    // get accuracy after prune
+                    int[][] afterPrecisionConfMatrix = Test();
+                    double afterAccuracy = Statistics.calculateMatrixTPR(afterPrecisionConfMatrix);
+
+                    System.out.format("- before accuracy: %.3f%n", beforeAccuracy);
+                    System.out.format("- after accuracy:  %.3f%n", afterAccuracy);
+
+                    // if accuracy is better, keep, otherwise revert
+                    if (afterAccuracy > beforeAccuracy)
+                    {
+                        System.out.format("- prune improved accuracy, keeping pruned state.%n");
+                    }
+                    else
+                    {
+                        parentNode.getChildren().put(nodeParentKey, node);
+                    }
                 }
             }
         }
