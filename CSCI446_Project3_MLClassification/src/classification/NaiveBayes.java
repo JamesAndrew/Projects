@@ -38,7 +38,7 @@ public class NaiveBayes extends Categorizer
         }
         
         attributes = trainingFolds[0].getVectors()[0].features().length;
-        attr_values = 11;
+        attr_values = 30;
         classes = trainingFolds[0].getNumClassifications();
         
         class_stats = new double[classes];
@@ -65,14 +65,12 @@ public class NaiveBayes extends Categorizer
             for(int j = 0; j < currentPoint.length; j++)
             {
                 System.out.println(currentPoint[j]);
+                if(j == 0)
+                {
+                    
+                }
             }
         }
-        
-        
-        
-        
-        
-        
         
         /**
          * determine the Naive Bayes Model
@@ -84,7 +82,7 @@ public class NaiveBayes extends Categorizer
 //            {
 //                System.out.print(train_data[i][j] + " ");
 //                
-//                 check if class label
+//                // check if class label
 //                if (j == (train_data[i].length - 1))
 //                {
 //                    if (train_data[i][j] == 2)
@@ -99,7 +97,7 @@ public class NaiveBayes extends Categorizer
 //                    }
 //                }
 //                
-//                 else assume attribute value
+//                // else assume attribute value
 //                else
 //                {
 //                    int class_label = train_data[i][train_data[i].length-1];
@@ -156,7 +154,7 @@ public class NaiveBayes extends Categorizer
 //                
 //            }
 //            System.out.println();
-//             if on class attribute, determine prior probabilities of each class
+//            //if on class attribute, determine prior probabilities of each class
 //            if (i == (train_data.length-1))
 //            {
 //                class_stats[0] = (double)class_freq[0]/(double)train_data.length;
@@ -166,7 +164,7 @@ public class NaiveBayes extends Categorizer
 //            System.out.println();
 //        }
 //        
-//         go through frequencies and determine probabilities
+//        // go through frequencies and determine probabilities
 //        for(int i = 0; i < attr_stats.length; i++)
 //        {
 //            for(int j = 0; j < attr_stats[i].length; j++)
@@ -190,7 +188,7 @@ public class NaiveBayes extends Categorizer
 //                }
 //            }
 //        }
-//         print prior probabilities of each class
+//        //print prior probabilities of each class
 //        System.out.println("Prior Probability for class 2 = " + class_stats[0]);
 //        System.out.println("Prior Probability for class 4 = " + class_stats[1]); 
     }
