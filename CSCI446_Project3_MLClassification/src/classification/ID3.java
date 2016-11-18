@@ -56,14 +56,31 @@ public class ID3 extends Categorizer
     }
 
     /**
+     * Run each testingFold data point and assign it a classification by running it through the decision tree
      * 
      * @return the classification results as a confusion matrix
      */
     @Override
     public int[][] Test() 
     {
-        return new int[3][];
-//        throw new UnsupportedOperationException("Not supported yet."); 
+        System.out.format("\nTesting classification accuracy on the following testing fold:%n%s", testingFold.toString());
+        
+        // for each point in the testing fold
+        for (int i = 0; i < testingFold.getVectors().length; i++)
+        {
+            Vector currentPoint = testingFold.getVectors()[i];
+            
+            // traverse the decision tree until a value is assigned
+            int classification = traverseTree(currentPoint);
+            
+            System.out.format("Vector %d with features %s and classification %s%n", i, Arrays.toString(currentPoint.features()), currentPoint.classification());
+            System.out.format("Expected: %d, Actual: %d%n%n", currentPoint.classification(), classification);
+            
+            // send the classification result to the foldResult statistic array
+            addResult(currentPoint.classification(), classification);            
+        }
+        
+        return foldResult;
     }
     
     /**
@@ -251,6 +268,30 @@ public class ID3 extends Categorizer
     }
     
     /**
+     * Follows the appropriate path through the decision tree until a leaf node classification is reached
+     * 
+     * @param currentPoint : The training data vector point (does have the known classification as its first entry)
+     * @return : the classification to assign to the input vector as a result of tree traversal 
+     */
+    private int traverseTree(Vector currentPoint)
+    {
+        ID3Node currentNode = rootNode;
+        
+        // traverse until current node is a leaf node
+        while (!(currentNode.isLeaf()))
+        {
+            // the branch path to take is the feature-value of currentPoint for the feature that currentNode is
+            int currentFeature = currentNode.getNodeValue();
+            int branchPath = currentPoint.getFeatureValue(currentFeature);
+            currentNode = currentNode.getChildren().get(branchPath);
+        }
+        
+        // once at a leaf node, return the classification value that that node contains
+        if (!(currentNode.isLeaf())) throw new RuntimeException("Did not traverse to a leaf node");
+        return currentNode.getNodeValue();
+    }
+    
+    /**
      * Prints the tree under any provided root node
      * @param rootNode : Root of tree to print
      */
@@ -296,5 +337,15 @@ public class ID3 extends Categorizer
             dashes = dashes + "-";
         }
         return dashes;
+    }
+
+    /**
+     * Adds a classification result to the confusion matrix
+     * @param expected : expected class
+     * @param actual  : actual class
+     */
+    private void addResult(int expected, int actual)
+    {
+        foldResult[expected][actual]++;
     }
 }
