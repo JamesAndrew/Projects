@@ -1,0 +1,165 @@
+cancer_data_set added to DataSet.vectors.
+Beginning 10-fold Cross Validation...
+Data Set: breast-cancer-data-set
+Algorithm: TAN
+
+Training
+Setting up attribute nodes
+Setting possible influences
+Adding Class:0 Val:1 Index:1 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:1 Index:2 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:3 Index:3 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:2 Index:4 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:1 Index:5 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:1 Index:6 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:1 Index:7 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:1 Index:8 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:5 Index:0 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:4 Index:1 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:4 Index:2 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:5 Index:3 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:7 Index:4 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:10 Index:5 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:3 Index:6 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:2 Index:7 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:2 Index:0 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:1 Index:3 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:2 Index:6 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:2 Index:5 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:4 Index:0 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:2 Index:3 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:3 Index:0 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:2 Index:1 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:1 Index:4 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:2 Index:8 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:3 Index:2 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:4 Index:4 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:2 Index:2 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:4 Index:3 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:4 Index:5 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:5 Index:5 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:6 Index:0 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:3 Index:1 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:3 Index:4 to possible influences
+Calculating weight between attributes
+Adding Class:0 Val:6 Index:6 to possible influences
+Calculating weight between attributes
+		.
+		.
+		.
+
+Setting Final Influences
+
+Testing
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:1 Predicted class:1.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:1.0
+Actual class:1 Predicted class:1.0
+Actual class:1 Predicted class:1.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:1 Predicted class:1.0
+Actual class:0 Predicted class:1.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:1 Predicted class:1.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:1 Predicted class:1.0
+Actual class:1 Predicted class:1.0
+Actual class:1 Predicted class:1.0
+Actual class:0 Predicted class:0.0
+Actual class:1 Predicted class:1.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:1 Predicted class:1.0
+Actual class:1 Predicted class:1.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:1 Predicted class:1.0
+Actual class:0 Predicted class:0.0
+Actual class:1 Predicted class:1.0
+Actual class:1 Predicted class:1.0
+Actual class:1 Predicted class:1.0
+Actual class:0 Predicted class:0.0
+Actual class:1 Predicted class:1.0
+Actual class:0 Predicted class:1.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:1 Predicted class:1.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:1.0
+Actual class:1 Predicted class:1.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:1 Predicted class:1.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:1 Predicted class:1.0
+Actual class:0 Predicted class:0.0
+Actual class:1 Predicted class:1.0
+Actual class:0 Predicted class:0.0
+Actual class:1 Predicted class:1.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:0 Predicted class:0.0
+Actual class:1 Predicted class:1.0
+Actual class:1 Predicted class:1.0
+
+Printing all confusion matrices.
+=== TAN ===
+cancer_data_set: 
+41.000 4.000 
+0.000 24.000 
+
+
+

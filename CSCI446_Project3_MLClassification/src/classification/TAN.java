@@ -7,9 +7,9 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * TAN class is an implementation of Tree Augmented Naive Bayes
+ * TAN class is an implementation of Tree Augmented Naive Bayes.
  * Receives an array of training sets and a single test set as class parameters and
- * and makes predictions on test data classifiers based on learned training data
+ * and makes predictions on test data classifiers based on learned training data.
  */
 public class TAN extends Categorizer
 {
@@ -77,7 +77,7 @@ public class TAN extends Categorizer
                     prob[1] = cls;
                 }
             }
-            //System.out.println("Actual:" + classification + " Predicted:" + prob[1]);
+            //System.out.println("Actual class:" + classification + " Predicted class:" + prob[1]);
             foldResult[classification][(int)prob[1]]++;
         }
         return foldResult;

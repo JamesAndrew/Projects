@@ -18,7 +18,7 @@ public class Driver
 {
     // put the solvers you want the program to run on in here
     public final static List<Class<?>> algorithmList = Arrays.asList(
-        NearestNeighbor.class,
+        //NearestNeighbor.class,
         TAN.class
     );
     

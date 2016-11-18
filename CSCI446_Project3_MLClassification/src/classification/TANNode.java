@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * TANNode class represents a single attribute value for a dataset. 
- * Duplicate attribute values are accounted for by incrementing occurrence value
+ * Duplicate attribute values are accounted for by incrementing occurrence value.
  *
  */
 public class TANNode
@@ -60,6 +60,9 @@ public class TANNode
         allInfluences.put(node, weight);
     }
     
+    /**
+     * Return whether or not given node is a possible influence
+     */
     public boolean influencesContains(TANNode node)
     {
         if (allInfluences.containsKey(node))
@@ -69,6 +72,9 @@ public class TANNode
         return false; 
     }
 
+    /**
+     * Determine most influential nodes from all possible influences
+     */
     public void setMostInfluential()
     {
         double highestWeight = 0; 
@@ -85,6 +91,9 @@ public class TANNode
         }
     }
 
+    /**
+     * Compare nodes on class, vector index and value. True if all equal
+     */
     public boolean equals(TANNode compareNode)
     {
         return (compareNode.getClassifier() == classifier && compareNode.getTraitIndex() == traitIndex && compareNode.getTraitValue() == traitValue);
