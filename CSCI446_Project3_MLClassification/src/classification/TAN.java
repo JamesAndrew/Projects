@@ -229,12 +229,12 @@ public class TAN extends Categorizer
             double prob = (double) matchNode.occurs() / classCounts.get(matchNode.getClassifier());
             
             System.out.format("Probability of Val:%d for Class:%d = %f%n", matchNode.getTraitValue(), classVal, prob);
-//            if (influencePresent(matchNode, vector))
-//            {
-//                return prob * 10;
-//            }
-//            return prob / 10;
-            return prob;
+            if (influencePresent(matchNode, vector))
+            {
+                return prob * 10;
+            }
+            return prob / 10;
+            //naive: return prob;
         }
         return .00001;
     }
