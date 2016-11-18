@@ -5,12 +5,13 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- *
+ * TANNode class represents a single attribute value for a dataset. 
+ * Duplicate attribute values are accounted for by incrementing occurrence value
  *
  */
 public class TANNode
 {
-    private int numOccurences = 1; 
+    private int numOccurrences = 1; 
     private int traitValue;
     private int traitIndex;
     private int classifier;
@@ -26,12 +27,12 @@ public class TANNode
 
     public int occurs()
     {
-        return numOccurences; 
+        return numOccurrences; 
     }
     
-    public void incrementOccurence()
+    public void incrementOccurrence()
     {
-        numOccurences++;
+        numOccurrences++;
     }
     
     public int getClassifier()
