@@ -283,6 +283,12 @@ public class ID3 extends Categorizer
             // the branch path to take is the feature-value of currentPoint for the feature that currentNode is
             int currentFeature = currentNode.getNodeValue();
             int branchPath = currentPoint.getFeatureValue(currentFeature);
+            
+            if (!(currentNode.getChildren().containsKey(branchPath)))
+            {
+                branchPath = (int)currentNode.getChildren().keySet().toArray()[0];
+            }
+            
             currentNode = currentNode.getChildren().get(branchPath);
         }
         
