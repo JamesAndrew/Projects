@@ -14,6 +14,7 @@ public class TAN extends Categorizer
 {
 
     private int totalClasses = 0;
+    private int[][] foldResult;
     private Map<Integer, Integer> classCounts = new HashMap<Integer, Integer>();
     private Map<Integer, ArrayList<TANNode>> nodesByClass = new HashMap<Integer, ArrayList<TANNode>>();
     private Map<Integer, Integer> indexCounts = new HashMap<Integer, Integer>();
@@ -22,6 +23,13 @@ public class TAN extends Categorizer
     {
         super(trainingFolds, testingFold);
         categorizerName = "TAN";
+        // foldResult is an (n x n) matrix where n = number of classifications
+        int matrixSize = trainingSet.getNumClassifications();
+        foldResult = new int[matrixSize][];
+        for (int i = 0; i < foldResult.length; i++)
+        {
+            foldResult[i] = new int[matrixSize];
+        }
     }
 
     /**
@@ -68,9 +76,10 @@ public class TAN extends Categorizer
                     prob[1] = cls;
                 }
             }
-            System.out.println("Actual:" + classification + " Predicted:" + prob[1]);
+            //System.out.println("Actual:" + classification + " Predicted:" + prob[1]);
+            foldResult[classification][(int)prob[1]]++;
         }
-        return null;
+        return foldResult;
     }
 
     /**
@@ -92,7 +101,7 @@ public class TAN extends Categorizer
                 {
                     for (TANNode n : nodeList)
                     {
-                        TANNode node = (TANNode) n;                      
+                        TANNode node = (TANNode) n;
                         if (node.equals(newNode))
                         {
                             //increase occurence if found
@@ -130,7 +139,7 @@ public class TAN extends Categorizer
     }
 
     /**
-     * Set all possible influential nodes for each node 
+     * Set all possible influential nodes for each node
      */
     private void setInfluences()
     {
@@ -169,7 +178,7 @@ public class TAN extends Categorizer
             setLength++;
             boolean found1 = false;
             boolean found2 = false;
-            if (v.classification() == node1.getClassifier()) 
+            if (v.classification() == node1.getClassifier())
             {
                 classOccurs++;
                 if (v.contains(node1.getTraitValue(), node1.getTraitIndex()))
@@ -199,11 +208,11 @@ public class TAN extends Categorizer
      */
     private double getProbability(int attVal, int index, int classVal, Vector vector)
     {
-        TANNode matchNode = null;  
+        TANNode matchNode = null;
         ArrayList<TANNode> nodes = (ArrayList) nodesByClass.get(classVal);
         //find node that matches test attribute 
         for (TANNode node : nodes)
-        { 
+        {
             if (node.getTraitValue() == attVal && node.getTraitIndex() == index)
             {
                 matchNode = node;
@@ -225,7 +234,7 @@ public class TAN extends Categorizer
     }
 
     /**
-     * Calculate total number of classes and set most influential nodes 
+     * Calculate total number of classes and set most influential nodes
      */
     private void setTotalClasses()
     {
