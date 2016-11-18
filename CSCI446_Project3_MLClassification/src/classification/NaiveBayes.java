@@ -61,10 +61,11 @@ public class NaiveBayes extends Categorizer
         
         for (int i = 0; i < trainingFolds.length; i++)
         {
-            Vector [] currentPoint = trainingFolds[i].getVectors();
-            for(int j = 0; j < currentPoint.length; j++)
+            
+            for(int j = 0; j < trainingFolds[i].getVectors().length; j++)
             {
-                System.out.println(currentPoint[j]);
+                
+                System.out.println();
                 if(j == 0)
                 {
                     
