@@ -30,6 +30,18 @@ public class ID3Node
         else return false;
     }
     
+    /**
+     * @return 'F(nodeValue)' if the node has a feature value (is not a root)
+     *         and 'C(nodeValue)' if node is a classification (is root)
+     */
+    public String printValue()
+    {
+        String value = "value not set";
+        if (isLeaf())       value = "C(" + nodeValue + ")";
+        else if (!isLeaf()) value = "F(" + nodeValue + ")";
+        return value;
+    }
+    
     public int getNodeValue()
     {
         return nodeValue;

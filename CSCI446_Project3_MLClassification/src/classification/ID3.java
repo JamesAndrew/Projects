@@ -3,6 +3,7 @@ package classification;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 /**
  * Solver using Decision Tree Classification, specifically the Iterative Dichotomiser 3
@@ -51,6 +52,7 @@ public class ID3 extends Categorizer
         System.out.format("About to run ID3 on the following training set:%n%s%n", trainingSet.toString());
         
         rootNode = id3_Recursive(new ID3Node(), trainingSet, features);
+        printDecisionTree(rootNode);
     }
 
     /**
@@ -246,5 +248,53 @@ public class ID3 extends Categorizer
         }
         
         return entropy;
+    }
+    
+    /**
+     * Prints the tree under any provided root node
+     * @param rootNode : Root of tree to print
+     */
+    public void printDecisionTree(ID3Node rootNode)
+    {
+        int numDashes = 0;
+        System.out.println("\nPrinting Decision Tree. (F) means feature value, (C) means classification, "
+                + "\n(B)-> is the branch feature-value taken to get to the node it points to:\n");
+        printDecisionTreeRecursion(rootNode, numDashes);
+        
+    }
+    private void printDecisionTreeRecursion(ID3Node node, int dashes)
+    {
+        System.out.format("%s", node.printValue());
+        System.out.println();
+        
+        if (node.getChildren().isEmpty())
+        {
+            // do nothing
+        }
+        else
+        {
+            for (Map.Entry<Integer, ID3Node> entry : node.getChildren().entrySet())
+            {
+                if (entry.getValue().getChildren().isEmpty())
+                {
+                    System.out.format("%sB(%d)->%s%n", printDashes(dashes+1), entry.getKey(), entry.getValue().printValue());
+                }
+                else
+                {
+                    dashes++;
+                    System.out.format("%sB(%d)->", printDashes(dashes), entry.getKey());
+                    printDecisionTreeRecursion(entry.getValue(), dashes);
+                }
+            }
+        }
+    }
+    private String printDashes(int num)
+    {
+        String dashes = "";
+        for (int i = 0; i < num; i++)
+        {
+            dashes = dashes + "-";
+        }
+        return dashes;
     }
 }
