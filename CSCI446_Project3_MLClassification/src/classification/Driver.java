@@ -33,7 +33,7 @@ public class Driver
         
         
         // Add the preprocessed sets here once ready:
-//        fileInputPaths.add("DataSets/Preprocessed/breast-cancer-preprocessed.txt");
+        fileInputPaths.add("DataSets/Preprocessed/breast-cancer-preprocessed.txt");
 //        fileInputPaths.add("DataSets/Preprocessed/glass-preprocessed.txt");
 //        fileInputPaths.add("DataSets/Preprocessed/house-votes-preprocessed.txt");
         fileInputPaths.add("DataSets/Preprocessed/iris-preprocessed.txt");

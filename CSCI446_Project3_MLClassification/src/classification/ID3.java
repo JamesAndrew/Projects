@@ -16,6 +16,7 @@ public class ID3 extends Categorizer
 {
     // other class properties
     int[][] foldResult;         // stores the confusion matrix for current run
+    int[][] pruneResult;        // confusion matrix for deciding to keep a prune or not
     ID3Node rootNode;           // The root node of the ID3 Decision tree that is built after Train() runs
 
     /**
@@ -28,12 +29,17 @@ public class ID3 extends Categorizer
         super(trainingFolds, testingFold);
         categorizerName = "ID3";
         
-        // foldResult is an (n x n) matrix where n = number of classifications
+        // foldResult and prune result is an (n x n) matrix where n = number of classifications
         int matrixSize = trainingSet.getNumClassifications();
         foldResult = new int[matrixSize][];
         for (int i = 0; i < foldResult.length; i++)
         {
             foldResult[i] = new int[matrixSize];
+        }
+        pruneResult = new int[matrixSize][];
+        for (int i = 0; i < pruneResult.length; i++)
+        {
+            pruneResult[i] = new int[matrixSize];
         }
     }
     
@@ -72,8 +78,30 @@ public class ID3 extends Categorizer
     @Override
     public int[][] Test() 
     {
-//        System.out.format("\nTesting classification accuracy on the following testing fold:%n%s", testingFold.toString());
-//        System.out.format("\nTesting classification accuracy%n");
+        // for each point in the testing fold
+        for (int i = 0; i < testingFold.getVectors().length; i++)
+        {
+            Vector currentPoint = testingFold.getVectors()[i];
+            
+            // traverse the decision tree until a value is assigned
+            int classification = traverseTree(currentPoint);
+            
+            // send the classification result to the foldResult statistic array
+            addResult(currentPoint.classification(), classification);            
+        }
+        
+        return foldResult;
+    }
+    private int[][] pruningTest() 
+    {
+        // clear result array
+        for (int i = 0; i < pruneResult.length; i++)
+        {
+            for (int j = 0; j < pruneResult[i].length; j++)
+            {
+                pruneResult[i][j] = 0;
+            }
+        }
         
         // for each point in the testing fold
         for (int i = 0; i < testingFold.getVectors().length; i++)
@@ -83,14 +111,11 @@ public class ID3 extends Categorizer
             // traverse the decision tree until a value is assigned
             int classification = traverseTree(currentPoint);
             
-//            System.out.format("Vector %d with features %s and classification %s%n", i, Arrays.toString(currentPoint.features()), currentPoint.classification());
-//            System.out.format("Expected: %d, Actual: %d%n%n", currentPoint.classification(), classification);
-            
             // send the classification result to the foldResult statistic array
-            addResult(currentPoint.classification(), classification);            
+            addPruneResult(currentPoint.classification(), classification);            
         }
         
-        return foldResult;
+        return pruneResult;
     }
     
     /**
@@ -255,7 +280,6 @@ public class ID3 extends Categorizer
      */
     private void reducedErrorPruning(ID3Node node, ID3Node parentNode, int nodeParentKey)
     {
-//        System.out.format("- traversed to node %s through path %d%n", node.printValue(), nodeParentKey);
         int timesReturned = 0;
         
         if (node.isLeaf())
@@ -288,14 +312,14 @@ public class ID3 extends Categorizer
                 if (!(node.isIsMasterRoot()) && timesReturned == numChildren)
                 {
                     // get accuracy before prune
-                    int[][] beforePrecisionConfMatrix = Test();
+                    int[][] beforePrecisionConfMatrix = pruningTest();
                     double beforeAccuracy = Statistics.calculateMatrixTPR(beforePrecisionConfMatrix);
 
                     // prune
                     parentNode.getChildren().remove(nodeParentKey);
 
                     // get accuracy after prune
-                    int[][] afterPrecisionConfMatrix = Test();
+                    int[][] afterPrecisionConfMatrix = pruningTest();
                     double afterAccuracy = Statistics.calculateMatrixTPR(afterPrecisionConfMatrix);
 
                     // if accuracy is better, keep, otherwise revert
@@ -396,5 +420,9 @@ public class ID3 extends Categorizer
     private void addResult(int expected, int actual)
     {
         foldResult[expected][actual]++;
+    }
+    private void addPruneResult(int expected, int actual)
+    {
+        pruneResult[expected][actual]++;
     }
 }
