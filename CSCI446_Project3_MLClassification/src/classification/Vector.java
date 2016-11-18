@@ -64,6 +64,16 @@ public class Vector
         return false;
     }
     
+    /**
+     * @param feature : the index or value (they're the same) of the feature column
+     * @param queryValue
+     * @return true if this vector have value 'value' for its feature at index 'feature'
+     */
+    public boolean hasFeatureValue(int feature, int queryValue)
+    {
+        return value[feature] == queryValue;
+    }
+    
     public int[] getValue()
     {
         return value;

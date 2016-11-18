@@ -46,7 +46,6 @@ public class DataSet
         
         System.out.println(this.name + " added to DataSet.vectors.");
     }
-    
     /**
      * Create a new DataSet with a known vectors size
      * @param size : the size to make the vectors property
@@ -56,22 +55,6 @@ public class DataSet
         vectors = new Vector[size];
     }
     
-    /**
-     * custom .equals method for ArrayList<Double>
-     * @param a1
-     * @param a2
-     * @return true if a1 == a2
-     */
-    private boolean arrayListEquals(ArrayList<Integer> a1, ArrayList<Integer> a2)
-    {
-        if (a1.size() != a2.size()) return false;
-        for (int i = 0; i < a1.size(); i++)
-        {
-            if ((!Objects.equals(a1.get(i), a2.get(i)))) return false;
-        }
-        return true;
-    }
-
     /**
      * Used during 10-fold cross validation
      * Stratifies and generates 10 subsets
@@ -142,6 +125,91 @@ public class DataSet
     }
     
     /**
+     * @return an arraylist of the arbitrary Integer feature categories this data set contains
+     */
+    public ArrayList<Integer> getFeaturesList()
+    {
+        ArrayList<Integer> features = new ArrayList<>();
+        int[] someVector = vectors[0].getValue();
+        
+        for (int i = 1; i < someVector.length; i++)
+        {
+            features.add(i);
+        }
+        return features;
+    }
+    
+    /**
+     * @param classification : the actual value of the classification
+     * @return : a subset of this data set with only values with 'classification' in it
+     */
+    public DataSet getSubsetByClassification(int classification)
+    {
+        ArrayList<Vector> tempVectors = new ArrayList<>();
+        for (Vector point : vectors)
+        {
+            if (point.classification() == classification) tempVectors.add(point);
+        }
+        
+        DataSet subset = new DataSet(tempVectors.size());
+        for (int i = 0; i < tempVectors.size(); i++)
+        {
+            subset.addVector(tempVectors.get(i), i);
+        }
+        
+        return subset;
+    }
+    
+    /**
+     * @param feature : the index or value (they're the same) of the feature column
+     * @param featureValue : the value that feature needs to have in order to add to the subset
+     * @return : a subset of this data set with only data points that have
+     *           value 'featureValue' for feature 'feature'
+     */
+    public DataSet getSubsetByFeatureValue(int feature, int featureValue)
+    {
+        ArrayList<Vector> tempVectors = new ArrayList<>();
+        for (Vector point : vectors)
+        {
+            if (point.hasFeatureValue(feature, featureValue)) tempVectors.add(point);
+        }
+        
+        DataSet subset = new DataSet(tempVectors.size());
+        for (int i = 0; i < tempVectors.size(); i++)
+        {
+            subset.addVector(tempVectors.get(i), i);
+        }
+        
+        return subset;
+    }
+    
+    /**
+     * @return : an integer array with the value of each unique classification
+     */
+    public int[] getClassifcationValues()
+    {
+        int[] classification;
+        ArrayList<Integer> classificationsArrayList = new ArrayList<>();
+        // get list of each unique classification 
+        for (Vector point : vectors)
+        {
+            if (!(classificationsArrayList.contains(point.classification())))
+            {
+                classificationsArrayList.add(point.classification());
+            }
+        }
+        
+        // translate into a int[] object
+        classification = new int[classificationsArrayList.size()];
+        for (int i = 0; i < classificationsArrayList.size(); i++)
+        {
+            classification[i] = classificationsArrayList.get(i);
+        }
+        
+        return classification;
+    }
+    
+    /**
      * @return the number of unique classifications this data set has
      */
     public int getNumClassifications()
@@ -153,6 +221,59 @@ public class DataSet
                 classifications.add(vector.classification());
         }
         return classifications.size();
+    }
+    
+    /**
+     * @return the classification value that appears most in the data set
+     */
+    public int getMajorityClassification()
+    {
+        HashMap<Integer, Integer> classAndSize = new HashMap<>();
+        ArrayList<Integer> classifications = new ArrayList<>();
+        
+        // get list of each unique classification 
+        for (Vector point : vectors)
+        {
+            if (!(classifications.contains(point.classification())))
+            {
+                classifications.add(point.classification());
+            }
+        }
+        
+        // add as keys to the map
+        for (Integer value : classifications)
+        {
+            classAndSize.put(value, 0);
+        }
+        
+        // tally how many times each classification appeas
+        for (Vector point : vectors)
+        {
+            Integer pointClass = point.classification();
+            for (Integer key : classAndSize.keySet())
+            {
+                if (Objects.equals(key, pointClass))
+                {
+                    Integer currentVal = classAndSize.get(key);
+                    currentVal++;
+                    classAndSize.put(key, currentVal);
+                }
+            }
+        }
+        
+        // get key associated with largest value
+        int largestClass = -1;
+        int largestValue = -1;
+        for (Map.Entry<Integer, Integer> entry : classAndSize.entrySet())
+        {
+            if (entry.getValue() > largestValue)
+            {
+                largestValue = entry.getValue();
+                largestClass = entry.getKey();
+            }
+        }
+        
+        return largestClass;
     }
     
     /**
@@ -211,7 +332,24 @@ public class DataSet
     }
     
     /**
+     * custom .equals method for ArrayList<Double>
+     * @param a1
+     * @param a2
+     * @return true if a1 == a2
+     */
+    private boolean arrayListEquals(ArrayList<Integer> a1, ArrayList<Integer> a2)
+    {
+        if (a1.size() != a2.size()) return false;
+        for (int i = 0; i < a1.size(); i++)
+        {
+            if ((!Objects.equals(a1.get(i), a2.get(i)))) return false;
+        }
+        return true;
+    }
+    
+    /**
      * Just prints the vector values in vectors
+     * @return 
      */
     @Override
     public String toString()
