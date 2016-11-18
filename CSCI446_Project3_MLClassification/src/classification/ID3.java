@@ -74,8 +74,7 @@ public class ID3 extends Categorizer
     @Override
     public int[][] Test() 
     {
-//        System.out.format("\nTesting classification accuracy on the following testing fold:%n%s", testingFold.toString());
-//        System.out.format("\nTesting classification accuracy%n");
+        System.out.format("\nTesting classification accuracy on the following testing fold:%n%s", testingFold.toString());
         
         // for each point in the testing fold
         for (int i = 0; i < testingFold.getVectors().length; i++)
@@ -85,8 +84,25 @@ public class ID3 extends Categorizer
             // traverse the decision tree until a value is assigned
             int classification = traverseTree(currentPoint);
             
-//            System.out.format("Vector %d with features %s and classification %s%n", i, Arrays.toString(currentPoint.features()), currentPoint.classification());
-//            System.out.format("Expected: %d, Actual: %d%n%n", currentPoint.classification(), classification);
+            System.out.format("Vector %d with features %s and classification %s%n", i, Arrays.toString(currentPoint.features()), currentPoint.classification());
+            System.out.format("Expected: %d, Actual: %d%n%n", currentPoint.classification(), classification);
+            
+            // send the classification result to the foldResult statistic array
+            addResult(currentPoint.classification(), classification);            
+        }
+        
+        return foldResult;
+    }
+    
+    private int[][] pruningTest() 
+    {
+        // for each point in the testing fold
+        for (int i = 0; i < testingFold.getVectors().length; i++)
+        {
+            Vector currentPoint = testingFold.getVectors()[i];
+            
+            // traverse the decision tree until a value is assigned
+            int classification = traverseTree(currentPoint);
             
             // send the classification result to the foldResult statistic array
             addResult(currentPoint.classification(), classification);            
@@ -202,7 +218,6 @@ public class ID3 extends Categorizer
             double gain = informationGain(S, feature);
             System.out.format("- gain: %.3f%n", gain);
             // and save if max gain thus far
-            System.out.format(". maxGain: %.3f .%n", maxGain);
             if (gain > maxGain)
             {
                 System.out.format("- gain was greater, assignming to max gain feature%n");
@@ -315,9 +330,6 @@ public class ID3 extends Categorizer
                 reducedErrorPruning(child, node, childKey);
                 timesReturned++;
                 
-//                System.out.format("- returned back to node %s%n", node.printValue());
-//                System.out.format("- times returned: %d%n", timesReturned);
-                
                 // prune given node isn't the master root node and all children have been visited (this avoids concurrent modification exception)
                 if (!(node.isIsMasterRoot()) && timesReturned == numChildren)
                 {
@@ -329,7 +341,7 @@ public class ID3 extends Categorizer
                     parentNode.getChildren().remove(nodeParentKey);
 
                     // get accuracy after prune
-                    int[][] afterPrecisionConfMatrix = Test();
+                    int[][] afterPrecisionConfMatrix = pruningTest();
                     double afterAccuracy = Statistics.calculateMatrixTPR(afterPrecisionConfMatrix);
                     
                     System.out.format("- attempting prune at node B(%d)->%s%n", nodeParentKey, node.printValue());
@@ -387,8 +399,8 @@ public class ID3 extends Categorizer
     public void printDecisionTree(ID3Node rootNode)
     {
         int numDashes = 0;
-        System.out.println("\nPrinting Decision Tree. (F) means feature value, (C) means classification, "
-                + "\n(B)-> is the branch feature-value taken to get to the node it points to:\n");
+        System.out.println("\n(...Printing Decision Tree. (F) means feature value, (C) means classification, "
+                + "\n(B)-> is the branch feature-value taken to get to the node it points to:...)");
         printDecisionTreeRecursion(rootNode, numDashes);
         System.out.println();
         

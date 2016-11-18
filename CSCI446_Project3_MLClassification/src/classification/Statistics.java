@@ -104,7 +104,48 @@ public class Statistics
                     System.out.println();
                 }
             }
-            System.out.println("\n");
+            System.out.println();
         }
+        
+        // just for sample runs...
+        System.out.println("Other statistics:");
+        System.out.println("--------------------");
+        
+        double[][] confMatrix = results.get("ID3").get("iris_data_set");
+        
+        System.out.format("Category 1 %n"
+            + "   Sensitivity: %.3f%n"
+            + "   Precision:   %.3f%n"
+            + "   Accuracy:    %.3f%n",
+                confMatrix[0][0] / (confMatrix[0][0] + confMatrix[0][1] + confMatrix[0][2]),
+                confMatrix[0][0] / (confMatrix[0][0] + confMatrix[1][0] + confMatrix[2][0]),
+                ( (confMatrix[0][0] + confMatrix[1][1] + confMatrix[1][2] + confMatrix[2][1]) + confMatrix[2][2]) / 
+                    ( confMatrix[0][0]+confMatrix[0][1]+confMatrix[0][2]
+                     +confMatrix[1][0]+confMatrix[1][1]+confMatrix[1][2]
+                     +confMatrix[2][0]+confMatrix[2][1]+confMatrix[2][2])
+        );
+        
+        System.out.format("Category 2 %n"
+            + "   Sensitivity: %.3f%n"
+            + "   Precision:   %.3f%n"
+            + "   Accuracy:    %.3f%n",
+                confMatrix[1][1] / (confMatrix[1][0] + confMatrix[1][1] + confMatrix[1][2]),
+                confMatrix[1][1] / (confMatrix[1][1] + confMatrix[0][1] + confMatrix[2][1]),
+                ( (confMatrix[1][1] + confMatrix[0][0] + confMatrix[0][2] + confMatrix[2][0]) + confMatrix[2][2]) / 
+                    ( confMatrix[0][0]+confMatrix[0][1]+confMatrix[0][2]
+                     +confMatrix[1][0]+confMatrix[1][1]+confMatrix[1][2]
+                     +confMatrix[2][0]+confMatrix[2][1]+confMatrix[2][2])
+        );
+        System.out.format("Category 3 %n"
+            + "   Sensitivity: %.3f%n"
+            + "   Precision:   %.3f%n"
+            + "   Accuracy:    %.3f%n",
+                confMatrix[2][2] / (confMatrix[2][2] + confMatrix[2][0] + confMatrix[2][1]),
+                confMatrix[2][2] / (confMatrix[2][2] + confMatrix[1][2] + confMatrix[0][2]),
+                ( (confMatrix[2][2] + confMatrix[0][0] + confMatrix[0][1] + confMatrix[1][0]) + confMatrix[1][1]) / 
+                    ( confMatrix[0][0]+confMatrix[0][1]+confMatrix[0][2]
+                     +confMatrix[1][0]+confMatrix[1][1]+confMatrix[1][2]
+                     +confMatrix[2][0]+confMatrix[2][1]+confMatrix[2][2])
+        );
     }
 }
