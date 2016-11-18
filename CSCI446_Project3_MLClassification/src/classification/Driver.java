@@ -20,7 +20,7 @@ public class Driver
     public final static List<Class<?>> algorithmList = Arrays.asList(
         NearestNeighbor.class,
 //        NaiveBayes.class,
-//        TAN.class,
+        TAN.class,
         ID3.class
     );
     

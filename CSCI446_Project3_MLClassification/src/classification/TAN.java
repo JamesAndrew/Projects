@@ -16,9 +16,9 @@ public class TAN extends Categorizer
 
     private int totalClasses = 0;
     private int[][] foldResult;
-    private Map<Integer, Integer> classCounts = new HashMap<Integer, Integer>();
-    private Map<Integer, ArrayList<TANNode>> nodesByClass = new HashMap<Integer, ArrayList<TANNode>>();
-    private Map<Integer, Integer> indexCounts = new HashMap<Integer, Integer>();
+    private Map<Integer, Integer> classCounts = new HashMap<>();
+    private Map<Integer, ArrayList<TANNode>> nodesByClass = new HashMap<>();
+    private Map<Integer, Integer> indexCounts = new HashMap<>();
 
     public TAN(DataSet[] trainingFolds, DataSet testingFold)
     {
@@ -80,7 +80,7 @@ public class TAN extends Categorizer
                     prob[1] = cls;
                 }
             }
-            System.out.println("Actual class:" + classification + " Predicted class:" + prob[1]);
+//            System.out.println("Actual class:" + classification + " Predicted class:" + prob[1]);
             foldResult[classification][(int)prob[1]]++;
         }
         return foldResult;
@@ -228,7 +228,7 @@ public class TAN extends Categorizer
         {
             double prob = (double) matchNode.occurs() / classCounts.get(matchNode.getClassifier());
             
-            System.out.format("Probability of Val:%d for Class:%d = %f%n", matchNode.getTraitValue(), classVal, prob);
+//            System.out.format("Probability of Val:%d for Class:%d = %f%n", matchNode.getTraitValue(), classVal, prob);
             if (influencePresent(matchNode, vector))
             {
                 return prob * 10;
