@@ -18,8 +18,10 @@ public class Driver
 {
     // put the solvers you want the program to run on in here
     public final static List<Class<?>> algorithmList = Arrays.asList(
-        //NearestNeighbor.class,
-        TAN.class
+        NearestNeighbor.class,
+//        NaiveBayes.class,
+//        TAN.class,
+        ID3.class
     );
     
     public static void main(String[] args) throws FileNotFoundException, InstantiationException, 
@@ -31,7 +33,11 @@ public class Driver
         
         
         // Add the preprocessed sets here once ready:
+//        fileInputPaths.add("DataSets/Preprocessed/breast-cancer-preprocessed.txt");
+//        fileInputPaths.add("DataSets/Preprocessed/glass-preprocessed.txt");
+//        fileInputPaths.add("DataSets/Preprocessed/house-votes-preprocessed.txt");
         fileInputPaths.add("DataSets/Preprocessed/iris-preprocessed.txt");
+//        fileInputPaths.add("DataSets/Preprocessed/soybean-preprocessed.txt");
         
         for (String dataTextFile : fileInputPaths)
         {
@@ -95,18 +101,5 @@ public class Driver
             dataSet.add(vector);
         }
         return dataSet;
-    }
-    
-    
-    private static void printADataSet(ArrayList<ArrayList<Integer>> data)
-    {
-        for (ArrayList<Integer> vector : data)
-        {
-            for (Integer value : vector)
-            {
-                System.out.format("%.3f,", value);
-            }
-            System.out.println();
-        }
     }
 }

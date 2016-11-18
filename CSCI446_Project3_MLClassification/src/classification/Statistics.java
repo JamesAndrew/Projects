@@ -16,8 +16,6 @@ import java.util.Map;
  *  - True Negative value for each classification
  *  - False Positive value for each classification
  *  - False Negative value for each classification
- *  - Total population size
- *  - Population size of each classification members
  * 
  * The macro average needs:
  *  - Precision and Recall metrics which can be evaluated from the above values
@@ -87,10 +85,13 @@ public class Statistics
     public static void printConfusionMatrix()
     {
         System.out.println("\nPrinting all confusion matrices.");
+        
+        // for each algorithm...
         for (Map.Entry<String, HashMap<String, double[][]>> entry1 : results.entrySet())
         {
             System.out.format("=== %s ===%n", entry1.getKey().toUpperCase());
             
+            // for each data set...
             for (Map.Entry<String, double[][]> entry2 : entry1.getValue().entrySet())
             {
                 System.out.format("%s: %n", entry2.getKey());
@@ -104,7 +105,13 @@ public class Statistics
                     System.out.println();
                 }
             }
-            System.out.println("\n");
+            System.out.println();
         }
     }
 }
+//
+//     * Key 1              : The categorizer algorithm name (needs to be defined in each concrete categorizer class)
+//     * Key 1 of Value 1   : The data set name (based off of names shown in the DataSet class constructor)
+//     * Value 2 of Value 1 : The confusion matrix for the provided algorithm and data set
+//     */
+//    private static HashMap<String, HashMap<String, double[][]>> results = new HashMap<>();

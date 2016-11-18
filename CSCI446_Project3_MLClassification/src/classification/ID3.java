@@ -49,8 +49,6 @@ public class ID3 extends Categorizer
     {
         ArrayList<Integer> features = trainingSet.getFeaturesList();
         
-        System.out.format("About to run ID3 on the following training set:%n%s%n", trainingSet.toString());
-        
         // build tree until it cannot be built any further
         rootNode = id3_Recursive(new ID3Node(), trainingSet, features);
         
@@ -105,13 +103,10 @@ public class ID3 extends Categorizer
      */
     private ID3Node id3_Recursive(ID3Node root, DataSet S, ArrayList<Integer> remainingFeatures)
     {
-        System.out.format("%n== Starting recursive method. ==%n== S: %n%s== remainingFeatures: %s%n", S.toString(), remainingFeatures.toString());
-        
         // Base Cases //
         // if all the values in S have the same classification, assign root that classification label and return
         if (S.getNumClassifications() == 1)
         {
-            System.out.format("All values in S found to be classification %s. Assigning as leaf node.%n", Arrays.toString(S.getClassifcationValues()));
             int leafValue = S.getVectors()[0].classification();
             root.setNodeValue(leafValue);
             return root;
@@ -121,9 +116,6 @@ public class ID3 extends Categorizer
         if (remainingFeatures.isEmpty())
         {
             int leafValue = S.getMajorityClassification();
-            
-            System.out.format("No remaining features left. Assigning current node as leaf with majority classificaton %d%n", leafValue);
-            
             root.setNodeValue(leafValue);
             return root;
         }
@@ -133,30 +125,18 @@ public class ID3 extends Categorizer
         int bestFeature = calculateMaxGainFeature(S, remainingFeatures);
         // and assign to root
         root.setNodeValue(bestFeature);
-        
-        System.out.format("Assigning current node to have best feature value %d%n%n", bestFeature);
-        
         // for each value 'bestFeature' can be...
         int[] bestFeatureValues = S.getValuesOfAFeature(bestFeature);
-        
-        System.out.format("For each value of best feature %d: (%s)%n", bestFeature, Arrays.toString(bestFeatureValues));
-        
         for (int value : bestFeatureValues)
         {
-            System.out.format("Current value: %d%n", value);
             DataSet featureValuesSubset = S.getSubsetByFeatureValue(bestFeature, value);
-            System.out.format("Subset for data of feature %d with value %d:%n%s", bestFeature, value, featureValuesSubset.toString());
             
             // if Examples(V_i) is empty...
             if (featureValuesSubset.getVectors().length == 0)
             {
-                System.out.format("There are no values in S with this feature-value.%n");
-                
                 // make a new branch and node with classification lable of class majority in current set
                 int childNodeValue = S.getMajorityClassification();
                 root.getChildren().put(value, new ID3Node(childNodeValue));
-                
-                System.out.format("Made new branch and leaf node with the majority classification. Branch value: %d, leaf node classification: %d%n", value, childNodeValue);
                 
                 // return because leaf node known
                 return root;
@@ -167,12 +147,7 @@ public class ID3 extends Categorizer
                 // the branch has the value 'value' (of one the feature-values of current best feature)
                 // and child node initially has no data
                 root.getChildren().put(value, new ID3Node());
-                System.out.format("Added branch to current node (feature value %d) with value %d%n", root.getNodeValue(), value);
-                
                 remainingFeatures.remove((Integer)bestFeature);
-                System.out.format("Removed %d from the remaining features.%n", bestFeature);
-                System.out.format("Running next recursive call.%n");
-                
                 id3_Recursive(root.getChildren().get(value), featureValuesSubset, remainingFeatures);
             }
         }
@@ -189,23 +164,17 @@ public class ID3 extends Categorizer
      */
     private int calculateMaxGainFeature(DataSet S, ArrayList<Integer> remainingFeatures)
     {
-        System.out.format("- calculating max gain feature...%n");
-        
         double maxGain = -100.0;
         int maxGainFeature = -1;
         
         // for each remaining feature...
         for (int feature : remainingFeatures)
         {
-            System.out.format("- current feature: %d%n", feature);
             // calculate the gain of the data set given that feature. 
             double gain = informationGain(S, feature);
-            System.out.format("- gain: %.3f%n", gain);
             // and save if max gain thus far
-            System.out.format(". maxGain: %.3f .%n", maxGain);
             if (gain > maxGain)
             {
-                System.out.format("- gain was greater, assignming to max gain feature%n");
                 maxGain = gain;
                 maxGainFeature = feature;
             }
@@ -315,9 +284,6 @@ public class ID3 extends Categorizer
                 reducedErrorPruning(child, node, childKey);
                 timesReturned++;
                 
-//                System.out.format("- returned back to node %s%n", node.printValue());
-//                System.out.format("- times returned: %d%n", timesReturned);
-                
                 // prune given node isn't the master root node and all children have been visited (this avoids concurrent modification exception)
                 if (!(node.isIsMasterRoot()) && timesReturned == numChildren)
                 {
@@ -331,15 +297,11 @@ public class ID3 extends Categorizer
                     // get accuracy after prune
                     int[][] afterPrecisionConfMatrix = Test();
                     double afterAccuracy = Statistics.calculateMatrixTPR(afterPrecisionConfMatrix);
-                    
-                    System.out.format("- attempting prune at node B(%d)->%s%n", nodeParentKey, node.printValue());
-                    System.out.format("- before accuracy: %.3f%n", beforeAccuracy);
-                    System.out.format("- after accuracy:  %.3f%n", afterAccuracy);
 
                     // if accuracy is better, keep, otherwise revert
                     if (afterAccuracy > beforeAccuracy)
                     {
-                        System.out.format("- prune improved accuracy, keeping pruned state.%n");
+                        // keep pruned state
                     }
                     else
                     {
@@ -387,8 +349,6 @@ public class ID3 extends Categorizer
     public void printDecisionTree(ID3Node rootNode)
     {
         int numDashes = 0;
-        System.out.println("\nPrinting Decision Tree. (F) means feature value, (C) means classification, "
-                + "\n(B)-> is the branch feature-value taken to get to the node it points to:\n");
         printDecisionTreeRecursion(rootNode, numDashes);
         System.out.println();
         

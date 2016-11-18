@@ -17,17 +17,42 @@ public class StatisticsTest
     @Test
     public void testUpdateMatrix() 
     {
-        String algName = "test alg name";
-        String dataSetName = "test data set name";
-        double[][] matrix = new double[][]{
+        String alg1Name = "alg1";
+        String alg2Name = "alg2";
+        
+        String dataSet1Name = "dataset1";
+        String dataSet2Name = "dataset2"; 
+        
+        double[][] matrix1 = new double[][]{
             {0, 2, 3, 2},
             {0, 1, 2, 1},
             {1, 4, 2, 3},
             {1, 3, 4, 3}
         };
-        Statistics.updateMatrix(algName, dataSetName, matrix);
-        double[][] testAlgData = Statistics.getResults().get("test alg name").get("test data set name");
-        for (double[] row : testAlgData)
+        double[][] matrix2 = new double[][]{
+            {0, 1, 2, 3},
+            {1, 2, 3, 4},
+            {0, 4, 2, 3},
+            {1, 3, 4, 3}
+        };
+        
+        Statistics.updateMatrix(alg1Name, dataSet1Name, matrix1);
+        Statistics.updateMatrix(alg2Name, dataSet2Name, matrix2);
+        
+        double[][] testAlg1Data = Statistics.getResults().get("alg1").get("dataset1");
+        double[][] testAlg2Data = Statistics.getResults().get("alg2").get("dataset2");
+        
+        System.out.println("testAlg1Data: ");
+        for (double[] row : testAlg1Data)
+        {
+            for (double entry : row)
+            {
+                System.out.format("%.2f ", entry);
+            }
+            System.out.println();
+        }
+        System.out.println("testAlg2Data: ");
+        for (double[] row : testAlg2Data)
         {
             for (double entry : row)
             {
@@ -36,6 +61,7 @@ public class StatisticsTest
             System.out.println();
         }
         
-        assertArrayEquals(matrix, testAlgData);
+        assertArrayEquals(matrix1, testAlg1Data);
+        assertArrayEquals(matrix2, testAlg2Data);
     } 
 }
