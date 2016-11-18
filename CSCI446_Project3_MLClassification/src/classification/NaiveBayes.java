@@ -53,7 +53,6 @@ public class NaiveBayes extends Categorizer
     {
         System.out.println("=== Training Naive Bayes Model ===");
         
-        
         System.out.println("Classes: " + classes);
         System.out.println("Attributes: " + attributes);
         
@@ -61,16 +60,10 @@ public class NaiveBayes extends Categorizer
         
         for (int i = 0; i < trainingFolds.length; i++)
         {
+            Vector [] currentPoint = trainingFolds[i].getVectors();
+            System.out.println(trainingFolds[i].toString());
             
-            for(int j = 0; j < trainingFolds[i].getVectors().length; j++)
-            {
-                
-                System.out.println();
-                if(j == 0)
-                {
-                    
-                }
-            }
+            
         }
         
         /**
