@@ -39,6 +39,8 @@ public class TAN extends Categorizer
     @Override
     public void Train()
     {
+        System.out.println("Training");
+        System.out.println("Calculating probabilities of training data");
         setUpNodes();
         setInfluences();
         setTotalClasses();
@@ -50,6 +52,7 @@ public class TAN extends Categorizer
     @Override
     public int[][] Test()
     {
+        System.out.println("Testing");
         //loop through each line of test data
         for (Vector v : testingFold.getVectors())
         {
@@ -77,7 +80,7 @@ public class TAN extends Categorizer
                     prob[1] = cls;
                 }
             }
-            //System.out.println("Actual class:" + classification + " Predicted class:" + prob[1]);
+            System.out.println("Actual class:" + classification + " Predicted class:" + prob[1]);
             foldResult[classification][(int)prob[1]]++;
         }
         return foldResult;
@@ -224,12 +227,14 @@ public class TAN extends Categorizer
         if (matchNode != null)
         {
             double prob = (double) matchNode.occurs() / classCounts.get(matchNode.getClassifier());
-            if (influencePresent(matchNode, vector))
-            {
-                return prob * 10;
-            }
-            return prob / 10;
-            //Naive: return (double) matchNode.occurs() / classCounts.get(matchNode.getClassifier());
+            
+            System.out.format("Probability of Val:%d for Class:%d = %f%n", matchNode.getTraitValue(), classVal, prob);
+//            if (influencePresent(matchNode, vector))
+//            {
+//                return prob * 10;
+//            }
+//            return prob / 10;
+            return prob;
         }
         return .00001;
     }

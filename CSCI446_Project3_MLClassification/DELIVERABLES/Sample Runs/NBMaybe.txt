@@ -1,0 +1,178 @@
+iris_data_set added to DataSet.vectors.
+Beginning 10-fold Cross Validation...
+Data Set: iris-data-set
+Algorithm: Naive-Bayes
+
+Training
+Calculating probabilities of training data
+
+Testing
+Probability of Val:1 for Class:0 = 0.400000
+Probability of Val:1 for Class:0 = 0.044444
+Probability of Val:1 for Class:0 = 1.000000
+Probability of Val:1 for Class:0 = 1.000000
+Probability of Val:1 for Class:1 = 0.022727
+Probability of Val:1 for Class:1 = 0.704545
+Probability of Val:1 for Class:1 = 0.022727
+Probability of Val:1 for Class:2 = 0.021739
+Probability of Val:1 for Class:2 = 0.434783
+Actual class:0 Predicted class:0.0
+
+Probability of Val:3 for Class:0 = 0.022222
+Probability of Val:3 for Class:0 = 0.088889
+Probability of Val:3 for Class:1 = 0.045455
+Probability of Val:3 for Class:1 = 0.045455
+Probability of Val:3 for Class:1 = 0.068182
+Probability of Val:3 for Class:1 = 0.204545
+Probability of Val:3 for Class:2 = 0.021739
+Probability of Val:3 for Class:2 = 0.086957
+Probability of Val:3 for Class:2 = 0.021739
+Probability of Val:3 for Class:2 = 0.043478
+Actual class:0 Predicted class:1.0
+
+Probability of Val:6 for Class:0 = 0.400000
+Probability of Val:6 for Class:1 = 0.318182
+Probability of Val:6 for Class:2 = 0.282609
+Probability of Val:6 for Class:2 = 0.065217
+Probability of Val:6 for Class:2 = 0.630435
+Probability of Val:6 for Class:2 = 0.652174
+Actual class:0 Predicted class:2.0
+
+Probability of Val:5 for Class:0 = 0.177778
+Probability of Val:5 for Class:1 = 0.068182
+Probability of Val:5 for Class:1 = 0.022727
+Probability of Val:5 for Class:1 = 0.022727
+Probability of Val:5 for Class:1 = 0.045455
+Probability of Val:5 for Class:2 = 0.065217
+Probability of Val:5 for Class:2 = 0.043478
+Probability of Val:5 for Class:2 = 0.217391
+Probability of Val:5 for Class:2 = 0.239130
+Actual class:0 Predicted class:2.0
+
+Probability of Val:6 for Class:0 = 0.400000
+Probability of Val:6 for Class:1 = 0.318182
+Probability of Val:6 for Class:2 = 0.282609
+Probability of Val:6 for Class:2 = 0.065217
+Probability of Val:6 for Class:2 = 0.630435
+Probability of Val:6 for Class:2 = 0.652174
+Actual class:0 Predicted class:2.0
+
+Probability of Val:1 for Class:0 = 0.400000
+Probability of Val:1 for Class:0 = 0.044444
+Probability of Val:1 for Class:0 = 1.000000
+Probability of Val:1 for Class:0 = 1.000000
+Probability of Val:1 for Class:1 = 0.022727
+Probability of Val:1 for Class:1 = 0.704545
+Probability of Val:1 for Class:1 = 0.022727
+Probability of Val:1 for Class:2 = 0.021739
+Probability of Val:1 for Class:2 = 0.434783
+Actual class:1 Predicted class:0.0
+
+Probability of Val:1 for Class:0 = 0.400000
+Probability of Val:1 for Class:0 = 0.044444
+Probability of Val:1 for Class:0 = 1.000000
+Probability of Val:1 for Class:0 = 1.000000
+Probability of Val:1 for Class:1 = 0.022727
+Probability of Val:1 for Class:1 = 0.704545
+Probability of Val:1 for Class:1 = 0.022727
+Probability of Val:1 for Class:2 = 0.021739
+Probability of Val:1 for Class:2 = 0.434783
+Actual class:1 Predicted class:0.0
+
+Probability of Val:2 for Class:0 = 0.555556
+Probability of Val:2 for Class:0 = 0.133333
+Probability of Val:2 for Class:1 = 0.227273
+Probability of Val:2 for Class:1 = 0.136364
+Probability of Val:2 for Class:1 = 0.863636
+Probability of Val:2 for Class:1 = 0.727273
+Probability of Val:2 for Class:2 = 0.239130
+Probability of Val:2 for Class:2 = 0.043478
+Probability of Val:2 for Class:2 = 0.021739
+Actual class:1 Predicted class:1.0
+
+Probability of Val:3 for Class:0 = 0.022222
+Probability of Val:3 for Class:0 = 0.088889
+Probability of Val:3 for Class:1 = 0.045455
+Probability of Val:3 for Class:1 = 0.045455
+Probability of Val:3 for Class:1 = 0.068182
+Probability of Val:3 for Class:1 = 0.204545
+Probability of Val:3 for Class:2 = 0.021739
+Probability of Val:3 for Class:2 = 0.086957
+Probability of Val:3 for Class:2 = 0.021739
+Probability of Val:3 for Class:2 = 0.043478
+Actual class:1 Predicted class:1.0
+
+Probability of Val:2 for Class:0 = 0.555556
+Probability of Val:2 for Class:0 = 0.133333
+Probability of Val:2 for Class:1 = 0.227273
+Probability of Val:2 for Class:1 = 0.136364
+Probability of Val:2 for Class:1 = 0.863636
+Probability of Val:2 for Class:1 = 0.727273
+Probability of Val:2 for Class:2 = 0.239130
+Probability of Val:2 for Class:2 = 0.043478
+Probability of Val:2 for Class:2 = 0.021739
+Actual class:1 Predicted class:1.0
+
+Probability of Val:1 for Class:0 = 0.400000
+Probability of Val:1 for Class:0 = 0.044444
+Probability of Val:1 for Class:0 = 1.000000
+Probability of Val:1 for Class:0 = 1.000000
+Probability of Val:1 for Class:1 = 0.022727
+Probability of Val:1 for Class:1 = 0.704545
+Probability of Val:1 for Class:1 = 0.022727
+Probability of Val:1 for Class:2 = 0.021739
+Probability of Val:1 for Class:2 = 0.434783
+Actual class:1 Predicted class:0.0
+
+Probability of Val:2 for Class:0 = 0.555556
+Probability of Val:2 for Class:0 = 0.133333
+Probability of Val:2 for Class:1 = 0.227273
+Probability of Val:2 for Class:1 = 0.136364
+Probability of Val:2 for Class:1 = 0.863636
+Probability of Val:2 for Class:1 = 0.727273
+Probability of Val:2 for Class:2 = 0.239130
+Probability of Val:2 for Class:2 = 0.043478
+Probability of Val:2 for Class:2 = 0.021739
+Actual class:2 Predicted class:1.0
+
+Probability of Val:1 for Class:0 = 0.400000
+Probability of Val:1 for Class:0 = 0.044444
+Probability of Val:1 for Class:0 = 1.000000
+Probability of Val:1 for Class:0 = 1.000000
+Probability of Val:1 for Class:1 = 0.022727
+Probability of Val:1 for Class:1 = 0.704545
+Probability of Val:1 for Class:1 = 0.022727
+Probability of Val:1 for Class:2 = 0.021739
+Probability of Val:1 for Class:2 = 0.434783
+Actual class:2 Predicted class:0.0
+
+Probability of Val:4 for Class:0 = 0.022222
+Probability of Val:4 for Class:0 = 0.155556
+Probability of Val:4 for Class:1 = 0.113636
+Probability of Val:4 for Class:1 = 0.090909
+Probability of Val:4 for Class:1 = 0.022727
+Probability of Val:4 for Class:1 = 0.022727
+Probability of Val:4 for Class:2 = 0.021739
+Probability of Val:4 for Class:2 = 0.130435
+Probability of Val:4 for Class:2 = 0.086957
+Probability of Val:4 for Class:2 = 0.043478
+Actual class:2 Predicted class:2.0
+
+Probability of Val:4 for Class:0 = 0.022222
+Probability of Val:4 for Class:0 = 0.155556
+Probability of Val:4 for Class:1 = 0.113636
+Probability of Val:4 for Class:1 = 0.090909
+Probability of Val:4 for Class:1 = 0.022727
+Probability of Val:4 for Class:1 = 0.022727
+Probability of Val:4 for Class:2 = 0.021739
+Probability of Val:4 for Class:2 = 0.130435
+Probability of Val:4 for Class:2 = 0.086957
+Probability of Val:4 for Class:2 = 0.043478
+Actual class:2 Predicted class:2.0
+
+Printing all confusion matrices.
+=== TAN ===
+iris_data_set: 
+1.000 1.000 3.000 
+3.000 3.000 0.000 
+1.000 1.000 2.000 
