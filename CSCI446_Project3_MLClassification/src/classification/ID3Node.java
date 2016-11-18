@@ -16,6 +16,7 @@ public class ID3Node
     // Use a hashmap to represent the collection of branches (edges and child nodes). 
     // Traverse by querying the associated node for an integer feature value as the key
     private HashMap<Integer, ID3Node> children = new HashMap<>();
+    private boolean isMasterRoot = false;
     
     // often the node construction will not immediately know its value
     public ID3Node() { }
@@ -57,5 +58,13 @@ public class ID3Node
     public void setChildren(HashMap<Integer, ID3Node> children) 
     {
         this.children = children;
+    }
+    public boolean isIsMasterRoot() 
+    {
+        return isMasterRoot;
+    }
+    public void setIsMasterRoot(boolean isMasterRoot) 
+    {
+        this.isMasterRoot = isMasterRoot;
     }
 }

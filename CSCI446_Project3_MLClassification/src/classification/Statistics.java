@@ -54,6 +54,34 @@ public class Statistics
     }
     
     /**
+     * Calculate the True Positive Rate (TPR) of an int[][] matrix
+     * @param matrix
+     * @return The averaged values of the TRP for each classification
+     */
+    public static double calculateMatrixTPR(int[][] matrix)
+    {
+        double averageTPR = 0.0; 
+        // for each row
+        for (int i = 0; i < matrix.length; i++)
+        {
+            int condPositive = 0;
+            
+            // for each value in the row
+            for (int j = 0 ; j < matrix[i].length; j++)
+            {
+                condPositive += matrix[i][j];
+            }
+            
+            double currentTPR = (double)matrix[i][i] / (double)condPositive;
+            averageTPR += currentTPR;
+        }
+        
+        averageTPR = averageTPR / (double)matrix.length;
+        
+        return averageTPR;
+    }
+    
+    /**
      * print all confusion matrices in an easy to read way
      */
     public static void printConfusionMatrix()

@@ -53,9 +53,16 @@ public class ID3 extends Categorizer
         
         // build tree until it cannot be built any further
         rootNode = id3_Recursive(new ID3Node(), trainingSet, features);
-        // then prune
-//        reducedErrorPruning(rootNode);
         
+        // then prune
+        System.out.println("\n== Pruning Tree ==");
+        System.out.format("Tree before prune:%n");
+        printDecisionTree(rootNode);
+        
+        rootNode.setIsMasterRoot(true);
+        reducedErrorPruning(rootNode, null, 0);
+        
+        System.out.format("\nTree after prune:%n");
         printDecisionTree(rootNode);
     }
 
@@ -273,16 +280,56 @@ public class ID3 extends Categorizer
     
     /**
      * Prunes the decision tree following the REP method
-     * @param rootNode : root of the decision (sub)tree
+     * @param node : root of the decision (sub)tree
+     * @param nodeParentKey : the key in the parentNode 'children' set that the current node belongs to
      */
-    private void reducedErrorPruning(ID3Node rootNode)
+    private void reducedErrorPruning(ID3Node node, ID3Node parentNode, int nodeParentKey)
     {
-        if (rootNode.isLeaf())
+        System.out.format("- traversed to node %s through path %d%n", node.printValue(), nodeParentKey);
+        
+        if (node.isLeaf())
         {
             // return
         }
         
-        
+        // for each child node of the rootNode (sub)tree
+        for (Map.Entry<Integer, ID3Node> entry : node.getChildren().entrySet())
+        {
+            int childKey = entry.getKey();
+            ID3Node child = entry.getValue();
+            
+            // iterate depth-first
+            reducedErrorPruning(child, node, childKey);
+            System.out.format("- returned back to node %s%n", node.printValue());
+            
+            // prune given node isn't the master root node
+            if (!(node.isIsMasterRoot()))
+            {
+                // get accuracy before prune
+                int[][] beforePrecisionConfMatrix = Test();
+                double beforeAccuracy = Statistics.calculateMatrixTPR(beforePrecisionConfMatrix);
+                
+                // prune
+                parentNode.getChildren().remove(nodeParentKey);
+                
+                // get accuracy after prune
+                int[][] afterPrecisionConfMatrix = Test();
+                double afterAccuracy = Statistics.calculateMatrixTPR(afterPrecisionConfMatrix);
+                
+                System.out.format("- before accuracy: %.3f%n", beforeAccuracy);
+                System.out.format("- after accuracy:  %.3f%n", afterAccuracy);
+                
+                // if accuracy is better, keep, otherwise revert
+                if (afterAccuracy > beforeAccuracy)
+                {
+                    System.out.format("- prune improved accuracy, keeping pruned state.%n");
+                }
+                else
+                {
+                    parentNode.getChildren().put(nodeParentKey, node);
+                }
+            }
+        }
     }
     
     /**
@@ -325,6 +372,7 @@ public class ID3 extends Categorizer
         System.out.println("\nPrinting Decision Tree. (F) means feature value, (C) means classification, "
                 + "\n(B)-> is the branch feature-value taken to get to the node it points to:\n");
         printDecisionTreeRecursion(rootNode, numDashes);
+        System.out.println();
         
     }
     private void printDecisionTreeRecursion(ID3Node node, int dashes)
