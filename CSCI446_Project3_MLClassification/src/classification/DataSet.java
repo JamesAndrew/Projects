@@ -23,10 +23,13 @@ public class DataSet
     { 
         // associate a data set with its pre-known first line of data
         ArrayList<Integer> iris_data_set = new ArrayList<>(Arrays.asList(0, 1, 1, 1, 1));
+        ArrayList<Integer> house_data_set = new ArrayList<>(Arrays.asList(0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1));
         
         // name the data set based on known first value
         if (arrayListEquals(dataSet.get(0), iris_data_set))
             this.name = "iris_data_set";
+        else if(arrayListEquals(dataSet.get(0), house_data_set))
+            this.name = "house_data_set";
 //                        "cancer_data_set"
 //                        "glass_data_set"
 //                        "house_data_set"

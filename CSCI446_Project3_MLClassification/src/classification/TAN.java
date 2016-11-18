@@ -35,6 +35,29 @@ public class TAN extends Categorizer
     @Override
     public int[][] Test()
     {
+        for (Vector v : testingFold.getVectors())
+        {
+            int classification = v.classification();
+            int[] features = v.features();
+            double[] prob = {0, 0};
+            Iterator it = nodesByClass.entrySet().iterator();
+            while (it.hasNext())
+            {                
+                Map.Entry pair = (Map.Entry) it.next();
+                int cls = (int) pair.getKey();
+                double localProb = (double) classCounts.get(cls) / totalClasses; 
+                for (int i = 0; i < features.length; i++)
+                {
+                    localProb = localProb * getProbability(features[1], i, cls); 
+                }
+                if (localProb > prob[0])
+                {
+                    prob[0] = localProb;
+                    prob[1] = cls; 
+                }
+            }
+            System.out.println("Actual:" + classification + " Predicted:" + prob[1]);
+        }
         return null;
     }
 
@@ -45,7 +68,7 @@ public class TAN extends Categorizer
         {
             int classifier = v.classification();
             int[] features = v.features();
-            for (int i = 1; i < features.length; i++)
+            for (int i = 0; i < features.length; i++)
             {
                 boolean duplicate = false;
                 TANNode newNode = new TANNode(features[i], i, classifier);
@@ -159,9 +182,11 @@ public class TAN extends Categorizer
     public double getProbability(int attVal, int index, int classVal)
     {
         TANNode matchNode = null;
+        //System.out.println("Check:" + attVal + " index:" + index + " Class:" + classVal);  
         ArrayList<TANNode> nodes = (ArrayList) nodesByClass.get(classVal);
         for (TANNode node : nodes)
         {
+            //System.out.println("Val:" + node.getTraitValue() + " index:" + node.getTraitIndex() + " Class:" + node.getClassifier());  
             if (node.getTraitValue() == attVal && node.getTraitIndex() == index)
             {
                 matchNode = node;
@@ -173,6 +198,7 @@ public class TAN extends Categorizer
             //if vector does not contain influencer, decrease prob
             return (double) matchNode.occurs() / classCounts.get(matchNode.getClassifier());
         }
+        //System.out.println("Not found");
         return 0.0001;
     }
 
