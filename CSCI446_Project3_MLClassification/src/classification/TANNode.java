@@ -5,36 +5,42 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- *
+ * TANNode class represents a single attribute value for a dataset. 
+ * Duplicate attribute values are accounted for by incrementing occurrence value.
  *
  */
 public class TANNode
 {
-    private int numOccurences = 1; 
-    private double traitValue;
+    private int numOccurrences = 1; 
+    private int traitValue;
     private int traitIndex;
-    private double classifier;
+    private int classifier;
     private HashMap allInfluences = new HashMap();
     private TANNode influence;
 
-    public TANNode(double traitValue, int traitNumber, double classifier)
+    public TANNode(int traitValue, int traitIndex, int classifier)
     {
         this.traitValue = traitValue;
-        this.traitIndex = traitNumber;
+        this.traitIndex = traitIndex;
         this.classifier = classifier;
     }
 
     public int occurs()
     {
-        return numOccurences; 
+        return numOccurrences; 
     }
     
-    public double getClassifier()
+    public void incrementOccurrence()
+    {
+        numOccurrences++;
+    }
+    
+    public int getClassifier()
     {
         return classifier;
     }
 
-    public double getTraitValue()
+    public int getTraitValue()
     {
         return traitValue;
     }
@@ -54,6 +60,9 @@ public class TANNode
         allInfluences.put(node, weight);
     }
     
+    /**
+     * Return whether or not given node is a possible influence
+     */
     public boolean influencesContains(TANNode node)
     {
         if (allInfluences.containsKey(node))
@@ -63,6 +72,9 @@ public class TANNode
         return false; 
     }
 
+    /**
+     * Determine most influential nodes from all possible influences
+     */
     public void setMostInfluential()
     {
         double highestWeight = 0; 
@@ -79,12 +91,11 @@ public class TANNode
         }
     }
 
+    /**
+     * Compare nodes on class, vector index and value. True if all equal
+     */
     public boolean equals(TANNode compareNode)
     {
-        if (compareNode.getClassifier() == classifier && compareNode.getTraitIndex() == traitIndex && compareNode.getTraitValue() == traitValue)
-        {
-            return true;
-        }
-        return false;
+        return (compareNode.getClassifier() == classifier && compareNode.getTraitIndex() == traitIndex && compareNode.getTraitValue() == traitValue);
     }
 }

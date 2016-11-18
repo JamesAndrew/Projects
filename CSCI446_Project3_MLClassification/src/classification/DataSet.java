@@ -22,23 +22,23 @@ public class DataSet
     public DataSet(ArrayList<ArrayList<Integer>> dataSet) 
     { 
         // associate a data set with its pre-known first line of data
-        ArrayList<Integer> iris_data_set 
-                = new ArrayList<>(Arrays.asList(0, 1, 1, 1, 1));
-        ArrayList<Integer> house_data_set 
-                = new ArrayList<>(Arrays.asList(0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1));
-        ArrayList<Integer> glass_data_set 
-                = new ArrayList<>(Arrays.asList(4, 5, 1, 9, 1, 1, 19, 1, 1, 1, 1));
+        ArrayList<Integer> iris_data_set = new ArrayList<>(Arrays.asList(0, 1, 1, 1, 1));
+        ArrayList<Integer> cancer_data_set = new ArrayList<>(Arrays.asList(0, 5, 1, 1, 1, 2, 1, 3, 1, 1));
+        ArrayList<Integer> house_data_set = new ArrayList<>(Arrays.asList(0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1));        
+        ArrayList<Integer> glass_data_set = new ArrayList<>(Arrays.asList(4, 5, 1, 9, 1, 1, 19, 1, 1, 1, 1));
+        ArrayList<Integer> soybean_data_set = new ArrayList<>(Arrays.asList(0, 4, 0, 2, 1, 1, 1, 0, 1, 0, 2, 1, 1, 0, 2, 2, 0, 0, 0, 1, 0, 3, 1, 1, 1, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0));
         
         // name the data set based on known first value
         if (arrayListEquals(dataSet.get(0), iris_data_set))
             this.name = "iris_data_set";
-        else if (arrayListEquals(dataSet.get(0), house_data_set))
-            this.name = "house-vote_data_set";
-        else if (arrayListEquals(dataSet.get(0), glass_data_set))
+        else if(arrayListEquals(dataSet.get(0), cancer_data_set))
+            this.name = "cancer_data_set";
+        else if(arrayListEquals(dataSet.get(0), house_data_set))
+            this.name = "house_data_set";
+        else if(arrayListEquals(dataSet.get(0), glass_data_set))
             this.name = "glass_data_set";
-//                        "cancer_data_set"
-//                        "glass_data_set"
-//                        "soybean_data_set"
+        else if(arrayListEquals(dataSet.get(0), soybean_data_set))
+            this.name = "soybean_data_set";
         else 
             throw new RuntimeException("The first line of the input data set did not match a known data set."
                 + "Check your data set with the associations in the DataSet class constructor.");
