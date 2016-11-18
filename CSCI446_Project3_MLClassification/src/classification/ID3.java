@@ -322,9 +322,8 @@ public class ID3 extends Categorizer
                 }
                 else
                 {
-                    dashes++;
-                    System.out.format("%sB(%d)->", printDashes(dashes), entry.getKey());
-                    printDecisionTreeRecursion(entry.getValue(), dashes);
+                    System.out.format("%sB(%d)->", printDashes(dashes+1), entry.getKey());
+                    printDecisionTreeRecursion(entry.getValue(), dashes+1);
                 }
             }
         }
