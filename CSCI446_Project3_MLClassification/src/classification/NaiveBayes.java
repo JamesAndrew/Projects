@@ -12,6 +12,7 @@ package classification;
 public class NaiveBayes extends Categorizer
 { 
     private final int classes;
+    private int trainingClasses;
     private final int attr_values;
     private final int attributes;
     
@@ -56,135 +57,57 @@ public class NaiveBayes extends Categorizer
         System.out.println("Classes: " + classes);
         System.out.println("Attributes: " + attributes);
         
-        
-        
         for (int i = 0; i < trainingFolds.length; i++)
         {
             Vector [] currentPoint = trainingFolds[i].getVectors();
-            System.out.println(trainingFolds[i].toString());
-            
-            
+            for(int j = 0; j < currentPoint.length; j++)
+            {
+                //System.out.print(currentPoint[j].classification());
+                class_freq[currentPoint[j].classification()]++;
+                trainingClasses++;
+                int [] attrs = currentPoint[j].features();
+                for(int k = 0; k < attrs.length; k++)
+                {
+                    //System.out.print(" " + attrs[k]);
+                    attr_freq[currentPoint[j].classification()][k][attrs[k]]++;
+                }
+            }
         }
         
-        /**
-         * determine the Naive Bayes Model
-         */
-        // loop through the data and determine frequencies
-//        for (int i = 0; i < train_data.length; i++)
-//        {
-//            for(int j = 0; j < train_data[i].length; j++)
-//            {
-//                System.out.print(train_data[i][j] + " ");
-//                
-//                // check if class label
-//                if (j == (train_data[i].length - 1))
-//                {
-//                    if (train_data[i][j] == 2)
-//                    {
-//                        class_freq[0]++;
-//                        System.out.print("Frequency of 2 = " + class_freq[0]);
-//                    }
-//                    else if (train_data[i][j] == 4)
-//                    {
-//                        class_freq[1]++;
-//                        System.out.print("Frequency of 4 = " + class_freq[1]);
-//                    }
-//                }
-//                
-//                // else assume attribute value
-//                else
-//                {
-//                    int class_label = train_data[i][train_data[i].length-1];
-//                    int c = 0;
-//                    if(class_label == 2)
-//                    {
-//                        c = 0;
-//                    }
-//                    else if (class_label == 4)
-//                    {
-//                        c = 1;
-//                    }
-//                     check if attribute i is equal to some value k from 0 to 10
-//                    switch (train_data[i][j]) {
-//                        case 0:
-//                            attr_freq[c][j][0]++;
-//                            break;
-//                        case 1:
-//                            attr_freq[c][j][1]++;
-//                            break;
-//                        case 2:
-//                            attr_freq[c][j][2]++;
-//                            break;
-//                        case 3:
-//                            attr_freq[c][j][3]++;
-//                            break; 
-//                        case 4:
-//                            attr_freq[c][j][4]++;
-//                            break;
-//                        case 5:
-//                            attr_freq[c][j][5]++;
-//                            break;
-//                        case 6:
-//                            attr_freq[c][j][6]++;
-//                            break;
-//                        case 7:
-//                            attr_freq[c][j][7]++;
-//                            break;
-//                        case 8:
-//                            attr_freq[c][j][8]++;
-//                            break;
-//                        case 9:
-//                            attr_freq[c][j][9]++;
-//                            break;
-//                        case 10:
-//                            attr_freq[c][j][10]++;
-//                            break;
-//                        default:
-//                            attr_freq[c][j][0]++;
-//                            break;
-//                    }
-//                }
-//                
-//                
-//            }
-//            System.out.println();
-//            //if on class attribute, determine prior probabilities of each class
-//            if (i == (train_data.length-1))
-//            {
-//                class_stats[0] = (double)class_freq[0]/(double)train_data.length;
-//                class_stats[1] = (double)class_freq[1]/(double)train_data.length;
-//            }
-//            
-//            System.out.println();
-//        }
-//        
-//        // go through frequencies and determine probabilities
-//        for(int i = 0; i < attr_stats.length; i++)
-//        {
-//            for(int j = 0; j < attr_stats[i].length; j++)
-//            {
-//                for(int k = 0; k < attr_stats[i][j].length; k++)
-//                {
-//                    System.out.println(attr_freq[i][j][k]);
-//                    attr_stats[i][j][k] = (double)attr_freq[i][j][k]/(double)class_freq[i];
-//                    
-//                     check if any probabilities are 0
-//                    if (attr_stats[i][j][k] == 0)
-//                    {
-//                         apply m-estimate
-//                        attr_stats[i][j][k] = mEst((double)attr_freq[i][j][k], (double)class_freq[i]);
-//                    }
-//                    
-//                     print final probabilities 
+        System.out.println();
+        
+        // Determine prior probabilities of each class
+        for (int i = 0; i < class_stats.length; i++)
+        {
+            class_stats[i] = (double)class_freq[i]/(double)trainingClasses;
+            System.out.print("Prior of class " + i + " = " + class_stats[i]);
+        }
+
+        System.out.println();
+        
+        // go through frequencies and determine probabilities
+        for(int i = 0; i < attr_stats.length; i++)
+        {
+            for(int j = 0; j < attr_stats[i].length; j++)
+            {
+                for(int k = 0; k < attr_stats[i][j].length; k++)
+                {
+                    attr_stats[i][j][k] = (double)attr_freq[i][j][k]/(double)class_freq[i];
+                    
+                    // check if any probabilities are 0
+                    if (attr_stats[i][j][k] == 0)
+                    {
+                        // apply m-estimate
+                        attr_stats[i][j][k] = mEst((double)attr_freq[i][j][k], (double)class_freq[i]);
+                    }
+                    
+                    // print final probabilities 
 //                    System.out.println("P(A" + j
 //                            + " = " + k + " | C" + i
 //                            + ") = " + attr_stats[i][j][k]);
-//                }
-//            }
-//        }
-//        //print prior probabilities of each class
-//        System.out.println("Prior Probability for class 2 = " + class_stats[0]);
-//        System.out.println("Prior Probability for class 4 = " + class_stats[1]); 
+                }
+            }
+        }
     }
 
     @Override
@@ -194,7 +117,7 @@ public class NaiveBayes extends Categorizer
          * Classify test data using Naive Bayes Parameters 
          */
         System.out.println("== Classifying test data ==");
-        System.out.println(testingFold.toString());
+        //System.out.println(testingFold.toString());
         
 //        double [] posteriors = new double [classes];
 //        for (int i = 0; i < posteriors.length; i++)
