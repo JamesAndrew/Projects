@@ -74,7 +74,8 @@ public class ID3 extends Categorizer
     @Override
     public int[][] Test() 
     {
-        System.out.format("\nTesting classification accuracy on the following testing fold:%n%s", testingFold.toString());
+//        System.out.format("\nTesting classification accuracy on the following testing fold:%n%s", testingFold.toString());
+//        System.out.format("\nTesting classification accuracy%n");
         
         // for each point in the testing fold
         for (int i = 0; i < testingFold.getVectors().length; i++)
@@ -84,8 +85,8 @@ public class ID3 extends Categorizer
             // traverse the decision tree until a value is assigned
             int classification = traverseTree(currentPoint);
             
-            System.out.format("Vector %d with features %s and classification %s%n", i, Arrays.toString(currentPoint.features()), currentPoint.classification());
-            System.out.format("Expected: %d, Actual: %d%n%n", currentPoint.classification(), classification);
+//            System.out.format("Vector %d with features %s and classification %s%n", i, Arrays.toString(currentPoint.features()), currentPoint.classification());
+//            System.out.format("Expected: %d, Actual: %d%n%n", currentPoint.classification(), classification);
             
             // send the classification result to the foldResult statistic array
             addResult(currentPoint.classification(), classification);            
@@ -285,7 +286,7 @@ public class ID3 extends Categorizer
      */
     private void reducedErrorPruning(ID3Node node, ID3Node parentNode, int nodeParentKey)
     {
-        System.out.format("- traversed to node %s through path %d%n", node.printValue(), nodeParentKey);
+//        System.out.format("- traversed to node %s through path %d%n", node.printValue(), nodeParentKey);
         int timesReturned = 0;
         
         if (node.isLeaf())
@@ -314,8 +315,8 @@ public class ID3 extends Categorizer
                 reducedErrorPruning(child, node, childKey);
                 timesReturned++;
                 
-                System.out.format("- returned back to node %s%n", node.printValue());
-                System.out.format("- times returned: %d%n", timesReturned);
+//                System.out.format("- returned back to node %s%n", node.printValue());
+//                System.out.format("- times returned: %d%n", timesReturned);
                 
                 // prune given node isn't the master root node and all children have been visited (this avoids concurrent modification exception)
                 if (!(node.isIsMasterRoot()) && timesReturned == numChildren)
@@ -330,7 +331,8 @@ public class ID3 extends Categorizer
                     // get accuracy after prune
                     int[][] afterPrecisionConfMatrix = Test();
                     double afterAccuracy = Statistics.calculateMatrixTPR(afterPrecisionConfMatrix);
-
+                    
+                    System.out.format("- attempting prune at node B(%d)->%s%n", nodeParentKey, node.printValue());
                     System.out.format("- before accuracy: %.3f%n", beforeAccuracy);
                     System.out.format("- after accuracy:  %.3f%n", afterAccuracy);
 
