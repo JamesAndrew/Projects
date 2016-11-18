@@ -42,7 +42,6 @@ public class NB extends Categorizer
         System.out.println("Training");
         System.out.println("Calculating probabilities of training data");
         setUpNodes();
-        setInfluences();
         setTotalClasses();
     }
 
@@ -142,70 +141,6 @@ public class NB extends Categorizer
         }
     }
 
-    /**
-     * Set all possible influential nodes for each node (NOT USED)
-     */
-    private void setInfluences()
-    {
-        Iterator it = nodesByClass.entrySet().iterator();
-        while (it.hasNext())
-        {
-            //calculate relation weight for each node in given class 
-            Map.Entry pair = (Map.Entry) it.next();
-            ArrayList<TANNode> nodes = (ArrayList) pair.getValue();
-            for (TANNode node1 : nodes)
-            {
-                for (TANNode node2 : nodes)
-                {
-                    if (node1.getClassifier() == node2.getClassifier() && !node1.equals(node2))
-                    {
-                        node1.addToAllInfluences(node2, calculateWeight(node1, node2));
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * Calculate weights between influential attributes(NOT USED)
-     */
-    private double calculateWeight(TANNode node1, TANNode node2)
-    {
-        int bothOccur = 0;
-        int oneOccurs = 0;
-        int twoOccurs = 0;
-        int classOccurs = 0;
-        int setLength = 0;
-        //determine probabilities of  node1 compared to node 2 
-        for (Vector v : trainingSet.getVectors())
-        {
-            setLength++;
-            boolean found1 = false;
-            boolean found2 = false;
-            if (v.classification() == node1.getClassifier())
-            {
-                classOccurs++;
-                if (v.contains(node1.getTraitValue(), node1.getTraitIndex()))
-                {
-                    oneOccurs++;
-                    found1 = true;
-                }
-                if (v.contains(node2.getTraitValue(), node2.getTraitIndex()))
-                {
-                    twoOccurs++;
-                    found2 = true;
-                }
-                if (found1 && found2)
-                {
-                    bothOccur++;
-                }
-            }
-        }
-        //prob calculations
-        double numerator = (double) bothOccur / classOccurs;
-        double denom = ((double) oneOccurs / classOccurs) * ((double) twoOccurs / classOccurs);
-        return ((double) bothOccur / setLength) * Math.log(numerator / denom);
-    }
 
     /**
      * Get the probability of an attribute given test attribute info
@@ -233,7 +168,7 @@ public class NB extends Categorizer
     }
 
     /**
-     * Calculate total number of classes and set most influential nodes
+     * Calculate total number of classes
      */
     private void setTotalClasses()
     {
@@ -247,35 +182,5 @@ public class NB extends Categorizer
             total += count;
         }
         totalClasses = total;
-        //iterate through all nodes and set final influences
-        Iterator it2 = nodesByClass.entrySet().iterator();
-        while (it2.hasNext())
-        {
-            Map.Entry pair = (Map.Entry) it2.next();
-            ArrayList<TANNode> nodes = (ArrayList) pair.getValue();
-            for (TANNode node : nodes)
-            {
-                node.setMostInfluential();
-            }
-        }
-    }
-
-    /**
-     * Determine if influential node is present in current test vector(NOT USED)
-     */
-    private boolean influencePresent(TANNode node, Vector vector)
-    {
-        int classifier = vector.classification();
-        int[] features = vector.features();
-        TANNode influence = node.getInfluence();
-        //look through current vector for match on influence node
-        for (int i = 0; i < features.length; i++)
-        {
-            if (influence != null && influence.getClassifier() == classifier && influence.getTraitValue() == features[i] && influence.getTraitIndex() == i)
-            {
-                return true;
-            }
-        }
-        return false;
     }
 }
