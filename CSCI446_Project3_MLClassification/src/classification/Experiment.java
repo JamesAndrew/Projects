@@ -52,6 +52,8 @@ public class Experiment
             // for each machine learning categorizer...
             for (Class<?> categorizer : algorithmList)
             {
+                System.out.format("=== Beginning 10-fold CV with Classifier '%s' and Data Set '%s' ===%n", categorizer.getSimpleName(), currentDataSet.getName());
+                
                 // Holds the 10 fold-run confusion matrix results (used to take an average after the 10 runs complete)
                 ArrayList<int[][]> foldRunResults = new ArrayList<>();
                 // Crappy way of saving the categorizer name for the 'updateMatrix' call
@@ -61,6 +63,8 @@ public class Experiment
                 for (int cvRun = 0; cvRun < 1; cvRun++) // temp to just run once
 //                for (int cvRun = 0; cvRun < partitions.length; cvRun++)
                 {
+                    System.out.format("Current Fold: %d of %d%n", cvRun+1, partitions.length);
+                    
                     // create the 9 training folds
                     DataSet[] trainingFolds = generateTrainingFolds(partitions, cvRun);
                     // create the 1 testing fold
@@ -74,14 +78,17 @@ public class Experiment
                     categorizerName = currentCategorizer.getCategorizerName();
                     
                     // train
+                    System.out.println("Training...");
                     currentCategorizer.Train();
                     
                     // test and save results for the current fold run
+                    System.out.println("Testing...");
                     int[][] foldResult = currentCategorizer.Test();
                     foldRunResults.add(foldResult);
                 }
                 
                 // average all values in the 10-fold CV run and sent to the Statistics class
+                System.out.println("Saving averaged confusion matrix results...");
                 double[][] averagedResults = averageFoldResults(foldRunResults);
                 
                 // and add to the statistics class
@@ -89,6 +96,7 @@ public class Experiment
             }
         }
         // program finishes once each data set has run (across all 5 categorizers)
+        System.out.println("\nAll runs finished. Displaying final confusion matrices:");
         Statistics.printConfusionMatrix();
     }
     

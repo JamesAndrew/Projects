@@ -41,9 +41,16 @@ public class Statistics
      */
     public static void updateMatrix(String algName, String dataSetName, double[][] matrix)
     {
-        HashMap<String, double[][]> keyValue = new HashMap<>();
-        keyValue.put(dataSetName, matrix);
-        results.put(algName, keyValue);
+        if (results.containsKey(algName))
+        {
+            results.get(algName).put(dataSetName, matrix);
+        }
+        else
+        {
+            HashMap<String, double[][]> keyValue = new HashMap<>();
+            keyValue.put(dataSetName, matrix);
+            results.put(algName, keyValue);
+        }
     }
 
     public static HashMap<String, HashMap<String, double[][]>> getResults() 
@@ -84,8 +91,6 @@ public class Statistics
      */
     public static void printConfusionMatrix()
     {
-        System.out.println("\nPrinting all confusion matrices.");
-        
         // for each algorithm...
         for (Map.Entry<String, HashMap<String, double[][]>> entry1 : results.entrySet())
         {
