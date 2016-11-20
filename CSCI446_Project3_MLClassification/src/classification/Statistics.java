@@ -151,7 +151,12 @@ public class Statistics
             {
                 tpFP += matrix[j][i];
             }
-            double precision = tp / tpFP;
+            double precision;
+            if (tpFP == 0.0) precision = 0.0;
+            else 
+            {
+                precision = tp / tpFP;
+            }
             avgMetrics[1] += precision;
         }
         avgMetrics[1] = avgMetrics[1] / matrix.length;
