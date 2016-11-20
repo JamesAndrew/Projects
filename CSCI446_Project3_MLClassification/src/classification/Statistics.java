@@ -119,16 +119,16 @@ public class Statistics
     }
     
     /**
-     * Print sensitivity, precision, accuracy, and macro average for a provided
+     * Print macro-average, precision, accuracy, and F1 score for a provided
      * confusion matrix
      * @param matrix : the confusion matrix
      */
     public static void printMetrics(double[][] matrix)
     {
-        // [0]: sensitivty, [1]: precision, [2]: accuracy, [3]: macro-average
+        // [0]: macro-average, [1]: precision, [2]: accuracy, [3]: f1-score
         double[] avgMetrics = new double[]{0.0,0.0,0.0,0.0};
         
-        // calculate avg sensitivity
+        // calculate macro average
         for (int i = 0; i < matrix.length; i++)
         {
             double tp = matrix[i][i];
@@ -190,21 +190,8 @@ public class Statistics
         }
         avgMetrics[2] = avgMetrics[2] / matrix.length;
         
-        // calculate macro-average
-        double Bsum = 0.0;
-        for (int i = 0; i < matrix.length; i++)
-        {
-            double tp = matrix[i][i];
-            double p = 0.0;
-            for (int j = 0; j < matrix[i].length; j++)
-            {
-                p += matrix[i][j];
-            }
-            Bsum += tp / p;
-            
-        }
-        double macroAvg = Bsum / matrix.length;
-        avgMetrics[3] = macroAvg;
+        // calculate f1-score
+        avgMetrics[3] = 2 * ((avgMetrics[1]*avgMetrics[0]) / (avgMetrics[1]+avgMetrics[0]));
         
         System.out.format("%-15s%-15s%-15s%-15s%n", "Sensitivity", "Precision", "Accuracy", "Macro Average");         
         System.out.format("%-15.3f%-15.3f%-15.3f%-15.3f%n", avgMetrics[0], avgMetrics[1], avgMetrics[2], avgMetrics[3]);
