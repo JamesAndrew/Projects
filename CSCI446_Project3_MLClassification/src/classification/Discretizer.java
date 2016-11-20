@@ -12,7 +12,7 @@ import java.util.Stack;
  * Temp class that discretizes features of continuously valued data
  * @author David
  */
-public class Temp_Discretizer 
+public class Discretizer 
 {
     // class-scoped variable that is filled during the recurisve calls of Discretize
     // each value is where a 'cut' will occur in the sorted data set array
