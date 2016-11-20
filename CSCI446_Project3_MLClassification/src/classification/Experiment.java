@@ -96,8 +96,8 @@ public class Experiment
             }
         }
         // program finishes once each data set has run (across all 5 categorizers)
-        System.out.println("\nAll runs finished. Displaying final confusion matrices:");
-        Statistics.printConfusionMatrix();
+        System.out.println("\nAll runs finished. Displaying final statisctins:");
+        Statistics.printAllStatistics();
     }
     
     /**

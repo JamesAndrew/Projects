@@ -20,7 +20,7 @@ public class NB extends Categorizer
     private Map<Integer, ArrayList<TANNode>> nodesByClass = new HashMap<>();
     private Map<Integer, Integer> indexCounts = new HashMap<>();
 
-    public TAN(DataSet[] trainingFolds, DataSet testingFold)
+    public NB(DataSet[] trainingFolds, DataSet testingFold)
     {
         super(trainingFolds, testingFold);
         categorizerName = "Naive-Bayes";
