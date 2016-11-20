@@ -19,7 +19,7 @@ public class Driver
     // put the solvers you want the program to run on in here
     public final static List<Class<?>> algorithmList = Arrays.asList(
         NearestNeighbor.class,
-//        NaiveBayes.class,
+        NB.class,
         TAN.class,
         ID3.class
     );
