@@ -1,6 +1,4 @@
 Reminders:
-	- Need to stratify the partitions in the 'runExperiment()' method
-	- Add other DataSet string names in construtor
 	- Don't forget references to the data sets in the document
 	
 Notes:

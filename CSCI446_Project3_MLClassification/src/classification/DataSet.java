@@ -66,9 +66,6 @@ public class DataSet
     /**
      * Used during 10-fold cross validation
      * Stratifies and generates 10 subsets
-     * 
-     * Note (todo) : not stratifying for now. Will deal with that later
-     * 
      * @return a data set array of size 10 with all vectors represented in a stratified form
      */
     public DataSet[] fillPartitions() 
