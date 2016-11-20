@@ -193,7 +193,7 @@ public class Statistics
         // calculate f1-score
         avgMetrics[3] = 2 * ((avgMetrics[1]*avgMetrics[0]) / (avgMetrics[1]+avgMetrics[0]));
         
-        System.out.format("%-15s%-15s%-15s%-15s%n", "Sensitivity", "Precision", "Accuracy", "Macro Average");         
+        System.out.format("%-15s%-15s%-15s%-15s%n", "Macro Average", "Precision", "Accuracy", "F1-Score");         
         System.out.format("%-15.3f%-15.3f%-15.3f%-15.3f%n", avgMetrics[0], avgMetrics[1], avgMetrics[2], avgMetrics[3]);
         System.out.println();
     }
