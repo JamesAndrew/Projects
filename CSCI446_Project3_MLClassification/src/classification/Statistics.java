@@ -196,11 +196,12 @@ public class Statistics
         {
             double tp = matrix[i][i];
             double p = 0.0;
-            for (int j = 0; j < matrix[0].length; j++)
+            for (int j = 0; j < matrix[i].length; j++)
             {
                 p += matrix[i][j];
             }
-            Bsum += tp / (tp + p);
+            Bsum += tp / p;
+            
         }
         double macroAvg = Bsum / matrix.length;
         avgMetrics[3] = macroAvg;
