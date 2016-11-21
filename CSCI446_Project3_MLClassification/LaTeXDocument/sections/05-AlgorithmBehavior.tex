@@ -1,0 +1,41 @@
+\section{Algorithm Behavior} \label{sec:alg-behavior}
+
+\subsection{K-Nearest Neighbor}
+Section \ref{subsec:hypothesis} expected k-NN to preform well on \textit{House Votes} and \textit{Breast Cancer} due to their larger data set size and equal subset per classification size.
+\textit{Soybean-small} was expected to have the worst performance due to its smallest data set size.
+The actual results reveal the opposite. 
+\textit{Soybean-small} and \textit{Iris} had the best performance for macro-average and F1-score while \textit{Breast Cancer} had the lowest macro average and \textit{House Votes} had average performance in all metrics.
+
+\textit{House Votes} did not perform best likely because of a weakness with the distance function shown in equation \ref{eq:hamming-distance}.
+The binary feature-wise distance evaluation is notably weak on this voting data set because a Democrat classification will often vote with the same value on many features as a Republican classification.
+The distinguishing factors between the two classifications is the few specific voting features they will vote differently on.
+As a result, there is poor spatial separation between data of different classifications.
+To solve this issue, a different distance value metric should be used that is able to identify feature votes most common to only one classification subset and give additional weight to those features.
+
+\textit{Iris} likely performed well in all metrics because the classification subset stratification was equal among all classifications and the iris continuous feature value data is naturally clustered.
+This means the data set size had less influence on k-NN than expected, and the discretization of continuous feature values discussed in section \ref{subsec:pre-processing} may have been more effective than hypothesized.
+In similar fashion, \textit{Soybean-small} likely had perfect classification due to notably good separation of feature-values to classifications.
+The natural spatial clustering is also very strong in this set.
+
+\subsection{Na\"{i}ve Bayes}
+The Naive Bayes algorithm performed fairly consistently across all data sets with the exception of the breast-cancer set where it performed much better, almost classifying all unknowns correctly. Naive Bayes also performed the worst on the glass set. 
+Interestingly, both of these sets have larger ranges over which attribute values fall when compared to all other data sets. 
+The results from breast-cancer could have been predicted due to it having the largest number of instances but the results from the glass set suggest that having the largest attribute value range may be most detrimental when not having enough instances for test data to match to. 
+
+
+\subsection{Tree Augmented Na\"{i}ve Bayes (TAN)}
+Though the House-Votes data set did do well with the TAN algorithm, as was predicted, it was not the best performer by a large margin.
+In fact, The Breast Cancer set was found to be a close runner up for being best suited for TAN.  
+On the opposite end of the results, Iris and Glass turned out to be the two worst performers. Both Glass and Iris have some of the higher ranges for values that attributes can hold, showing that, as expected, the TAN algorithm likely favors having less options for attribute values.  The Breast Cancer set also has high variability of attributes but is also the largest set that tests were run on, meaning that there was much higher chance of matching test data to training data. Soybean was also a low performer and the smallest set that was run.
+
+These results show that the TAN algorithm favors a combination of larger data sets and lower numbers of unique attribute values with size likely being the most important factor as sets with more attribute values tended to outperform those with less, when there were more instances of possible classifications. 
+
+
+\subsection{Decision Tree Learning - Iterative Dichotomiser 3 (ID3)}
+ID3 was hypothesized to do best on \textit{Breast Cancer} and \textit{Iris} due to their already-categorical feature values and large data set size with few features. \textit{Soybean} was expected to do poorly due to its small data set size.
+The actual results revealed the opposite with \textit{Breast Cancer} and \textit{Iris} being the two worst performers, although not by much as the all metrics for all data sets were greater than 0.926.
+
+The three data sets with best results also had the most features.
+This suggests that the hypothesis of decision trees primarily preferring large, discretized data sets should be changed to a bias of data sets with many features and many possible feature-values.
+This will drive generation of a tree that is wide (due to more feature-values) and deep (due to many features), but the depth of a tree can be shortened through pruning techniques.
+

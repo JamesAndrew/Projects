@@ -1,0 +1,157 @@
+\section{Experimental Approach} \label{sec:exp-approach}
+This experiment is highly statistic in nature.
+The data sets vary in size, stratification, and have both categorical and continuous values.
+The goal of this experiment is to use the same algorithm and hypothesis test for each data set in order to reveal the bias an algorithm has toward the type of data set it can perform best on without specific tuning for a known set.
+
+Special attention must also be given to the performance metrics.
+The true positive recall rate will not reveal weaknesses in algorithms that fail to assign the correct classification to proportionally small classification populations.
+Discretization of continuous data is discussed in section \ref{subsec:pre-processing}, performance metrics are discussed in section \ref{subsec:performance-metrics}, and section \ref{subsec:kfold-cv}  discusses hypothesis testing. 
+
+\subsection{Data Set Descriptions} \label{subsec:dataset-desc}
+Five total data sets \cite{Lichman} were classified: breast cancer, glass, house votes, iris, and soybean. 
+The data sets can be broken up into the relatively simple discrete and the more complicated continuous case. 
+The discrete case includes house votes, breast cancer, and soybean. 
+The preprocessing was minor in this case. 
+House votes was simple since it was all boolean random variables with two classes: republican and democrat. 
+However, the data set was tricky because some variables took on a ? value which signified the value was neither yes nor no, not that the value was missing. 
+The value for the ? values are assigned a random boolean. 
+The breast cancer data set has random variables with discrete values zero through ten with two classes benign and malignant. 
+Soybean has discrete values zero through six but has seven classes. 
+The continuous case includes the glass and iris data sets. 
+The preprocessing was far more involved which required discretization which is discussed further in section \ref{subsec:pre-processing}.
+
+\subsection{Pre-processing} \label{subsec:pre-processing}
+\paragraph{Unwanted features and missing data values:} 
+ In order to account for possible missing values in the data sets, each set was pre-processed before being passed to the machine learning algorithms.  
+During this pre-processing, it was first be determined if less than 5 percent of the total data has a missing value. 
+If this was the case, the data with the missing values was completely removed from the set. 
+If more than 5 percent are missing values, a range was calculated from the existing data which contains all attribute values for each classifier and missing attributes are randomly chosen from within this range.  
+
+While the pre-processing is taking place, the data sets are also re-formatted to be more easily used.
+All classifier values become the first values for a given row and are also given an integer representation.  
+Any non numeric values, such as Y and N, were also changed to an integer representation. 
+The final step of the pre-processing is to determine if a set has any completely unique attributes, such as patient ID numbers\footnote{This occurs in the breast-cancer-wisconsin set}, and eliminate these attributes.
+
+\paragraph{Discretization of Continuous Attributes:}
+Because classification algorithms such as ID3 and TAN rely on discretized attribute values to make decisions, all continuous data is compartmentalized according to the discretization process described by Fayad and Irani \cite{FayyadIrani}.
+This section uses the same variable notation used in Fayad and Irani's publication.
+
+The challenge of a discretization heuristic is to determine enough cuts points such that each bin has primarily data of one classification, but not generate so many cut points such that the learning algorithms do not have enough data to infer attribute traits common to each classification.
+Cut points are thus chosen using entropy and gain equations similar to what is used in the ID3 algorithm in section \ref{subsec:ID3} and the halting condition uses the minimum description length principle (MDLP) shown in equation \ref{eq:disc-MDLP}.
+
+The entropy, class entropy, gain, and MDLP equations shown in equations \ref{eq:disc-entropy} - \ref{eq:disc-MDLP} are used in algorithm \ref{alg:discretize} to discretize a data set with known classifications and continuous feature values.
+The algorithm iterates over each feature of the data set and recursively generates \textit{n} cut points based on maximal gain until the halting condition has been reached.
+The continuous values of the current feature are then reassigned arbitrary integer values unique to each generated bin.
+
+$S$ is the set of data. 
+$N$ is the size of $S$: $|S|$.
+$P(C_i,S)$ is the ratio of examples in $S$ that have class $C_i$.
+$k$ is the number of classifications in $S$.
+$A$ is an attribute of $S$.
+$T$ is a cut point on $S$ where $S_1 \subset S$ is the data with values $\leq S$ at $T$ and $S_2 \subset S$ is the data with values $> S$ at $T$.
+
+\begin{equation}\label{eq:disc-entropy}
+	Ent(S) = -\sum_{i=1}^{k}P(C_i,s)log_2(P(C_i,S)) 
+\end{equation}
+The ``\textit{class information entropy of the partition induced by T}" \cite{FayyadIrani} is defined by: 
+\begin{equation}\label{eq:disc-class-entropy}
+	E(A,T:S) = \frac{S_1}{S}Ent(S_1) + \frac{S_2}{S}Ent(S_2)
+\end{equation}
+Gain is the set entropy minus class entropy:
+\begin{equation}\label{eq:disc-gain}
+	Gain(A,T:S) = Ent(S) - E(A,T:S)
+\end{equation}
+And the MDLP halting criterion does not stop if
+\begin{equation} \label{eq:disc-MDLP}
+	Gain(A,T:S) > \frac{1}{N}[log_2(N-1) + log_2(3^k - 2) - (kEnt(S) - k_1Ent(S_1) - k_2Ent(S_2))]
+\end{equation}
+
+\begin{algorithm}[tbh]
+\caption{Multi-Interval Discretization}\label{alg:discretize}
+\begin{algorithmic}[1]
+\Procedure{Discretize}{S} returns S with discretized feature values
+	\For {each feature $f \in S$}
+    	\State Sort S by the values of $f$ from least to greatest
+        \State $C \gets $ \textsc{Disc-Recursive}($S, f$) \Comment {C is the list of cut points}
+        \For {cut point $c \in C$}
+        	\State $A \gets $ values of $f$ within cut point partition $c$
+            \State Reassign all values in $A$ with the same arbitrary, unique discrete value 
+        \EndFor
+    \EndFor
+    \State \textbf{Return} S 
+\EndProcedure
+\\
+\Procedure{Disc-Recursive}{S,f} returns a list of cut points for feature $f$
+	\State \textit{Pre:} $A$ is an initially empty set outside of the recursive scope that holds the cut point locations
+    \State \textit{Remark:} $value(S(i),f)$ means the value of data vector $i \in S$ for feature $f$
+	\If {|S| == 1}
+    	\State $A \cup value(S(1),f)$
+        \State \textbf{Return}
+    \EndIf
+    \State $t \gets ARGMIN_{s \in S}(Ent(S))$
+    \State $S_1 \gets $ data vectors $\leq i$
+    \State $S_1 \gets $ data vectors $> i$
+    \State $threshold \gets \frac{1}{N}[log_2(N-1) + log_2(3^k - 2) - (kEnt(S) - k_1Ent(S_1) - k_2Ent(S_2))]$
+    \If {$Gain(A,t:S) < threshold$}
+    	\State \textbf{Return}
+    \Else
+    	\State $A \cup value(S(t),f)$
+        \State \textsc{Disc-Recursive}($S_1, f$)
+        \State \textsc{Disc-Recursive}($S_2, f$)
+    \EndIf  
+    \State \textbf{Return} A
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Performance Metrics} \label{subsec:performance-metrics}
+The metrics of choice are macro-average\footnote{True positive rate averaged over all classifications.}, average precision\footnote{Positive predictive value averaged over all classifications}, average accuracy\footnote{The trueness of positive and negative classifications compared to the actual positive and negative classifications averaged over all classifications.}, and the average F1-score.  Macro-average is chosen over micro-average because some of the data sets have classifications with very few data points as members. It is desired to have the statistics be sensitive to small-sized classification subsets. 
+
+Let TP stand for true positive, TN is true negative, FP is false positive, and FN is false negative.
+Sensitivity is calculated by $\frac{TP}{TP + FN}$.
+Precision is calculated by $\frac{TP}{TP + FP}$.
+Accuracy is calculated by $\frac{TP + TN}{P + N}$.
+F1-score is calculated by $2*\frac{precision*sensitivity}{precision + sensitivity}$
+The macro-average takes the average of a binary measure for each classification $\lambda$ defined as follows:
+\begin{equation} \label{eq:macro-average}
+	macro\_average = \frac{1}{q}\sum_{\lambda}^{q} B(TP_\lambda , TN_\lambda, FP_\lambda, FN_\lambda)
+\end{equation}
+
+\subsection{K-Fold Cross Validation} \label{subsec:kfold-cv}
+K-fold cross validation is used to avoid over-fitting, data memorization, and lucky runs.
+The goal is to take the average metrics of many runs while ensuring that the testing data was not used in training.
+This experiment uses 10-fold cross validation which involves partitioning the data set into ten stratified folds. 
+A loop runs that unions nine of the folds into a training set, and uses the leftover fold as the testing set.
+The results of the testing set is saved for all ten iterations, and the average of the results is used as the final value. 
+
+The 10-fold approach has a weakness with data sets having few\footnote{Less than ten in this situation.} data samples for a specific classification such as the soybean and glass data.
+In this case, two or more testing partitions will test the same data point.
+If the algorithm happens to be particularly good or bad at classifying that shared point, some accuracy in results has been lost.
+However, 10-fold cross validation is still used because the benefit of avoiding over-fitting on small data set sizes outweighs the sample point bias that can occur.
+
+\subsection{Experiment Run} \label{subsec:experiment-run}
+The experiment is designed to run all data sets across all algorithms while recording the desired averaged metrics described by section \ref{subsec:performance-metrics} and \ref{subsec:kfold-cv}.
+The experiment is run in the procedure described by algorithm \ref{alg:exp-run}.
+Note that the data sets have already been pre-processed.
+
+\begin{algorithm}[tbh]
+\caption{Experiment Run}\label{alg:exp-run}
+\begin{algorithmic}[1]
+\Procedure{Experiment}{}
+    \For {each data set}
+    	\State $partitions \gets data\_set\_partitions[1...10]$
+        \For {each machine learning classifier}
+        	\Loop { $10$ times}
+            	\State $training\_set \gets partitions[1...9]$
+                \State $testing\_set \gets partitions[10]$
+                \State \textsc{Train}($training\_set$, classifier)
+                \State $fold\_results[i] \gets $ \textsc{Test}($testing\_set$, classifier) \Comment{Returns a conf. matrix}
+                \State $training\_set.$\textsc{Shift()}
+                \State $testing\_set.$\textsc{Shift()}
+            \EndLoop
+            \State $results \gets $ \textsc{Average}($fold\_results$)
+        \EndFor
+    \EndFor
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}

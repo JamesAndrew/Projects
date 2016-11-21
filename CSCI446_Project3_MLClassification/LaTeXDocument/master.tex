@@ -1,0 +1,32 @@
+\input{setup/preamble.tex}% package inclusion and set up of the document
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\input{setup/hyphenations.tex}% 
+\input{setup/macros.tex}% my new macros
+
+\begin{document}
+%frontmatter
+\pagestyle{empty} %disable headers and footers
+\pagenumbering{roman} %use roman page numbering in the frontmatter
+
+\input{sections/frontpage.tex}
+\input{sections/00-abstract.tex}
+\clearpage
+
+\pagestyle{fancy} %enable headers and footers again
+%mainmatter
+\pagenumbering{arabic} %use arabic page numbering in the mainmatter
+
+\input{sections/01-ProblemStatement.tex}
+\input{sections/02-AlgorithmDescription.tex}
+\input{sections/03-ExperimentalApproach.tex}
+\input{sections/04-Results.tex}
+\input{sections/05-AlgorithmBehavior.tex}
+\input{sections/06-Summary.tex}
+
+\printbibliography[heading=bibintoc]\label{bib:mybiblio}
+\appendix
+\input{sections/appendixA.tex}
+
+\end{document}

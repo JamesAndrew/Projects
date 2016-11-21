@@ -1,0 +1,319 @@
+iris_data_set added to DataSet.vectors.
+Beginning 10-fold Cross Validation...
+Data Set: tiny-iris-data-set
+Algorithm: K-Nearest Neighbor
+
+Fold 1 of 2 being tested (Only 2 folds now for brevity. Is normally 10):
+Current testing fold discretized vectors (the first column is the classification):
+[0 1 1 1 1 ]
+[0 1 3 1 1 ]
+[1 2 1 2 1 ]
+[1 5 1 2 2 ]
+[2 8 1 6 5 ]
+[2 8 4 5 6 ]
+----------------------------------------------
+k size: 17
+
+Looping through each point in the testing fold and comparing to all testing vectors...
+Current query data point: #1
+Query vector expected classification: 0
+Query vector features: [1, 1, 1, 1]
+k-nearest training points to the testing vector (classifications and features):
+[0 1 1 1 1 ]
+[0 1 2 1 1 ]
+[0 1 4 1 1 ]
+[0 1 3 1 1 ]
+[0 1 3 1 1 ]
+[0 1 3 1 1 ]
+[0 1 2 1 1 ]
+[0 1 4 1 1 ]
+[0 1 6 1 1 ]
+[0 1 2 1 1 ]
+[0 1 6 1 1 ]
+[1 1 1 2 2 ]
+[0 2 6 1 1 ]
+[0 2 6 1 1 ]
+[0 2 4 1 1 ]
+[0 2 4 1 1 ]
+[0 2 5 1 1 ]
+Query vector expected: 0, Query vector actual: 0
+
+Current query data point: #2
+Query vector expected classification: 0
+Query vector features: [1, 3, 1, 1]
+k-nearest training points to the testing vector (classifications and features):
+[0 1 3 1 1 ]
+[0 1 3 1 1 ]
+[0 1 3 1 1 ]
+[0 1 2 1 1 ]
+[0 1 4 1 1 ]
+[0 1 1 1 1 ]
+[0 1 2 1 1 ]
+[0 1 4 1 1 ]
+[0 1 6 1 1 ]
+[0 1 2 1 1 ]
+[0 1 6 1 1 ]
+[0 2 6 1 1 ]
+[0 2 6 1 1 ]
+[0 2 4 1 1 ]
+[0 2 4 1 1 ]
+[0 2 5 1 1 ]
+[0 4 6 1 1 ]
+Query vector expected: 0, Query vector actual: 0
+
+Current query data point: #3
+Query vector expected classification: 1
+Query vector features: [2, 1, 2, 1]
+k-nearest training points to the testing vector (classifications and features):
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 1 1 2 2 ]
+[1 5 1 2 2 ]
+[0 2 6 1 1 ]
+[0 1 1 1 1 ]
+[1 4 1 2 2 ]
+[1 6 1 2 2 ]
+[0 2 6 1 1 ]
+[1 6 1 2 2 ]
+[0 2 4 1 1 ]
+[1 5 1 2 2 ]
+Query vector expected: 1, Query vector actual: 1
+
+Current query data point: #4
+Query vector expected classification: 1
+Query vector features: [5, 1, 2, 2]
+k-nearest training points to the testing vector (classifications and features):
+[1 5 1 2 2 ]
+[1 5 1 2 2 ]
+[1 1 1 2 2 ]
+[1 2 1 2 2 ]
+[1 4 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 6 1 2 2 ]
+[1 6 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 6 1 2 2 ]
+[1 3 1 2 2 ]
+[1 4 1 2 2 ]
+[1 4 2 2 2 ]
+Query vector expected: 1, Query vector actual: 1
+
+Current query data point: #5
+Query vector expected classification: 2
+Query vector features: [8, 1, 6, 5]
+k-nearest training points to the testing vector (classifications and features):
+[2 9 1 6 5 ]
+[2 9 4 6 5 ]
+[2 6 1 5 5 ]
+[2 9 1 6 6 ]
+[2 8 3 6 6 ]
+[2 8 2 6 6 ]
+[2 7 1 6 6 ]
+[2 7 1 6 6 ]
+[2 9 1 6 6 ]
+[2 8 4 6 6 ]
+[2 8 2 6 6 ]
+[1 1 1 2 2 ]
+[1 5 1 2 2 ]
+[2 8 2 5 6 ]
+[1 2 1 2 2 ]
+[2 9 6 6 6 ]
+[0 1 1 1 1 ]
+Query vector expected: 2, Query vector actual: 2
+
+Current query data point: #6
+Query vector expected classification: 2
+Query vector features: [8, 4, 5, 6]
+k-nearest training points to the testing vector (classifications and features):
+[2 8 2 5 6 ]
+[2 8 4 6 6 ]
+[2 5 1 5 6 ]
+[2 8 3 6 6 ]
+[2 5 1 5 6 ]
+[2 8 2 6 6 ]
+[2 8 2 6 6 ]
+[2 4 1 5 6 ]
+[0 1 4 1 1 ]
+[2 9 4 6 5 ]
+[2 9 6 6 6 ]
+[2 6 1 5 5 ]
+[2 9 1 6 6 ]
+[0 1 4 1 1 ]
+[0 2 4 1 1 ]
+[2 7 1 6 6 ]
+[2 7 1 6 6 ]
+Query vector expected: 2, Query vector actual: 2
+
+
+Fold 2 of 2 being tested (Only 2 folds now for brevity. Is normally 10):
+Current testing fold discretized vectors (the first column is the classification):
+[0 1 2 1 1 ]
+[0 1 4 1 1 ]
+[1 1 1 2 2 ]
+[1 5 1 2 2 ]
+[2 9 4 6 5 ]
+[2 8 2 5 6 ]
+----------------------------------------------
+k size: 17
+
+Looping through each point in the testing fold and comparing to all testing vectors...
+Current query data point: #1
+Query vector expected classification: 0
+Query vector features: [1, 2, 1, 1]
+k-nearest training points to the testing vector (classifications and features):
+[0 1 2 1 1 ]
+[0 1 2 1 1 ]
+[0 1 1 1 1 ]
+[0 1 3 1 1 ]
+[0 1 3 1 1 ]
+[0 1 3 1 1 ]
+[0 1 1 1 1 ]
+[0 1 3 1 1 ]
+[0 1 4 1 1 ]
+[0 1 6 1 1 ]
+[0 1 6 1 1 ]
+[0 2 6 1 1 ]
+[0 2 6 1 1 ]
+[0 2 4 1 1 ]
+[0 2 4 1 1 ]
+[0 2 5 1 1 ]
+[0 4 6 1 1 ]
+Query vector expected: 0, Query vector actual: 0
+
+Current query data point: #2
+Query vector expected classification: 0
+Query vector features: [1, 4, 1, 1]
+k-nearest training points to the testing vector (classifications and features):
+[0 1 4 1 1 ]
+[0 1 1 1 1 ]
+[0 1 3 1 1 ]
+[0 1 3 1 1 ]
+[0 1 3 1 1 ]
+[0 1 1 1 1 ]
+[0 1 3 1 1 ]
+[0 1 2 1 1 ]
+[0 1 6 1 1 ]
+[0 2 4 1 1 ]
+[0 2 4 1 1 ]
+[0 1 2 1 1 ]
+[0 1 6 1 1 ]
+[0 2 6 1 1 ]
+[0 2 6 1 1 ]
+[0 2 5 1 1 ]
+[0 4 6 1 1 ]
+Query vector expected: 0, Query vector actual: 0
+
+Current query data point: #3
+Query vector expected classification: 1
+Query vector features: [1, 1, 2, 2]
+k-nearest training points to the testing vector (classifications and features):
+[1 5 1 2 2 ]
+[1 2 1 2 2 ]
+[1 4 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 6 1 2 2 ]
+[1 6 1 2 2 ]
+[1 2 1 2 2 ]
+[1 5 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 6 1 2 2 ]
+[1 3 1 2 2 ]
+[1 4 1 2 2 ]
+[0 1 1 1 1 ]
+[1 2 1 2 1 ]
+Query vector expected: 1, Query vector actual: 1
+
+Current query data point: #4
+Query vector expected classification: 1
+Query vector features: [5, 1, 2, 2]
+k-nearest training points to the testing vector (classifications and features):
+[1 5 1 2 2 ]
+[1 5 1 2 2 ]
+[1 2 1 2 2 ]
+[1 4 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 6 1 2 2 ]
+[1 6 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 2 1 2 2 ]
+[1 6 1 2 2 ]
+[1 3 1 2 2 ]
+[1 4 1 2 2 ]
+[1 2 1 2 1 ]
+[1 4 2 2 2 ]
+Query vector expected: 1, Query vector actual: 1
+
+Current query data point: #5
+Query vector expected classification: 2
+Query vector features: [9, 4, 6, 5]
+k-nearest training points to the testing vector (classifications and features):
+[2 9 1 6 5 ]
+[2 8 1 6 5 ]
+[2 9 6 6 6 ]
+[2 9 1 6 6 ]
+[2 9 1 6 6 ]
+[2 8 4 6 6 ]
+[2 9 2 6 6 ]
+[2 8 4 5 6 ]
+[2 6 1 5 5 ]
+[2 8 3 6 6 ]
+[0 1 4 1 1 ]
+[2 8 2 6 6 ]
+[0 2 4 1 1 ]
+[2 7 1 6 6 ]
+[2 7 1 6 6 ]
+[0 2 4 1 1 ]
+[2 8 2 6 6 ]
+Query vector expected: 2, Query vector actual: 2
+
+Current query data point: #6
+Query vector expected classification: 2
+Query vector features: [8, 2, 5, 6]
+k-nearest training points to the testing vector (classifications and features):
+[2 8 4 5 6 ]
+[2 8 2 6 6 ]
+[2 8 2 6 6 ]
+[2 5 1 5 6 ]
+[2 8 3 6 6 ]
+[2 5 1 5 6 ]
+[2 8 4 6 6 ]
+[2 4 1 5 6 ]
+[2 9 2 6 6 ]
+[2 8 1 6 5 ]
+[1 4 2 2 2 ]
+[2 9 6 6 6 ]
+[2 6 1 5 5 ]
+[2 9 1 6 6 ]
+[0 1 2 1 1 ]
+[2 7 1 6 6 ]
+[2 7 1 6 6 ]
+Query vector expected: 2, Query vector actual: 2
+
+
+Printing all confusion matrices.
+=== KNN ===
+iris_data_set: 
+2.000 0.000 0.000 
+0.000 2.000 0.000 
+0.000 0.000 2.000 
+
+--------------------
+Category 1 
+   Sensitivity: 1.000
+   Precision:   1.000
+   Accuracy:    1.000

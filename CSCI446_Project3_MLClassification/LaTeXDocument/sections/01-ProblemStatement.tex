@@ -1,0 +1,41 @@
+\section{Problem Statement} \label{sec:problem statement}
+The goal of this project is to implement four different machine learning algorithms and test each of them on five different data sets from the UCI Machine Learning Repository to attempt to gauge under what circumstances each performs best.
+By testing each algorithm on a variety of data sets, it should be possible to determine which should be used on a new set of data just by evaluating the characteristics of the data. 
+In order to compare results across data sets as well as algorithms, each set must be pre-processed so that they not only have similar formatting but also so that all data points are discrete. 
+
+The algorithms chosen to be implemented are K-Nearest Neighbor, Naive Bayes, Tree Augmented Naive Bayes(TAN) and Decision Tree Learning - Iterative Dichotomiser 3 (ID3). Each of these algorithms will be run on the following five data sets from the UCI repository. 1. Breast-Cancer-Wisconsin, 2. Glass, 3. House-Votes-84, 4. Iris, 5. Soybean.\cite{Lichman}
+
+\subsection{Hypothesis} \label{subsec:hypothesis}
+
+\paragraph{K-Nearest Neighbor}
+K-nearest neighbor has a bias to preform best on data with distinct class separation values and poorly on data with unequal sample sizes for each classification.
+We also expect K-nearest neighbor to outperform the other classification algorithms on larger data sets (as long as there is still decent class separation and equal sample sizes) that do not also have a large amount of classification values. 
+This is because k-NN doesn't rely on a trained model, but instead relies on the nearby spatial majority.
+Fewer classifications may cause less noise, and similar classification stratification will allow for a more effective choice of \textit{k}. 
+
+Because of these reasons, the \textit{House Votes} and \textit{Breast Cancer} data sets are hypothesized to perform best on k-NN, while \textit{Soybean-small} may perform the most poorly.
+The \textit{Iris} and \textit{Glass} data sets are expected to perform on average with the other classification algorithms.
+
+\paragraph{Na\"{i}ve Bayes}
+Due to the close similarities between Naive Bayes and TAN, both algorithms should see similar results. 
+Since Naive Bayes does not rely on relations between attributes, it is hypothesized that it should perform better, relative to TAN, when data sets are smaller or have less attributes. 
+However, Naive Bayes should still perform best on larger sets that do not have large ranges where individual attribute values can fall. 
+
+\paragraph{Tree Augmented Na\"{i}ve Bayes (TAN)}
+The TAN algorithm is expected to do well on larger data sets that also have more attributes per classification but still have lower numbers of unique attribute values.  
+Like Naive Bayes, if an attribute is present in a testing set but not in a training set, the probability and therefore prediction of classes containing that attribute may be unnecessarily negatively influenced. Lower number of unique attributes should also help when matching on influential variables in a given tree.  
+TAN should perform best on the \textit{House-Votes} data set but do poorly on \textit{Glass} and \textit{Soybean}. 
+
+\paragraph{Decision Tree: ID3}
+Because decision trees provide paths to a classification based on the value of a specific feature, outliers and linearly separated classification values will not negatively affect performance.  
+However, for the same reasons, over-fitting can easily occur.
+Deep trees are also a sign of over-fitting.
+The approach used to handle over-fitting is pruning; however, this requires the data set be split into three sets: a testing set, pruning set, and training set.
+This is an innate weakness of pruning decision trees with small data sets - there may not be enough data to split into three sets while still having a large enough testing set to produce statistically significant results.
+Decision trees also branch off of discrete attribute values whether the data was originally categorical or continuous. 
+
+Thus, we predict that ID3 will perform best on large data sets with few features that already have discrete feature values\footnote{Continuous feature values will be discretized during pre-processing, but this makes an assumption that already-categorical data has a more helpful representation of which branch to take at each decision node.}. 
+\textit{Breast Cancer} and \textit{Iris} data sets fit this criteria the best.
+The \textit{Iris} data set does have continuous values, but may perform average or above average due to having only four features and has a reasonable number of instances.
+\textit{Glass} data set is expected to perform average due to continuous values, average sample size, and average number of features.
+The \textit{Soybean} data set has only 47 instances and is expected to perform the worst. 

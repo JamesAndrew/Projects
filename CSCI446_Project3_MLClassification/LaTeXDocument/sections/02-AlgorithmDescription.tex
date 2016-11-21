@@ -1,0 +1,177 @@
+\section{Description of Algorithms Implemented} \label{sec:description}
+\subsection{K-Nearest Neighbor}
+K-Nearest Neighbor is a lazy learner that uses a distance function and threshold value $k$ to determine classification of a point based on the $k$ closest points.
+The design points of interest are the value to set $k$ to and the distance metric.
+
+\paragraph{Choice of \textit{k}:}
+The value of $k$ needs to be large enough to soften the influence of noisy data points, but small enough to stay within the spatial boundary of a point's correct category population.
+This implementation sets $k$ to be the size of the smallest category population minus one as shown in equation \ref{eq:k-nn}.
+\begin{equation}\label{eq:k-nn}
+	k = n - 1 \> | \> n = min(|s|, s \in category\_sets)
+\end{equation}
+If there was a data set with 10 training data points for classification \textit{A} while other other classifications had at least 100 training points, a value of $k > 20$ would cause a misclassification any time the testing data point was of class \textit{A}.
+This approach guarantees that will not happen while adapting for some noise.
+
+\paragraph{Distance function:}
+Because all features are categorical (discussed in section \ref{subsec:pre-processing}), the hamming value difference metric in equation \ref{eq:hamming-distance} is used.
+\begin{align}\label{eq:hamming-distance}
+\begin{split}
+	D_H = &\sum_{i=1}^{k}|x_i - y_i| \\
+    classification(x_i) == &classification(y_i) => |x_i - y_i| = 1 \\
+    \neg(classification(x_i) == &classification(y_i)) => |x_i - y_i| = 0
+\end{split}
+\end{align}
+
+Many more complex categorical distance functions could be used such as the Eskin, IOF, Goodall, and Burnaby functions \cite{Boriah}.
+However, the hamming distance is used because this k-nearest neighbor algorithm is meant to be our base case algorithm for comparative analysis of the NB, TAN, and ID3 algorithms. 
+In other words, k-nearest neighbor should be as na\"{i}ve and simple as possible.
+
+\paragraph{Algorithm}
+The procedure follows the approach described by Leung \cite{Leung} and is shown in algorithm \ref{alg:k-NN}.
+Procedure \textsc{ClosetPoints}($k,p$) generates a subset of $k$ data that are closest to point $p$ using the hamming distance of equation \ref{eq:hamming-distance}.
+
+\begin{algorithm}
+\caption{k-Nearest Neighbor Algorithm}\label{alg:k-NN}
+\begin{algorithmic}[1]
+\Procedure{k-NN}{$D, C, p$}
+	\State \textbf{pre:} D is the preprocessed, categorical training data sets
+    \State \textbf{pre:} C is the classifications of each training data point
+    \State \textbf{pre:} p is the normalized query point to assign a classification
+    \State $k \gets min(|d|, d \in D_{category\_set}) - 1$)
+    \State $neighborhood \gets$ \textsc{ClosestPoints($k, p$)}
+    \State $classification \gets$ \textsc{MajorityClass}($neighborhood$)  
+    \State \textbf{return} $classification$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Na\"{i}ve Bayes}
+Na\"ive Bayes model uses conditional independence and decomposition to reduce the number of probability calculations that general Bayes' Rule naturally requires \cite{Russell}. The general case of Bayes' Rule in equation \ref{eq:br} can be reduced by utilizing the general form of conditional independence to yield equation \ref{eq:ci}.
+
+\begin{equation}\label{eq:br}
+	\boldsymbol P(Y | X) = \frac{\boldsymbol P(X | Y) \boldsymbol P(Y)}{\boldsymbol P(X)} 
+\end{equation}
+
+\begin{equation}\label{eq:ci}
+	\boldsymbol P(X | Y, Z) = \boldsymbol P(X | Z) \boldsymbol P(Z)
+\end{equation}
+
+Decomposition is performed to produce the Na\"ive Bayes (NB) model in equation \ref{eq:nb}.
+
+\begin{equation}\label{eq:nb}
+	\boldsymbol P (C | X) = \boldsymbol P(C) \prod_{i} \boldsymbol P(x_i | C)
+\end{equation}
+
+The left side of the NB equation is the posterior probability or the probability of an object X belonging to a particular class given a set of attributes $X = <x_1, x_2, \ldots, x_n>$. 
+The $\boldsymbol P(C)$ is the prior probability or the probability of an object belonging to the class in question.
+Finally, the likelihood of each attribute given the class are all multiplied together. 
+When used with a training set, the values on the right are calculated using frequency tables based on the training set.
+With the probabilities from the training data, equation \ref{eq:nb} is then performed on each object in the test set for each class. 
+The class which returns the highest probability is the class the object is classified as.
+
+\subsection{Tree Augmented Na\"{i}ve Bayes (TAN)}
+TAN \cite{Friedman} augments NB by relaxing the conditional independence assumption by allowing more complex relationships among attributes. 
+This is accomplished by introducing a deeper tree than the flat tree in NB (which is so simple that it seems a tree is not even necessary in the implementation). 
+The issue that arises is that determining the optimal tree becomes intractable \cite{Friedman}. 
+A simple restriction would be to allow each attribute to have, as parents, the class (like NB) and at most one other attribute \cite{Friedman}. 
+The method used in \cite{Friedman} uses conditional mutual information \ref{eq:cmi} to determine some relationships between attributes.
+
+\begin{equation}\label{eq:cmi}
+	I_P = (X; Y | Z) = \sum_{x, y, z} P(x, y, c) \log \frac{P(x, y | z)}{P(x | z) P(y | z)}
+\end{equation}
+
+The conditional mutual information in essence measures the information Y provides to X when Z is known \cite{Friedman}. The relationship which maximizes $I_P$ is the one wanted. The TAN algorithm \ref{alg:TAN} augments NB with additional, yet fairly simple, structure.
+
+\begin{algorithm}
+\caption{Tree Augmented Na\"ive Bayes}\label{alg:TAN}
+\begin{algorithmic}[1]
+\Procedure{TAN}{$D, C$}
+	 \State {G = undirected graph with an edge between attributes}
+     \For {all attribute pairs}
+     \State {$attr-edge(x_i, x_j) = I_P(x_i, x_j)$}
+    \EndFor
+    \State {build a maximum spanning tree $MSP$} 
+    \State {convert $MSP$ to a directed graph}
+    \State {build $TAN$ model by connecting $C$ to all $X$}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+This model can then be used to classify the objects. The formulation used is in equation \ref{eq:tan} and used much the same way as equation \ref{eq:nb}.
+
+\begin{equation}\label{eq:tan}
+	\boldsymbol P(C | X) = \boldsymbol P(C) \boldsymbol P(X_{root} | C) \prod_{i} \boldsymbol P(X_i | C, X_{parent})
+\end{equation}
+
+\subsection{Decision Tree Learning - Iterative Dichotomiser 3 (ID3)} \label{subsec:ID3}
+ID3 is a decision tree learner that sets a model according to training data, and then classifies new data according to the model.
+Leaf-node values are the classification to apply to the query data, inner-node values represent a feature of the data, and branches represent the feature-value of the query data point for the feature node currently visited.
+The fitness functions and training algorithm follow the procedure described by J. R. Quinlan \cite{Quinlan}.
+
+Classification using ID3 has three main procedures:
+\begin{enumerate}
+	\item Train - build the decision tree until it cannot be built any further as shown in algorithm \ref{alg:ID3}.
+    \item Prune - remove inner nodes if their removal causes the tree to perform better.
+    \item Classify - assign query data a classification according to the leaf node they traverse to when sent through the decision tree.
+\end{enumerate}
+
+\paragraph{Fitness Functions:}
+ID3 greedily evaluates the best feature to use at a given inner-node using entropy and gain fitness functions. 
+$S$ is the data set, $c$ is the numbers of features that can be obtained from $S$, $p_i$ is the ratio of $s \in S$ belonging to some feature $i$.
+$F$ is a specific feature within $S$ and $S_v \subset S$ is the data values in $S$ with some specific feature. 
+\begin{equation}\label{eq:entropy}
+	Entropy(S) = \sum_{i=1}^{c}-p_i log_2 (p_i) 
+\end{equation}
+\begin{equation}\label{eq:gain}
+	Gain(S,F) = Entropy(S) - \sum_{v \in Values(F)}\frac{|S_v|}{|S|}Entropy(S_v)
+\end{equation}
+\begin{equation}\label{eq:attribute-subset}
+	S_v = {s \in S \> | \> F(s) = v}
+\end{equation}
+
+\paragraph{Over-fitting:}
+Decision trees can be prone to over-fitting due to a bias of memorizing the best path of many training data points and creating a tree that is too deep as a result. 
+Reduced error pruning handles this by considering each non-leaf node as a potential pruning candidate, turning each inner-node into a leaf node with the classification most common among its child leaf nodes, and keeping the pruned state if the performance of the tree is better than the non-pruned state.
+
+The performance measure used in this implementation is the average true positive ratio over each classification of the data set.
+This measure is chosen to give a pruning preference of correct classification over correct negative classifications.
+
+\paragraph{Algorithm:}
+Recursively build decision sub-trees by choosing node feature assignments based on maximal gain.
+Remove the chosen node's feature from the list of available features.
+If all values in the data set have the came classification, have no remaining features to assign as an inner-node, or if there are no data points to assign to in the next recursive iteration, then generate a new leaf node with the classification value equal to the most common classification left in the data set.
+
+\begin{algorithm}[tbh]
+\caption{Decision Tree Learning - ID3}\label{alg:ID3}
+\begin{algorithmic}[1]
+\Procedure{ID3-Train}{$S, node, features$}
+	\State \textbf{Pre:} $S$ is a pre-processed data set of values with categorical features and known classifications
+%     \State $root\_node \gets target\_feature$
+    \If {$|S_{classifications}| = 1$}
+    	\State \textbf{return} a new node as leaf with classification $s_{classification}$
+    \EndIf
+    \If {$|features| = 0$}
+    	\State \textbf{return} new node as leaf with classification of the majority category among data points still in S 
+    \Else
+    	\State $best\_feature \gets \{f \> | \> \forall features \in S, f = MAX(Gain(S,features_i))\}$
+        \State $node_{value} \gets best\_feature$
+        \For {each feature value $f_i \in best\_feature$}
+        	\State Generate new branch with value $f_i$
+            \State $S' \gets \{S_i \subset S \> | \>$the subset is only values from $S$ with feature value $f_i$ for feature $best\_feature$ \} 
+            \If {$|S'| = 0$}
+            	\State Attach new node as leaf with classification $MAX(|S'_{classification\_type}|)$
+            \Else
+            	\State $new\_node \gets $ child of $node$ from branch $f_i$
+            	\State \textsc{ID3-Train}($S', new\_node, features - \{best\_feature\}$)
+            \EndIf
+        \EndFor
+    \EndIf
+    \State \textbf{return} current node as leaf
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+
+
+
