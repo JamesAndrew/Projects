@@ -231,7 +231,7 @@ public class TAN extends Categorizer
 //            System.out.format("Probability of Val:%d for Class:%d = %f%n", matchNode.getTraitValue(), classVal, prob);
             if (influencePresent(matchNode, vector))
             {
-                return prob * 10;
+                return prob * 10000;
             }
             return prob / 10;
             //naive: return prob;
