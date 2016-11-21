@@ -60,7 +60,8 @@ public class Experiment
                 String categorizerName = "not set yet";
                 
                 // for each 10-fold cross validation run...
-                for (int cvRun = 0; cvRun < partitions.length; cvRun++)
+                for (int cvRun = 0; cvRun < 1; cvRun++) // temp to just run once
+//                for (int cvRun = 0; cvRun < partitions.length; cvRun++)
                 {
                     System.out.format("Current Fold: %d of %d%n", cvRun+1, partitions.length);
                     
@@ -95,8 +96,8 @@ public class Experiment
             }
         }
         // program finishes once each data set has run (across all 5 categorizers)
-        System.out.println("\nAll runs finished. Displaying final statisctins:");
-        Statistics.printAllStatistics();
+        System.out.println("\nAll runs finished. Displaying final confusion matrices:");
+        Statistics.printConfusionMatrix();
     }
     
     /**
