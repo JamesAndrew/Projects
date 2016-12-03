@@ -9,10 +9,7 @@ package racetrack;
  *
  * @author James
  */
-public class Driver 
+public class Racetrack 
 {
-    public static void main(String[] args)
-    {
-        
-    }
+    
 }

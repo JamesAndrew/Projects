@@ -9,10 +9,6 @@ package racetrack;
  *
  * @author James
  */
-public class Driver 
-{
-    public static void main(String[] args)
-    {
-        
-    }
+public class SARSA {
+    
 }
