@@ -45,11 +45,8 @@ public class Experiment
     {
         
         // create file reader for dataset file and wrap it in a buffer
-        FileReader fileReader = null;
-        try {
-                fileReader = new FileReader(fileName);
-        } catch (FileNotFoundException e) {
-        }
+        FileReader fileReader = new FileReader(fileName);
+        
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         
         String line = null;
@@ -57,7 +54,8 @@ public class Experiment
             line = bufferedReader.readLine();
         } catch (IOException e) {
             }
-            String[] data = line.split(",");
+        
+        String[] data = line.split(",");
                         
         int starts = 0; // counter for start blocks
         int finishes = 0; // counter for finish blocks
@@ -85,10 +83,12 @@ public class Experiment
                     finishes++;
                 }
             }
+            line = null;
         }
+        data = null;
         
         bufferedReader.close();
-        
+        fileReader.close();
         return T;
     }
     
