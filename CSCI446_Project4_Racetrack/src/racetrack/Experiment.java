@@ -33,7 +33,14 @@ public class Experiment
         R.printTrack();
     }
     
-    
+    /**
+     * 
+     * @param fileName
+     * @param T
+     * @return Racetrack object T
+     * @throws IOException 
+     * Creates T using fileName
+     */
     private Racetrack ConvertToRacetrack(String fileName, Racetrack T) throws IOException
     {
         
@@ -42,8 +49,6 @@ public class Experiment
         try {
                 fileReader = new FileReader(fileName);
         } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
         }
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         
@@ -51,11 +56,11 @@ public class Experiment
         try {
             line = bufferedReader.readLine();
         } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
             }
             String[] data = line.split(",");
                         
+        int starts = 0; // counter for start blocks
+        int finishes = 0; // counter for finish blocks
         int rows = Integer.parseInt(data[0]);
         int cols = Integer.parseInt(data[1]);
         System.out.println("Track " + fileName + " (r, c)= (" + rows + ", " + cols + ")"); 
@@ -65,14 +70,24 @@ public class Experiment
             try {
                 line = bufferedReader.readLine();
             } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
                 }
             for(int j = 0; j < line.length(); j++)
             {
                 T.setTrack(i, j, line.charAt(j));
+                if(line.charAt(j) == 'S')
+                {
+                    T.setStart(starts, j, i);
+                    starts++;
+                }
+                else if(line.charAt(j) == 'F')
+                {
+                    T.setFinish(finishes, j, i);
+                    finishes++;
+                }
             }
         }
+        
+        bufferedReader.close();
         
         return T;
     }
