@@ -11,7 +11,10 @@ package racetrack;
  */
 public class Racetrack 
 {
-    private char [][] track;
+    private final char [][] track;
+    
+    private int [] start;
+    private int [] finish;
     
     public Racetrack(int r, int c)
     {
