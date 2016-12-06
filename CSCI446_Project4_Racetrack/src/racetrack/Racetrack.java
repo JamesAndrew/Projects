@@ -9,7 +9,7 @@ package racetrack;
  *
  * @author James
  */
-public class Racetrack 
+public class Racetrack implements IRacetrack
 {
     private char [][] track;
     
