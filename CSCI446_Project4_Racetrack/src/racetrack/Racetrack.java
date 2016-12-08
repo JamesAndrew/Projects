@@ -14,13 +14,13 @@ import java.util.ArrayList;
  */
 public class Racetrack implements IRacetrack
 {
+
     private Cell[][] track;
-    private int[] currentCarLoc;
-    private int[] lastCarLoc;
-    private ArrayList<int[]> start = new ArrayList(); 
-    private ArrayList finish = new ArrayList(); 
-    
-    
+    private Cell currentCarLoc;
+    private Cell lastCarLoc;
+    private ArrayList<Cell> start = new ArrayList();
+    private ArrayList<Cell> finish = new ArrayList();
+
     public Racetrack(int r, int c)
     {
         track = new Cell[r][c];
@@ -28,17 +28,15 @@ public class Racetrack implements IRacetrack
 
     public void setTrack(int r, int c, char t)
     {
-        track[r][c] = new Cell(r, c, t);
-    }
-    
-    public void addToStart(int r , int c)
-    {
-        
-    }
-    
-    public void addToFinish(int r , int c)
-    {
-        
+        Cell newCell = new Cell(r, c, t);
+        track[r][c] = newCell;
+        if (t == 'S')
+        {
+            start.add(newCell);
+        } else if (t == 'F')
+        {
+            finish.add(newCell);
+        }
     }
 
     public void printTrack()
@@ -56,7 +54,6 @@ public class Racetrack implements IRacetrack
         }
     }
 
-
     public void getCrashLocations()
     {
 
@@ -69,18 +66,28 @@ public class Racetrack implements IRacetrack
 
     private boolean collisionCheck()
     {
-        Line2D path = new Line2D.Double(currentCarLoc[0], currentCarLoc[1], lastCarLoc[0], lastCarLoc[1]);
-        int minX = Math.min(currentCarLoc[0], lastCarLoc[0]);
-        int maxX = Math.max(currentCarLoc[0], lastCarLoc[0]);
-        int minY = Math.min(currentCarLoc[1], lastCarLoc[1]);
-        int maxY = Math.max(currentCarLoc[1], lastCarLoc[1]);
-        for (int i = minX; i <= maxX; i++)
+        Line2D path = new Line2D.Double(currentCarLoc.getRow(), currentCarLoc.getCol(), lastCarLoc.getRow(), lastCarLoc.getCol());
+        int minR = Math.min(currentCarLoc.getRow(), lastCarLoc.getRow());
+        int maxR = Math.max(currentCarLoc.getRow(), lastCarLoc.getRow());
+        int minC = Math.min(currentCarLoc.getCol(), lastCarLoc.getCol());
+        int maxC = Math.max(currentCarLoc.getCol(), lastCarLoc.getCol());
+        for (int i = minR; i <= maxR; i++)
         {
-            for (int j = minY; j <= maxY; j++)
+            for (int j = minC; j <= maxC; j++)
             {
-                
+                if (track[i][j].getType() == '#')
+                {                    
+                    Line2D edge1 = new Line2D.Double(track[i][j].getRow(), track[i][j].getCol(), track[i][j].getRow(), track[i][j].getCol() + 0.95);
+                    Line2D edge2 = new Line2D.Double(track[i][j].getRow(), track[i][j].getCol(), track[i][j].getRow() + 0.95, track[i][j].getCol());
+                    Line2D edge3 = new Line2D.Double(track[i][j].getRow() + 0.95, track[i][j].getCol(), track[i][j].getRow() + 0.95, track[i][j].getCol() + 0.95);
+                    Line2D edge4 = new Line2D.Double(track[i][j].getRow() + 0.95, track[i][j].getCol() + 0.95, track[i][j].getRow(), track[i][j].getCol() + 0.95);
+                    if (path.intersectsLine(edge1) || path.intersectsLine(edge2) || path.intersectsLine(edge3) || path.intersectsLine(edge4))
+                    {
+                        return true;
+                    }
+                }
             }
         }
-        return true; 
+        return false;
     }
 }

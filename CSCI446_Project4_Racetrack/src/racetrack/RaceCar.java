@@ -13,12 +13,11 @@ public class RaceCar
     private int velocityY = 0;
     private int accelerationX = 0;
     private int accelerationY = 0;
-    private int[] location = new int[2];
+    private Cell location;
 
-    public RaceCar(int xStart, int yStart)
+    public RaceCar(Cell start)
     {
-        location[0] = xStart;
-        location[1] = yStart;
+        location = start; 
     }
 
     /*
@@ -47,14 +46,13 @@ public class RaceCar
         }
     }
 
-    public void reset(int xStart, int yStart)
+    public void reset(Cell start)
     {
         velocityX = 0;
         velocityY = 0;
         accelerationX = 0;
         accelerationY = 0;
-        location[0] = xStart;
-        location[1] = yStart;
+        location = start; 
     }
     
     public void move()
@@ -62,7 +60,7 @@ public class RaceCar
         
     }
     
-    public int[] getLocation()
+    public Cell getLocation()
     {
         return location; 
     }
