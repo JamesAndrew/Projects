@@ -14,26 +14,26 @@ import java.util.ArrayList;
  */
 public class Racetrack implements IRacetrack
 {
-
-    private char[][] track;
+    private Cell[][] track;
     private int[] currentCarLoc;
     private int[] lastCarLoc;
     private ArrayList<int[]> start = new ArrayList(); 
     private ArrayList finish = new ArrayList(); 
-
+    
+    
     public Racetrack(int r, int c)
     {
-        track = new char[r][c];
+        track = new Cell[r][c];
     }
 
     public void setTrack(int r, int c, char t)
     {
-        track[r][c] = t;
+        track[r][c] = new Cell(r, c, t);
     }
     
     public void addToStart(int r , int c)
     {
-        start.add(new int[])
+        
     }
     
     public void addToFinish(int r , int c)
@@ -50,11 +50,12 @@ public class Racetrack implements IRacetrack
         {
             for (int c = 0; c < colLength; c++)
             {
-                System.out.print(track[r][c]);
+                System.out.print(track[r][c].getType());
             }
             System.out.println();
         }
     }
+
 
     public void getCrashLocations()
     {
@@ -80,5 +81,6 @@ public class Racetrack implements IRacetrack
                 
             }
         }
+        return true; 
     }
 }

@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.*;
 
 
 /**
@@ -37,25 +36,20 @@ public class Experiment
     
     private Racetrack ConvertToRacetrack(String fileName, Racetrack T) throws IOException
     {
-        
         // create file reader for dataset file and wrap it in a buffer
         FileReader fileReader = null;
-        try {
+        try 
+        {
                 fileReader = new FileReader(fileName);
-        } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-        }
+        } catch (FileNotFoundException e) { }
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         
         String line = null;
-        try {
+        try 
+        {
             line = bufferedReader.readLine();
-        } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-            }
-            String[] data = line.split(",");
+        } catch (IOException e) { }
+        String[] data = line.split(",");
                         
         int rows = Integer.parseInt(data[0]);
         int cols = Integer.parseInt(data[1]);
@@ -66,8 +60,6 @@ public class Experiment
             try {
                 line = bufferedReader.readLine();
             } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
                 }
             for(int j = 0; j < line.length(); j++)
             {
