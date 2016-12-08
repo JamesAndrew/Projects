@@ -11,16 +11,16 @@ package racetrack;
  */
 public class Racetrack implements IRacetrack
 {
-    private char [][] track;
+    private Cell[][] track;
     
     public Racetrack(int r, int c)
     {
-        track = new char[r][c];
+        track = new Cell[r][c];
     }
     
     public void setTrack(int r, int c, char t)
     {
-        track[r][c] = t;
+        track[r][c] = new Cell(r, c, t);
     }
     
     public void printTrack()
@@ -32,19 +32,9 @@ public class Racetrack implements IRacetrack
         {
             for (int c = 0; c < colLength; c++)
             {
-                System.out.print(track[r][c]);
+                System.out.print(track[r][c].getType());
             }
             System.out.println();
         }
-    }
-    
-    public void getCrashLocations()
-    {
-        
-    }
-    
-    public void getTrackHeatmap()
-    {
-        
     }
 }
