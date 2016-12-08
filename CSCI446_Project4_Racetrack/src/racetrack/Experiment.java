@@ -37,7 +37,6 @@ public class Experiment
     
     private Racetrack ConvertToRacetrack(String fileName, Racetrack T) throws IOException
     {
-        
         // create file reader for dataset file and wrap it in a buffer
         FileReader fileReader = null;
         try {
