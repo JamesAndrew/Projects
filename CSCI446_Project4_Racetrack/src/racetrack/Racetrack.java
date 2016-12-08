@@ -5,29 +5,47 @@
  */
 package racetrack;
 
+import java.awt.geom.Line2D;
+import java.util.ArrayList;
+
 /**
  *
  * @author James
  */
 public class Racetrack implements IRacetrack
 {
-    private char [][] track;
-    
+
+    private char[][] track;
+    private int[] currentCarLoc;
+    private int[] lastCarLoc;
+    private ArrayList<int[]> start = new ArrayList(); 
+    private ArrayList finish = new ArrayList(); 
+
     public Racetrack(int r, int c)
     {
         track = new char[r][c];
     }
-    
+
     public void setTrack(int r, int c, char t)
     {
         track[r][c] = t;
     }
     
+    public void addToStart(int r , int c)
+    {
+        start.add(new int[])
+    }
+    
+    public void addToFinish(int r , int c)
+    {
+        
+    }
+
     public void printTrack()
     {
         int rowLength = track.length;
         int colLength = track[0].length;
-        
+
         for (int r = 0; r < rowLength; r++)
         {
             for (int c = 0; c < colLength; c++)
@@ -37,14 +55,30 @@ public class Racetrack implements IRacetrack
             System.out.println();
         }
     }
-    
+
     public void getCrashLocations()
     {
-        
+
     }
-    
+
     public void getTrackHeatmap()
     {
-        
+
+    }
+
+    private boolean collisionCheck()
+    {
+        Line2D path = new Line2D.Double(currentCarLoc[0], currentCarLoc[1], lastCarLoc[0], lastCarLoc[1]);
+        int minX = Math.min(currentCarLoc[0], lastCarLoc[0]);
+        int maxX = Math.max(currentCarLoc[0], lastCarLoc[0]);
+        int minY = Math.min(currentCarLoc[1], lastCarLoc[1]);
+        int maxY = Math.max(currentCarLoc[1], lastCarLoc[1]);
+        for (int i = minX; i <= maxX; i++)
+        {
+            for (int j = minY; j <= maxY; j++)
+            {
+                
+            }
+        }
     }
 }
