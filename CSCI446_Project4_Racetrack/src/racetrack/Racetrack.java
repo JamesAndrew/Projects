@@ -7,6 +7,7 @@ package racetrack;
 
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -21,6 +22,7 @@ public class Racetrack implements IRacetrack
     private ArrayList<Cell> start = new ArrayList();
     private ArrayList<Cell> finish = new ArrayList();
     private boolean finished = false; 
+    private int moves; 
 
     public Racetrack(int r, int c)
     {
@@ -55,6 +57,11 @@ public class Racetrack implements IRacetrack
         }
     }
 
+    public int getNumMoves()
+    {
+        return moves;
+    }
+    
     public void getCrashLocations()
     {
 
@@ -66,6 +73,19 @@ public class Racetrack implements IRacetrack
     }
 
     public void run(boolean resetOnCollision)
+    {
+        moves = 0; 
+        Random rand = new Random();
+        RaceCar car = new RaceCar(start.get(rand.nextInt(start.size())));
+        lastCarLoc = car.getLocation();
+        currentCarLoc = lastCarLoc; 
+        while (!finished)
+        {
+            
+        }
+    }
+    
+    private Cell nextCell()
     {
         
     }
