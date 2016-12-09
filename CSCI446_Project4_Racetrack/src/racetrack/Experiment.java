@@ -25,7 +25,6 @@ public class Experiment
     {
         L = ConvertToRacetrack("tracks/L-track.txt", L);
         L.printTrack();
-        L.collisionCheck();
         
         O = ConvertToRacetrack("tracks/O-track.txt", O);
         O.printTrack();

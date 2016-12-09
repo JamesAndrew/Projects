@@ -20,6 +20,7 @@ public class Racetrack implements IRacetrack
     private Cell lastCarLoc;
     private ArrayList<Cell> start = new ArrayList();
     private ArrayList<Cell> finish = new ArrayList();
+    private boolean finished = false; 
 
     public Racetrack(int r, int c)
     {
@@ -64,6 +65,23 @@ public class Racetrack implements IRacetrack
 
     }
 
+    public void run(boolean resetOnCollision)
+    {
+        
+    }
+    
+    private boolean finishLineCheck()
+    {
+        Line2D finishLine = new Line2D.Double(finish.get(0).getRow(), finish.get(0).getCol(), 
+                finish.get(finish.size() - 1).getRow(), finish.get(finish.size() - 1).getCol() + 1);
+        Line2D path = new Line2D.Double(currentCarLoc.getRow(), currentCarLoc.getCol(), lastCarLoc.getRow(), lastCarLoc.getCol());
+        if (path.intersectsLine(finishLine))
+        {
+            return true; 
+        }
+        return false;
+    }
+    
     private boolean collisionCheck()
     {
         Line2D path = new Line2D.Double(currentCarLoc.getRow(), currentCarLoc.getCol(), lastCarLoc.getRow(), lastCarLoc.getCol());
@@ -83,7 +101,17 @@ public class Racetrack implements IRacetrack
                     Line2D edge4 = new Line2D.Double(track[i][j].getRow() + 0.95, track[i][j].getCol() + 0.95, track[i][j].getRow(), track[i][j].getCol() + 0.95);
                     if (path.intersectsLine(edge1) || path.intersectsLine(edge2) || path.intersectsLine(edge3) || path.intersectsLine(edge4))
                     {
-                        return true;
+                        int finishDist = Math.abs(lastCarLoc.getRow() - finish.get(0).getRow());
+                        int collisionDist = Math.abs(lastCarLoc.getRow() - i);
+                        if (finishLineCheck() && finishDist < collisionDist)
+                        {
+                            finished = true;
+                        }
+                        else
+                        {
+                            finished = false;
+                            return true;
+                        }
                     }
                 }
             }
