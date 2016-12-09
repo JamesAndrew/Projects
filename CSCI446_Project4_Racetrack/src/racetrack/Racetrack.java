@@ -21,8 +21,8 @@ public class Racetrack implements IRacetrack
     private Cell lastCarLoc;
     private ArrayList<Cell> start = new ArrayList();
     private ArrayList<Cell> finish = new ArrayList();
-    private boolean finished = false; 
-    private int moves; 
+    private boolean finished = false;
+    private int moves;
 
     public Racetrack(int r, int c)
     {
@@ -61,7 +61,7 @@ public class Racetrack implements IRacetrack
     {
         return moves;
     }
-    
+
     public void getCrashLocations()
     {
 
@@ -74,34 +74,54 @@ public class Racetrack implements IRacetrack
 
     public void run(boolean resetOnCollision)
     {
-        moves = 0; 
+        moves = 0;
         Random rand = new Random();
         RaceCar car = new RaceCar(start.get(rand.nextInt(start.size())));
         lastCarLoc = car.getLocation();
-        currentCarLoc = lastCarLoc; 
+        currentCarLoc = lastCarLoc;
         while (!finished)
         {
-            
+
         }
     }
-    
-    private Cell nextCell()
+
+    private Cell nextCell(RaceCar car)
     {
-        
+        double maxUtil = -100;
+        Cell nextCell = currentCarLoc;
+
+        for (int x = -1; x < 2; x++)
+        {
+            for (int y = -1; y < 2; y++)
+            {
+                int nextR = currentCarLoc.getRow() + car.getYVelocity() + y;
+                int nextC = currentCarLoc.getCol() + car.getXVelocity() + x;
+                if (car.getXVelocity() + x <= 5 && car.getXVelocity() + x >= -5 && car.getYVelocity() + y <= 5 && car.getYVelocity() + y >= -5)
+                {
+                    if (withinBounds(nextR, nextC) && !(nextR == currentCarLoc.getRow() && nextC == currentCarLoc.getCol())
+                            && track[nextR][nextC].getUtility() > maxUtil)
+                    {
+                        maxUtil = track[nextR][nextC].getUtility();
+                        nextCell = track[nextR][nextC];
+                    }
+                }
+            }
+        }
+        return nextCell; 
     }
-    
+
     private boolean finishLineCheck()
     {
-        Line2D finishLine = new Line2D.Double(finish.get(0).getRow(), finish.get(0).getCol(), 
+        Line2D finishLine = new Line2D.Double(finish.get(0).getRow(), finish.get(0).getCol(),
                 finish.get(finish.size() - 1).getRow(), finish.get(finish.size() - 1).getCol() + 1);
         Line2D path = new Line2D.Double(currentCarLoc.getRow(), currentCarLoc.getCol(), lastCarLoc.getRow(), lastCarLoc.getCol());
         if (path.intersectsLine(finishLine))
         {
-            return true; 
+            return true;
         }
         return false;
     }
-    
+
     private boolean collisionCheck()
     {
         Line2D path = new Line2D.Double(currentCarLoc.getRow(), currentCarLoc.getCol(), lastCarLoc.getRow(), lastCarLoc.getCol());
@@ -114,7 +134,7 @@ public class Racetrack implements IRacetrack
             for (int j = minC; j <= maxC; j++)
             {
                 if (track[i][j].getType() == '#')
-                {                    
+                {
                     Line2D edge1 = new Line2D.Double(track[i][j].getRow(), track[i][j].getCol(), track[i][j].getRow(), track[i][j].getCol() + 0.95);
                     Line2D edge2 = new Line2D.Double(track[i][j].getRow(), track[i][j].getCol(), track[i][j].getRow() + 0.95, track[i][j].getCol());
                     Line2D edge3 = new Line2D.Double(track[i][j].getRow() + 0.95, track[i][j].getCol(), track[i][j].getRow() + 0.95, track[i][j].getCol() + 0.95);
@@ -126,8 +146,7 @@ public class Racetrack implements IRacetrack
                         if (finishLineCheck() && finishDist < collisionDist)
                         {
                             finished = true;
-                        }
-                        else
+                        } else
                         {
                             finished = false;
                             return true;
@@ -137,5 +156,10 @@ public class Racetrack implements IRacetrack
             }
         }
         return false;
+    }
+    
+    private boolean withinBounds(int row, int col)
+    {
+        return (row >= 0 && row < track.length && col >= 0 && col < track[0].length);
     }
 }

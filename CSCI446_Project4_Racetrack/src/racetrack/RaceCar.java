@@ -55,6 +55,16 @@ public class RaceCar
         location = start; 
     }
     
+    public int getXVelocity()
+    {
+        return velocityX;
+    }
+    
+    public int getYVelocity()
+    {
+        return velocityY;
+    }
+    
     public void move()
     {
         
