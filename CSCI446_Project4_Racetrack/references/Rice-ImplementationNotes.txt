@@ -1,0 +1,11 @@
+VALUE ITERATION:
+ - Using Bellman equation to calculate utility of being in any state (use equation from book)
+ - Initial utility for all states (except finish state) is 0
+ - Utilities are updated until equalibrium is reach (no utility changes from iteration i to iteration i+1)
+ - Set epsilon to be 1x10^-6 or maybe 1x10^-8 ?
+ - Discount factor of 0.5 to strike balance between notable distant reward and current additive reward
+ - Talk about choice of utility for '#' squares. Example occurs in the catch block of the bellman equation
+ 
+RACECAR:
+ - For diagonal movement, the car always travels the full row distance first, then full column distance
+ 

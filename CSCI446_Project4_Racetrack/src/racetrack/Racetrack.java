@@ -11,12 +11,10 @@ import java.util.Random;
 
 /**
  *
- * @author James
  */
-public class Racetrack implements IRacetrack
+public class Racetrack
 {
-
-    private Cell[][] track;
+    private final Cell[][] track;
     private Cell currentCarLoc;
     private Cell lastCarLoc;
     private ArrayList<Cell> start = new ArrayList();
@@ -24,11 +22,18 @@ public class Racetrack implements IRacetrack
     private boolean finished = false;
     private int moves;
 
+
     public Racetrack(int r, int c)
     {
         track = new Cell[r][c];
     }
 
+    /**
+     * 
+     * @param r
+     * @param c
+     * @param t 
+     */
     public void setTrack(int r, int c, char t)
     {
         Cell newCell = new Cell(r, c, t);
@@ -42,6 +47,9 @@ public class Racetrack implements IRacetrack
         }
     }
 
+    /**
+     * 
+     */
     public void printTrack()
     {
         int rowLength = track.length;
@@ -52,6 +60,28 @@ public class Racetrack implements IRacetrack
             for (int c = 0; c < colLength; c++)
             {
                 System.out.print(track[r][c].getType());
+            }
+            System.out.println();
+        }
+    }
+    
+    public void printTrack(RaceCar car)
+    {
+                int rowLength = track.length;
+        int colLength = track[0].length;
+
+        for (int r = 0; r < rowLength; r++)
+        {
+            for (int c = 0; c < colLength; c++)
+            {
+                if (r == car.getLocation().getRow() && c == car.getLocation().getCol())
+                {
+                    System.out.print("C");
+                }
+                else 
+                {
+                    System.out.print(track[r][c].getType());
+                }                
             }
             System.out.println();
         }
@@ -72,36 +102,61 @@ public class Racetrack implements IRacetrack
 
     }
 
+    /**
+     * 
+     * @param resetOnCollision 
+     */
     public void run(boolean resetOnCollision)
     {
         moves = 0;
         Random rand = new Random();
-        RaceCar car = new RaceCar(start.get(rand.nextInt(start.size())));
+        RaceCar car = new RaceCar(start.get(rand.nextInt(start.size())), track);
         lastCarLoc = car.getLocation();
         currentCarLoc = lastCarLoc;
         while (!finished)
         {
             //attempt to apply acceleration to get to next cell
+            car.accelerate(nextCell(car));
+            currentCarLoc = car.getLocation();
+            if (currentCarLoc == lastCarLoc || collisionCheck())
+            {
+                if (resetOnCollision)
+                {
+                    car.reset(start.get(rand.nextInt(start.size())));
+                }
+                else 
+                {
+                    car.reset(lastCarLoc);
+                }                
+            }
+            lastCarLoc = car.getLocation();
+            printTrack(car); 
+            moves++;
         }
     }
 
+    /**
+     * 
+     * @param car
+     * @return 
+     */
     private Cell nextCell(RaceCar car)
     {
         double maxUtil = -100;
-        Cell nextCell = currentCarLoc;
+        Cell nextCell = car.getLocation();
 
         for (int x = -1; x < 2; x++)
         {
             for (int y = -1; y < 2; y++)
             {
-                int nextC = currentCarLoc.getCol() + car.getYVelocity() + y;
-                int nextR = currentCarLoc.getRow() + car.getXVelocity() + x;
+                int nextC = car.getLocation().getCol() + car.getYVelocity() + y;
+                int nextR = car.getLocation().getRow() + car.getXVelocity() + x;
                 if (car.getXVelocity() + x <= 5 && car.getXVelocity() + x >= -5 && car.getYVelocity() + y <= 5 && car.getYVelocity() + y >= -5)
                 {
-                    if (withinBounds(nextR, nextC) && !(nextR == currentCarLoc.getRow() && nextC == currentCarLoc.getCol())
-                            && track[nextR][nextC].getUtility() > maxUtil)
+                    if (withinBounds(nextR, nextC) && !(nextR == car.getLocation().getRow() && nextC == car.getLocation().getCol())
+                            && track[nextR][nextC].getUtilities()[car.getXVelocity() + x + 5][car.getYVelocity() + y + 5] > maxUtil)
                     {
-                        maxUtil = track[nextR][nextC].getUtility();
+                        maxUtil = track[nextR][nextC].getUtilities()[car.getXVelocity() + x + 5][car.getYVelocity() + y + 5];
                         nextCell = track[nextR][nextC];
                     }
                 }
@@ -110,14 +165,24 @@ public class Racetrack implements IRacetrack
         return nextCell; 
     }
 
+    /**
+     * Check if the car has crossed the finish line
+     * @return 
+     */
     private boolean finishLineCheck()
     {
-        Line2D finishLine = new Line2D.Double(finish.get(0).getRow(), finish.get(0).getCol(),
+        Line2D finishLine1 = new Line2D.Double(finish.get(0).getRow(), finish.get(0).getCol(),
                 finish.get(finish.size() - 1).getRow(), finish.get(finish.size() - 1).getCol() + 1);
+        Line2D finishLine2 = new Line2D.Double(finish.get(0).getRow() + 1, finish.get(0).getCol(),
+                finish.get(finish.size() - 1).getRow() + 1, finish.get(finish.size() - 1).getCol() + 1);
         Line2D path = new Line2D.Double(currentCarLoc.getRow(), currentCarLoc.getCol(), lastCarLoc.getRow(), lastCarLoc.getCol());
-        return (path.intersectsLine(finishLine));
+        return (path.intersectsLine(finishLine1) || path.intersectsLine(finishLine2) || currentCarLoc.getType() == 'F');
     }
 
+    /**
+     * Check if wall collision occurs and whether collision is before or after finish line
+     * @return 
+     */
     private boolean collisionCheck()
     {
         Line2D path = new Line2D.Double(currentCarLoc.getRow(), currentCarLoc.getCol(), lastCarLoc.getRow(), lastCarLoc.getCol());
@@ -125,6 +190,10 @@ public class Racetrack implements IRacetrack
         int maxR = Math.max(currentCarLoc.getRow(), lastCarLoc.getRow());
         int minC = Math.min(currentCarLoc.getCol(), lastCarLoc.getCol());
         int maxC = Math.max(currentCarLoc.getCol(), lastCarLoc.getCol());
+        if (finishLineCheck())
+        {
+            finished = true;
+        }
         for (int i = minR; i <= maxR; i++)
         {
             for (int j = minC; j <= maxC; j++)
@@ -139,12 +208,10 @@ public class Racetrack implements IRacetrack
                     {
                         int finishDist = Math.abs(lastCarLoc.getRow() - finish.get(0).getRow());
                         int collisionDist = Math.abs(lastCarLoc.getRow() - i);
-                        if (finishLineCheck() && finishDist < collisionDist)
-                        {
-                            finished = true;
-                        } else
+                        if (!finished || (finished && finishDist > collisionDist))
                         {
                             finished = false;
+                            System.out.println("Collision");
                             return true;
                         }
                     }
@@ -154,8 +221,43 @@ public class Racetrack implements IRacetrack
         return false;
     }
     
+    /**
+     * Make sure given row column are within track boundaries 
+     * @param row
+     * @param col
+     * @return 
+     */
     private boolean withinBounds(int row, int col)
     {
         return (row >= 0 && row < track.length && col >= 0 && col < track[0].length);
+    }
+        
+    /**
+     * 
+     * @return 
+     */
+    public Cell[][] getTrack() 
+    {
+        return track;
+    }
+    
+    /**
+     * Print the track with utilities shown instead of char values for a specified velocity vector
+     * 
+     * @param rowVel : value of row-component velocity. Add 5 for correct index
+     * @param colVel : value of col-component velocity. Add 5 for correct index
+     */
+    public void printTrackWithUtilities(int rowVel, int colVel)
+    {
+        int rowVelIndex = rowVel + 5;
+        int colVelIndex = colVel + 5;
+        for (int i = 0; i < track.length; i++)
+        {
+            for (int j = 0; j < track[i].length; j++)
+            {
+                System.out.format("(%c)%8.3f ", track[i][j].getType(), track[i][j].getUtilities()[rowVelIndex][colVelIndex]);
+            }
+            System.out.println();
+        }
     }
 }

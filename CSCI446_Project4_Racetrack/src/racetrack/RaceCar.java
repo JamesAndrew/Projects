@@ -14,19 +14,24 @@ public class RaceCar
     private int accelerationX = 0;
     private int accelerationY = 0;
     private Cell location;
+    private Cell[][] track;
 
-    public RaceCar(Cell start)
+    public RaceCar(Cell start, Cell[][] track)
     {
-        location = start; 
+        location = start;
+        this.track = track;
     }
 
     /*
      * Apply x and y acceleration to racecar
      */
-    public void accelerate(int xAcc, int yAcc)
+    public void accelerate(Cell nextCell)
     {
+        int xAcc = nextCell.getRow() - location.getRow() - velocityX;
+        int yAcc = nextCell.getCol() - location.getCol() - velocityY;
         Random rand = new Random();
         int accProb = rand.nextInt(10);
+        System.out.println("Prob:" + accProb);
         //reject if acceleration not within -1 to 1
         if (xAcc <= 1 && xAcc >= -1 && yAcc <= 1 && yAcc >= -1)
         {
@@ -44,6 +49,12 @@ public class RaceCar
                 }
             }
         }
+        int nextX = location.getRow() + velocityX;
+        int nextY = location.getCol() + velocityY;
+        if (nextX >= 0 && nextX < track.length && nextY >= 0 && nextY < track[0].length)
+        {
+            location = track[nextX][nextY];
+        }
     }
 
     public void reset(Cell start)
@@ -52,26 +63,26 @@ public class RaceCar
         velocityY = 0;
         accelerationX = 0;
         accelerationY = 0;
-        location = start; 
+        location = start;
     }
-    
+
     public int getXVelocity()
     {
         return velocityX;
     }
-    
+
     public int getYVelocity()
     {
         return velocityY;
     }
-    
+
     public void move()
     {
-        
+
     }
-    
+
     public Cell getLocation()
     {
-        return location; 
+        return location;
     }
 }
