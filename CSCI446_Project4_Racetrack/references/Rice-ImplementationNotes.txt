@@ -4,7 +4,5 @@ VALUE ITERATION:
  - Utilities are updated until equalibrium is reach (no utility changes from iteration i to iteration i+1)
  - Set epsilon to be 1x10^-6 or maybe 1x10^-8 ?
  - Discount factor of 0.5 to strike balance between notable distant reward and current additive reward
- - Does not guarantee the learned policy is actually the optimal policy because the learned 
-   model does not perfectly match the true environment.
- - 
+ - Talk about choice of utility for '#' squares. Example occurs in the catch block of the bellman equation
  

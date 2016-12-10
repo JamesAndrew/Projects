@@ -12,9 +12,9 @@ package racetrack;
  */
 public class Cell 
 {
-    // 0 indexed with [0,0] at bottom left
+    // 0 indexed with [0,0] at top right
     private final int row;
-    // 0 indexed with [0,0] at bottom left
+    // 0 indexed with [0,0] at top right
     private final int col;
     // start (S), finish(F), open track (.), or wall (#)
     private final char type;

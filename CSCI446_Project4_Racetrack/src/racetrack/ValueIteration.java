@@ -1,6 +1,8 @@
 
 package racetrack;
 
+import java.util.ArrayList;
+
 /**
  * 
  */
@@ -42,12 +44,12 @@ public class ValueIteration
                         Cell currentCell = track.getTrack()[row][col];
                         
                         // for each posssible velocity state at the cell
-                        for (int xVel = 0; xVel < currentCell.getUtilities().length; xVel++)
+                        for (int rowVel = 0; rowVel < currentCell.getUtilities().length; rowVel++)
                         {
-                            for (int yVel = 0 ; yVel < currentCell.getUtilities()[xVel].length; yVel++)
+                            for (int colVel = 0 ; colVel < currentCell.getUtilities()[rowVel].length; colVel++)
                             {
                                 // the utility of this cell at this velocity is calculated using the bellman equation
-                                currentCell.getUtilities()[xVel][yVel] = bellmanEquation(currentCell, xVel, yVel);
+                                currentCell.getUtilities()[rowVel][colVel] = bellmanEquation(currentCell, rowVel, colVel);
                             }
                         }
                     }
@@ -64,16 +66,88 @@ public class ValueIteration
      * This equation is from the Russell and Norvig book on page 653
      * 
      * @param cell : the cell to calculate next utility for
-     * @param xVel : the cell's x-velocity state, a number between [-5,5]
-     * @param yVel : the cell's y-velocity state, a number between [-5,5]
+     * @param rowVel : the cell's row-velocity state, a number between [-5,5]
+     * @param colVel : the cell's col-velocity state, a number between [-5,5]
      * @return U_{i+1}(s) : the updated utility for the cell at state [xVel,yVel]
      */
-    private double bellmanEquation(Cell cell, int xVel, int yVel)
+    private double bellmanEquation(Cell cell, int rowVel, int colVel)
     {
         double R = cell.getReward();
         // holds the values of the summation over s' for each action that can be taken from this state
+        ArrayList<Double> actionSums = new ArrayList();
         
+        // for each action that can be taken from current state: //
+        // (accelerate +1/-1/0 in x and y directions) //
+        // a_(-1,-1) case : accelerate up and left
+        if (rowVel == -5 || colVel == -5) { /* do nothing, this action cannot occur */ }
+        else
+        {
+            double upLeftAction = bellmanEquationSubroutine(cell, rowVel, colVel, -1, -1);
+            actionSums.add(upLeftAction);
+        }
         
         return 0.0;
+    }
+    
+    /**
+     * Calculate the action sum, sum_{s'} P(s'|s,a)*U(s'), for a given acceleration action
+     * 
+     * @param rowAccel : the row-direction acceleration. Either -1, 0, or 1
+     * @param colAccel : the col-direction acceleration. Either -1, 0, or 1
+     * @return sum : the sum over each possible next state
+     */
+    private double bellmanEquationSubroutine(Cell cell, int rowVel, int colVel, int rowAccel, int colAccel)
+    {
+        int newRowVel = rowVel + rowAccel;
+        int newColVel = colVel + colAccel;
+        // sum P(s'|s,a)*U(s') over each possible s' state
+        double sum = 0.0;
+        // acceleration worked as intended, next cell-state is [row+xVel', col+yVel'] with 80% chance
+        try
+        {
+            // s'
+            Cell nextCell = track.getTrack()[cell.getRow()+(newRowVel)][cell.getCol()+(newColVel)];
+            // P(s'|s,a)U(s') //
+            // if nextCell is a wall, next state is current cell with [0,0] velocity
+            if (nextCell.getType() == '#')
+            {
+                nextCell = cell;
+                newRowVel = 0;
+                newColVel = 0;
+            }
+            sum += 0.8*nextCell.getUtilities()[newRowVel][newColVel];
+        }
+        // catch if nextCell is out of the track bounds, car will be placed back on the cell it came from
+        catch (ArrayIndexOutOfBoundsException e)
+        {
+            Cell nextCell = cell;
+            newRowVel = 0;
+            newColVel = 0;
+            sum += 0.8*nextCell.getUtilities()[newRowVel][newColVel];
+        }
+
+        // acceleration didn't occur, next cell-state is [row+xVel, col+yVel] with 20% chance
+        try
+        {
+            // s'
+            Cell nextCell = track.getTrack()[cell.getRow()+(rowVel)][cell.getCol()+(colVel)];
+            if (nextCell.getType() == '#')
+            {
+                nextCell = cell;
+                newRowVel = 0;
+                newColVel = 0;
+            }
+            sum += 0.2*nextCell.getUtilities()[newRowVel][newColVel];
+        }
+        // catch if nextCell is out of the track bounds, car will be placed back on the cell it came from
+        catch (ArrayIndexOutOfBoundsException e)
+        {
+            Cell nextCell = cell;
+            newRowVel = 0;
+            newColVel = 0;
+            sum += 0.2*nextCell.getUtilities()[newRowVel][newColVel];
+        }
+        
+        return sum;
     }
 }
