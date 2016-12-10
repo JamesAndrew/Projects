@@ -13,24 +13,36 @@ import java.io.IOException;
 
 /**
  *
- * @author James
  */
 public class Experiment 
 {
     public Racetrack L;
     public Racetrack O;
     public Racetrack R;
+    // temporary, simple racetrack
+    public Racetrack simple;
     
     public Experiment() throws IOException
     {
-        L = ConvertToRacetrack("tracks/L-track.txt", L);
-        L.printTrack();
+//        L = ConvertToRacetrack("tracks/L-track.txt", L);
+//        L.printTrack();
+//        
+//        O = ConvertToRacetrack("tracks/O-track.txt", O);
+//        O.printTrack();
+//        
+//        R = ConvertToRacetrack("tracks/R-track.txt", R);
+//        R.printTrack();
         
-        O = ConvertToRacetrack("tracks/O-track.txt", O);
-        O.printTrack();
-        
-        R = ConvertToRacetrack("tracks/R-track.txt", R);
-        R.printTrack();
+        simple = ConvertToRacetrack("tracks/Simple-track.txt", simple);
+        simple.printTrack();
+    }
+    
+    public void runValueIteration()
+    {
+        // instantiate and give track to run on
+        ValueIteration valueIteration = new ValueIteration(simple);
+        // being training which solves utility of each cell for every velocity value
+        valueIteration.trainUtilities();
     }
     
     

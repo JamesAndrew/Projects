@@ -7,11 +7,10 @@ package racetrack;
 
 /**
  *
- * @author James
  */
-public class Racetrack implements IRacetrack
+public class Racetrack
 {
-    private Cell[][] track;
+    private final Cell[][] track;
     
     public Racetrack(int r, int c)
     {
@@ -36,5 +35,10 @@ public class Racetrack implements IRacetrack
             }
             System.out.println();
         }
+    }
+
+    public Cell[][] getTrack() 
+    {
+        return track;
     }
 }
