@@ -35,8 +35,8 @@ public class ValueIteration
         do
         {
             halt = true;
-            System.out.format("%nIteration %d utilities for velocity (0,3):%n", tempI);             //
-            track.printTrackWithUtilities(0,3);                                                     //
+            System.out.format("%nIteration %d utilities for velocity (0,1):%n", tempI);             //
+            track.printTrackWithUtilities(0,1);                                                     //
             
             // loop over all possible states //
             // for each track cell...

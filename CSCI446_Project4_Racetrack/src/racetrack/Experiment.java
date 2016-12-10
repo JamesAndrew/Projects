@@ -37,6 +37,10 @@ public class Experiment
         simple.printTrack();
     }
     
+    /**
+     * Assigns utilities to each cell for every possible velocity state using
+     * Value Iteration 
+     */
     public void runValueIteration()
     {
         // instantiate and give track to run on
@@ -44,7 +48,6 @@ public class Experiment
         // being training which solves utility of each cell for every velocity value
         valueIteration.trainUtilities();
     }
-    
     
     private Racetrack ConvertToRacetrack(String fileName, Racetrack T) throws IOException
     {
