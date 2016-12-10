@@ -81,7 +81,7 @@ public class Racetrack implements IRacetrack
         currentCarLoc = lastCarLoc;
         while (!finished)
         {
-
+            //attempt to apply acceleration to get to next cell
         }
     }
 
@@ -94,8 +94,8 @@ public class Racetrack implements IRacetrack
         {
             for (int y = -1; y < 2; y++)
             {
-                int nextR = currentCarLoc.getRow() + car.getYVelocity() + y;
-                int nextC = currentCarLoc.getCol() + car.getXVelocity() + x;
+                int nextC = currentCarLoc.getCol() + car.getYVelocity() + y;
+                int nextR = currentCarLoc.getRow() + car.getXVelocity() + x;
                 if (car.getXVelocity() + x <= 5 && car.getXVelocity() + x >= -5 && car.getYVelocity() + y <= 5 && car.getYVelocity() + y >= -5)
                 {
                     if (withinBounds(nextR, nextC) && !(nextR == currentCarLoc.getRow() && nextC == currentCarLoc.getCol())
@@ -115,11 +115,7 @@ public class Racetrack implements IRacetrack
         Line2D finishLine = new Line2D.Double(finish.get(0).getRow(), finish.get(0).getCol(),
                 finish.get(finish.size() - 1).getRow(), finish.get(finish.size() - 1).getCol() + 1);
         Line2D path = new Line2D.Double(currentCarLoc.getRow(), currentCarLoc.getCol(), lastCarLoc.getRow(), lastCarLoc.getCol());
-        if (path.intersectsLine(finishLine))
-        {
-            return true;
-        }
-        return false;
+        return (path.intersectsLine(finishLine));
     }
 
     private boolean collisionCheck()
@@ -135,10 +131,10 @@ public class Racetrack implements IRacetrack
             {
                 if (track[i][j].getType() == '#')
                 {
-                    Line2D edge1 = new Line2D.Double(track[i][j].getRow(), track[i][j].getCol(), track[i][j].getRow(), track[i][j].getCol() + 0.95);
-                    Line2D edge2 = new Line2D.Double(track[i][j].getRow(), track[i][j].getCol(), track[i][j].getRow() + 0.95, track[i][j].getCol());
-                    Line2D edge3 = new Line2D.Double(track[i][j].getRow() + 0.95, track[i][j].getCol(), track[i][j].getRow() + 0.95, track[i][j].getCol() + 0.95);
-                    Line2D edge4 = new Line2D.Double(track[i][j].getRow() + 0.95, track[i][j].getCol() + 0.95, track[i][j].getRow(), track[i][j].getCol() + 0.95);
+                    Line2D edge1 = new Line2D.Double(i, j, i, j + 0.95);
+                    Line2D edge2 = new Line2D.Double(i, j, i + 0.95, j);
+                    Line2D edge3 = new Line2D.Double(i + 0.95, j, i + 0.95, j + 0.95);
+                    Line2D edge4 = new Line2D.Double(i + 0.95, j + 0.95, i, j + 0.95);
                     if (path.intersectsLine(edge1) || path.intersectsLine(edge2) || path.intersectsLine(edge3) || path.intersectsLine(edge4))
                     {
                         int finishDist = Math.abs(lastCarLoc.getRow() - finish.get(0).getRow());
