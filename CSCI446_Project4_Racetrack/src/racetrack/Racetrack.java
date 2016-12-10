@@ -56,7 +56,7 @@ public class Racetrack
         {
             for (int j = 0; j < track[i].length; j++)
             {
-                System.out.format("(%c)%-7.2f ", track[i][j].getType(), track[i][j].getUtilities()[rowVelIndex][colVelIndex]);
+                System.out.format("(%c)%8.3f ", track[i][j].getType(), track[i][j].getUtilities()[rowVelIndex][colVelIndex]);
             }
             System.out.println();
         }

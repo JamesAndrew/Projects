@@ -11,7 +11,7 @@ public class ValueIteration
 {
     // tunable parameters
     private final double gamma   = 1.0;                 // discount factor
-    private final double epsilon = 0.000001;            // halting condition
+    private final double epsilon = 0.0001;            // halting condition
     
     // track currently being worked with 
     private final Racetrack track;
@@ -28,12 +28,13 @@ public class ValueIteration
     public void trainUtilities()
     {
         int tempI = 0;             // temp
+        boolean halt;              // checks halting state
         
         // loop until delta is less than than threshold value:
         // delta < episilon(1-gamma)/gamma
         do
         {
-            
+            halt = true;
             System.out.format("%nIteration %d utilities for velocity (0,3):%n", tempI);             //
             track.printTrackWithUtilities(0,3);                                                     //
             
@@ -65,8 +66,7 @@ public class ValueIteration
                 }
             }
             
-            // update all states using the temp stored values and check for halt state
-            boolean halt = true;
+            // update all states using the temp stored values and check for halt state //
             // for each track cell...
             for (int row = 0; row < track.getTrack().length; row++)
             {
@@ -83,18 +83,18 @@ public class ValueIteration
                             for (int colVel = 0 ; colVel < currentCell.getUtilities()[rowVel].length; colVel++)
                             {
                                 double newUtility = currentCell.getTempUtilities()[rowVel][colVel];
-                                // don't halt if a updated utility occured
-                                if (currentCell.getUtilities()[rowVel][colVel] != newUtility) halt = false;
+                                
+                                // don't halt if a large enough utility update occured
+                                if (Math.abs(currentCell.getUtilities()[rowVel][colVel] - newUtility) > epsilon) halt = false;
                                 currentCell.setUtility(rowVel, colVel, newUtility);
                             }
                         }
                     }
                 }
             }
-            
             tempI++;        // temp used for testing
         } 
-        while (tempI < 10);
+        while (!halt);
     }
     
     /**
