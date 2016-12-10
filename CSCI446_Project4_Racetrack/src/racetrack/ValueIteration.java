@@ -2,6 +2,7 @@
 package racetrack;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * 
@@ -76,7 +77,7 @@ public class ValueIteration
         // holds the values of the summation over s' for each action that can be taken from this state
         ArrayList<Double> actionSums = new ArrayList();
         
-        // for each action that can be taken from current state: //
+        // for each action that can be taken from current state, add the sum value for that action //
         // (accelerate +1/-1/0 in x and y directions) //
         // a_(-1,-1) case : accelerate up and left
         if (rowVel == -5 || colVel == -5) { /* do nothing, this action cannot occur */ }
@@ -86,7 +87,56 @@ public class ValueIteration
             actionSums.add(upLeftAction);
         }
         
-        return 0.0;
+        // a_(-1,0) case : accelerate up only
+        if (rowVel == -5) { /* do nothing, this action cannot occur */ }
+        else
+        {
+            double upAction = bellmanEquationSubroutine(cell, rowVel, colVel, -1, 0);
+            actionSums.add(upAction);
+        }
+        
+        // a_(0,-1) case : accelerate left only
+        if (colVel == -5) { /* do nothing, this action cannot occur */ }
+        else
+        {
+            double leftAction = bellmanEquationSubroutine(cell, rowVel, colVel, 0, -1);
+            actionSums.add(leftAction);
+        }
+        
+        // a_(0,0) case : no acceleration
+        double upAction = bellmanEquationSubroutine(cell, rowVel, colVel, 0, 0);
+        actionSums.add(upAction);
+        
+        // a_(0,1) case : accelerate right only
+        if (colVel == 5) { /* do nothing, this action cannot occur */ }
+        else
+        {
+            double rightAction = bellmanEquationSubroutine(cell, rowVel, colVel, 0, 1);
+            actionSums.add(rightAction);
+        }
+        
+        // a_(1,0) case : accelerate down only
+        if (rowVel == 5) { /* do nothing, this action cannot occur */ }
+        else
+        {
+            double downAction = bellmanEquationSubroutine(cell, rowVel, colVel, 1, 0);
+            actionSums.add(downAction);
+        }
+        
+        // a_(1,1) case : accelerate down and right
+        if (rowVel == 5 || colVel == 5) { /* do nothing, this action cannot occur */ }
+        else
+        {
+            double downRightAction = bellmanEquationSubroutine(cell, rowVel, colVel, 1, 1);
+            actionSums.add(downRightAction);
+        }
+        
+        // get the maximal action value
+        double maxAction = Collections.max(actionSums);
+        
+        // finish the bellman equation
+        double result = R + (gamma * maxAction);
+        return result;
     }
     
     /**
