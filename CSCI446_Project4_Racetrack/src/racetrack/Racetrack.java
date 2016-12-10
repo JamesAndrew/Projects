@@ -41,4 +41,24 @@ public class Racetrack
     {
         return track;
     }
+    
+    /**
+     * Print the track with utilities shown instead of char values for a specified velocity vector
+     * 
+     * @param rowVel : value of row-component velocity. Add 5 for correct index
+     * @param colVel : value of col-component velocity. Add 5 for correct index
+     */
+    public void printTrackWithUtilities(int rowVel, int colVel)
+    {
+        int rowVelIndex = rowVel + 5;
+        int colVelIndex = colVel + 5;
+        for (int i = 0; i < track.length; i++)
+        {
+            for (int j = 0; j < track[i].length; j++)
+            {
+                System.out.format("(%c)%-7.2f ", track[i][j].getType(), track[i][j].getUtilities()[rowVelIndex][colVelIndex]);
+            }
+            System.out.println();
+        }
+    }
 }

@@ -18,10 +18,13 @@ public class Cell
     private final int col;
     // start (S), finish(F), open track (.), or wall (#)
     private final char type;
-    // utilities is initially 0 for all cells and velocity states except the finish state cell with has a max-utilities of 1
+    // utilities is initially 0 for all cells and velocity states except the finish state cell with has a max-utility of 1
     // utilities is a mapping for each possible state of the cell mapped to the associated utilities.
     // the state of the cell is the [x,y] velocity value which match to the [row,col] of the array
-    private double[][] utilities = new double[15][15];
+    private double[][] utilities = new double[11][11];
+    // because all utilities are updated simutaneous during value iteration, store the new utility
+    // in a temporary array until all utilities have been updated for the current generation
+    private double[][] tempUtilities = new double[11][11];
     // synonymous with cost or penalty. All non-finish cells have -1 reward
     private final double reward;   
     
@@ -36,9 +39,14 @@ public class Cell
         type = in_type;
         
         // utilities is initially 0 for all cells and velocity states except the finish state cell with has a max-utilities of 1
-        if (in_type == '.' || in_type == 'S' || in_type == '#') 
+        if (in_type == '.' || in_type == 'S') 
         {
             fillUtilityValues(0.0);
+            reward = -1;
+        }
+        else if (in_type == '#')
+        {
+            fillUtilityValues(-100.0);
             reward = -1;
         }
         else if (in_type == 'F') 
@@ -79,13 +87,52 @@ public class Cell
         return type;
     }
     
+    /**
+     * Note that the utility for velocity vector [-4,2] will be accessed
+     * at index [1,7].  Add velocity + 5 to get the correct index.
+     * @return The associated utility for each velocity combination between [-5,5]
+     */
     public double[][] getUtilities() 
     {
         return utilities;
+    }
+    
+    public void setUtilities(double[][] utilities) 
+    {
+        this.utilities = utilities;
+    }
+    
+    /**
+     * Set a specific array index value in utilities
+     * @param row
+     * @param col
+     * @param value 
+     */
+    public void setUtility(int row, int col, double value)
+    {
+        utilities[row][col] = value;
+    }
+    
+    public double[][] getTempUtilities() 
+    {
+        return tempUtilities;
+    }
+    
+    /**
+     * Set a specific array index value in tempUtilities
+     * @param row
+     * @param col
+     * @param value 
+     */
+    public void setTempUtility(int row, int col, double value)
+    {
+        tempUtilities[row][col] = value;
     }
     
     public double getReward() 
     {
         return reward;
     }
+
+    
 }
