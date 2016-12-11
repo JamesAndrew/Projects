@@ -6,6 +6,10 @@ VALUE ITERATION:
  - Discount factor of 0.5 to strike balance between notable distant reward and current additive reward
  - Talk about choice of utility for '#' squares. Example occurs in the catch block of the bellman equation
  
+Q-LEARNING:
+ - Using an epsilon greedy policy for choosing what action to take
+ 
 RACECAR:
- - For diagonal movement, the car always travels the full row distance first, then full column distance
+ - For diagonal movement, the car always travels the full row distance first, then full column distance (need 
+   to update this to match Tyler's appraoch)
  
