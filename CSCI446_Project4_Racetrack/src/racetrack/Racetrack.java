@@ -14,6 +14,7 @@ import java.util.Random;
  */
 public class Racetrack
 {
+
     private final Cell[][] track;
     private Cell currentCarLoc;
     private Cell lastCarLoc;
@@ -22,17 +23,16 @@ public class Racetrack
     private boolean finished = false;
     private int moves;
 
-
     public Racetrack(int r, int c)
     {
         track = new Cell[r][c];
     }
 
     /**
-     * 
+     *
      * @param r
      * @param c
-     * @param t 
+     * @param t
      */
     public void setTrack(int r, int c, char t)
     {
@@ -48,7 +48,7 @@ public class Racetrack
     }
 
     /**
-     * 
+     *
      */
     public void printTrack()
     {
@@ -64,10 +64,10 @@ public class Racetrack
             System.out.println();
         }
     }
-    
+
     public void printTrack(RaceCar car)
     {
-                int rowLength = track.length;
+        int rowLength = track.length;
         int colLength = track[0].length;
 
         for (int r = 0; r < rowLength; r++)
@@ -77,11 +77,10 @@ public class Racetrack
                 if (r == car.getLocation().getRow() && c == car.getLocation().getCol())
                 {
                     System.out.print("C");
-                }
-                else 
+                } else
                 {
                     System.out.print(track[r][c].getType());
-                }                
+                }
             }
             System.out.println();
         }
@@ -103,8 +102,8 @@ public class Racetrack
     }
 
     /**
-     * 
-     * @param resetOnCollision 
+     *
+     * @param resetOnCollision
      */
     public void run(boolean resetOnCollision)
     {
@@ -118,27 +117,26 @@ public class Racetrack
             //attempt to apply acceleration to get to next cell
             car.accelerate(nextCell(car));
             currentCarLoc = car.getLocation();
-            if (currentCarLoc == lastCarLoc || collisionCheck())
+            if (currentCarLoc == lastCarLoc || collisionCheck(lastCarLoc, currentCarLoc))
             {
                 if (resetOnCollision)
                 {
                     car.reset(start.get(rand.nextInt(start.size())));
-                }
-                else 
+                } else
                 {
                     car.reset(lastCarLoc);
-                }                
+                }
             }
             lastCarLoc = car.getLocation();
-            printTrack(car); 
+            printTrack(car);
             moves++;
         }
     }
 
     /**
-     * 
+     *
      * @param car
-     * @return 
+     * @return
      */
     private Cell nextCell(RaceCar car)
     {
@@ -162,12 +160,13 @@ public class Racetrack
                 }
             }
         }
-        return nextCell; 
+        return nextCell;
     }
 
     /**
      * Check if the car has crossed the finish line
-     * @return 
+     *
+     * @return
      */
     private boolean finishLineCheck()
     {
@@ -180,16 +179,21 @@ public class Racetrack
     }
 
     /**
-     * Check if wall collision occurs and whether collision is before or after finish line
-     * @return 
+     * Check if wall collision occurs and whether collision is before or after
+     * finish line
+     *
+     * @return
      */
-    private boolean collisionCheck()
+    private boolean collisionCheck(Cell point1, Cell point2)
     {
-        Line2D path = new Line2D.Double(currentCarLoc.getRow(), currentCarLoc.getCol(), lastCarLoc.getRow(), lastCarLoc.getCol());
-        int minR = Math.min(currentCarLoc.getRow(), lastCarLoc.getRow());
-        int maxR = Math.max(currentCarLoc.getRow(), lastCarLoc.getRow());
-        int minC = Math.min(currentCarLoc.getCol(), lastCarLoc.getCol());
-        int maxC = Math.max(currentCarLoc.getCol(), lastCarLoc.getCol());
+        Line2D path = new Line2D.Double(point2.getRow(), point2.getCol(), point1.getRow(), point1.getCol());
+        int minR = Math.min(point2.getRow(), point1.getRow());
+        int maxR = Math.max(point2.getRow(), point1.getRow());
+        int minC = Math.min(point2.getCol(), point1.getCol());
+        int maxC = Math.max(point2.getCol(), point1.getCol());
+        double maxDiff = 0;
+        boolean collision = false;
+        Cell resetCell = lastCarLoc;
         if (finishLineCheck())
         {
             finished = true;
@@ -198,52 +202,68 @@ public class Racetrack
         {
             for (int j = minC; j <= maxC; j++)
             {
-                if (track[i][j].getType() == '#')
+                Line2D edge1 = new Line2D.Double(i, j, i, j + 0.95);
+                Line2D edge2 = new Line2D.Double(i, j, i + 0.95, j);
+                Line2D edge3 = new Line2D.Double(i + 0.95, j, i + 0.95, j + 0.95);
+                Line2D edge4 = new Line2D.Double(i + 0.95, j + 0.95, i, j + 0.95);
+                if (path.intersectsLine(edge1) || path.intersectsLine(edge2) || path.intersectsLine(edge3) || path.intersectsLine(edge4))
                 {
-                    Line2D edge1 = new Line2D.Double(i, j, i, j + 0.95);
-                    Line2D edge2 = new Line2D.Double(i, j, i + 0.95, j);
-                    Line2D edge3 = new Line2D.Double(i + 0.95, j, i + 0.95, j + 0.95);
-                    Line2D edge4 = new Line2D.Double(i + 0.95, j + 0.95, i, j + 0.95);
-                    if (path.intersectsLine(edge1) || path.intersectsLine(edge2) || path.intersectsLine(edge3) || path.intersectsLine(edge4))
+                    if (track[i][j].getType() == '#')
                     {
-                        int finishDist = Math.abs(lastCarLoc.getRow() - finish.get(0).getRow());
-                        int collisionDist = Math.abs(lastCarLoc.getRow() - i);
+                        int finishDist = Math.abs(point1.getRow() - finish.get(0).getRow());
+                        int collisionDist = Math.abs(point1.getRow() - i);
                         if (!finished || (finished && finishDist > collisionDist))
                         {
                             finished = false;
-                            System.out.println("Collision");
-                            return true;
+                            collision = true;
+                        }
+                    } else
+                    {
+                        double rDiff = Math.pow(point1.getRow() - i, 2);
+                        double cDiff = Math.pow(point1.getCol() - j, 2);
+                        double totalDiff = Math.sqrt(rDiff + cDiff);
+                        if (totalDiff > maxDiff)
+                        {
+                            maxDiff = totalDiff;
+                            resetCell = track[i][j];
                         }
                     }
                 }
             }
         }
-        return false;
+        if (collision)
+        {
+            System.out.println("Collision");
+            lastCarLoc = resetCell; 
+        }
+        return collision;
     }
-    
+
     /**
-     * Make sure given row column are within track boundaries 
+     * Make sure given row column are within track boundaries
+     *
      * @param row
      * @param col
-     * @return 
+     * @return
      */
     private boolean withinBounds(int row, int col)
     {
         return (row >= 0 && row < track.length && col >= 0 && col < track[0].length);
     }
-        
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public Cell[][] getTrack() 
+    public Cell[][] getTrack()
     {
         return track;
     }
-    
+
     /**
-     * Print the track with utilities shown instead of char values for a specified velocity vector
-     * 
+     * Print the track with utilities shown instead of char values for a
+     * specified velocity vector
+     *
      * @param rowVel : value of row-component velocity. Add 5 for correct index
      * @param colVel : value of col-component velocity. Add 5 for correct index
      */

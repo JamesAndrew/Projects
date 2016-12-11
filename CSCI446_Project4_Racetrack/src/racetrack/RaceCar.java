@@ -31,7 +31,6 @@ public class RaceCar
         int yAcc = nextCell.getCol() - location.getCol() - velocityY;
         Random rand = new Random();
         int accProb = rand.nextInt(10);
-        System.out.println("Prob:" + accProb);
         //reject if acceleration not within -1 to 1
         if (xAcc <= 1 && xAcc >= -1 && yAcc <= 1 && yAcc >= -1)
         {
