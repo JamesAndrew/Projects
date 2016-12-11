@@ -24,8 +24,8 @@ public class Experiment
     
     public Experiment() throws IOException
     {
-//        L = ConvertToRacetrack("tracks/L-track.txt", L);
-//        L.printTrack();
+        L = ConvertToRacetrack("tracks/L-track.txt", L);
+        L.printTrack();
 //        
 //        O = ConvertToRacetrack("tracks/O-track.txt", O);
 //        O.printTrack();
@@ -44,9 +44,11 @@ public class Experiment
     public void runValueIteration()
     {
         // instantiate and give track to run on
-        ValueIteration valueIteration = new ValueIteration(simple);
+        //ValueIteration valueIteration = new ValueIteration(simple);
+        ValueIteration LvalueIteration = new ValueIteration(L);
         // being training which solves utility of each cell for every velocity value
-        valueIteration.trainUtilities();
+        LvalueIteration.trainUtilities();
+        L.run(false);
     }
     
     private Racetrack ConvertToRacetrack(String fileName, Racetrack T) throws IOException
