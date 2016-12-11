@@ -24,10 +24,10 @@ public class Cell
     private double[][] utilities = new double[11][11];
     // because all utilities are updated simutaneous during value iteration, store the new utility
     // in a temporary array until all utilities have been updated for the current generation
-    private double[][] tempUtilities = new double[11][11];
+    private final double[][] tempUtilities = new double[11][11];
     // Q-Value for each state this cell can have. Similar to utilities
-    private double[][] qValues = new double[11][11];
-    // synonymous with cost or penalty. All non-finish cells have -1 reward
+    private final double[][] qValues = new double[11][11];
+    // Synonymous with cost or penalty. All non-finish cells have -1 reward
     private final double reward;   
     
     /**
@@ -40,24 +40,24 @@ public class Cell
         col = in_col;
         type = in_type;
         
-        // utilities and qValues is initially 0 for all cells and velocity states 
+        // utilities and qvalues is initially 0 for all cells and velocity states 
         // except the finish state cell with a value of 1
         if (in_type == '.' || in_type == 'S') 
         {
             fillUtilityValues(0.0);
-            fillQValues(0.0);
+            fillQValueValues(0.0);
             reward = -1;
         }
         else if (in_type == '#')
         {
             fillUtilityValues(-100.0);
-            fillQValues(-100.0);
+            fillQValueValues(-100.0);
             reward = -1;
         }
         else if (in_type == 'F') 
         {
             fillUtilityValues(1.0);
-            fillQValues(1.0);
+            fillQValueValues(1.0);
             reward = 0;
         }
         else throw new RuntimeException("Initializtion of cell utility didn't have a valid character");
@@ -80,9 +80,9 @@ public class Cell
     
     /**
      * Fills each entry in the 'qValues' array with value 'value'
-     * @param value : the values to fill each q-value entry with
+     * @param value : the value to fill each 'qValues' entry with
      */
-    private void fillQValues(double value)
+    private void fillQValueValues(double value)
     {
         for (int i = 0; i < qValues.length; i++)
         {
@@ -155,47 +155,18 @@ public class Cell
         return reward;
     }
 
-    public double[][] getqValues() 
-    {
-        return qValues;
-    }
-
     /**
-     * Gets a specific value from the qValues table.
-     * This expects the velocity, not the index. The +5 index transformation
-     * is done in method
-     * 
-     * @param rowVel : velocity along the row-axis
-     * @param colVel : velocity along the column-axis
-     * @return the associated q-value for this cell for the given velocities
+     * Calculates the correct index for the provided velocities and returns
+     * the qValue stored at that index.
+     * @param rowVel : value between [-5,5]
+     * @param colVel : value between [-5,5]
+     * @return the qValue stored at the given index.
      */
-    public double getqValue(int rowVel, int colVel)
+    public double getQValue(int rowVel, int colVel)
     {
         int rowVelIndex = rowVel + 5;
         int colVelIndex = colVel + 5;
         
         return qValues[rowVelIndex][colVelIndex];
-    }
-    
-    public void setqValues(double[][] qValues) 
-    {
-        this.qValues = qValues;
-    }
-
-    /**
-     * Updates the q-value for a provided row-column velocity vector
-     * This expects the velocity, not the index. The +5 index transformation
-     * is done in method
-     * 
-     * @param value : the new q-value
-     * @param rowVel : velocity along the row-axis
-     * @param colVel : velocity along the column-axis
-     */
-    public void setqValue(double value, int rowVel, int colVel)
-    {
-        int rowVelIndex = rowVel + 5;
-        int colVelIndex = colVel + 5;
-        
-        qValues[rowVelIndex][colVelIndex] = value;
     }
 }

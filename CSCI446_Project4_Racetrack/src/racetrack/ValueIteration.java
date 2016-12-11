@@ -134,6 +134,14 @@ public class ValueIteration
                 double upAction = bellmanEquationSubroutine(cell, rowVel, colVel, -1, 0);
                 actionSums.add(upAction);
             }
+            
+            // a_(-1,1) case : accelerate up and right
+            if (rowVel == -5 || colVel == 5) { /* do nothing, this action cannot occur */ }
+            else
+            {
+                double upRightAction = bellmanEquationSubroutine(cell, rowVel, colVel, -1, 1);
+                actionSums.add(upRightAction);
+            }
 
             // a_(0,-1) case : accelerate left only
             if (colVel == -5) { /* do nothing, this action cannot occur */ }
@@ -155,6 +163,14 @@ public class ValueIteration
                 actionSums.add(rightAction);
             }
 
+            // a_(1,-1) case : accelerate down and left
+            if (rowVel == 5 || colVel == -5) { /* do nothing, this action cannot occur */ }
+            else
+            {
+                double downLeftAction = bellmanEquationSubroutine(cell, rowVel, colVel, 1, -1);
+                actionSums.add(downLeftAction);
+            }
+            
             // a_(1,0) case : accelerate down only
             if (rowVel == 5) { /* do nothing, this action cannot occur */ }
             else

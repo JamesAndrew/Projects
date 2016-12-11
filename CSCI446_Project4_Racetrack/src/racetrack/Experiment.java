@@ -56,7 +56,8 @@ public class Experiment
      */
     public void runQLearning()
     {
-        QLearning qLean = new QLearning(simple);
+        QLearning qLearn = new QLearning(simple);
+        qLearn.learnTrack();
     }
     
     private Racetrack ConvertToRacetrack(String fileName, Racetrack T, String trackName) throws IOException
