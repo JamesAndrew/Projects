@@ -9,11 +9,9 @@ import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- *
- */
 public class Racetrack
 {
+    private final String name;
     private final Cell[][] track;
     private Cell currentCarLoc;
     private Cell lastCarLoc;
@@ -23,9 +21,10 @@ public class Racetrack
     private int moves;
 
 
-    public Racetrack(int r, int c)
+    public Racetrack(int r, int c, String in_name)
     {
         track = new Cell[r][c];
+        name = in_name;
     }
 
     /**
@@ -258,5 +257,14 @@ public class Racetrack
             }
             System.out.println();
         }
+    }
+
+    /**
+     * Get this track's name. Will be either 'R', 'L', 'O', or 'simple'
+     * @return 
+     */
+    public String getName() 
+    {
+        return name;
     }
 }

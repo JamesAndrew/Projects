@@ -24,16 +24,16 @@ public class Experiment
     
     public Experiment() throws IOException
     {
-//        L = ConvertToRacetrack("tracks/L-track.txt", L);
+//        L = ConvertToRacetrack("tracks/L-track.txt", L, "L");
 //        L.printTrack();
 //        
-//        O = ConvertToRacetrack("tracks/O-track.txt", O);
+//        O = ConvertToRacetrack("tracks/O-track.txt", O, "O");
 //        O.printTrack();
 //        
-//        R = ConvertToRacetrack("tracks/R-track.txt", R);
+//        R = ConvertToRacetrack("tracks/R-track.txt", R, "R");
 //        R.printTrack();
 //        
-        simple = ConvertToRacetrack("tracks/Simple-track.txt", simple);
+        simple = ConvertToRacetrack("tracks/Simple-track.txt", simple, "simple");
         simple.printTrack();
     }
     
@@ -59,7 +59,7 @@ public class Experiment
         QLearning qLean = new QLearning(simple);
     }
     
-    private Racetrack ConvertToRacetrack(String fileName, Racetrack T) throws IOException
+    private Racetrack ConvertToRacetrack(String fileName, Racetrack T, String trackName) throws IOException
     {
         // create file reader for dataset file and wrap it in a buffer
         FileReader fileReader = null;
@@ -79,7 +79,7 @@ public class Experiment
         int rows = Integer.parseInt(data[0]);
         int cols = Integer.parseInt(data[1]);
         System.out.println("Track " + fileName + " (r, c)= (" + rows + ", " + cols + ")"); 
-        T = new Racetrack(rows, cols);
+        T = new Racetrack(rows, cols, trackName);
         for (int i = 0; i < rows; i++)
         {
             try {

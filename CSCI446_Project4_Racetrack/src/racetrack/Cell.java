@@ -40,20 +40,24 @@ public class Cell
         col = in_col;
         type = in_type;
         
-        // utilities is initially 0 for all cells and velocity states except the finish state cell with has a max-utilities of 1
+        // utilities and qValues is initially 0 for all cells and velocity states 
+        // except the finish state cell with a value of 1
         if (in_type == '.' || in_type == 'S') 
         {
             fillUtilityValues(0.0);
+            fillQValues(0.0);
             reward = -1;
         }
         else if (in_type == '#')
         {
             fillUtilityValues(-100.0);
+            fillQValues(-100.0);
             reward = -1;
         }
         else if (in_type == 'F') 
         {
             fillUtilityValues(1.0);
+            fillQValues(1.0);
             reward = 0;
         }
         else throw new RuntimeException("Initializtion of cell utility didn't have a valid character");
@@ -70,6 +74,21 @@ public class Cell
             for (int j = 0; j < utilities[i].length; j++)
             {
                 utilities[i][j] = value;
+            }
+        }
+    }
+    
+    /**
+     * Fills each entry in the 'qValues' array with value 'value'
+     * @param value : the values to fill each q-value entry with
+     */
+    private void fillQValues(double value)
+    {
+        for (int i = 0; i < qValues.length; i++)
+        {
+            for (int j = 0; j < qValues[i].length; j++)
+            {
+                qValues[i][j] = value;
             }
         }
     }
