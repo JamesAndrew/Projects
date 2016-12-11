@@ -10,6 +10,8 @@ public class QLearning
     private final double gamma = 0.95;
     // learning factor - lower values take longer to converge but give better results
     private final double alpha = 0.5;
+    
+    // other parameters //
     // track currently being worked with 
     private final Racetrack track;
     
@@ -20,5 +22,14 @@ public class QLearning
     public QLearning(Racetrack in_track)
     {
         track = in_track;
+    }
+    
+    /**
+     * Begins the Q-Learning procedure as described in figure 21.8 on page 844
+     * of Russell and Norvig.
+     */
+    public void learnTrack()
+    {
+        
     }
 }

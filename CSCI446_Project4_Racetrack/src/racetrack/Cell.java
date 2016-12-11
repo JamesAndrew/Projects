@@ -25,6 +25,8 @@ public class Cell
     // because all utilities are updated simutaneous during value iteration, store the new utility
     // in a temporary array until all utilities have been updated for the current generation
     private double[][] tempUtilities = new double[11][11];
+    // Q-Value for each state this cell can have. Similar to utilities
+    private double[][] qValues = new double[11][11];
     // synonymous with cost or penalty. All non-finish cells have -1 reward
     private final double reward;   
     
@@ -134,5 +136,47 @@ public class Cell
         return reward;
     }
 
+    public double[][] getqValues() 
+    {
+        return qValues;
+    }
+
+    /**
+     * Gets a specific value from the qValues table.
+     * This expects the velocity, not the index. The +5 index transformation
+     * is done in method
+     * 
+     * @param rowVel : velocity along the row-axis
+     * @param colVel : velocity along the column-axis
+     * @return the associated q-value for this cell for the given velocities
+     */
+    public double getqValue(int rowVel, int colVel)
+    {
+        int rowVelIndex = rowVel + 5;
+        int colVelIndex = colVel + 5;
+        
+        return qValues[rowVelIndex][colVelIndex];
+    }
     
+    public void setqValues(double[][] qValues) 
+    {
+        this.qValues = qValues;
+    }
+
+    /**
+     * Updates the q-value for a provided row-column velocity vector
+     * This expects the velocity, not the index. The +5 index transformation
+     * is done in method
+     * 
+     * @param value : the new q-value
+     * @param rowVel : velocity along the row-axis
+     * @param colVel : velocity along the column-axis
+     */
+    public void setqValue(double value, int rowVel, int colVel)
+    {
+        int rowVelIndex = rowVel + 5;
+        int colVelIndex = colVel + 5;
+        
+        qValues[rowVelIndex][colVelIndex] = value;
+    }
 }

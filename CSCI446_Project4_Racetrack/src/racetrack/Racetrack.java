@@ -103,7 +103,6 @@ public class Racetrack
     }
 
     /**
-     * 
      * @param resetOnCollision 
      */
     public void run(boolean resetOnCollision)

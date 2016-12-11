@@ -24,8 +24,8 @@ public class Experiment
     
     public Experiment() throws IOException
     {
-        L = ConvertToRacetrack("tracks/L-track.txt", L);
-        L.printTrack();
+//        L = ConvertToRacetrack("tracks/L-track.txt", L);
+//        L.printTrack();
 //        
 //        O = ConvertToRacetrack("tracks/O-track.txt", O);
 //        O.printTrack();
@@ -45,10 +45,18 @@ public class Experiment
     {
         // instantiate and give track to run on
         //ValueIteration valueIteration = new ValueIteration(simple);
-        ValueIteration LvalueIteration = new ValueIteration(L);
+        ValueIteration valueIteration = new ValueIteration(simple);
         // being training which solves utility of each cell for every velocity value
-        LvalueIteration.trainUtilities();
-        L.run(false);
+        valueIteration.trainUtilities();
+        simple.run(false);
+    }
+    
+    /**
+     * Run the QLearning algorithm
+     */
+    public void runQLearning()
+    {
+        QLearning qLean = new QLearning(simple);
     }
     
     private Racetrack ConvertToRacetrack(String fileName, Racetrack T) throws IOException

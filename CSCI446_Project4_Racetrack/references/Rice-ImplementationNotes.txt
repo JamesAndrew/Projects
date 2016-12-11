@@ -8,6 +8,7 @@ VALUE ITERATION:
  
 Q-LEARNING:
  - Using an epsilon greedy policy for choosing what action to take
+ - Q-Value table is contained as properties in each cell
  
 RACECAR:
  - For diagonal movement, the car always travels the full row distance first, then full column distance (need 
