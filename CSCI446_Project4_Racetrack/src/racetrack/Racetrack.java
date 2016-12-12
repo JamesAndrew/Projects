@@ -131,6 +131,7 @@ public class Racetrack
             printTrack(car);
             moves++;
         }
+        System.out.println("Moves: " + moves);
     }
 
     /**
