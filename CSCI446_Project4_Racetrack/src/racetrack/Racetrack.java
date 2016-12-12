@@ -20,7 +20,6 @@ public class Racetrack
     private boolean finished = false;
     private int moves;
 
-
     public Racetrack(int r, int c, String in_name)
     {
         track = new Cell[r][c];

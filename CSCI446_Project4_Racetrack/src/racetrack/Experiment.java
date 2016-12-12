@@ -44,7 +44,6 @@ public class Experiment
     public void runValueIteration()
     {
         // instantiate and give track to run on
-        //ValueIteration valueIteration = new ValueIteration(simple);
         ValueIteration valueIteration = new ValueIteration(simple);
         // being training which solves utility of each cell for every velocity value
         valueIteration.trainUtilities();

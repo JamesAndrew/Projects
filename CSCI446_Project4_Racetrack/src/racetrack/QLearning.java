@@ -7,13 +7,15 @@ public class QLearning
 {
     // tunable parameters //
     // threshold to stop training the race track
-    private final double epsilon = 0.0000001;
+    private final double epsilon = 0.01;
     // greedy parameter for action selection
-    private final double greedy = 0.5;  // probably go with 0.5 for this
+    private final double greedy = 0.4;  
     // discount factor - low values decrement additive rewards
     private final double gamma = 0.95;
     // learning factor - lower values take longer to converge but give better results
-    private final double alpha = 0.5;
+    private final double alpha = 0.8;
+    // temporary - for producing sample run output
+    private final double printRate = 50;
     
     // other parameters //
     // racetrack currently being worked with 
@@ -47,12 +49,17 @@ public class QLearning
             
             int runIteration = 0;
             delta = true;
+            System.out.format("  = Delta halting condition reset. =%n");                                           //
             int[] currentState; // [0]: row position, [1]: col position, [2]: row velocity, [3]: col velocity
             
             // pick a semi-arbitrary state
-            if (suiteIteration == 0) currentState = assignInitialState();
+            if (suiteIteration == 0) 
+            {
+                currentState = assignInitialState();
+            }
             else
             {
+                System.out.format("  Picking initial state randomly.%n");                                           //
                 currentState = randomValidState();
             }
             System.out.format("  Initial State -- Location: [%d,%d], Velocity: [%d,%d]%n",                          //
@@ -121,8 +128,9 @@ public class QLearning
                     currentCell.getQValue(currentState[2], currentState[3], action[0], action[1]));                 //
                 
                 // check q-value deltas and flip flag if difference is over the threshold
-                if (Math.abs(qBefore - qAfter) > epsilon)
+                if (Math.abs(qBefore - qAfter) > epsilon || runIteration < 10)
                 {
+                    System.out.format("    Delta halting condition marked as false.%n");                            //
                     delta = false;
                 }
                 
@@ -139,7 +147,7 @@ public class QLearning
                 Cell agentState = track.getTrack()[currentState[0]][currentState[1]];
                 if (agentState.getType() == 'F') 
                 {
-                    System.out.format("    Reached end state. Ending current agent run.");                          //
+                    System.out.format("    Reached end state. Ending current agent run.%n%n");                      //
                     break;
                 }
                 else runIteration++;
@@ -148,6 +156,8 @@ public class QLearning
             suiteIteration++;
         }
         while (!delta);
+        
+        System.out.format("Exploration halting state reached. Running agent as a race from the Start location");
     }
     
     /**

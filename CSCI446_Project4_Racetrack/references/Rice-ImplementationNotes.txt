@@ -13,8 +13,12 @@ Q-LEARNING:
  - Forcing initial trial runs to start at a state close to the finish line
  - Not using a frequency-action pair table
  - Am using epsilon-greedy function to handle greed vs. exploration
+ - Talk about switching from exploration to race mode once convergence happens
  
 RACECAR:
  - For diagonal movement, the car always travels the full row distance first, then full column distance (need 
    to update this to match Tyler's appraoch)
  
+TODOs:
+ - Update next state placements in both VI and Q-L to use Tyler's geometric appraoch
+ - Enforce the randomized start index for Q-Learning doesn't start too close to the finish line
