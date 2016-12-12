@@ -34,7 +34,7 @@ public class QLearning
     public QLearning(Racetrack in_track, Double in_gamma, Double in_alpha)
     {
         track = in_track;
-        if (in_gamma == null) gamma = 0.90;
+        if (in_gamma == null) gamma = 1.0;
         else gamma = in_gamma;
         if (in_alpha == null) alpha = 0.90;
         else alpha = in_alpha;
