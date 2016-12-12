@@ -171,6 +171,14 @@ public class Cell
         return qValues[rowVelIndex][colVelIndex];
     }
     
+    public double getQValue(int rowVel, int colVel, int rowAccel, int colAccel)
+    {
+        int rowVelIndex = rowVel + 5;
+        int colVelIndex = colVel + 5;
+        
+        return qValues[rowVelIndex][colVelIndex].getQValue(rowAccel, colAccel);
+    }
+    
     /**
      * Set/Update the QValue for a specific velocity state and acceleration action of this Cell
      * @param rowVel : value between [-5,5]
