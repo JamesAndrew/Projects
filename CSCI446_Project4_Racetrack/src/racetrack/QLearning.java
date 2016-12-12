@@ -1,7 +1,6 @@
-
 package racetrack;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class QLearning 
@@ -10,7 +9,7 @@ public class QLearning
     // threshold to stop training the race track
     private final double epsilon = 0.00001;
     // greedy parameter for action selection
-    private final double greedy = 0.6;
+    private final double greedy = 0.5;  // probably go with 0.5 for this
     // discount factor - low values decrement additive rewards
     private final double gamma = 0.95;
     // learning factor - lower values take longer to converge but give better results
@@ -36,55 +35,108 @@ public class QLearning
     public void learnTrack()
     {
         Random random = new Random();
-        int iteration = 0;
-        // indexes - [0]: row location, [1]: col location, [2]: row velocity, [3]: col velocity
-        int[] currentState = new int[4];
+        int suiteIteration = 0;
         
         // repeat until delta threshold is met
         do
         {
-            System.out.format("Current generation: %d%n", iteration);                                               //            
+            System.out.format("Current generation: %d%n", suiteIteration);                                         //            
             
+            int runIteration = 0;
+            int[] currentState; // [0]: row position, [1]: col position, [2]: row velocity, [3]: col velocity
             // pick a semi-arbitrary state
-            if (iteration == 0) currentState = assignInitialState();
+            if (suiteIteration == 0) currentState = assignInitialState();
             else
             {
                 currentState = randomValidState();
             }
-            System.out.format("  State of [cell-index][velocity] randomly chosen: [%d,%d][%d,%d]%n",                //
-                    currentState[0], currentState[1], currentState[2], currentState[3]);                            //
+            System.out.format("  Initial State -- Location: [%d,%d], Velocity: [%d,%d]%n",                          //
+                currentState[0], currentState[1], currentState[2], currentState[3]);                                //
             
-            // choose an action using an epsilon-greedy policy
-            double greedCase = random.nextDouble();
-            // pick the greediest action 'greedy'% of the time
-            if (greedCase <= greedy)
+            // repeat agent exploration until a 'F' finish cell state is reached
+            while (true)
             {
-                int[] action = getBestAction(currentState[0], currentState[1], currentState[2], currentState[3]);
-            }
-            else
-            {
+                System.out.format("  === Current agent step t: %d ===%n", runIteration);                            //         
+                track.printTrackWithAgentLocation(currentState[0], currentState[1]);                                //
                 
+                // choose an action using an epsilon-greedy policy
+                int[] action;
+                double greedCase = random.nextDouble();
+                
+                // pick the greediest action 'greedy' percent of the time
+                if (greedCase <= greedy)
+                {
+                    System.out.format("    Finding best action for cell (%d,%d) with velocity "                    //
+                        + "(%d,%d)%n", currentState[0], currentState[1], currentState[2], currentState[3]);        //
+                    
+                    action = getBestAction(currentState[0], currentState[1], currentState[2], currentState[3]);
+                    
+                    System.out.format("    Best acceleration action found to be [%d,%d]%n", action[0], action[1]); //
+                }
+                // else pick a random action
+                else
+                {
+                    System.out.format("    Finding random action for cell (%d,%d) with velocity "                  //
+                        + "(%d,%d)%n", currentState[0], currentState[1], currentState[2], currentState[3]);        //
+                    action = getRandomAction();
+                    System.out.format("    Random acceleration action assigned to [%d,%d]%n", action[0], action[1]);//
+                }
+
+                // evaluate max_a'[Q(s',a')] //
+                // Get next state s'
+                int[] nextState = getNextState(currentState, action);
+                // get the maximal action a' from next state s'
+                int[] nextStateMaxAction = getBestAction(nextState[0], nextState[1], nextState[2], nextState[3]);
+                // get the q value for the next state's best action: Q(s',a')
+                Cell nextCell = track.getTrack()[nextState[0]][nextState[1]];
+                QValues nextCellQValues = nextCell.getQValues(nextState[2], nextState[3]);
+                double maxNextQ = nextCellQValues.getQValue(nextStateMaxAction[0], nextStateMaxAction[1]);
+
+                // run update formula: Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))
+                Cell currentCell = track.getTrack()[currentState[0]][currentState[1]];
+                double currentQ = currentCell.getQValues(currentState[2], currentState[3]).getQValue(action[0], action[1]);
+                double r = currentCell.getReward();
+                double qValue = currentQ + alpha*(r + gamma*maxNextQ - currentQ);
+                // update the Q value
+                currentCell.setQValue(currentState[2], currentState[3], action[0], action[1], qValue);
+                
+                // set state to be next state
+                currentState[0] = nextState[0];                 // update agent row location
+                currentState[1] = nextState[1];                 // update agent column location
+                currentState[2] = currentState[2]+action[0];    // update agent row velocity
+                currentState[3] = currentState[3]+action[1];    // update agent column velocity
+                
+                // exit agent exploration if 'F' state is reached otherwise keep exploring
+                Cell agentState = track.getTrack()[currentState[0]][currentState[1]];
+                if (agentState.getType() == 'F') break;
+                else runIteration++;
             }
             
-            iteration++;
+            suiteIteration++;
         }
-        while (iteration < 3);
+        while (suiteIteration < 3);
     }
     
     /**
-     * Queries the Cell at index [trackRow,trackCol] for state [rowVelocity,colVelocity]
-     * and calculates the best action to take. Best action is action resulting in highest Q value
+     * Queries the Cell at index [trackRow,trackCol] with state [rowVelocity,colVelocity]
+     * and calculates the greedy best action to take. 
+     * The greedy best action is the largest Q values for the 9 possible actions 
+     * that can occur from accelerating -1/0/+1 in each direction.
+     * If there is a tie for best actions, a random one of the tied actions is chosen
+     * 
      * @param trackRow
      * @param trackCol
      * @param rowVel
      * @param colVel
      * @return the acceleration vectors of the best action to take
+     *   index [0] is row acceleration. index [1] is column acceleration
      */
     private int[] getBestAction(int trackRow, int trackCol, int rowVel, int colVel)
     {
         Cell cell = track.getTrack()[trackRow][trackCol];
-        int bestAction = -1;
-        double bestActionQValue = Double.MIN_VALUE;
+        QValues values = cell.getQValues(rowVel, colVel);
+        double bestActionQValue = -1000.0;
+        ArrayList<int[]> bestActions = new ArrayList();
         
         // iterate through all possible actions one can take from the current state
         // (accelerate +1/-1/0 in x and y directions) and store the action that 
@@ -94,10 +146,17 @@ public class QLearning
         if (rowVel == -5 || colVel == -5) { /* do nothing, this action cannot occur */ }
         else
         {
-            double qValue = cell.getQValue(-1, -1);
-            if (qValue > bestActionQValue)
+            double qValue = values.getQValue(-1, -1);
+            if (qValue == bestActionQValue) 
             {
-                bestAction = 1;
+                int[] action = new int[]{-1, -1};
+                bestActions.add(action);
+            }
+            else if (qValue > bestActionQValue)
+            {
+                bestActions.clear();
+                int[] action = new int[]{-1, -1};
+                bestActions.add(action);
                 bestActionQValue = qValue;
             }
         }
@@ -106,10 +165,17 @@ public class QLearning
         if (rowVel == -5) { /* do nothing, this action cannot occur */ }
         else
         {
-            double qValue = cell.getQValue(-1, 0);
-            if (qValue > bestActionQValue)
+            double qValue = values.getQValue(-1, 0);
+            if (qValue == bestActionQValue) 
             {
-                bestAction = 2;
+                int[] action = new int[]{-1, 0};
+                bestActions.add(action);
+            }
+            else if (qValue > bestActionQValue)
+            {
+                bestActions.clear();
+                int[] action = new int[]{-1, 0};
+                bestActions.add(action);
                 bestActionQValue = qValue;
             }
         }
@@ -118,10 +184,17 @@ public class QLearning
         if (colVel == -5) { /* do nothing, this action cannot occur */ }
         else
         {
-            double qValue = cell.getQValue(-1, 1);
-            if (qValue > bestActionQValue)
+            double qValue = values.getQValue(-1, 1);
+            if (qValue == bestActionQValue) 
             {
-                bestAction = 3;
+                int[] action = new int[]{-1, 1};
+                bestActions.add(action);
+            }
+            else if (qValue > bestActionQValue)
+            {
+                bestActions.clear();
+                int[] action = new int[]{-1, 1};
+                bestActions.add(action);
                 bestActionQValue = qValue;
             }
         }
@@ -130,30 +203,52 @@ public class QLearning
         if (colVel == -5) { /* do nothing, this action cannot occur */ }
         else
         {
-            double qValue = cell.getQValue(0, -1);
-            if (qValue > bestActionQValue)
+            double qValue = values.getQValue(0, -1);
+            if (qValue == bestActionQValue) 
             {
-                bestAction = 4;
+                int[] action = new int[]{0, -1};
+                bestActions.add(action);
+            }
+            else if (qValue > bestActionQValue)
+            {
+                bestActions.clear();
+                int[] action = new int[]{0, -1};
+                bestActions.add(action);
                 bestActionQValue = qValue;
             }
         }
 
         // a_(0,0) case 5: no acceleration
-        double tempQValue = cell.getQValue(0, 0);
-        if (tempQValue > bestActionQValue)
+        double tempQValue = values.getQValue(0, 0);
+        if (tempQValue == bestActionQValue) 
         {
-            bestAction = 5;
+            int[] action = new int[]{0, 0};
+            bestActions.add(action);
+        }
+        else if (tempQValue > bestActionQValue)
+        {
+            bestActions.clear();
+            int[] action = new int[]{0, 0};
+            bestActions.add(action);
             bestActionQValue = tempQValue;
         }
+
 
         // a_(0,1) case 6: accelerate right only
         if (colVel == 5) { /* do nothing, this action cannot occur */ }
         else
         {
-            double qValue = cell.getQValue(0, 1);
-            if (qValue > bestActionQValue)
+            double qValue = values.getQValue(0, 1);
+            if (qValue == bestActionQValue) 
             {
-                bestAction = 6;
+                int[] action = new int[]{0, 1};
+                bestActions.add(action);
+            }
+            else if (qValue > bestActionQValue)
+            {
+                bestActions.clear();
+                int[] action = new int[]{0, 1};
+                bestActions.add(action);
                 bestActionQValue = qValue;
             }
         }
@@ -162,10 +257,17 @@ public class QLearning
         if (rowVel == 5) { /* do nothing, this action cannot occur */ }
         else
         {
-            double qValue = cell.getQValue(1, -1);
-            if (qValue > bestActionQValue)
+            double qValue = values.getQValue(1, -1);
+            if (qValue == bestActionQValue) 
             {
-                bestAction = 7;
+                int[] action = new int[]{1, -1};
+                bestActions.add(action);
+            }
+            else if (qValue > bestActionQValue)
+            {
+                bestActions.clear();
+                int[] action = new int[]{1, -1};
+                bestActions.add(action);
                 bestActionQValue = qValue;
             }
         }
@@ -174,10 +276,17 @@ public class QLearning
         if (rowVel == 5) { /* do nothing, this action cannot occur */ }
         else
         {
-            double qValue = cell.getQValue(1, 0);
-            if (qValue > bestActionQValue)
+            double qValue = values.getQValue(1, 0);
+            if (qValue == bestActionQValue) 
             {
-                bestAction = 8;
+                int[] action = new int[]{1, 0};
+                bestActions.add(action);
+            }
+            else if (qValue > bestActionQValue)
+            {
+                bestActions.clear();
+                int[] action = new int[]{1, 0};
+                bestActions.add(action);
                 bestActionQValue = qValue;
             }
         }
@@ -186,45 +295,299 @@ public class QLearning
         if (rowVel == 5 || colVel == 5) { /* do nothing, this action cannot occur */ }
         else
         {
-            double qValue = cell.getQValue(1, 1);
-            if (qValue > bestActionQValue)
+            double qValue = values.getQValue(1, 1);
+            if (qValue == bestActionQValue) 
             {
-                bestAction = 9;
+                int[] action = new int[]{1, 1};
+                bestActions.add(action);
+            }
+            else if (qValue > bestActionQValue)
+            {
+                bestActions.clear();
+                int[] action = new int[]{1, 1};
+                bestActions.add(action);
                 bestActionQValue = qValue;
             }
         }
         
-        if (bestActionQValue == Double.MIN_VALUE) 
+        if (bestActionQValue == -1000.0 || bestActions.isEmpty()) 
         {
-            throw new RuntimeException("bestActionQValue never got assigned a real value.");
+            throw new RuntimeException("bestAction never got assigned a real value.");
         }
         
-        // return the accel vectors associated with best qvalue
-        switch (bestAction)
+        if (bestActions.size() == 1)
         {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
-            case 7:
-                break;
-            case 8:
-                break;
-            case 9:
-                break;
-            default:
-                throw new RuntimeException("a best action case was never assigned");
+            return bestActions.get(0);
+        }
+        else
+        {
+            Random random = new Random();
+            int listSize = bestActions.size();
+            int randomIndex = random.nextInt(listSize);
+            return bestActions.get(randomIndex);
         }
     }
     
+    /**
+     * @return a randomized acceleration vector with values between -1 and 1
+     */
+    private int[] getRandomAction()
+    {
+        Random random = new Random();
+        int rowAccel = random.nextInt(3) - 1;
+        int colAccel = random.nextInt(3) - 1;
+        
+        int[] action = new int[]{ rowAccel, colAccel };
+        return action;
+    }
+    
+    /**
+     * Use the current state and an acceleration action to get the next state
+     * 
+     * @param currentState : [0]: row location, [1]: col location, [2]: row velocity, [3]: col velocity
+     * @param action : An array with velocity vectors: [0] row velocity, [1] column velocity
+     * @return An array describing the next state as follows: 
+     *    [0]: row location, [1]: col location, [2]: row velocity, [3]: col velocity
+     */
+    private int[] getNextState(int[] currentState, int[] action)
+    {
+        int currentRow = currentState[0];
+        int currentCol = currentState[1];
+        int rowVel = currentState[2] + action[0];
+        int colVel = currentState[3] + action[1];
+        
+        int nextRow;
+        int nextCol;
+        int newRowVel = currentRow + rowVel;
+        int newColVel = currentCol + colVel;
+        
+        // next cell-state is [row+newXVel, col+newYVel] //
+        // if the finish line can be crossed, set nextCell to be the finish
+        if (finishOccurs(currentRow, currentCol, newRowVel, newColVel))
+        {
+            int[] finishLoc = finishLocation(currentRow, currentCol, newRowVel, newColVel);
+            
+            nextRow = finishLoc[0];
+            nextCol = finishLoc[1];
+            newRowVel = 0;
+            newColVel = 0;
+        }
+        // if collision is known to happen, set nextCell to be cell right before wall was hit with 0 velocity
+        else if (collisionOccurs(currentRow, currentCol, newRowVel, newColVel))
+        {
+            int[] crashLoc = collisionLocation(currentRow, currentCol, newRowVel, newColVel);
+            
+            nextRow = crashLoc[0];
+            nextCol = crashLoc[1];
+            newRowVel = 0;
+            newColVel = 0;
+        }
+        // if the next cell is normal to move to (no walls, no finish), update next cell normally
+        else
+        {
+            nextRow = currentRow + newRowVel;
+            nextCol = currentCol + newColVel;
+        }
+        
+        return new int[]{ nextRow, nextCol, newRowVel, newColVel };
+    }
+    
+    /**
+     * Calculates if the finish line is crossed when a race car at position 
+     * [row,col] moves with velocity [rowVel,colVel].
+     * Note: this assumes the car always travels the full row distance first, then full column distance
+     * 
+     * @param row : current row location of car
+     * @param col : current column location of car
+     * @param rowVel : car's current row velocity
+     * @param colVel : car's current column velocity
+     * @return true if finish line is crossed
+     */
+    private boolean finishOccurs(int row, int col, int rowVel, int colVel)
+    {
+        if (rowVel < 0)
+        {
+            for (int i = row; i >= row + rowVel; i--)
+            {
+                if (track.getTrack()[i][col].getType() == '#') return false;
+                else if (track.getTrack()[i][col].getType() == 'F') return true;
+            }
+        }
+        else if (rowVel > 0)
+        {
+            for (int i = row; i <= row + rowVel; i++)
+            {
+                if (track.getTrack()[i][col].getType() == '#') return false;
+                else if (track.getTrack()[i][col].getType() == 'F') return true;
+            }
+        }
+        
+        row = row + rowVel;
+        if (colVel < 0)
+        {
+            for (int j = col; j >= col + colVel; j--)
+            {
+                if (track.getTrack()[row][j].getType() == '#') return false;
+                else if (track.getTrack()[row][j].getType() == 'F') return true;
+            }
+        }
+        else if (colVel > 0)
+        {
+            for (int j = col ; j <= col + colVel; j++)
+            {
+                if (track.getTrack()[row][j].getType() == '#') return false;
+                else if (track.getTrack()[row][j].getType() == 'F') return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Nearly identical to 'finishOccurs' method, but returns the row and column that
+     * the finish line was reached at.
+     * Note: this method assumes that the finish line is known to be reachable without
+     * running in to any walls
+     * 
+     * @param row
+     * @param col
+     * @param rowVel
+     * @param colVel
+     * @return an int[] of [row,col] when finish line crossing occurred
+     */
+    private int[] finishLocation(int row, int col, int rowVel, int colVel)
+    {
+        if (rowVel < 0)
+        {
+            for (int i = row; i >= row + rowVel; i--)
+            {
+                if (track.getTrack()[i][col].getType() == 'F') return new int[]{i, col};
+            }
+        }
+        else if (rowVel > 0)
+        {
+            for (int i = row; i <= row + rowVel; i++)
+            {
+                if (track.getTrack()[i][col].getType() == 'F') return new int[]{i, col};
+            }
+        }
+        
+        row = row + rowVel;
+        if (colVel < 0)
+        {
+            for (int j = col; j >= col + colVel; j--)
+            {
+                if (track.getTrack()[row][j].getType() == 'F') return new int[]{row, j};
+            }
+        }
+        else if (colVel > 0)
+        {
+            for (int j = col ; j <= col + colVel; j++)
+            {
+                if (track.getTrack()[row][j].getType() == 'F') return new int[]{row, j};
+            }
+        }
+        
+        // throw exception if none of these situations worked
+        throw new RuntimeException("A finish location was never reached for "
+                + "row,col [" + row + "," + col + "] with velocity (" + rowVel + "," + colVel + ").");
+    }
+    
+    /**
+     * Calculates if a collision will occur when a race car at position 
+     * [row,col] moves with velocity [rowVel,colVel].
+     * Note: this assumes the car always travels the full row distance first, then full column distance
+     * 
+     * @param row : current row location of car
+     * @param col : current column location of car
+     * @param rowVel : car's current row velocity
+     * @param colVel : car's current column velocity
+     * @return true if a collusion will occur
+     */
+    private boolean collisionOccurs(int row, int col, int rowVel, int colVel)
+    {
+        if (rowVel < 0)
+        {
+            for (int i = row; i >= row + rowVel; i--)
+            {
+                if (track.getTrack()[i][col].getType() == '#') return true;
+            }
+        }
+        else if (rowVel > 0)
+        {
+            for (int i = row; i <= row + rowVel; i++)
+            {
+                if (track.getTrack()[i][col].getType() == '#') return true;
+            }
+        }
+        
+        row = row + rowVel;
+        if (colVel < 0)
+        {
+            for (int j = col; j >= col + colVel; j--)
+            {
+                if (track.getTrack()[row][j].getType() == '#') return true;
+            }
+        }
+        else if (colVel > 0)
+        {
+            for (int j = col ; j <= col + colVel; j++)
+            {
+                if (track.getTrack()[row][j].getType() == '#') return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Nearly identical to 'collisionOccurs' method, but returns the row and column that
+     * the collision happened at.
+     * Note: this method assumes that a collision is already known to happen for the
+     * given location and velocity
+     * 
+     * @param row
+     * @param col
+     * @param rowVel
+     * @param colVel
+     * @return an int array of the [row,col] where the collision happened
+     */
+    private int[] collisionLocation(int row, int col, int rowVel, int colVel)
+    {
+        if (rowVel < 0)
+        {
+            for (int i = row; i >= row + rowVel; i--)
+            {
+                if (track.getTrack()[i-1][col].getType() == '#') return new int[]{i,col};
+            }
+        }
+        else if (rowVel > 0)
+        {
+            for (int i = row; i <= row + rowVel; i++)
+            {
+                if (track.getTrack()[i+1][col].getType() == '#') return new int[]{i,col};
+            }
+        }
+        
+        row = row + rowVel;
+        if (colVel < 0)
+        {
+            for (int j = col; j >= col + colVel; j--)
+            {
+                if (track.getTrack()[row][j-1].getType() == '#') return new int[]{row,j};
+            }
+        }
+        else if (colVel > 0)
+        {
+            for (int j = col ; j <= col + colVel; j++)
+            {
+                if (track.getTrack()[row][j+1].getType() == '#') return new int[]{row,j};
+            }
+        }
+        
+        throw new RuntimeException("A crash location was never reached for "
+                + "row,col [" + row + "," + col + "] with velocity (" + rowVel + "," + colVel + ").");
+    }
     
     /**
      * @return the [row, col, rowVel, colVel] values close to the current map's finish line

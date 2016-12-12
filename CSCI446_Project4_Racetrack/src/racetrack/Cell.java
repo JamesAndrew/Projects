@@ -25,8 +25,8 @@ public class Cell
     // because all utilities are updated simutaneous during value iteration, store the new utility
     // in a temporary array until all utilities have been updated for the current generation
     private final double[][] tempUtilities = new double[11][11];
-    // Q-Value for each state this cell can have. Similar to utilities
-    private final double[][] qValues = new double[11][11];
+    // Q-Value for each state this cell can have.
+    private final QValues[][] qValues = new QValues[11][11];
     // Synonymous with cost or penalty. All non-finish cells have -1 reward
     private final double reward;   
     
@@ -88,7 +88,8 @@ public class Cell
         {
             for (int j = 0; j < qValues[i].length; j++)
             {
-                qValues[i][j] = value;
+                qValues[i][j] = new QValues();
+                qValues[i][j].fillQValues(value);
             }
         }
     }
@@ -160,13 +161,29 @@ public class Cell
      * the qValue stored at that index.
      * @param rowVel : value between [-5,5]
      * @param colVel : value between [-5,5]
-     * @return the qValue stored at the given index.
+     * @return the qValues stored at the given index.
      */
-    public double getQValue(int rowVel, int colVel)
+    public QValues getQValues(int rowVel, int colVel)
     {
         int rowVelIndex = rowVel + 5;
         int colVelIndex = colVel + 5;
         
         return qValues[rowVelIndex][colVelIndex];
+    }
+    
+    /**
+     * Set/Update the QValue for a specific velocity state and acceleration action of this Cell
+     * @param rowVel : value between [-5,5]
+     * @param colVel : value between [-5,5]
+     * @param rowAccel : value between [-1,1]
+     * @param colAccel : value between [-1,1]
+     * @param value : the Q-Value
+     */
+    public void setQValue(int rowVel, int colVel, int rowAccel, int colAccel, double value)
+    {
+        int rowVelIndex = rowVel + 5;
+        int colVelIndex = colVel + 5;
+        
+        qValues[rowVelIndex][colVelIndex].setQValue(rowAccel, colAccel, value);
     }
 }

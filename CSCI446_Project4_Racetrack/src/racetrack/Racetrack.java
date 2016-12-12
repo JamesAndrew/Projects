@@ -66,7 +66,7 @@ public class Racetrack
     
     public void printTrack(RaceCar car)
     {
-                int rowLength = track.length;
+        int rowLength = track.length;
         int colLength = track[0].length;
 
         for (int r = 0; r < rowLength; r++)
@@ -86,6 +86,31 @@ public class Racetrack
         }
     }
 
+    /**
+     * Prints track and location without needing a race car instance
+     */
+    public void printTrackWithAgentLocation(int row, int col)
+    {
+        int rowLength = track.length;
+        int colLength = track[0].length;
+
+        for (int r = 0; r < rowLength; r++)
+        {
+            for (int c = 0; c < colLength; c++)
+            {
+                if (r == row && c == col)
+                {
+                    System.out.print('O');
+                }
+                else
+                {
+                    System.out.print(track[r][c].getType());
+                }
+            }
+            System.out.println();
+        }
+    }
+    
     public int getNumMoves()
     {
         return moves;

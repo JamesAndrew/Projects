@@ -362,7 +362,7 @@ public class ValueIteration
     }
     
     /**
-     * Calculates is the finish line is crossed when a race car at position 
+     * Calculates if the finish line is crossed when a race car at position 
      * [row,col] moves with velocity [rowVel,colVel].
      * Note: this assumes the car always travels the full row distance first, then full column distance
      * 
