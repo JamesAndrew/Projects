@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package racetrack;
 
 import java.io.BufferedReader;
@@ -88,10 +83,46 @@ public class Experiment
     /**
      * Run the QLearning algorithm
      */
-    public void runQLearning()
+    public void runQLearning() throws IOException
     {
-        QLearning qLearn = new QLearning(simple2);
-        qLearn.learnTrack();
+        //  Double[] discountFactors = new Double[]{ 0.2, 0.4, 0.6, 0.8, 1.0 };
+	Double[] discountFactors = new Double[]{ 1.0 };
+//      Double[] learningFactors = new Double[]{ 0.5, 0.7, 0.8, 0.9, 1.0 };
+        Double[] learningFactors = new Double[]{ 1.0 };
+        // initizliat stats objects
+	QLearningStatistics.initializeQLearningStatistics();
+        
+        // for each discount factor...
+	for (Double discount : discountFactors)
+        {
+            // run algorithm 10 times to get averaged results
+            for (int i = 0; i < 1; i++)
+            {
+                // instantiate new racetrack
+                // L = ConvertToRacetrack("tracks/L-track.txt", L, "L");
+                // L.printTrack();
+                // 
+                // O = ConvertToRacetrack("tracks/O-track.txt", O, "O");
+                // O.printTrack();
+                // 
+                // R = ConvertToRacetrack("tracks/R-track.txt", R, "R");
+                // R.printTrack();
+                // 
+                // simple = ConvertToRacetrack("tracks/Simple-track.txt", simple, "simple");
+                // simple.printTrack();
+                simple2 = ConvertToRacetrack("tracks/Simple-track2.txt", simple2, "simple2");
+                simple2.printTrack();
+
+                // instantiate learner with correct discount factor:
+                QLearning qLearner = new QLearning(simple2, discount, null);
+
+                // train the racetrack
+                qLearner.learnTrack();
+            }
+	}
+        
+	// print final stats results
+	QLearningStatistics.printAllResults();
     }
     
     private Racetrack ConvertToRacetrack(String fileName, Racetrack T, String trackName) throws IOException

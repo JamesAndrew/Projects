@@ -18,6 +18,9 @@ Q-LEARNING:
 RACECAR:
  - For diagonal movement, the car always travels the full row distance first, then full column distance (need 
    to update this to match Tyler's appraoch)
+   
+STATISTICS:	
+ - Number of iterations for Value Iterations vs Q-Learning 
  
 TODOs:
  - Update next state placements in both VI and Q-L to use Tyler's geometric appraoch

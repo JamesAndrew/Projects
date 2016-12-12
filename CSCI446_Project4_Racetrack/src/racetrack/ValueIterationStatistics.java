@@ -3,7 +3,6 @@ package racetrack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Stack;
 
 /**
  * Tracks the following desired results/statistics from Value Iteration:

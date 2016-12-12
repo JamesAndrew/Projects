@@ -11,9 +11,9 @@ public class QLearning
     // greedy parameter for action selection
     private final double greedy = 0.4;  
     // discount factor - low values decrement additive rewards
-    private final double gamma = 0.95;
+    private final Double gamma; 
     // learning factor - lower values take longer to converge but give better results
-    private final double alpha = 0.95;          // use 0.8?
+    private final Double alpha; 
     // temporary - for producing sample run output
     private final double printRate = 100;
     
@@ -31,9 +31,13 @@ public class QLearning
      * Constructor
      * @param in_track : race track to assign [state, action] values to
      */
-    public QLearning(Racetrack in_track)
+    public QLearning(Racetrack in_track, Double in_gamma, Double in_alpha)
     {
         track = in_track;
+        if (in_gamma == null) gamma = 0.90;
+        else gamma = in_gamma;
+        if (in_alpha == null) alpha = 0.90;
+        else alpha = in_alpha;
     }
     
     /**
@@ -179,6 +183,11 @@ public class QLearning
         }
         while (!delta);
         
+        // update statistics
+        QLearningStatistics.putTrainingIterations(runIteration);
+        QLearningStatistics.putDiscountConvergence(gamma, runIteration);
+        QLearningStatistics.putLearningConvergence(alpha, runIteration);
+        
         System.out.format("Exploration halting state reached. Running agent as a racer from the Start location%n");
         // run same procedure but always starting at a start 'S' cell
         learnTrackFromStart();
@@ -205,6 +214,7 @@ public class QLearning
         track.printTrackWithAgentLocation(currentState[0], currentState[1]);                                            //
         
         // repeat agent exploration until a 'F' finish cell state is reached
+        int numSteps = 0;
         while (true)
         {
             // get an action to take for current state
@@ -253,7 +263,14 @@ public class QLearning
                     System.out.format("Reached finish line. Ending Q-Learning simulation.%n%n");                          //
                 break;
             }
+            
+            numSteps++;
         }
+        
+        // update statistics
+        QLearningStatistics.putRaceResults(numSteps);
+        QLearningStatistics.putDiscountRaceResults(gamma, numSteps);
+        QLearningStatistics.putLearningRaceResults(alpha, numSteps);
     }
     
     /**

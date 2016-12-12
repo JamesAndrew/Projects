@@ -113,7 +113,7 @@ public class ValueIteration
                     }
                 }
             }
-            trainingIteration++;        // temp used for testing
+            trainingIteration++;        
             System.out.format("  No update changes greater than delta?: %b%n", halt);
         } 
         while (!halt);
