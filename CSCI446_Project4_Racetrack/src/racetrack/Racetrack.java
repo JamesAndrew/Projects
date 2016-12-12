@@ -115,8 +115,9 @@ public class Racetrack
 
     /**
      * @param resetOnCollision 
+     * @param discountFactor : used for statistics tracking
      */
-    public void run(boolean resetOnCollision)
+    public void run(boolean resetOnCollision, double discountFactor)
     {
         System.out.format("%n=== Running race car agent on race track ===%n");                          //
         
@@ -152,8 +153,10 @@ public class Racetrack
             moves++;
         }
         
-        printTrack(car);                                                                                //
-        System.out.format("  Finish line reached. Ending Value Iteration.%n");                          //
+        ValueIterationStatistics.putRaceResults(moves);
+        ValueIterationStatistics.putRaceResults(discountFactor, moves);
+        printTrack(car);                                                                                  //
+        System.out.format("  Finish line reached. Ending Value Iteration.%n%n");                          //
     }
 
     /**

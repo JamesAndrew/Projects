@@ -36,22 +36,53 @@ public class Experiment
 //        
 //        simple = ConvertToRacetrack("tracks/Simple-track.txt", simple, "simple");
 //        simple.printTrack();
-//        
-        simple2 = ConvertToRacetrack("tracks/Simple-track2.txt", simple2, "simple2");
-        simple2.printTrack();
     }
     
     /**
      * Assigns utilities to each cell for every possible velocity state using
      * Value Iteration 
      */
-    public void runValueIteration()
+    public void runValueIteration() throws IOException
     {
-        // instantiate and give track to run on
-        ValueIteration valueIteration = new ValueIteration(simple2);
-        // begin training which solves utility of each cell for every velocity value
-        valueIteration.trainUtilities();
-        simple2.run(false);
+//        double[] discountFactors = new double[]{ 0.2, 0.4, 0.6, 0.8, 1.0 };
+        double[] discountFactors = new double[]{ 1.0 };
+        // initizliat stats objects
+        ValueIterationStatistics.initializeValueIterationStatistics();
+        
+        // for each discount factor...
+        for (double discount : discountFactors)
+        {
+            // run algorithm 10 times to get averaged results
+            for (int i = 0; i < 1; i++)
+            {
+                // instantiate new racetrack
+                // L = ConvertToRacetrack("tracks/L-track.txt", L, "L");
+                // L.printTrack();
+                // 
+                // O = ConvertToRacetrack("tracks/O-track.txt", O, "O");
+                // O.printTrack();
+                // 
+                // R = ConvertToRacetrack("tracks/R-track.txt", R, "R");
+                // R.printTrack();
+                // 
+                // simple = ConvertToRacetrack("tracks/Simple-track.txt", simple, "simple");
+                // simple.printTrack();
+                simple2 = ConvertToRacetrack("tracks/Simple-track2.txt", simple2, "simple2");
+                simple2.printTrack();
+                
+                // instantiate learner with correct discount factor:
+                ValueIteration viLearner = new ValueIteration(simple2, discount);
+                
+                // train the racetrack
+                viLearner.trainUtilities();
+                
+                // run the racecar on the racetrack
+                simple2.run(false, discount);
+            }
+        }
+        
+        // print final stats results
+        ValueIterationStatistics.printAllResults();
     }
     
     /**

@@ -10,16 +10,16 @@ import java.util.Collections;
 public class ValueIteration 
 {
     // tunable parameters
-    private final double gamma   = 1.0;                 // discount factor (learning rate)
+    private final double gamma;                         // discount factor (learning rate)
     private final double epsilon = 0.0001;              // halting condition
     
     // track currently being worked with 
     private final Racetrack track;
     
-    
-    public ValueIteration(Racetrack in_track)
+    public ValueIteration(Racetrack in_track, double in_gamma)
     {
         track = in_track;
+        gamma = in_gamma;
     }
     
     /**
@@ -29,18 +29,18 @@ public class ValueIteration
     {
         System.out.format("Running Value Iteration.%nTunable Parameters:%n"
             + "  Discount factor: %.3f%n"
-            + "  Epsilon halting condition: %.6f%n"
+            + "  Epsilon halting condition: %.6f%n%n"
             + "  Bellman equation: U_{i+1}(s) <- R(s) + gamma*MaxAction[sum_{s'} P(s'|s,a)*U(s')]%n",
             gamma, epsilon);
         
-        int tempI = 0;             // temp
-        boolean halt;              // checks halting state
+        int trainingIteration = 0;              // num iterations to train
+        boolean halt;                           // checks halting state
         
         // loop until delta is less than than threshold value:
         // delta < episilon(1-gamma)/gamma
         do
         {
-            System.out.format("%nCurrent cycle: %d%n", tempI);                                                              //
+            System.out.format("%nCurrent cycle: %d%n", trainingIteration);                                                              //
             halt = true;
             
             System.out.format("  Looping over all possible states:%n");                                                     //
@@ -65,7 +65,7 @@ public class ValueIteration
                                 int rowVel = rowVelIndex - 5;
                                 int colVel = colVelIndex - 5;
                                 
-                                if ((rowVel == -5 || rowVel == 5) && (colVel == -5 || colVel == 5))                         //
+                                if (rowVel == -5 && colVel == -5)                                                           //
                                 {                                                                                           //
                                     System.out.format("    Calculating utility of cell (%d,%d) with velocity [%d,%d] "      //
                                             + "using Bellman Equation%n",
@@ -113,10 +113,14 @@ public class ValueIteration
                     }
                 }
             }
-            tempI++;        // temp used for testing
+            trainingIteration++;        // temp used for testing
             System.out.format("  No update changes greater than delta?: %b%n", halt);
         } 
         while (!halt);
+        
+        // update stats
+        ValueIterationStatistics.putTrainingIterations(trainingIteration);
+        ValueIterationStatistics.putConvergence(gamma, trainingIteration);
     }
     
     /**
