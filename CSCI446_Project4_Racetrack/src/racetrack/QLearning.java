@@ -7,7 +7,7 @@ public class QLearning
 {
     // tunable parameters //
     // threshold to stop training the race track
-    private final double epsilon = 0.001;
+    private final double epsilon = 0.1;       // currently using 0.001
     // greedy parameter for action selection
     private final double greedy = 0.4;  
     // discount factor - low values decrement additive rewards
@@ -60,7 +60,6 @@ public class QLearning
             
             runIteration = 0;
             delta = true;
-            if (suiteIteration % printRate == 0) System.out.format("  = Delta halting condition reset. =%n");                       //
             int[] currentState; // [0]: row position, [1]: col position, [2]: row velocity, [3]: col velocity
 
             // pick a semi-arbitrary state
@@ -150,7 +149,6 @@ public class QLearning
                 // check q-value deltas and flip flag if difference is over the threshold
                 if (Math.abs(qBefore - qAfter) > epsilon)
                 {
-                    if (suiteIteration % printRate == 0) System.out.format("    Delta halting condition marked as false.%n");       //
                     delta = false;
                 }
 
@@ -162,14 +160,16 @@ public class QLearning
                 if (suiteIteration % printRate == 0)
                     System.out.format("    Moved agent to next state -- Location: [%d,%d], Velocity: [%d,%d]%n",                    //
                     currentState[0], currentState[1], currentState[2], currentState[3]);                                            //
-                if (suiteIteration % printRate == 0) track.printTrackWithAgentLocation(currentState[0], currentState[1]);           //
 
                 // exit agent exploration if 'F' state is reached otherwise keep exploring
                 Cell agentState = track.getTrack()[currentState[0]][currentState[1]];
                 if (agentState.getType() == 'F') 
                 {
                     if (suiteIteration % printRate == 0)
+                    {
+                        if (suiteIteration % printRate == 0) track.printTrackWithAgentLocation(currentState[0], currentState[1]);   //
                         System.out.format("    Reached end state. Ending current agent run.%n%n");                                  //
+                    }                                  
                     break;
                 }
                 else runIteration++;
