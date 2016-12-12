@@ -656,8 +656,8 @@ public class QLearning
         int colIndex = 0;
         
         // generate a random row and column index within the racetrack bounds
-        int randRow = random.nextInt(track.getTrack().length);
-        int randCol = random.nextInt(track.getTrack()[randRow].length);
+        int randRow = 1 + random.nextInt(track.getTrack().length - 2);
+        int randCol = 1 + random.nextInt(track.getTrack()[randRow].length - 2);
         
         // find the closest '.' cell to index [randRow,randCol]
         boolean found = false;
