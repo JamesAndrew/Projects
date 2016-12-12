@@ -19,8 +19,9 @@ public class Experiment
     public Racetrack L;
     public Racetrack O;
     public Racetrack R;
-    // temporary, simple racetrack
+    // temporary, simple racetracks for sample runs and testing
     public Racetrack simple;
+    public Racetrack simple2;
     
     public Experiment() throws IOException
     {
@@ -33,8 +34,11 @@ public class Experiment
 //        R = ConvertToRacetrack("tracks/R-track.txt", R, "R");
 //        R.printTrack();
 //        
-        simple = ConvertToRacetrack("tracks/Simple-track.txt", simple, "simple");
-        simple.printTrack();
+//        simple = ConvertToRacetrack("tracks/Simple-track.txt", simple, "simple");
+//        simple.printTrack();
+        
+        simple2 = ConvertToRacetrack("tracks/Simple-track2.txt", simple2, "simple2");
+        simple2.printTrack();
     }
     
     /**
@@ -44,10 +48,10 @@ public class Experiment
     public void runValueIteration()
     {
         // instantiate and give track to run on
-        ValueIteration valueIteration = new ValueIteration(simple);
+        ValueIteration valueIteration = new ValueIteration(simple2);
         // being training which solves utility of each cell for every velocity value
         valueIteration.trainUtilities();
-        simple.run(false);
+        simple2.run(false);
     }
     
     /**
@@ -55,7 +59,7 @@ public class Experiment
      */
     public void runQLearning()
     {
-        QLearning qLearn = new QLearning(simple);
+        QLearning qLearn = new QLearning(simple2);
         qLearn.learnTrack();
     }
     

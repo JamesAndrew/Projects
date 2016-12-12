@@ -7,7 +7,7 @@ VALUE ITERATION:
  - Talk about choice of utility for '#' squares. Example occurs in the catch block of the bellman equation
  
 Q-LEARNING:
- - Remember to talk about each tunable parameter
+ - Remember to talk about each tunable parameter (lots to talk about)
  - Using an epsilon greedy policy for choosing what action to take
  - Q-Value table is contained as properties in each cell
  - Forcing initial trial runs to start at a state close to the finish line
