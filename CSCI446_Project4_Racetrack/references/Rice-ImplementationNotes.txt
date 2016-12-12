@@ -22,3 +22,4 @@ RACECAR:
 TODOs:
  - Update next state placements in both VI and Q-L to use Tyler's geometric appraoch
  - Enforce the randomized start index for Q-Learning doesn't start too close to the finish line
+ - Reset on crash version for Q-Learning

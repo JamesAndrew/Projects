@@ -84,4 +84,14 @@ public class RaceCar
     {
         return location;
     }
+
+    public int getAccelerationX() 
+    {
+        return accelerationX;
+    }
+
+    public int getAccelerationY() 
+    {
+        return accelerationY;
+    }
 }

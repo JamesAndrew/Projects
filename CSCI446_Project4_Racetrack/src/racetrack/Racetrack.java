@@ -73,7 +73,7 @@ public class Racetrack
             {
                 if (r == car.getLocation().getRow() && c == car.getLocation().getCol())
                 {
-                    System.out.print("C");
+                    System.out.print("O");
                 } else
                 {
                     System.out.print(track[r][c].getType());
@@ -113,30 +113,29 @@ public class Racetrack
         return moves;
     }
 
-    public void getCrashLocations()
-    {
-
-    }
-
-    public void getTrackHeatmap()
-    {
-
-    }
-
     /**
      * @param resetOnCollision 
      */
     public void run(boolean resetOnCollision)
     {
+        System.out.format("%n=== Running race car agent on race track ===%n");                          //
+        
         moves = 0;
         Random rand = new Random();
         RaceCar car = new RaceCar(start.get(rand.nextInt(start.size())), track);
         lastCarLoc = car.getLocation();
         currentCarLoc = lastCarLoc;
+        
         while (!finished)
         {
+            System.out.format("  Current State -- Location: [%d,%d], Velocity: [%d,%d]%n",              //
+            car.getLocation().getRow(), car.getLocation().getCol(),                                     //
+            car.getXVelocity(), car.getYVelocity());                                                    //
+            printTrack(car);                                                                            //
+            
             //attempt to apply acceleration to get to next cell
             car.accelerate(nextCell(car));
+            
             currentCarLoc = car.getLocation();
             if (currentCarLoc == lastCarLoc || collisionCheck(lastCarLoc, currentCarLoc))
             {
@@ -149,10 +148,12 @@ public class Racetrack
                 }
             }
             lastCarLoc = car.getLocation();
-            printTrack(car);
+            
             moves++;
         }
-        System.out.println("Moves: " + moves);
+        
+        printTrack(car);                                                                                //
+        System.out.format("  Finish line reached. Ending Value Iteration.%n");                          //
     }
 
     /**
@@ -182,6 +183,10 @@ public class Racetrack
                 }
             }
         }
+        
+        System.out.format("  Best reachable utility cell found at location (%d,%d). Accelerating to state.%n",  //
+            nextCell.getRow(), nextCell.getCol());                                                              //
+        
         return nextCell;
     }
 
