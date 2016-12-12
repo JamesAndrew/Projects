@@ -7,7 +7,7 @@ public class QLearning
 {
     // tunable parameters //
     // threshold to stop training the race track
-    private final double epsilon = 0.00001;
+    private final double epsilon = 0.0000001;
     // greedy parameter for action selection
     private final double greedy = 0.5;  // probably go with 0.5 for this
     // discount factor - low values decrement additive rewards
@@ -34,6 +34,9 @@ public class QLearning
      */
     public void learnTrack()
     {
+        // delta flag variable used to check the difference between a Q-Value before and after update.
+        // Once all q-value update deltas are less than epsilon, this flag stays as true and the suite exits
+        boolean delta;
         Random random = new Random();
         int suiteIteration = 0;
         
@@ -43,7 +46,9 @@ public class QLearning
             System.out.format("Current generation: %d%n", suiteIteration);                                         //            
             
             int runIteration = 0;
+            delta = true;
             int[] currentState; // [0]: row position, [1]: col position, [2]: row velocity, [3]: col velocity
+            
             // pick a semi-arbitrary state
             if (suiteIteration == 0) currentState = assignInitialState();
             else
@@ -104,21 +109,29 @@ public class QLearning
                 double currentQ = 
                     currentCell.getQValues(currentState[2], currentState[3]).getQValue(action[0], action[1]);
                 double r = currentCell.getReward();
+                double qBefore = currentCell.getQValue(currentState[2], currentState[3], action[0], action[1]);
                 System.out.format("      Q(s,a) before update: %.3f%n",                                             //
-                        currentCell.getQValue(currentState[2], currentState[3], action[0], action[1]));             //
+                    currentCell.getQValue(currentState[2], currentState[3], action[0], action[1]));                 //
                 double qValue = currentQ + alpha*(r + gamma*maxNextQ - currentQ);
                 
                 // update the Q value
                 currentCell.setQValue(currentState[2], currentState[3], action[0], action[1], qValue);
+                double qAfter = currentCell.getQValue(currentState[2], currentState[3], action[0], action[1]);
                 System.out.format("      Q(s,a) after update: %.3f%n",                                              //
-                        currentCell.getQValue(currentState[2], currentState[3], action[0], action[1]));             //
+                    currentCell.getQValue(currentState[2], currentState[3], action[0], action[1]));                 //
+                
+                // check q-value deltas and flip flag if difference is over the threshold
+                if (Math.abs(qBefore - qAfter) > epsilon)
+                {
+                    delta = false;
+                }
                 
                 // set state to be next state
                 currentState[0] = nextState[0];                 // update agent row location
                 currentState[1] = nextState[1];                 // update agent column location
                 currentState[2] = nextState[2];                 // update agent row velocity
                 currentState[3] = nextState[3];                 // update agent column velocity
-                System.out.format("    Moved agent to next state -- Location: [%d,%d], Velocity: [%d,%d]%n",      //
+                System.out.format("    Moved agent to next state -- Location: [%d,%d], Velocity: [%d,%d]%n",        //
                     currentState[0], currentState[1], currentState[2], currentState[3]);                            //
                 track.printTrackWithAgentLocation(currentState[0], currentState[1]);                                //
                 
@@ -126,7 +139,7 @@ public class QLearning
                 Cell agentState = track.getTrack()[currentState[0]][currentState[1]];
                 if (agentState.getType() == 'F') 
                 {
-                    System.out.format("    Reached end state. Ending current agent run.");                        //
+                    System.out.format("    Reached end state. Ending current agent run.");                          //
                     break;
                 }
                 else runIteration++;
@@ -134,7 +147,7 @@ public class QLearning
             
             suiteIteration++;
         }
-        while (suiteIteration < 100);
+        while (!delta);
     }
     
     /**
