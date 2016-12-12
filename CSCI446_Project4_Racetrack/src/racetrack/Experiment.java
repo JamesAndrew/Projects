@@ -28,8 +28,8 @@ public class Experiment
 //        L = ConvertToRacetrack("tracks/L-track.txt", L, "L");
 //        L.printTrack();
 //        
-        O = ConvertToRacetrack("tracks/O-track.txt", O, "O");
-        O.printTrack();
+//        O = ConvertToRacetrack("tracks/O-track.txt", O, "O");
+//        O.printTrack();
 //        
 //        R = ConvertToRacetrack("tracks/R-track.txt", R, "R");
 //        R.printTrack();
@@ -37,8 +37,8 @@ public class Experiment
 //        simple = ConvertToRacetrack("tracks/Simple-track.txt", simple, "simple");
 //        simple.printTrack();
 //        
-//        simple2 = ConvertToRacetrack("tracks/Simple-track2.txt", simple2, "simple2");
-//        simple2.printTrack();
+        simple2 = ConvertToRacetrack("tracks/Simple-track2.txt", simple2, "simple2");
+        simple2.printTrack();
     }
     
     /**
@@ -48,10 +48,10 @@ public class Experiment
     public void runValueIteration()
     {
         // instantiate and give track to run on
-        ValueIteration valueIteration = new ValueIteration(O);
-        // being training which solves utility of each cell for every velocity value
+        ValueIteration valueIteration = new ValueIteration(simple2);
+        // begin training which solves utility of each cell for every velocity value
         valueIteration.trainUtilities();
-        O.run(false);
+        simple2.run(false);
     }
     
     /**
@@ -59,7 +59,7 @@ public class Experiment
      */
     public void runQLearning()
     {
-        QLearning qLearn = new QLearning(O);
+        QLearning qLearn = new QLearning(simple2);
         qLearn.learnTrack();
     }
     

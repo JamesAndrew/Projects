@@ -10,8 +10,8 @@ import java.util.Collections;
 public class ValueIteration 
 {
     // tunable parameters
-    private final double gamma   = 1.0;                 // discount factor
-    private final double epsilon = 0.0001;            // halting condition
+    private final double gamma   = 1.0;                 // discount factor (learning rate)
+    private final double epsilon = 0.0001;              // halting condition
     
     // track currently being worked with 
     private final Racetrack track;
