@@ -10,6 +10,7 @@ Running Value Iteration.
 Tunable Parameters:
   Discount factor: 1.000
   Epsilon halting condition: 0.000100
+
   Bellman equation: U_{i+1}(s) <- R(s) + gamma*MaxAction[sum_{s'} P(s'|s,a)*U(s')]
 
 Current cycle: 0
@@ -17,144 +18,158 @@ Current cycle: 0
     Calculating utility of cell (1,1) with velocity [-5,-5] using Bellman Equation
       Max action: Stay in square. (at finish 'F' state)
       Utility value: 1.0000
-    Calculating utility of cell (1,1) with velocity [-5,5] using Bellman Equation
       Max action: Stay in square. (at finish 'F' state)
       Utility value: 1.0000
-    Calculating utility of cell (1,1) with velocity [5,-5] using Bellman Equation
       Max action: Stay in square. (at finish 'F' state)
       Utility value: 1.0000
-    Calculating utility of cell (1,1) with velocity [5,5] using Bellman Equation
       Max action: Stay in square. (at finish 'F' state)
       Utility value: 1.0000
-	.
-	. (abbreviated)
-	.
+
     Calculating utility of cell (1,2) with velocity [-5,-5] using Bellman Equation
       Max action: Stay in square. (at finish 'F' state)
       Utility value: 1.0000
-    Calculating utility of cell (1,2) with velocity [-5,5] using Bellman Equation
       Max action: Stay in square. (at finish 'F' state)
       Utility value: 1.0000
-    Calculating utility of cell (1,2) with velocity [5,-5] using Bellman Equation
       Max action: Stay in square. (at finish 'F' state)
       Utility value: 1.0000
-    Calculating utility of cell (1,2) with velocity [5,5] using Bellman Equation
       Max action: Stay in square. (at finish 'F' state)
       Utility value: 1.0000
-	.
-	. (abbreviated)
-	.
-    Calculating utility of cell (2,1) with velocity [-5,-5] using Bellman Equation
-      No accelerate action value: 1.000
-      Accelerate right action value: 1.000
-      Accelerate down action value: 1.000
-      Accelerate down-right action value: 1.000
-      Max action value: 1.000
-      Utility value: 0.0000
-    Calculating utility of cell (2,1) with velocity [-5,5] using Bellman Equation
-      Accelerate left action value: 1.000
-      No accelerate action value: 1.000
-      Accelerate down-left action value: 1.000
-      Accelerate down action value: 1.000
-      Max action value: 1.000
-      Utility value: 0.0000
-  
-  .
-  . (abbreviated)
-  .
-  
-Current cycle: 11
-  Looping over all possible states:
-    .
-	. (abbreviated)
-	.
-    Calculating utility of cell (2,1) with velocity [-5,-5] using Bellman Equation
-      No accelerate action value: 1.000
-      Accelerate right action value: 1.000
-      Accelerate down action value: 1.000
-      Accelerate down-right action value: 1.000
-      Max action value: 1.000
-      Utility value: 0.0000
-    Calculating utility of cell (2,1) with velocity [-5,5] using Bellman Equation
-      Accelerate left action value: 1.000
-      No accelerate action value: 1.000
-      Accelerate down-left action value: 1.000
-      Accelerate down action value: 1.000
-      Max action value: 1.000
-      Utility value: 0.0000
-    Calculating utility of cell (2,1) with velocity [5,-5] using Bellman Equation
-      Accelerate up action value: -2.290
-      Accelerate up-right action value: -2.290
-      No accelerate action value: -2.290
-      Accelerate right action value: -2.290
-      Max action value: -2.290
-      Utility value: -3.2900
-    Calculating utility of cell (2,1) with velocity [5,5] using Bellman Equation
-      Accelerate up-left action value: -2.290
-      Accelerate up action value: -2.290
-      Accelerate left action value: -2.290
-      No accelerate action value: -2.290
-      Max action value: -2.290
-      Utility value: -3.2900
 
-    Calculating utility of cell (2,2) with velocity [-5,-5] using Bellman Equation
+    Calculating utility of cell (2,1) with velocity [-5,-5] using Bellman Equation
       No accelerate action value: 1.000
       Accelerate right action value: 1.000
       Accelerate down action value: 1.000
       Accelerate down-right action value: 1.000
       Max action value: 1.000
       Utility value: 0.0000
-    Calculating utility of cell (2,2) with velocity [-5,5] using Bellman Equation
       Accelerate left action value: 1.000
       No accelerate action value: 1.000
       Accelerate down-left action value: 1.000
       Accelerate down action value: 1.000
       Max action value: 1.000
       Utility value: 0.0000
-    Calculating utility of cell (2,2) with velocity [5,-5] using Bellman Equation
-      Accelerate up action value: -2.290
-      Accelerate up-right action value: -2.290
-      No accelerate action value: -2.290
-      Accelerate right action value: -2.290
-      Max action value: -2.290
-      Utility value: -3.2900
-    Calculating utility of cell (2,2) with velocity [5,5] using Bellman Equation
-      Accelerate up-left action value: -2.290
-      Accelerate up action value: -2.290
-      Accelerate left action value: -2.290
-      No accelerate action value: -2.290
-      Max action value: -2.290
-      Utility value: -3.2900
+      Accelerate up action value: 0.000
+      Accelerate up-right action value: 0.000
+      No accelerate action value: 0.000
+      Accelerate right action value: 0.000
+      Max action value: 0.000
+      Utility value: -1.0000
+      Accelerate up-left action value: 0.000
+      Accelerate up action value: 0.000
+      Accelerate left action value: 0.000
+      No accelerate action value: 0.000
+      Max action value: 0.000
+      Utility value: -1.0000
+
     .
-	. (abbreviated)
+	. (etc).
 	.
-    Calculating utility of cell (5,5) with velocity [5,5] using Bellman Equation
-      Accelerate up-left action value: -3.710
-      Accelerate up action value: -3.710
-      Accelerate left action value: -3.710
-      No accelerate action value: -3.710
-      Max action value: -3.710
-      Utility value: -4.7096
+
+    Calculating utility of cell (5,5) with velocity [-5,-5] using Bellman Equation
+      No accelerate action value: -1.000
+      Accelerate right action value: -1.000
+      Accelerate down action value: -1.000
+      Accelerate down-right action value: -1.000
+      Max action value: -1.000
+      Utility value: -2.0000
+      Accelerate left action value: -1.000
+      No accelerate action value: -1.000
+      Accelerate down-left action value: -1.000
+      Accelerate down action value: -1.000
+      Max action value: -1.000
+      Utility value: -2.0000
+      Accelerate up action value: -1.000
+      Accelerate up-right action value: -1.000
+      No accelerate action value: -1.000
+      Accelerate right action value: -1.000
+      Max action value: -1.000
+      Utility value: -2.0000
+      Accelerate up-left action value: -1.000
+      Accelerate up action value: -1.000
+      Accelerate left action value: -1.000
+      No accelerate action value: -1.000
+      Max action value: -1.000
+      Utility value: -2.0000
 
   No update changes greater than delta?: false
+  
+  Current cycle: 2
+	.
+	. (etc.)
+	.
+No update changes greater than delta?: false
 
 Current cycle: 12
   Looping over all possible states:
     Calculating utility of cell (1,1) with velocity [-5,-5] using Bellman Equation
       Max action: Stay in square. (at finish 'F' state)
       Utility value: 1.0000
+      Max action: Stay in square. (at finish 'F' state)
+      Utility value: 1.0000
+      Max action: Stay in square. (at finish 'F' state)
+      Utility value: 1.0000
+      Max action: Stay in square. (at finish 'F' state)
+      Utility value: 1.0000
+
+    Calculating utility of cell (1,2) with velocity [-5,-5] using Bellman Equation
+      Max action: Stay in square. (at finish 'F' state)
+      Utility value: 1.0000
+      Max action: Stay in square. (at finish 'F' state)
+      Utility value: 1.0000
+      Max action: Stay in square. (at finish 'F' state)
+      Utility value: 1.0000
+      Max action: Stay in square. (at finish 'F' state)
+      Utility value: 1.0000
+
+    Calculating utility of cell (2,1) with velocity [-5,-5] using Bellman Equation
+      No accelerate action value: 1.000
+      Accelerate right action value: 1.000
+      Accelerate down action value: 1.000
+      Accelerate down-right action value: 1.000
+      Max action value: 1.000
+      Utility value: 0.0000
+      Accelerate left action value: 1.000
+      No accelerate action value: 1.000
+      Accelerate down-left action value: 1.000
+      Accelerate down action value: 1.000
+      Max action value: 1.000
+      Utility value: 0.0000
+      Accelerate up action value: -2.290
+      Accelerate up-right action value: -2.290
+      No accelerate action value: -2.290
+      Accelerate right action value: -2.290
+      Max action value: -2.290
+      Utility value: -3.2900
+      Accelerate up-left action value: -2.290
+      Accelerate up action value: -2.290
+      Accelerate left action value: -2.290
+      No accelerate action value: -2.290
+      Max action value: -2.290
+      Utility value: -3.2900
+  
 	.
-	. (abbreviated)
+	. (etc.)
 	.
-	
-    Calculating utility of cell (5,5) with velocity [5,-5] using Bellman Equation
+
+    Calculating utility of cell (5,5) with velocity [-5,-5] using Bellman Equation
+      No accelerate action value: -3.932
+      Accelerate right action value: -3.932
+      Accelerate down action value: -3.932
+      Accelerate down-right action value: -3.932
+      Max action value: -3.932
+      Utility value: -4.9320
+      Accelerate left action value: -3.932
+      No accelerate action value: -3.932
+      Accelerate down-left action value: -3.932
+      Accelerate down action value: -3.932
+      Max action value: -3.932
+      Utility value: -4.9320
       Accelerate up action value: -3.710
       Accelerate up-right action value: -3.710
       No accelerate action value: -3.710
       Accelerate right action value: -3.710
       Max action value: -3.710
       Utility value: -4.7096
-    Calculating utility of cell (5,5) with velocity [5,5] using Bellman Equation
       Accelerate up-left action value: -3.710
       Accelerate up action value: -3.710
       Accelerate left action value: -3.710
@@ -183,7 +198,25 @@ Current cycle: 12
 #...OS#
 #######
   Best reachable utility cell found at location (4,2). Accelerating to state.
-  Current State -- Location: [4,2], Velocity: [-1,-2]
+  Current State -- Location: [5,3], Velocity: [0,-1]
+#######
+#FF####
+#..####
+#..####
+#....S#
+#..O.S#
+#######
+  Best reachable utility cell found at location (4,2). Accelerating to state.
+  Current State -- Location: [5,2], Velocity: [0,-1]
+#######
+#FF####
+#..####
+#..####
+#....S#
+#.O..S#
+#######
+  Best reachable utility cell found at location (4,2). Accelerating to state.
+  Current State -- Location: [4,2], Velocity: [-1,0]
 #######
 #FF####
 #..####
@@ -200,3 +233,17 @@ Current cycle: 12
 #....S#
 #######
   Finish line reached. Ending Value Iteration.
+
+     === Displaying Results for Value Iteration ===
+Average Training Iterations   Average Steps to Finish Race  
+13.000                        5.000                         
+
+Convergence Rate For Each Discount Paremeter Setting:
+0.20      0.40      0.60      0.80      1.00      
+---------------------------------------------
+NaN       NaN       NaN       NaN       13.00     
+
+Average Steps to Finish Race For Each Discount Paremeter Setting:
+0.20      0.40      0.60      0.80      1.00      
+---------------------------------------------
+NaN       NaN       NaN       NaN       5.00      
