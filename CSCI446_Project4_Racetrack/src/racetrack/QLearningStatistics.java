@@ -246,7 +246,7 @@ public class QLearningStatistics
         System.out.format("%-30s%-30s%n", "Average Training Iterations", "Average Steps to Finish Race");
         System.out.format("%-30.3f%-30.3f%n%n", getAverageTrainingIterations(), getRaceResults());
         
-        System.out.format("Convergence Rate For Each Discount Paremeter Setting:%n");
+        System.out.format("Convergence rate for each discount paremeter setting:%n");
         System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n", 0.2, 0.4, 0.6, 0.8, 1.0);
         System.out.println("---------------------------------------------");
         System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n%n",
@@ -256,7 +256,7 @@ public class QLearningStatistics
             getAverageDiscountConvergence(0.8),
             getAverageDiscountConvergence(1.0));
         
-        System.out.format("Average Steps to Finish Race For Each Discount Paremeter Setting:%n");
+        System.out.format("Average steps to finish race for each discount paremeter setting:%n");
         System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n", 0.2, 0.4, 0.6, 0.8, 1.0);
         System.out.println("---------------------------------------------");
         System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n%n",
@@ -266,7 +266,7 @@ public class QLearningStatistics
             getAverageDiscountRaceResults(0.8),
             getAverageDiscountRaceResults(1.0));
         
-        System.out.format("Convergence Rate For Each Learning Paremeter Setting:%n");
+        System.out.format("Convergence rate for each learning paremeter setting:%n");
         System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n", 0.5, 0.7, 0.8, 0.9, 1.0);
         System.out.println("---------------------------------------------");
         System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n%n",
@@ -276,7 +276,7 @@ public class QLearningStatistics
             getAverageLearningConvergence(0.9),
             getAverageLearningConvergence(1.0));
         
-        System.out.format("Average Steps to Finish Race For Each Learning Paremeter Setting:%n");
+        System.out.format("Average steps to finish race for each learning paremeter setting:%n");
         System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n", 0.5, 0.7, 0.8, 0.9, 1.0);
         System.out.println("---------------------------------------------");
         System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n%n",
