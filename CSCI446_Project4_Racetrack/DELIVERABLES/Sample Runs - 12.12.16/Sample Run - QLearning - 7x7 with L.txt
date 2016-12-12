@@ -11,11 +11,11 @@ Beginning Q-Learning on track simple2
 Tunable Parameters:
   epsilon halt threshold:  0.100000
   greedy action selection chance: 0.4000
-  discount factor: 0.9500
-  learning factor: 0.8000
+  discount factor: 1.0000
+  learning factor: 0.9000
 
 Current generation: 0
-  Initial State -- Location: [2,1], Velocity: [-1,-1]
+  Initial State -- Location: [2,1], Velocity: [-1,0]
   === Current agent step t: 0 ===
 #######
 #FF####
@@ -24,14 +24,48 @@ Current generation: 0
 #....S#
 #....S#
 #######
-    Finding random action for cell (2,1) with velocity (-1,-1)
-    Random acceleration action assigned to [-1,-1]
+    Finding random action for cell (2,1) with velocity (-1,0)
+    Random acceleration action assigned to [1,0]
+    Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...
+      s' -- Location: [2,1], Velocity: [0,0]
+      max a': [1,0]
+      maxQ(s',a'): 0.000
+      Q(s,a) before update: 0.000
+      Q(s,a) after update: -0.900
+    Moved agent to next state -- Location: [2,1], Velocity: [0,0]
+  === Current agent step t: 1 ===
+#######
+#FF####
+#O.####
+#..####
+#....S#
+#....S#
+#######
+    Finding random action for cell (2,1) with velocity (0,0)
+    Random acceleration action assigned to [0,-1]
+    Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...
+      s' -- Location: [2,1], Velocity: [0,0]
+      max a': [0,-1]
+      maxQ(s',a'): 0.000
+      Q(s,a) before update: 0.000
+      Q(s,a) after update: -0.900
+    Moved agent to next state -- Location: [2,1], Velocity: [0,0]
+  === Current agent step t: 2 ===
+#######
+#FF####
+#O.####
+#..####
+#....S#
+#....S#
+#######
+    Finding random action for cell (2,1) with velocity (0,0)
+    Random acceleration action assigned to [-1,1]
     Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...
       s' -- Location: [1,1], Velocity: [0,0]
-      max a': [-1,1]
+      max a': [1,0]
       maxQ(s',a'): 1.000
       Q(s,a) before update: 0.000
-      Q(s,a) after update: -0.040
+      Q(s,a) after update: 0.000
     Moved agent to next state -- Location: [1,1], Velocity: [0,0]
 #######
 #OF####
@@ -44,7 +78,7 @@ Current generation: 0
 
 Current generation: 1
   Picking initial state randomly.
-  Initial State -- Location: [3,1], Velocity: [1,0]
+  Initial State -- Location: [3,1], Velocity: [1,1]
   === Current agent step t: 0 ===
 #######
 #FF####
@@ -53,95 +87,12 @@ Current generation: 1
 #....S#
 #....S#
 #######
-    Finding random action for cell (3,1) with velocity (1,0)
-    Random acceleration action assigned to [-1,-1]
-    Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...
-      s' -- Location: [3,1], Velocity: [0,0]
-      max a': [-1,-1]
-      maxQ(s',a'): 0.000
-      Q(s,a) before update: 0.000
-      Q(s,a) after update: -0.800
-    Moved agent to next state -- Location: [3,1], Velocity: [0,0]
-  === Current agent step t: 1 ===
-#######
-#FF####
-#..####
-#O.####
-#....S#
-#....S#
-#######
-    Finding best action for cell (3,1) with velocity (0,0)
-    Best acceleration action found to be [0,1]
-    Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...
-      s' -- Location: [3,2], Velocity: [0,1]
-      max a': [1,1]
-      maxQ(s',a'): 0.000
-      Q(s,a) before update: 0.000
-      Q(s,a) after update: -0.800
-    Moved agent to next state -- Location: [3,2], Velocity: [0,1]
-  === Current agent step t: 2 ===
-#######
-#FF####
-#..####
-#.O####
-#....S#
-#....S#
-#######
-    Finding best action for cell (3,2) with velocity (0,1)
-    Best acceleration action found to be [1,1]
-    Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...
-      s' -- Location: [4,4], Velocity: [1,2]
-      max a': [-1,-1]
-      maxQ(s',a'): 0.000
-      Q(s,a) before update: 0.000
-      Q(s,a) after update: -0.800
-    Moved agent to next state -- Location: [4,4], Velocity: [1,2]
-  === Current agent step t: 3 ===
-#######
-#FF####
-#..####
-#..####
-#...OS#
-#....S#
-#######
-    Finding best action for cell (4,4) with velocity (1,2)
-    Best acceleration action found to be [1,1]
-    Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...
-      s' -- Location: [5,4], Velocity: [0,0]
-      max a': [-1,0]
-      maxQ(s',a'): 0.000
-      Q(s,a) before update: 0.000
-      Q(s,a) after update: -0.800
-    Moved agent to next state -- Location: [5,4], Velocity: [0,0]
-  === Current agent step t: 4 ===
-#######
-#FF####
-#..####
-#..####
-#....S#
-#...OS#
-#######
-    Finding best action for cell (5,4) with velocity (0,0)
-    Best acceleration action found to be [-1,0]
-    Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...
-      s' -- Location: [4,4], Velocity: [-1,0]
-      max a': [0,-1]
-      maxQ(s',a'): 0.000
-      Q(s,a) before update: 0.000
-      Q(s,a) after update: -0.800
-    Moved agent to next state -- Location: [4,4], Velocity: [-1,0]
+    Finding best action for cell (3,1) with velocity (1,1)
+	.
+	. (etc.)
+	.
 
-	.
-	. (abbreviated)
-	.
-	
-  === Current agent step t: 12 ===
-  
-    .
-	.(abbreviated)
-	. 
-	
-Current generation: 235
+Current generation: 162
   Picking initial state randomly.
   Initial State -- Location: [4,3], Velocity: [0,-1]
   === Current agent step t: 0 ===
@@ -153,32 +104,15 @@ Current generation: 235
 #....S#
 #######
     Finding random action for cell (4,3) with velocity (0,-1)
-    Random acceleration action assigned to [-1,0]
+    Random acceleration action assigned to [-1,1]
     Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...
       s' -- Location: [4,3], Velocity: [0,0]
       max a': [0,-1]
-      maxQ(s',a'): -1.986
-      Q(s,a) before update: -2.812
-      Q(s,a) after update: -2.872
+      maxQ(s',a'): -2.000
+      Q(s,a) before update: -3.000
+      Q(s,a) after update: -3.000
     Moved agent to next state -- Location: [4,3], Velocity: [0,0]
   === Current agent step t: 1 ===
-#######
-#FF####
-#..####
-#..####
-#..O.S#
-#....S#
-#######
-    Finding random action for cell (4,3) with velocity (0,0)
-    Random acceleration action assigned to [-1,-1]
-    Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...
-      s' -- Location: [4,3], Velocity: [0,0]
-      max a': [0,-1]
-      maxQ(s',a'): -1.986
-      Q(s,a) before update: -2.844
-      Q(s,a) after update: -2.878
-    Moved agent to next state -- Location: [4,3], Velocity: [0,0]
-  === Current agent step t: 2 ===
 #######
 #FF####
 #..####
@@ -191,11 +125,88 @@ Current generation: 235
     Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...
       s' -- Location: [4,2], Velocity: [0,-1]
       max a': [-1,0]
-      maxQ(s',a'): -1.045
-      Q(s,a) before update: -1.986
-      Q(s,a) after update: -1.991
+      maxQ(s',a'): -1.000
+      Q(s,a) before update: -2.000
+      Q(s,a) after update: -2.000
     Moved agent to next state -- Location: [4,2], Velocity: [0,-1]
+  === Current agent step t: 2 ===
+	.
+	. (etc)
+	.
+    Reached end state. Ending current agent run.
+
+Current generation: 163
+  Picking initial state randomly.
+  Initial State -- Location: [4,4], Velocity: [1,-1]
+  === Current agent step t: 0 ===
+#######
+#FF####
+#..####
+#..####
+#...OS#
+#....S#
+#######
+    Finding random action for cell (4,4) with velocity (1,-1)
+    Random acceleration action assigned to [-1,1]
+    Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...
+      s' -- Location: [4,4], Velocity: [0,0]
+      max a': [0,-1]
+      maxQ(s',a'): -2.000
+      Q(s,a) before update: -3.000
+      Q(s,a) after update: -3.000
+    Moved agent to next state -- Location: [4,4], Velocity: [0,0]
+  === Current agent step t: 1 ===
+#######
+#FF####
+#..####
+#..####
+#...OS#
+#....S#
+#######
+    Finding random action for cell (4,4) with velocity (0,0)
+    Random acceleration action assigned to [0,-1]
+    Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...
+      s' -- Location: [4,3], Velocity: [0,-1]
+      max a': [1,-1]
+      maxQ(s',a'): -1.000
+      Q(s,a) before update: -2.000
+      Q(s,a) after update: -2.000
+    Moved agent to next state -- Location: [4,3], Velocity: [0,-1]
+  === Current agent step t: 2 ===
+#######
+#FF####
+#..####
+#..####
+#..O.S#
+#....S#
+#######
+    Finding random action for cell (4,3) with velocity (0,-1)
+    Random acceleration action assigned to [-1,1]
+    Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...
+      s' -- Location: [4,3], Velocity: [0,0]
+      max a': [0,-1]
+      maxQ(s',a'): -2.000
+      Q(s,a) before update: -3.000
+      Q(s,a) after update: -3.000
+    Moved agent to next state -- Location: [4,3], Velocity: [0,0]
   === Current agent step t: 3 ===
+#######
+#FF####
+#..####
+#..####
+#..O.S#
+#....S#
+#######
+    Finding best action for cell (4,3) with velocity (0,0)
+    Best acceleration action found to be [0,-1]
+    Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...
+      s' -- Location: [4,2], Velocity: [0,-1]
+      max a': [0,0]
+      maxQ(s',a'): -1.000
+      Q(s,a) before update: -2.000
+      Q(s,a) after update: -2.000
+    Moved agent to next state -- Location: [4,2], Velocity: [0,-1]
+  === Current agent step t: 4 ===
 #######
 #FF####
 #..####
@@ -207,12 +218,12 @@ Current generation: 235
     Best acceleration action found to be [-1,0]
     Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...
       s' -- Location: [3,1], Velocity: [-1,-1]
-      max a': [-1,0]
-      maxQ(s',a'): -0.050
-      Q(s,a) before update: -1.045
-      Q(s,a) after update: -1.047
+      max a': [-1,-1]
+      maxQ(s',a'): 0.000
+      Q(s,a) before update: -1.000
+      Q(s,a) after update: -1.000
     Moved agent to next state -- Location: [3,1], Velocity: [-1,-1]
-  === Current agent step t: 4 ===
+  === Current agent step t: 5 ===
 #######
 #FF####
 #..####
@@ -221,30 +232,13 @@ Current generation: 235
 #....S#
 #######
     Finding random action for cell (3,1) with velocity (-1,-1)
-    Random acceleration action assigned to [0,0]
-    Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...
-      s' -- Location: [2,1], Velocity: [0,0]
-      max a': [-1,-1]
-      maxQ(s',a'): -0.050
-      Q(s,a) before update: -1.030
-      Q(s,a) after update: -1.044
-    Moved agent to next state -- Location: [2,1], Velocity: [0,0]
-  === Current agent step t: 5 ===
-#######
-#FF####
-#O.####
-#..####
-#....S#
-#....S#
-#######
-    Finding best action for cell (2,1) with velocity (0,0)
-    Best acceleration action found to be [-1,-1]
+    Random acceleration action assigned to [-1,-1]
     Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...
       s' -- Location: [1,1], Velocity: [0,0]
-      max a': [-1,-1]
+      max a': [-1,1]
       maxQ(s',a'): 1.000
-      Q(s,a) before update: -0.050
-      Q(s,a) after update: -0.050
+      Q(s,a) before update: 0.000
+      Q(s,a) after update: 0.000
     Moved agent to next state -- Location: [1,1], Velocity: [0,0]
 #######
 #OF####
@@ -255,17 +249,18 @@ Current generation: 235
 #######
     Reached end state. Ending current agent run.
 
-Exploration halting state reached. Running Q-Learning agent as a racer from the Start location
-Current State -- Location: [4,5], Velocity: [0,0]
+	
+Exploration halting state reached. Running agent as a racer from the Start location
+Current State -- Location: [5,5], Velocity: [0,0]
 #######
 #FF####
 #..####
 #..####
-#....O#
 #....S#
+#....O#
 #######
-Best Q(s,a) acceleration action to take: [0,-1]
-Moved agent to next state -- Location: [4,4], Velocity: [0,-1]
+Best Q(s,a) acceleration action to take: [-1,-1]
+Moved agent to next state -- Location: [4,4], Velocity: [-1,-1]
 #######
 #FF####
 #..####
@@ -274,42 +269,51 @@ Moved agent to next state -- Location: [4,4], Velocity: [0,-1]
 #....S#
 #######
 Best Q(s,a) acceleration action to take: [1,-1]
-Moved agent to next state -- Location: [5,2], Velocity: [1,-2]
-#######
-#FF####
-#..####
-#..####
-#....S#
-#.O..S#
-#######
-Best Q(s,a) acceleration action to take: [0,0]
-Moved agent to next state -- Location: [5,2], Velocity: [0,0]
-#######
-#FF####
-#..####
-#..####
-#....S#
-#.O..S#
-#######
-Best Q(s,a) acceleration action to take: [-1,0]
-Moved agent to next state -- Location: [4,2], Velocity: [-1,0]
+Moved agent to next state -- Location: [4,2], Velocity: [0,-2]
 #######
 #FF####
 #..####
 #..####
 #.O..S#
-#....S#
-#######
-Best Q(s,a) acceleration action to take: [-1,0]
-Moved agent to next state -- Location: [2,2], Velocity: [-2,0]
-#######
-#FF####
-#.O####
-#..####
-#....S#
 #....S#
 #######
 Best Q(s,a) acceleration action to take: [1,1]
+Moved agent to next state -- Location: [5,1], Velocity: [1,-1]
+#######
+#FF####
+#..####
+#..####
+#....S#
+#O...S#
+#######
+Best Q(s,a) acceleration action to take: [0,0]
+Moved agent to next state -- Location: [5,1], Velocity: [0,0]
+#######
+#FF####
+#..####
+#..####
+#....S#
+#O...S#
+#######
+Best Q(s,a) acceleration action to take: [-1,0]
+Moved agent to next state -- Location: [4,1], Velocity: [-1,0]
+#######
+#FF####
+#..####
+#..####
+#O...S#
+#....S#
+#######
+Best Q(s,a) acceleration action to take: [0,1]
+Moved agent to next state -- Location: [3,2], Velocity: [-1,1]
+#######
+#FF####
+#..####
+#.O####
+#....S#
+#....S#
+#######
+Best Q(s,a) acceleration action to take: [-1,-1]
 Moved agent to next state -- Location: [1,2], Velocity: [0,0]
 #######
 #FO####
@@ -319,3 +323,27 @@ Moved agent to next state -- Location: [1,2], Velocity: [0,0]
 #....S#
 #######
 Reached finish line. Ending Q-Learning simulation.
+
+     === Displaying Results for QLearningStatistics ===
+Average Training Iterations   Average Steps to Finish Race  
+5.000                         6.000                         
+
+Convergence rate for each discount paremeter setting:
+0.20      0.40      0.60      0.80      1.00      
+---------------------------------------------
+NaN       NaN       NaN       NaN       5.00      
+
+Average steps to finish race for each discount paremeter setting:
+0.20      0.40      0.60      0.80      1.00      
+---------------------------------------------
+NaN       NaN       NaN       NaN       6.00      
+
+Convergence rate for each learning paremeter setting:
+0.50      0.70      0.80      0.90      1.00      
+---------------------------------------------
+NaN       NaN       NaN       5.00      5.00      
+
+Average steps to finish race for each learning paremeter setting:
+0.50      0.70      0.80      0.90      1.00      
+---------------------------------------------
+NaN       NaN       NaN       6.00      6.00      
