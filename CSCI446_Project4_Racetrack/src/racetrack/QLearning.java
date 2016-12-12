@@ -7,15 +7,15 @@ public class QLearning
 {
     // tunable parameters //
     // threshold to stop training the race track
-    private final double epsilon = 0.1;       // currently using 0.001
+    private final double epsilon = 0.1;         // currently using 0.001
     // greedy parameter for action selection
     private final double greedy = 0.4;  
     // discount factor - low values decrement additive rewards
     private final double gamma = 0.95;
     // learning factor - lower values take longer to converge but give better results
-    private final double alpha = 0.8;
+    private final double alpha = 0.95;          // use 0.8?
     // temporary - for producing sample run output
-    private final double printRate = 1;
+    private final double printRate = 100;
     
     // other parameters //
     // racetrack currently being worked with 
@@ -500,6 +500,12 @@ public class QLearning
         int newRowVel = rowVel + action[0];
         int newColVel = colVel + action[1];
         
+        // if any velocities are over +5 or under -5, set to just be +/-5
+        if (newRowVel > 5) newRowVel = 5;
+        if (newRowVel < -5) newRowVel = -5;
+        if (newColVel > 5) newColVel = 5;
+        if (newColVel < -5) newColVel = -5;
+        
         // next cell-state is [row+newXVel, col+newYVel] //
         // if the finish line can be crossed, set nextCell to be the finish
         if (finishOccurs(currentRow, currentCol, newRowVel, newColVel))
@@ -814,8 +820,8 @@ public class QLearning
                     && track.getTrack()[randRow-i][randCol+i].getType() == '.')
             {
                 found = true;
-                rowIndex = randRow - 1;
-                colIndex = randCol + 1;
+                rowIndex = randRow - i;
+                colIndex = randCol + i;
             } 
             // east
             else if (randCol+i < track.getTrack()[0].length 
@@ -854,7 +860,8 @@ public class QLearning
         
         if (track.getTrack()[rowIndex][colIndex].getType() != '.')
             throw new RuntimeException("randomValidState() row and column indices"
-                    + " didn't assign to a cell with a '.' character.");
+                    + " didn't assign to a cell with a '.' character."
+                    + " Row index: "+rowIndex+", Col index: "+colIndex+".");
         else
         {
             int rowVel = random.nextInt(3) - 1;
