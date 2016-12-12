@@ -18,20 +18,7 @@ public class Experiment
     public Racetrack simple;
     public Racetrack simple2;
     
-    public Experiment() throws IOException
-    {
-//        L = ConvertToRacetrack("tracks/L-track.txt", L, "L");
-//        L.printTrack();
-//        
-//        O = ConvertToRacetrack("tracks/O-track.txt", O, "O");
-//        O.printTrack();
-//        
-//        R = ConvertToRacetrack("tracks/R-track.txt", R, "R");
-//        R.printTrack();
-//        
-//        simple = ConvertToRacetrack("tracks/Simple-track.txt", simple, "simple");
-//        simple.printTrack();
-    }
+    public Experiment() { }
     
     /**
      * Assigns utilities to each cell for every possible velocity state using
