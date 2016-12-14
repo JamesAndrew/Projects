@@ -60,8 +60,6 @@ public class QLearning
         // repeat until delta threshold is met
         do
         {
-            if (suiteIteration % printRate == 0) System.out.format("Current generation: %d%n", suiteIteration);                     //            
-            
             runIteration = 0;
             delta = true;
             int[] currentState; // [0]: row position, [1]: col position, [2]: row velocity, [3]: col velocity
@@ -73,18 +71,12 @@ public class QLearning
             }
             else
             {
-                if (suiteIteration % printRate == 0) System.out.format("  Picking initial state randomly.%n");                      //
                 currentState = randomValidState();
             }
-            if (suiteIteration % printRate == 0) System.out.format("  Initial State -- Location: [%d,%d], Velocity: [%d,%d]%n",     //
-                currentState[0], currentState[1], currentState[2], currentState[3]);                                                //
 
             // repeat agent exploration until a 'F' finish cell state is reached
             while (true)
             {
-                if (suiteIteration % printRate == 0) System.out.format("  === Current agent step t: %d ===%n", runIteration);       //         
-                if (suiteIteration % printRate == 0) track.printTrackWithAgentLocation(currentState[0], currentState[1]);           //
-
                 // choose an action using an epsilon-greedy policy
                 int[] action;
                 double greedCase = random.nextDouble();
@@ -92,45 +84,25 @@ public class QLearning
                 // pick the greediest action 'greedy' percent of the time
                 if (greedCase <= greedy)
                 {
-                    if (suiteIteration % printRate == 0) System.out.format("    Finding best action for cell (%d,%d) with velocity "//
-                        + "(%d,%d)%n", currentState[0], currentState[1], currentState[2], currentState[3]);                         //
-
                     action = getBestAction(currentState[0], currentState[1], currentState[2], currentState[3]);
-
-                    if (suiteIteration % printRate == 0)
-                        System.out.format("    Best acceleration action found to be [%d,%d]%n", action[0], action[1]);              //
                 }
                 // else pick a random action
                 else
                 {
-                    if (suiteIteration % printRate == 0)
-                        System.out.format("    Finding random action for cell (%d,%d) with velocity "                               //
-                        + "(%d,%d)%n", currentState[0], currentState[1], currentState[2], currentState[3]);                         //
                     action = getRandomAction();
-                    if (suiteIteration % printRate == 0)
-                        System.out.format("    Random acceleration action assigned to [%d,%d]%n", action[0], action[1]);            //
                 }
 
-                if (suiteIteration % printRate == 0)
-                    System.out.format("    Evaluating Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))...%n");           //
                 // evaluate max_a'[Q(s',a')] //
                 // Get next state s'
                 int[] nextState = getNextState(currentState, action);
-                if (suiteIteration % printRate == 0)
-                    System.out.format("      s' -- Location: [%d,%d], Velocity: [%d,%d]%n",                                         //
-                    nextState[0], nextState[1], nextState[2], nextState[3]);                                                        //
 
                 // get the maximal action a' from next state s'
                 int[] nextStateMaxAction = getBestAction(nextState[0], nextState[1], nextState[2], nextState[3]);
-                if (suiteIteration % printRate == 0)
-                    System.out.format("      max a': [%d,%d]%n", nextStateMaxAction[0], nextStateMaxAction[1]);                     //
 
                 // get the q value for the next state's best action: Q(s',a')
                 Cell nextCell = track.getTrack()[nextState[0]][nextState[1]];
                 QValues nextCellQValues = nextCell.getQValues(nextState[2], nextState[3]);
                 double maxNextQ = nextCellQValues.getQValue(nextStateMaxAction[0], nextStateMaxAction[1]);
-                if (suiteIteration % printRate == 0)
-                    System.out.format("      maxQ(s',a'): %.3f%n", maxNextQ);                                                       //
 
                 // run update formula: Q(s,a) <- Q(s,a) + alpha(R(s) + gamma*maxQ(s',a') - Q(s,a))
                 Cell currentCell = track.getTrack()[currentState[0]][currentState[1]];
@@ -138,17 +110,11 @@ public class QLearning
                     currentCell.getQValues(currentState[2], currentState[3]).getQValue(action[0], action[1]);
                 double r = currentCell.getReward();
                 double qBefore = currentCell.getQValue(currentState[2], currentState[3], action[0], action[1]);
-                if (suiteIteration % printRate == 0)
-                    System.out.format("      Q(s,a) before update: %.3f%n",                                                         //
-                    currentCell.getQValue(currentState[2], currentState[3], action[0], action[1]));                                 //
                 double qValue = currentQ + alpha*(r + gamma*maxNextQ - currentQ);
 
                 // update the Q value
                 currentCell.setQValue(currentState[2], currentState[3], action[0], action[1], qValue);
                 double qAfter = currentCell.getQValue(currentState[2], currentState[3], action[0], action[1]);
-                if (suiteIteration % printRate == 0)
-                    System.out.format("      Q(s,a) after update: %.3f%n",                                                          //
-                    currentCell.getQValue(currentState[2], currentState[3], action[0], action[1]));                                 //
 
                 // check q-value deltas and flip flag if difference is over the threshold
                 if (Math.abs(qBefore - qAfter) > epsilon)
@@ -161,19 +127,11 @@ public class QLearning
                 currentState[1] = nextState[1];                 // update agent column location
                 currentState[2] = nextState[2];                 // update agent row velocity
                 currentState[3] = nextState[3];                 // update agent column velocity
-                if (suiteIteration % printRate == 0)
-                    System.out.format("    Moved agent to next state -- Location: [%d,%d], Velocity: [%d,%d]%n",                    //
-                    currentState[0], currentState[1], currentState[2], currentState[3]);                                            //
 
                 // exit agent exploration if 'F' state is reached otherwise keep exploring
                 Cell agentState = track.getTrack()[currentState[0]][currentState[1]];
                 if (agentState.getType() == 'F') 
                 {
-                    if (suiteIteration % printRate == 0)
-                    {
-                        if (suiteIteration % printRate == 0) track.printTrackWithAgentLocation(currentState[0], currentState[1]);   //
-                        System.out.format("    Reached end state. Ending current agent run.%n%n");                                  //
-                    }                                  
                     break;
                 }
                 else runIteration++;
@@ -209,9 +167,6 @@ public class QLearning
         int rowVel = 0;
         int colVel = 0;
         currentState = new int[]{ startIndex[0], startIndex[1], rowVel, colVel };
-        System.out.format("Current State -- Location: [%d,%d], Velocity: [%d,%d]%n",                                  //
-            currentState[0], currentState[1], currentState[2], currentState[3]);                                        //
-        track.printTrackWithAgentLocation(currentState[0], currentState[1]);                                            //
         
         // repeat agent exploration until a 'F' finish cell state is reached
         int numSteps = 0;
@@ -220,8 +175,6 @@ public class QLearning
             // get an action to take for current state
             int[] action;
             action = getBestAction(currentState[0], currentState[1], currentState[2], currentState[3]);
-            
-            System.out.format("Best Q(s,a) acceleration action to take: [%d,%d]%n", action[0], action[1]);            //
             
             // evaluate max_a'[Q(s',a')] //
             // Get next state s'
@@ -250,17 +203,11 @@ public class QLearning
             currentState[1] = nextState[1];                 // update agent column location
             currentState[2] = nextState[2];                 // update agent row velocity
             currentState[3] = nextState[3];                 // update agent column velocity
-            
-            System.out.format("Moved agent to next state -- Location: [%d,%d], Velocity: [%d,%d]%n",                      //
-            currentState[0], currentState[1], currentState[2], currentState[3]);                                            //
-            track.printTrackWithAgentLocation(currentState[0], currentState[1]);                                            //
 
             // exit agent exploration if 'F' state is reached otherwise keep exploring
             Cell agentState = track.getTrack()[currentState[0]][currentState[1]];
             if (agentState.getType() == 'F') 
             {
-                if (suiteIteration % printRate == 0)
-                    System.out.format("Reached finish line. Ending Q-Learning simulation.%n%n");                          //
                 break;
             }
             

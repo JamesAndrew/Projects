@@ -29,8 +29,7 @@ public class ValueIteration
     {
         System.out.format("Running Value Iteration.%nTunable Parameters:%n"
             + "  Discount factor: %.3f%n"
-            + "  Epsilon halting condition: %.6f%n%n"
-            + "  Bellman equation: U_{i+1}(s) <- R(s) + gamma*MaxAction[sum_{s'} P(s'|s,a)*U(s')]%n",
+            + "  Epsilon halting condition: %.6f%n%n",
             gamma, epsilon);
         
         int trainingIteration = 0;              // num iterations to train
@@ -40,10 +39,8 @@ public class ValueIteration
         // delta < episilon(1-gamma)/gamma
         do
         {
-            System.out.format("%nCurrent cycle: %d%n", trainingIteration);                                                              //
             halt = true;
             
-            System.out.format("  Looping over all possible states:%n");                                                     //
             // loop over all possible states //
             // for each track cell...
             for (int row = 0; row < track.getTrack().length; row++)
@@ -64,25 +61,10 @@ public class ValueIteration
                                 // store in temp until all utilities are updated for the generation loop
                                 int rowVel = rowVelIndex - 5;
                                 int colVel = colVelIndex - 5;
-                                
-                                if (rowVel == -5 && colVel == -5)                                                           //
-                                {                                                                                           //
-                                    System.out.format("    Calculating utility of cell (%d,%d) with velocity [%d,%d] "      //
-                                            + "using Bellman Equation%n",
-                                        row, col, rowVel, colVel);                                                          //
-                                }                                                                                           //
-                                
                                 double utilityValue = bellmanEquation(currentCell, rowVel, colVel);
-                                
-                                if ((rowVel == -5 || rowVel == 5) && (colVel == -5 || colVel == 5))                         //
-                                {                                                                                           //
-                                    System.out.format("      Utility value: %.4f%n", utilityValue);                         //
-                                }
-                                
                                 currentCell.setTempUtility(rowVelIndex, colVelIndex, utilityValue);
                             }
                         }
-                        System.out.println();                                                                               //
                     }
                 }
             }
@@ -114,7 +96,6 @@ public class ValueIteration
                 }
             }
             trainingIteration++;        
-            System.out.format("  No update changes greater than delta?: %b%n", halt);
         } 
         while (!halt);
         
@@ -142,8 +123,6 @@ public class ValueIteration
         // 'F' states always have 1.0 utility
         if (cell.getType() == 'F') 
         { 
-            if ((rowVel == -5 || rowVel == 5) && (colVel == -5 || colVel == 5))                                                 //
-                System.out.format("      Max action: Stay in square. (at finish 'F' state)%n");                                 //
             return 1.0; 
         }
         else
@@ -156,8 +135,6 @@ public class ValueIteration
             {
                 double upLeftAction = bellmanEquationSubroutine(cell, rowVel, colVel, -1, -1);
                 actionSums.add(upLeftAction);
-                if ((rowVel == -5 || rowVel == 5) && (colVel == -5 || colVel == 5))
-                    System.out.format("      Accelerate up-left action value: %.3f%n", upLeftAction);                               //
             }
 
             // a_(-1,0) case : accelerate up only
@@ -166,8 +143,6 @@ public class ValueIteration
             {
                 double upAction = bellmanEquationSubroutine(cell, rowVel, colVel, -1, 0);
                 actionSums.add(upAction);
-                if ((rowVel == -5 || rowVel == 5) && (colVel == -5 || colVel == 5))
-                    System.out.format("      Accelerate up action value: %.3f%n", upAction);                                        //
             }
             
             // a_(-1,1) case : accelerate up and right
@@ -176,8 +151,6 @@ public class ValueIteration
             {
                 double upRightAction = bellmanEquationSubroutine(cell, rowVel, colVel, -1, 1);
                 actionSums.add(upRightAction);
-                if ((rowVel == -5 || rowVel == 5) && (colVel == -5 || colVel == 5))
-                    System.out.format("      Accelerate up-right action value: %.3f%n", upRightAction);                             //
             }
 
             // a_(0,-1) case : accelerate left only
@@ -186,15 +159,11 @@ public class ValueIteration
             {
                 double leftAction = bellmanEquationSubroutine(cell, rowVel, colVel, 0, -1);
                 actionSums.add(leftAction);
-                if ((rowVel == -5 || rowVel == 5) && (colVel == -5 || colVel == 5))
-                    System.out.format("      Accelerate left action value: %.3f%n", leftAction);                                //
             }
 
             // a_(0,0) case : no acceleration
             double noAction = bellmanEquationSubroutine(cell, rowVel, colVel, 0, 0);
             actionSums.add(noAction);
-            if ((rowVel == -5 || rowVel == 5) && (colVel == -5 || colVel == 5))
-                System.out.format("      No accelerate action value: %.3f%n", noAction);                                        //
 
             // a_(0,1) case : accelerate right only
             if (colVel == 5) { /* do nothing, this action cannot occur */ }
@@ -202,8 +171,6 @@ public class ValueIteration
             {
                 double rightAction = bellmanEquationSubroutine(cell, rowVel, colVel, 0, 1);
                 actionSums.add(rightAction);
-                if ((rowVel == -5 || rowVel == 5) && (colVel == -5 || colVel == 5))
-                    System.out.format("      Accelerate right action value: %.3f%n", rightAction);                              //
             }
 
             // a_(1,-1) case : accelerate down and left
@@ -212,8 +179,6 @@ public class ValueIteration
             {
                 double downLeftAction = bellmanEquationSubroutine(cell, rowVel, colVel, 1, -1);
                 actionSums.add(downLeftAction);
-                if ((rowVel == -5 || rowVel == 5) && (colVel == -5 || colVel == 5)) 
-                    System.out.format("      Accelerate down-left action value: %.3f%n", downLeftAction);                       //
             }
             
             // a_(1,0) case : accelerate down only
@@ -222,8 +187,6 @@ public class ValueIteration
             {
                 double downAction = bellmanEquationSubroutine(cell, rowVel, colVel, 1, 0);
                 actionSums.add(downAction);
-                if ((rowVel == -5 || rowVel == 5) && (colVel == -5 || colVel == 5))
-                    System.out.format("      Accelerate down action value: %.3f%n", downAction);                                //
             }
 
             // a_(1,1) case : accelerate down and right
@@ -232,14 +195,10 @@ public class ValueIteration
             {
                 double downRightAction = bellmanEquationSubroutine(cell, rowVel, colVel, 1, 1);
                 actionSums.add(downRightAction);
-                if ((rowVel == -5 || rowVel == 5) && (colVel == -5 || colVel == 5))
-                    System.out.format("      Accelerate down-right action value: %.3f%n", downRightAction);                     //
             }
 
             // get the maximal action value
             double maxAction = Collections.max(actionSums);
-            if ((rowVel == -5 || rowVel == 5) && (colVel == -5 || colVel == 5))
-                System.out.format("      Max action value: %.3f%n", maxAction);                                                 //
             
             // finish the bellman equation
             double result = R + (gamma * maxAction);

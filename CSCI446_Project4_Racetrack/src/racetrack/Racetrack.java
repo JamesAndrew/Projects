@@ -119,8 +119,6 @@ public class Racetrack
      */
     public void run(boolean resetOnCollision, double discountFactor)
     {
-        System.out.format("%n=== Running race car agent on race track ===%n");                          //
-        
         moves = 0;
         Random rand = new Random();
         RaceCar car = new RaceCar(start.get(rand.nextInt(start.size())), track);
@@ -129,11 +127,6 @@ public class Racetrack
         
         while (!finished)
         {
-            System.out.format("  Current State -- Location: [%d,%d], Velocity: [%d,%d]%n",              //
-            car.getLocation().getRow(), car.getLocation().getCol(),                                     //
-            car.getXVelocity(), car.getYVelocity());                                                    //
-            printTrack(car);                                                                            //
-            
             //attempt to apply acceleration to get to next cell
             car.accelerate(nextCell(car));
             
@@ -155,8 +148,6 @@ public class Racetrack
         
         ValueIterationStatistics.putRaceResults(moves);
         ValueIterationStatistics.putRaceResults(discountFactor, moves);
-        printTrack(car);                                                                                  //
-        System.out.format("  Finish line reached. Ending Value Iteration.%n%n");                          //
     }
 
     /**
@@ -186,10 +177,6 @@ public class Racetrack
                 }
             }
         }
-        
-        System.out.format("  Best reachable utility cell found at location (%d,%d). Accelerating to state.%n",  //
-            nextCell.getRow(), nextCell.getCol());                                                              //
-        
         return nextCell;
     }
 
