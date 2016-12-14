@@ -15,7 +15,7 @@ public class QLearning
     // learning factor - lower values take longer to converge but give better results
     private final Double alpha; 
     // temporary - for producing sample run output
-    private final double printRate = 100;
+    private final double printRate = 1000;
     
     // other parameters //
     // racetrack currently being worked with 
