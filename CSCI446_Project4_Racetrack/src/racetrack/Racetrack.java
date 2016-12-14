@@ -119,6 +119,8 @@ public class Racetrack
      */
     public void run(boolean resetOnCollision, double discountFactor)
     {
+        System.out.format("Beginning Race... %n%n");
+        
         moves = 0;
         Random rand = new Random();
         RaceCar car = new RaceCar(start.get(rand.nextInt(start.size())), track);
@@ -250,7 +252,6 @@ public class Racetrack
         }
         if (collision)
         {
-            System.out.println("Collision");
             lastCarLoc = resetCell; 
         }
         return collision;

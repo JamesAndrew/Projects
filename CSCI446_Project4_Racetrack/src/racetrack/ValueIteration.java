@@ -27,10 +27,10 @@ public class ValueIteration
      */
     public void trainUtilities()
     {
-        System.out.format("Running Value Iteration.%nTunable Parameters:%n"
+        System.out.format("Training Value Iteration on track %s.%nTunable Parameters:%n"
             + "  Discount factor: %.3f%n"
             + "  Epsilon halting condition: %.6f%n%n",
-            gamma, epsilon);
+            track.getName(), gamma, epsilon);
         
         int trainingIteration = 0;              // num iterations to train
         boolean halt;                           // checks halting state
@@ -102,6 +102,8 @@ public class ValueIteration
         // update stats
         ValueIterationStatistics.putTrainingIterations(trainingIteration);
         ValueIterationStatistics.putConvergence(gamma, trainingIteration);
+        
+        System.out.println("Training halt condition reached.");
     }
     
     /**

@@ -51,8 +51,8 @@ public class QLearning
             + "  epsilon halt threshold:  %f%n"
             + "  greedy action selection chance: %.4f%n"
             + "  discount factor: %.4f%n"
-            + "  learning factor: %.4f%n%n"
-            , track.getName(), epsilon, greedy, gamma, alpha);
+            + "  learning factor: %.4f%n%n",
+                track.getName(), epsilon, greedy, gamma, alpha);
         
         Random random = new Random();
         suiteIteration = 0;
@@ -157,6 +157,8 @@ public class QLearning
      */
     public void learnTrackFromStart()
     {
+        System.out.format("Beginning Race...%n%n");
+        
         Random random = new Random();
         int[] currentState; // [0]: row position, [1]: col position, [2]: row velocity, [3]: col velocity
 

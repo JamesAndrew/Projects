@@ -25,8 +25,8 @@ public class Experiment
      */
     public void runValueIteration() throws IOException
     {
-//        double[] discountFactors = new double[]{ 0.2, 0.4, 0.6, 0.8, 1.0 };
-        double[] discountFactors = new double[]{ 0.6 };
+        double[] discountFactors = new double[]{ 0.2, 0.4, 0.6, 0.8, 1.0 };
+//        double[] discountFactors = new double[]{ 0.6 };
         // initizliat stats objects
         ValueIterationStatistics.initializeValueIterationStatistics();
         
@@ -37,16 +37,11 @@ public class Experiment
             for (int i = 0; i < numRuns; i++)
             {
                 // instantiate new racetrack
-                 L = ConvertToRacetrack("tracks/L-track.txt", L, "L");
-                 L.printTrack();
-                // 
-                // O = ConvertToRacetrack("tracks/O-track.txt", O, "O");
-                // O.printTrack();
-                // 
-                // R = ConvertToRacetrack("tracks/R-track.txt", R, "R");
-                // R.printTrack();
+                L = ConvertToRacetrack("tracks/L-track.txt", L, "L");
+                O = ConvertToRacetrack("tracks/O-track.txt", O, "O");
+                R = ConvertToRacetrack("tracks/R-track.txt", R, "R");
                 
-                // instantiate learner with correct discount factor:
+                // instantiate learner with correct discount factor and map:
                 ValueIteration viLearner = new ValueIteration(L, discount);
                 
                 // train the racetrack
@@ -80,16 +75,11 @@ public class Experiment
             for (int i = 0; i < numRuns; i++)
             {
                 // instantiate new racetrack
-                 L = ConvertToRacetrack("tracks/L-track.txt", L, "L");
-                 L.printTrack();
-                // 
-                // O = ConvertToRacetrack("tracks/O-track.txt", O, "O");
-                // O.printTrack();
-                // 
-                // R = ConvertToRacetrack("tracks/R-track.txt", R, "R");
-                // R.printTrack();
+                L = ConvertToRacetrack("tracks/L-track.txt", L, "L");
+                O = ConvertToRacetrack("tracks/O-track.txt", O, "O");
+                R = ConvertToRacetrack("tracks/R-track.txt", R, "R");
 
-                // instantiate learner with correct discount factor:
+                // instantiate learner with correct discount factor and track:
                 QLearning qLearner = new QLearning(L, discount, null);
 
                 // train the racetrack
@@ -101,24 +91,14 @@ public class Experiment
         for (Double learnValue : learningFactors)
         {
             // run algorithm 10 times to get averaged results
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < numRuns; i++)
             {
                 // instantiate new racetrack
                 L = ConvertToRacetrack("tracks/L-track.txt", L, "L");
-                L.printTrack();
-                // 
-                // O = ConvertToRacetrack("tracks/O-track.txt", O, "O");
-                // O.printTrack();
-                // 
-                // R = ConvertToRacetrack("tracks/R-track.txt", R, "R");
-                // R.printTrack();
-                // 
-                // simple = ConvertToRacetrack("tracks/Simple-track.txt", simple, "simple");
-                // simple.printTrack();
-                L = ConvertToRacetrack("tracks/Simple-track2.txt", L, "simple2");
-                L.printTrack();
+                O = ConvertToRacetrack("tracks/O-track.txt", O, "O");
+                R = ConvertToRacetrack("tracks/R-track.txt", R, "R");
 
-                // instantiate learner with correct discount factor:
+                // instantiate learner with correct learning factor and track:
                 QLearning qLearner = new QLearning(L, null, learnValue);
 
                 // train the racetrack
@@ -149,7 +129,7 @@ public class Experiment
                         
         int rows = Integer.parseInt(data[0]);
         int cols = Integer.parseInt(data[1]);
-        System.out.println("Track " + fileName + " (r, c)= (" + rows + ", " + cols + ")"); 
+        
         T = new Racetrack(rows, cols, trackName);
         for (int i = 0; i < rows; i++)
         {
@@ -164,10 +144,5 @@ public class Experiment
         }
         
         return T;
-    }
-    
-    private void DisplayResults()
-    {
-        
     }
 }
