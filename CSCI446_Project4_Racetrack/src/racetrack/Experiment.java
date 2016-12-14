@@ -14,9 +14,6 @@ public class Experiment
     public Racetrack L;
     public Racetrack O;
     public Racetrack R;
-    // temporary, simple racetracks for sample runs and testing
-    public Racetrack simple;
-    public Racetrack simple2;
     
     public Experiment() { }
     
@@ -38,28 +35,23 @@ public class Experiment
             for (int i = 0; i < 1; i++)
             {
                 // instantiate new racetrack
-                // L = ConvertToRacetrack("tracks/L-track.txt", L, "L");
-                // L.printTrack();
+                 L = ConvertToRacetrack("tracks/L-track.txt", L, "L");
+                 L.printTrack();
                 // 
                 // O = ConvertToRacetrack("tracks/O-track.txt", O, "O");
                 // O.printTrack();
                 // 
                 // R = ConvertToRacetrack("tracks/R-track.txt", R, "R");
                 // R.printTrack();
-                // 
-                // simple = ConvertToRacetrack("tracks/Simple-track.txt", simple, "simple");
-                // simple.printTrack();
-                simple2 = ConvertToRacetrack("tracks/Simple-track2.txt", simple2, "simple2");
-                simple2.printTrack();
                 
                 // instantiate learner with correct discount factor:
-                ValueIteration viLearner = new ValueIteration(simple2, discount);
+                ValueIteration viLearner = new ValueIteration(L, discount);
                 
                 // train the racetrack
                 viLearner.trainUtilities();
                 
                 // run the racecar on the racetrack
-                simple2.run(false, discount);
+                L.run(false, discount);
             }
         }
         
@@ -86,22 +78,17 @@ public class Experiment
             for (int i = 0; i < 1; i++)
             {
                 // instantiate new racetrack
-                // L = ConvertToRacetrack("tracks/L-track.txt", L, "L");
-                // L.printTrack();
+                 L = ConvertToRacetrack("tracks/L-track.txt", L, "L");
+                 L.printTrack();
                 // 
                 // O = ConvertToRacetrack("tracks/O-track.txt", O, "O");
                 // O.printTrack();
                 // 
                 // R = ConvertToRacetrack("tracks/R-track.txt", R, "R");
                 // R.printTrack();
-                // 
-                // simple = ConvertToRacetrack("tracks/Simple-track.txt", simple, "simple");
-                // simple.printTrack();
-                simple2 = ConvertToRacetrack("tracks/Simple-track2.txt", simple2, "simple2");
-                simple2.printTrack();
 
                 // instantiate learner with correct discount factor:
-                QLearning qLearner = new QLearning(simple2, discount, null);
+                QLearning qLearner = new QLearning(L, discount, null);
 
                 // train the racetrack
                 qLearner.learnTrack();
@@ -126,11 +113,11 @@ public class Experiment
                 // 
                 // simple = ConvertToRacetrack("tracks/Simple-track.txt", simple, "simple");
                 // simple.printTrack();
-                simple2 = ConvertToRacetrack("tracks/Simple-track2.txt", simple2, "simple2");
-                simple2.printTrack();
+                L = ConvertToRacetrack("tracks/Simple-track2.txt", L, "simple2");
+                L.printTrack();
 
                 // instantiate learner with correct discount factor:
-                QLearning qLearner = new QLearning(simple2, null, learnValue);
+                QLearning qLearner = new QLearning(L, null, learnValue);
 
                 // train the racetrack
                 qLearner.learnTrack();
