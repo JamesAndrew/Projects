@@ -26,3 +26,7 @@ TODOs:
  - Update next state placements in both VI and Q-L to use Tyler's geometric appraoch
  - Enforce the randomized start index for Q-Learning doesn't start too close to the finish line
  - Reset on crash version for Q-Learning
+ - Both algorithm seem to converge too fast. Investigate in this order:
+	- Are the Utilities and Q-values resetting each iteration?
+	- Are the iterations calculating incorrectly?
+	- Then try different appraoches to make sure more exploration happens and all cells converge

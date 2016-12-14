@@ -9,13 +9,13 @@ import java.util.HashMap;
  *   - Discount factor vs. Convergence rate
  *   - Discount factor vs. Racecar performance 
  * 
- * Use 5 difference selections of the discount factor [0.2, 0.4, 0.6, 0.8, 1.0]
+ * Use  difference selections of the discount factor 
  *   and take the average of 10 runs for each discount factor
  */
 public class QLearningStatistics 
 {
     // holds the discount factors that are they keys (x-axis) of the results
-    private static final double[] discountFactors = new double[]{ 0.2, 0.4, 0.6, 0.8, 1.0 };
+    private static final double[] discountFactors = new double[]{ 0.4, 0.6, 0.8, 1.0 };
     // The key is the value of the discount factor, the value (stack) is the
     // convergence results from each of the ten runs
     private static final HashMap<Double, ArrayList<Integer>> discount_convergence = new HashMap<>();
@@ -24,7 +24,7 @@ public class QLearningStatistics
     private static final HashMap<Double, ArrayList<Integer>> discount_raceResults = new HashMap<>();
     
     // holds the learning factors that are they keys (x-axis) of the results
-    private static final double[] learningFactors = new double[]{ 0.5, 0.7, 0.8, 0.9, 1.0 };
+    private static final double[] learningFactors = new double[]{ 0.4, 0.6, 0.8, 1.0 };
     // The key is the value of the learning factor, the value (stack) is the
     // convergence results from each of the ten runs
     private static final HashMap<Double, ArrayList<Integer>> learning_convergence = new HashMap<>();
@@ -247,43 +247,39 @@ public class QLearningStatistics
         System.out.format("%-30.3f%-30.3f%n%n", getAverageTrainingIterations(), getRaceResults());
         
         System.out.format("Convergence rate for each discount paremeter setting:%n");
-        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n", 0.2, 0.4, 0.6, 0.8, 1.0);
+        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%n", 0.4, 0.6, 0.8, 1.0);
         System.out.println("---------------------------------------------");
-        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n%n",
-            getAverageDiscountConvergence(0.2),
+        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%n%n",
             getAverageDiscountConvergence(0.4),
             getAverageDiscountConvergence(0.6),
             getAverageDiscountConvergence(0.8),
             getAverageDiscountConvergence(1.0));
         
         System.out.format("Average steps to finish race for each discount paremeter setting:%n");
-        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n", 0.2, 0.4, 0.6, 0.8, 1.0);
+        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%n", 0.4, 0.6, 0.8, 1.0);
         System.out.println("---------------------------------------------");
-        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n%n",
-            getAverageDiscountRaceResults(0.2),
+        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%n%n",
             getAverageDiscountRaceResults(0.4),
             getAverageDiscountRaceResults(0.6),
             getAverageDiscountRaceResults(0.8),
             getAverageDiscountRaceResults(1.0));
         
         System.out.format("Convergence rate for each learning paremeter setting:%n");
-        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n", 0.5, 0.7, 0.8, 0.9, 1.0);
+        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%n", 0.4, 0.6, 0.8, 1.0);
         System.out.println("---------------------------------------------");
-        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n%n",
-            getAverageLearningConvergence(0.5),
-            getAverageLearningConvergence(0.7),
+        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%n%n",
+            getAverageLearningConvergence(0.4),
+            getAverageLearningConvergence(0.6),
             getAverageLearningConvergence(0.8),
-            getAverageLearningConvergence(0.9),
             getAverageLearningConvergence(1.0));
         
         System.out.format("Average steps to finish race for each learning paremeter setting:%n");
-        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n", 0.5, 0.7, 0.8, 0.9, 1.0);
+        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%n", 0.4, 0.6, 0.8, 1.0);
         System.out.println("---------------------------------------------");
-        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n%n",
-            getAverageLearningRaceResults(0.5),
-            getAverageLearningRaceResults(0.7),
+        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%n%n",
+            getAverageLearningRaceResults(0.4),
+            getAverageLearningRaceResults(0.6),
             getAverageLearningRaceResults(0.8),
-            getAverageLearningRaceResults(0.9),
             getAverageLearningRaceResults(1.0));
     }
 }

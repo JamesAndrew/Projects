@@ -15,7 +15,7 @@ public class Experiment
     public Racetrack O;
     public Racetrack R;
     
-    private final int numRuns = 3;
+    private final int numRuns = 20;
     
     public Experiment() { }
     
@@ -25,8 +25,8 @@ public class Experiment
      */
     public void runValueIteration() throws IOException
     {
-        double epsilon = 0.001;
-        double[] discountFactors = new double[]{ 0.2, 0.4, 0.6, 0.8, 1.0 };
+        double epsilon = 0.0000001;
+        double[] discountFactors = new double[]{ 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 };
 //        double[] discountFactors = new double[]{ 0.6 };
         // initizliat stats objects
         ValueIterationStatistics.initializeValueIterationStatistics();
@@ -36,9 +36,10 @@ public class Experiment
         {
             System.out.format("== Tunable Parameters: ==%n"
             + "Discount factor: %.3f%n"
-            + "Epsilon halting condition: %.6f%n",
-            discount, epsilon);
-            // run algorithm 10 times to get averaged results
+            + "Epsilon halting condition: %.9f%n"
+            + "Number of runs to average over: %d%n",
+            discount, epsilon, numRuns);
+            // run algorithm n times to get averaged results
             for (int i = 0; i < numRuns; i++)
             {
                 // instantiate new racetrack
@@ -68,16 +69,23 @@ public class Experiment
      */
     public void runQLearning() throws IOException
     {
-//        Double[] discountFactors = new Double[]{ 0.2, 0.4, 0.6, 0.8, 1.0 };
-	Double[] discountFactors = new Double[]{ 0.8 };
-//        Double[] learningFactors = new Double[]{ 0.5, 0.7, 0.8, 0.9, 1.0 };
-        Double[] learningFactors = new Double[]{ 0.9 };
+        double epsilon = 0.0000001;
+        Double[] discountFactors = new Double[]{ 0.4, 0.6, 0.8, 1.0 };
+//	Double[] discountFactors = new Double[]{ 0.8 };
+        Double[] learningFactors = new Double[]{ 0.4, 0.6, 0.8, 1.0 };
+//        Double[] learningFactors = new Double[]{ 0.8 };
         // initizliat stats objects
 	QLearningStatistics.initializeQLearningStatistics();
         
         // for each discount factor...
 	for (Double discount : discountFactors)
         {
+            System.out.format("== Tunable Parameters: ==%n"
+            + "  epsilon halt threshold:  %.9f%n"
+            + "  greedy action selection chance: %.4f%n"
+            + "  discount factor: %.4f%n"
+            + "  learning factor: %.4f%n",
+                epsilon, 0.3, discount, 0.8);
             // run algorithm 10 times to get averaged results
             for (int i = 0; i < numRuns; i++)
             {
@@ -87,16 +95,24 @@ public class Experiment
                 R = ConvertToRacetrack("tracks/R-track.txt", R, "R");
 
                 // instantiate learner with correct discount factor and track:
-                QLearning qLearner = new QLearning(L, discount, null);
+                QLearning qLearner = new QLearning(L, discount, null, epsilon);
 
                 // train the racetrack
                 qLearner.learnTrack();
+                
+                System.out.format("-Run %d of %d finished-%n", i+1, numRuns);
             }
 	}
         
         // for each learning factor...
         for (Double learnValue : learningFactors)
         {
+            System.out.format("== Tunable Parameters: ==%n"
+            + "  epsilon halt threshold:  %f%n"
+            + "  greedy action selection chance: %.4f%n"
+            + "  discount factor: %.4f%n"
+            + "  learning factor: %.4f%n",
+                epsilon, 0.3, 0.8, learnValue);
             // run algorithm 10 times to get averaged results
             for (int i = 0; i < numRuns; i++)
             {
@@ -106,13 +122,12 @@ public class Experiment
                 R = ConvertToRacetrack("tracks/R-track.txt", R, "R");
 
                 // instantiate learner with correct learning factor and track:
-                QLearning qLearner = new QLearning(L, null, learnValue);
+                QLearning qLearner = new QLearning(L, null, learnValue, epsilon);
 
                 // train the racetrack
                 qLearner.learnTrack();
             }
 	}
-        
 	// print final stats results
 	QLearningStatistics.printAllResults();
     }

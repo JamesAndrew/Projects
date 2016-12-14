@@ -9,13 +9,13 @@ import java.util.HashMap;
  *   - Discount factor vs. Convergence rate
  *   - Discount factor vs. Racecar performance 
  * 
- * Use 5 difference selections of the discount factor [0.2, 0.4, 0.6, 0.8, 1.0]
+ * Use difference selections of the discount factor 
  *   and take the average of 10 runs for each discount factor
  */
 public class ValueIterationStatistics 
 {
     // holds the discount factors that are they keys (x-axis) of the results
-    private static final double[] discountFactors = new double[]{ 0.2, 0.4, 0.6, 0.8, 1.0 };
+    private static final double[] discountFactors = new double[]{ 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 };
     // The key is the value of the discount factor, the value (stack) is the
     // convergence results from each of the ten runs
     private static final HashMap<Double, ArrayList<Integer>> discount_convergence = new HashMap<>();
@@ -32,7 +32,7 @@ public class ValueIterationStatistics
      */
     public static void initializeValueIterationStatistics()
     {
-        // initialize each hashmap with the 5 discount factor keys and a new stack
+        // initialize each hashmap with the discount factor keys and a new stack
         for (double value : discountFactors)
         {
             discount_convergence.put(value, new ArrayList<>());
@@ -166,23 +166,27 @@ public class ValueIterationStatistics
         System.out.format("%-30.3f%-30.3f%n%n", getAverageTrainingIterations(), getRaceResults());
         
         System.out.format("Convergence Rate For Each Discount Paremeter Setting:%n");
-        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n", 0.2, 0.4, 0.6, 0.8, 1.0);
-        System.out.println("---------------------------------------------");
-        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n%n",
-            getAverageDiscountConvergence(0.2),
+        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n", 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0);
+        System.out.println("------------------------------------------------------------------------------------------");
+        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n%n",
             getAverageDiscountConvergence(0.4),
+            getAverageDiscountConvergence(0.5),
             getAverageDiscountConvergence(0.6),
+            getAverageDiscountConvergence(0.7),
             getAverageDiscountConvergence(0.8),
+            getAverageDiscountConvergence(0.9),
             getAverageDiscountConvergence(1.0));
         
         System.out.format("Average Steps to Finish Race For Each Discount Paremeter Setting:%n");
-        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n", 0.2, 0.4, 0.6, 0.8, 1.0);
-        System.out.println("---------------------------------------------");
-        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n%n",
-            getAverageDiscountRaceResults(0.2),
+        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n", 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0);
+        System.out.println("------------------------------------------------------------------------------------------");
+        System.out.format("%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%-10.2f%n%n",
             getAverageDiscountRaceResults(0.4),
+            getAverageDiscountRaceResults(0.5),
             getAverageDiscountRaceResults(0.6),
+            getAverageDiscountRaceResults(0.7),
             getAverageDiscountRaceResults(0.8),
+            getAverageDiscountRaceResults(0.9),
             getAverageDiscountRaceResults(1.0));
     }
 }

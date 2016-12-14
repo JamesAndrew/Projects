@@ -7,15 +7,13 @@ public class QLearning
 {
     // tunable parameters //
     // threshold to stop training the race track
-    private final double epsilon = 0.001;         // currently using 0.001
+    private final double epsilon;      
     // greedy parameter for action selection
     private final double greedy = 0.3;  
     // discount factor - low values decrement additive rewards
     private final Double gamma; 
     // learning factor - lower values take longer to converge but give better results
     private final Double alpha; 
-    // temporary - for producing sample run output
-    private final double printRate = 1000;
     
     // other parameters //
     // racetrack currently being worked with 
@@ -31,12 +29,13 @@ public class QLearning
      * Constructor
      * @param in_track : race track to assign [state, action] values to
      */
-    public QLearning(Racetrack in_track, Double in_gamma, Double in_alpha)
+    public QLearning(Racetrack in_track, Double in_gamma, Double in_alpha, double in_epsilon)
     {
         track = in_track;
-        if (in_gamma == null) gamma = 1.0;
+        epsilon = in_epsilon;
+        if (in_gamma == null) gamma = 0.8;
         else gamma = in_gamma;
-        if (in_alpha == null) alpha = 0.90;
+        if (in_alpha == null) alpha = 0.8;
         else alpha = in_alpha;
     }
     
@@ -46,13 +45,7 @@ public class QLearning
      */
     public void learnTrack()
     {
-        System.out.format("%nBeginning Q-Learning on track %s%n"
-            + "Tunable Parameters:%n"
-            + "  epsilon halt threshold:  %f%n"
-            + "  greedy action selection chance: %.4f%n"
-            + "  discount factor: %.4f%n"
-            + "  learning factor: %.4f%n%n",
-                track.getName(), epsilon, greedy, gamma, alpha);
+        System.out.format("= Training Q-Learning on track %s. =%n", track.getName());
         
         Random random = new Random();
         suiteIteration = 0;
