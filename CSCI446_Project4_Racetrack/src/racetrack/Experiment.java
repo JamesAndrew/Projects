@@ -15,6 +15,8 @@ public class Experiment
     public Racetrack O;
     public Racetrack R;
     
+    private final int numRuns = 1;
+    
     public Experiment() { }
     
     /**
@@ -32,7 +34,7 @@ public class Experiment
         for (double discount : discountFactors)
         {
             // run algorithm 10 times to get averaged results
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < numRuns; i++)
             {
                 // instantiate new racetrack
                  L = ConvertToRacetrack("tracks/L-track.txt", L, "L");
@@ -75,7 +77,7 @@ public class Experiment
 	for (Double discount : discountFactors)
         {
             // run algorithm 10 times to get averaged results
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < numRuns; i++)
             {
                 // instantiate new racetrack
                  L = ConvertToRacetrack("tracks/L-track.txt", L, "L");
@@ -102,8 +104,8 @@ public class Experiment
             for (int i = 0; i < 1; i++)
             {
                 // instantiate new racetrack
-                // L = ConvertToRacetrack("tracks/L-track.txt", L, "L");
-                // L.printTrack();
+                L = ConvertToRacetrack("tracks/L-track.txt", L, "L");
+                L.printTrack();
                 // 
                 // O = ConvertToRacetrack("tracks/O-track.txt", O, "O");
                 // O.printTrack();
