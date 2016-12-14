@@ -7,9 +7,9 @@ public class QLearning
 {
     // tunable parameters //
     // threshold to stop training the race track
-    private final double epsilon = 0.1;         // currently using 0.001
+    private final double epsilon = 0.001;         // currently using 0.001
     // greedy parameter for action selection
-    private final double greedy = 0.4;  
+    private final double greedy = 0.3;  
     // discount factor - low values decrement additive rewards
     private final Double gamma; 
     // learning factor - lower values take longer to converge but give better results

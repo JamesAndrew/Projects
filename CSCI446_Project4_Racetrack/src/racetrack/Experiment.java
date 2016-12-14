@@ -27,7 +27,7 @@ public class Experiment
     public void runValueIteration() throws IOException
     {
 //        double[] discountFactors = new double[]{ 0.2, 0.4, 0.6, 0.8, 1.0 };
-        double[] discountFactors = new double[]{ 1.0 };
+        double[] discountFactors = new double[]{ 6.0 };
         // initizliat stats objects
         ValueIterationStatistics.initializeValueIterationStatistics();
         
@@ -73,9 +73,9 @@ public class Experiment
     public void runQLearning() throws IOException
     {
 //        Double[] discountFactors = new Double[]{ 0.2, 0.4, 0.6, 0.8, 1.0 };
-	Double[] discountFactors = new Double[]{ 1.0 };
+	Double[] discountFactors = new Double[]{ 8.0 };
 //        Double[] learningFactors = new Double[]{ 0.5, 0.7, 0.8, 0.9, 1.0 };
-        Double[] learningFactors = new Double[]{ 1.0 };
+        Double[] learningFactors = new Double[]{ 9.0 };
         // initizliat stats objects
 	QLearningStatistics.initializeQLearningStatistics();
         
