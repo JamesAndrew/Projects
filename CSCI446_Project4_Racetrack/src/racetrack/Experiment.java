@@ -25,6 +25,7 @@ public class Experiment
      */
     public void runValueIteration() throws IOException
     {
+        double epsilon = 0.001;
         double[] discountFactors = new double[]{ 0.2, 0.4, 0.6, 0.8, 1.0 };
 //        double[] discountFactors = new double[]{ 0.6 };
         // initizliat stats objects
@@ -33,6 +34,10 @@ public class Experiment
         // for each discount factor...
         for (double discount : discountFactors)
         {
+            System.out.format("== Tunable Parameters: ==%n"
+            + "Discount factor: %.3f%n"
+            + "Epsilon halting condition: %.6f%n",
+            discount, epsilon);
             // run algorithm 10 times to get averaged results
             for (int i = 0; i < numRuns; i++)
             {
@@ -42,7 +47,7 @@ public class Experiment
                 R = ConvertToRacetrack("tracks/R-track.txt", R, "R");
                 
                 // instantiate learner with correct discount factor and map:
-                ValueIteration viLearner = new ValueIteration(L, discount);
+                ValueIteration viLearner = new ValueIteration(L, discount, epsilon);
                 
                 // train the racetrack
                 viLearner.trainUtilities();

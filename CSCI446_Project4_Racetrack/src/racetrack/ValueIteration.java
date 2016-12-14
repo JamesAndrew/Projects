@@ -11,15 +11,16 @@ public class ValueIteration
 {
     // tunable parameters
     private final double gamma;                         // discount factor (learning rate)
-    private final double epsilon = 0.0001;              // halting condition
+    private final double epsilon;                       // halting condition
     
     // track currently being worked with 
     private final Racetrack track;
     
-    public ValueIteration(Racetrack in_track, double in_gamma)
+    public ValueIteration(Racetrack in_track, double in_gamma, double in_epsilon)
     {
         track = in_track;
         gamma = in_gamma;
+        epsilon = in_epsilon;
     }
     
     /**
@@ -27,10 +28,7 @@ public class ValueIteration
      */
     public void trainUtilities()
     {
-        System.out.format("== Training Value Iteration on track %s. ==%nTunable Parameters:%n"
-            + "  Discount factor: %.3f%n"
-            + "  Epsilon halting condition: %.6f%n",
-            track.getName(), gamma, epsilon);
+        System.out.format("= Training Value Iteration on track %s. =%n", track.getName());
         
         int trainingIteration = 0;              // num iterations to train
         boolean halt;                           // checks halting state
