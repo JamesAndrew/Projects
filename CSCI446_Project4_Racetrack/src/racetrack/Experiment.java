@@ -15,7 +15,7 @@ public class Experiment
     public Racetrack O;
     public Racetrack R;
     
-    private final int numRuns = 1;
+    private final int numRuns = 3;
     
     public Experiment() { }
     
@@ -49,7 +49,9 @@ public class Experiment
                 
                 // run the racecar on the racetrack
                 L.run(false, discount);
+                System.out.format("-Run %d of %d finished-%n", i+1, numRuns);
             }
+            System.out.println("\n");
         }
         
         // print final stats results
