@@ -14,6 +14,7 @@ Q-LEARNING:
  - Not using a frequency-action pair table
  - Am using epsilon-greedy function to handle greed vs. exploration
  - Talk about switching from exploration to race mode once convergence happens
+ - Have next state s' still work off of 80%/20% probability
  
 RACECAR:
  - For diagonal movement, the car always travels the full row distance first, then full column distance (need 

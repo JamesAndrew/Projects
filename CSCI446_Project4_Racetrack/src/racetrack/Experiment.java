@@ -15,7 +15,7 @@ public class Experiment
     public Racetrack O;
     public Racetrack R;
     
-    private final int numRuns = 20;
+    private final int numRuns = 1;
     
     public Experiment() { }
     
@@ -25,9 +25,9 @@ public class Experiment
      */
     public void runValueIteration() throws IOException
     {
-        double epsilon = 0.0000001;
-        double[] discountFactors = new double[]{ 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 };
-//        double[] discountFactors = new double[]{ 0.6 };
+        double epsilon = 0.00000001;
+//        double[] discountFactors = new double[]{ 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 };
+        double[] discountFactors = new double[]{ 0.6 };
         // initizliat stats objects
         ValueIterationStatistics.initializeValueIterationStatistics();
         
@@ -69,11 +69,11 @@ public class Experiment
      */
     public void runQLearning() throws IOException
     {
-        double epsilon = 0.0000001;
-        Double[] discountFactors = new Double[]{ 0.4, 0.6, 0.8, 1.0 };
-//	Double[] discountFactors = new Double[]{ 0.8 };
-        Double[] learningFactors = new Double[]{ 0.4, 0.6, 0.8, 1.0 };
-//        Double[] learningFactors = new Double[]{ 0.8 };
+        double epsilon = 0.001;
+//        Double[] discountFactors = new Double[]{ 0.4, 0.6, 0.8, 1.0 };
+	Double[] discountFactors = new Double[]{ 0.6 };
+//        Double[] learningFactors = new Double[]{ 0.4, 0.6, 0.8, 1.0 };
+        Double[] learningFactors = new Double[]{ 0.8 };
         // initizliat stats objects
 	QLearningStatistics.initializeQLearningStatistics();
         
@@ -112,7 +112,7 @@ public class Experiment
             + "  greedy action selection chance: %.4f%n"
             + "  discount factor: %.4f%n"
             + "  learning factor: %.4f%n",
-                epsilon, 0.3, 0.8, learnValue);
+                epsilon, 0.3, 0.6, learnValue);
             // run algorithm 10 times to get averaged results
             for (int i = 0; i < numRuns; i++)
             {

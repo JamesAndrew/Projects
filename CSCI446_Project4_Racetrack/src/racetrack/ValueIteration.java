@@ -11,7 +11,8 @@ public class ValueIteration
 {
     // tunable parameters
     private final double gamma;                         // discount factor (learning rate)
-    private final double epsilon;                       // halting condition
+    private final double epsilon;                       // halting condition (max error allowed at any state)
+    private double delta;                         // max change in utility each cycle
     
     // track currently being worked with 
     private final Racetrack track;
@@ -31,15 +32,14 @@ public class ValueIteration
         System.out.format("= Training Value Iteration on track %s. =%n", track.getName());
         
         int trainingIteration = 0;              // num iterations to train
-        boolean halt;                           // checks halting state
         
         // loop until delta is less than than threshold value:
         // delta < episilon(1-gamma)/gamma
         do
         {
-            halt = true;
+            delta = 0;
             
-            // loop over all possible states //
+            // loop over all possible states "simultaneously" //
             // for each track cell...
             for (int row = 0; row < track.getTrack().length; row++)
             {
@@ -61,6 +61,11 @@ public class ValueIteration
                                 int colVel = colVelIndex - 5;
                                 double utilityValue = bellmanEquation(currentCell, rowVel, colVel);
                                 currentCell.setTempUtility(rowVelIndex, colVelIndex, utilityValue);
+                                
+                                // update delta if |U(s) - U'(s)| > delta
+                                double difference = Math.abs(currentCell.getUtilities()[rowVelIndex][colVelIndex] - utilityValue);
+//                                System.out.format("Current difference: %.4f, Current delta: %.4f%n", difference, delta);                    //
+                                if (difference > delta) delta = difference;
                             }
                         }
                     }
@@ -84,9 +89,6 @@ public class ValueIteration
                             for (int colVel = 0 ; colVel < currentCell.getUtilities()[rowVel].length; colVel++)
                             {
                                 double newUtility = currentCell.getTempUtilities()[rowVel][colVel];
-                                
-                                // don't halt if a large enough utility update occured
-                                if (Math.abs(currentCell.getUtilities()[rowVel][colVel] - newUtility) > epsilon) halt = false;
                                 currentCell.setUtility(rowVel, colVel, newUtility);
                             }
                         }
@@ -95,7 +97,7 @@ public class ValueIteration
             }
             trainingIteration++;        
         } 
-        while (!halt);
+        while (delta >= epsilon*(1-gamma)*gamma);
         
         // update stats
         ValueIterationStatistics.putTrainingIterations(trainingIteration);
