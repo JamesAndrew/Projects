@@ -61,7 +61,7 @@ public class ValueIterationStatistics
     private static double getAverageDiscountConvergence(Double discount)
     {
         ArrayList<Integer> temp = discount_convergence.get(discount);
-        double average = 0;
+        double average = 0.0;
         
         for (Integer value : temp)
         {

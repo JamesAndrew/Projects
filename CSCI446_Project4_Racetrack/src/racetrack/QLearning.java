@@ -465,6 +465,9 @@ public class QLearning
      */
     private int[] getNextState(int[] currentState, int[] action)
     {
+        Random random = new Random();
+        double oilSlickChance = random.nextDouble();
+        
         int currentRow = currentState[0];
         int currentCol = currentState[1];
         int rowVel = currentState[2]; 
@@ -472,8 +475,19 @@ public class QLearning
         
         int nextRow;
         int nextCol;
-        int newRowVel = rowVel + action[0];
-        int newColVel = colVel + action[1];
+        // 20% of the time, no acceleration happens
+        int newRowVel; 
+        int newColVel;
+        if (oilSlickChance <= 0.2)
+        {
+            newRowVel = rowVel;
+            newColVel = colVel;
+        }
+        else
+        {
+            newRowVel = rowVel + action[0];
+            newColVel = colVel + action[1];
+        }
         
         // if any velocities are over +5 or under -5, set to just be +/-5
         if (newRowVel > 5) newRowVel = 5;
