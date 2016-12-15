@@ -19,11 +19,13 @@ public class QLearning
     // racetrack currently being worked with 
     private final Racetrack track;
     // loop iteration trackers
-    int suiteIteration;
-    int runIteration;
+    private int suiteIteration;
+    private int raceIteration;
     // delta flag variable used to check the difference between a Q-Value before and after update.
     // Once all q-value update deltas are less than epsilon, this flag stays as true and the suite exits
-    boolean delta;
+    private double delta;
+    // the first 'minInitialExplorations', the agent explores from random locations on the track
+    private final int minInitialExplorations = 6;
     
     /**
      * Constructor
@@ -33,7 +35,7 @@ public class QLearning
     {
         track = in_track;
         epsilon = in_epsilon;
-        if (in_gamma == null) gamma = 0.8;
+        if (in_gamma == null) gamma = 0.6;
         else gamma = in_gamma;
         if (in_alpha == null) alpha = 0.8;
         else alpha = in_alpha;
@@ -53,8 +55,9 @@ public class QLearning
         // repeat until delta threshold is met
         do
         {
-            runIteration = 0;
-            delta = true;
+            raceIteration = 0;
+            delta = 0;
+            
             int[] currentState; // [0]: row position, [1]: col position, [2]: row velocity, [3]: col velocity
 
             // pick a semi-arbitrary state
@@ -62,9 +65,13 @@ public class QLearning
             {
                 currentState = assignInitialState();
             }
-            else
+            else if (suiteIteration < minInitialExplorations)
             {
                 currentState = randomValidState();
+            }
+            else
+            {
+                currentState = startCellState();
             }
 
             // repeat agent exploration until a 'F' finish cell state is reached
@@ -109,11 +116,9 @@ public class QLearning
                 currentCell.setQValue(currentState[2], currentState[3], action[0], action[1], qValue);
                 double qAfter = currentCell.getQValue(currentState[2], currentState[3], action[0], action[1]);
 
-                // check q-value deltas and flip flag if difference is over the threshold
-                if (Math.abs(qBefore - qAfter) > epsilon)
-                {
-                    delta = false;
-                }
+                // check q-value difference and update delta if |Q(s,a) - Q'(s',a')| > delta
+                double difference = Math.abs(qBefore - qAfter);
+                if (difference > delta) delta = difference;
 
                 // set state to be next state
                 currentState[0] = nextState[0];                 // update agent row location
@@ -127,28 +132,39 @@ public class QLearning
                 {
                     break;
                 }
-                else runIteration++;
+                else raceIteration++;
             }
             suiteIteration++;
-            if (runIteration < 5) delta = false;
+            
+            if (suiteIteration % 10000 == 0) System.out.println("Current training iteration: " + suiteIteration);     //
+            
+            // force delta condition to not pass the first 'minInitialExplorations' runs
+            if (suiteIteration < minInitialExplorations) delta = 9999;
+            // handle non-convergence case with a max-tries condition
+            if (suiteIteration > 1000000)
+            {
+                System.out.println("Did not converge.");
+                break;
+            }
+            
         }
-        while (!delta);
+        while (delta >= epsilon*(1-gamma)*gamma);
         
         // update statistics
-        QLearningStatistics.putTrainingIterations(runIteration);
-        QLearningStatistics.putDiscountConvergence(gamma, runIteration);
-        QLearningStatistics.putLearningConvergence(alpha, runIteration);
+        QLearningStatistics.putTrainingIterations(suiteIteration);
+        QLearningStatistics.putDiscountConvergence(gamma, suiteIteration);
+        QLearningStatistics.putLearningConvergence(alpha, suiteIteration);
         
         System.out.format("Exploration halting state reached. Running agent as a racer from the Start location%n");
         // run same procedure but always starting at a start 'S' cell
-        learnTrackFromStart();
+        raceTrackFromStart();
     }
     
     /**
      * Same as 'learnTrack()' but always starts at an 'S' cell and finishes once
      * an 'F' cell is reached
      */
-    public void learnTrackFromStart()
+    public void raceTrackFromStart()
     {
         System.out.format("Beginning Race...%n%n");
         
@@ -730,6 +746,25 @@ public class QLearning
         // randomized initial velocities
         state[2] = random.nextInt(3) - 1;
         state[3] = random.nextInt(3) - 1;
+        
+        return state;
+    }
+    
+    /**
+     * @return the [row, col, rowVel, colVel] values for once of the racetrack's 'S' cells
+     */
+    private int[] startCellState()
+    {
+        Random random = new Random();
+        int[] state = new int[4];
+        ArrayList<int[]> startIndices = track.getRacetrackStartIndices();
+        int[] startIndex = startIndices.get(random.nextInt(startIndices.size()));
+        state[0] = startIndex[0];
+        state[1] = startIndex[1];
+        
+        // randomized initial velocities
+        state[2] = 0;
+        state[3] = 0;
         
         return state;
     }

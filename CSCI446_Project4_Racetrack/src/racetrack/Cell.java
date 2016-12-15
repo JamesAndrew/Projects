@@ -165,6 +165,17 @@ public class Cell
      */
     public QValues getQValues(int rowVel, int colVel)
     {
+        // If 'F' state, all QValues are 1
+        if (type == 'F')
+        {
+            for (int i = 0; i < qValues.length; i++)
+            {
+                for (int j = 0; j < qValues[i].length; j++)
+                {
+                    qValues[i][j].fillQValues(1.0);
+                }
+            }
+        }
         int rowVelIndex = rowVel + 5;
         int colVelIndex = colVel + 5;
         
@@ -173,6 +184,18 @@ public class Cell
     
     public double getQValue(int rowVel, int colVel, int rowAccel, int colAccel)
     {
+        // If 'F' state, all QValues are 1
+        if (type == 'F')
+        {
+            for (int i = 0; i < qValues.length; i++)
+            {
+                for (int j = 0; j < qValues[i].length; j++)
+                {
+                    qValues[i][j].fillQValues(1.0);
+                }
+            }
+        }
+        
         int rowVelIndex = rowVel + 5;
         int colVelIndex = colVel + 5;
         
