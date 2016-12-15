@@ -141,7 +141,7 @@ public class QLearning
             // force delta condition to not pass the first 'minInitialExplorations' runs
             if (suiteIteration < minInitialExplorations) delta = 9999;
             // handle non-convergence case with a max-tries condition
-            if (suiteIteration > 10000000)
+            if (suiteIteration > 9000000)
             {
                 System.out.println("Did not converge.");
                 break;

@@ -95,7 +95,7 @@ public class ValueIteration
                 }
             }
             trainingIteration++;
-            if (trainingIteration % 200 == 0) System.out.println("Current training iteration: " + trainingIteration);           //
+            
             if (trainingIteration > 600) 
             {
                 System.out.println("Did not converge");

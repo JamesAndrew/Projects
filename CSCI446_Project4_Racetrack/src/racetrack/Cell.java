@@ -51,7 +51,7 @@ public class Cell
         else if (in_type == '#')
         {
             fillUtilityValues(-100.0);
-            fillQValueValues(-100.0);
+            fillQValueValues(0.0);
             reward = -1;
         }
         else if (in_type == 'F') 
