@@ -70,10 +70,10 @@ public class Experiment
      */
     public void runQLearning() throws IOException
     {
-        double epsilon = 0.00000001;
-        Double[] discountFactors = new Double[]{ 0.4, 0.6, 0.8 };
+        double epsilon = 0.0001;    // use 0.00000001?
+//        Double[] discountFactors = new Double[]{ 0.4, 0.6, 0.8 };
 //	Double[] discountFactors = new Double[]{ 1.0 };
-//	Double[] discountFactors = new Double[]{ 0.6 };
+	Double[] discountFactors = new Double[]{ 0.6 };
 //        Double[] learningFactors = new Double[]{ 0.4, 0.6, 0.8, 1.0 };
         Double[] learningFactors = new Double[]{ 0.8 };
         // initizliat stats objects

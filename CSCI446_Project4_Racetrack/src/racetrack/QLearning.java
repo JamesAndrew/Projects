@@ -136,12 +136,12 @@ public class QLearning
             }
             suiteIteration++;
             
-            if (suiteIteration % 10000 == 0) System.out.println("Current training iteration: " + suiteIteration);     //
+            if (suiteIteration % 100000 == 0) System.out.println("Current training iteration: " + suiteIteration);     //
             
             // force delta condition to not pass the first 'minInitialExplorations' runs
             if (suiteIteration < minInitialExplorations) delta = 9999;
             // handle non-convergence case with a max-tries condition
-            if (suiteIteration > 1000000)
+            if (suiteIteration > 10000000)
             {
                 System.out.println("Did not converge.");
                 break;
