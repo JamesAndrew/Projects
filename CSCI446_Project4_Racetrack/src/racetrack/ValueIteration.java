@@ -64,7 +64,6 @@ public class ValueIteration
                                 
                                 // update delta if |U(s) - U'(s)| > delta
                                 double difference = Math.abs(currentCell.getUtilities()[rowVelIndex][colVelIndex] - utilityValue);
-//                                System.out.format("Current difference: %.4f, Current delta: %.4f%n", difference, delta);                    //
                                 if (difference > delta) delta = difference;
                             }
                         }
@@ -95,7 +94,13 @@ public class ValueIteration
                     }
                 }
             }
-            trainingIteration++;        
+            trainingIteration++;
+            if (trainingIteration % 200 == 0) System.out.println("Current training iteration: " + trainingIteration);           //
+            if (trainingIteration > 5000) 
+            {
+                System.out.println("Did not converge");
+                break;
+            }
         } 
         while (delta >= epsilon*(1-gamma)*gamma);
         

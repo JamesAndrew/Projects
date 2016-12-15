@@ -26,8 +26,8 @@ public class Experiment
     public void runValueIteration() throws IOException
     {
         double epsilon = 0.00000001;
-//        double[] discountFactors = new double[]{ 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 };
-        double[] discountFactors = new double[]{ 0.6 };
+        double[] discountFactors = new double[]{ 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 };
+//        double[] discountFactors = new double[]{ 0.6 };
         // initizliat stats objects
         ValueIterationStatistics.initializeValueIterationStatistics();
         
